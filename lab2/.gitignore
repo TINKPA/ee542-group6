@@ -1,0 +1,4 @@
+# Never commit the 1 GB test file or transferred copies.
+data.bin
+*.bin
+*.iso
