@@ -1,3 +1,4 @@
+/* FROZEN v1 (group decision 2026-08-26): do not change unilaterally. */
 /*
  * EE 542 Lab 2 - wire format contract.
  *
