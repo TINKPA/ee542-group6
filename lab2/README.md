@@ -17,3 +17,11 @@ Carried forward from Lab 1. The handout assumes `eth0`/`eth1` and
 | Client | Ubuntu VM | `ens33` | 192.168.20.100 | client |
 | Router | VyOS | `eth1` | 192.168.10.1 | eth0 |
 | Router | VyOS | `eth2` | 192.168.20.1 | eth1 |
+
+## Test file
+
+```bash
+dd if=/dev/urandom of=data.bin bs=1M count=1024
+md5sum data.bin | tee data.bin.md5
+```
+Every run must end with this md5 matching on both ends.
