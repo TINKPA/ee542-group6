@@ -111,3 +111,35 @@ static inline bool tcp_recv_msg(int fd, uint8_t &type, std::vector<uint8_t> &pay
   if (len > 1 && !read_full(fd, payload.data(), len - 1)) return false;
   return true;
 }
+
+// ---- bitmap helpers ----
+struct Bitmap {
+  std::vector<uint64_t> w;
+  uint32_t nbits = 0;
+  uint32_t set_cnt = 0;
+  void init(uint32_t n) {
+    nbits = n;
+    w.assign((n + 63) / 64, 0);
+    set_cnt = 0;
+  }
+  bool test(uint32_t i) const { return (w[i >> 6] >> (i & 63)) & 1; }
+  void set(uint32_t i) {
+    if (!test(i)) {
+      w[i >> 6] |= 1ull << (i & 63);
+      set_cnt++;
+    }
+  }
+  bool full() const { return set_cnt == nbits; }
+  void missing_list(std::vector<uint32_t> &out) const {
+    out.clear();
+    for (uint32_t i = 0; i < nbits; i++)
+      if (!test(i)) out.push_back(i);
+  }
+};
+
+static inline uint64_t rng_next(uint64_t &s) {  // xorshift64* for --drop simulation
+  s ^= s >> 12;
+  s ^= s << 25;
+  s ^= s >> 27;
+  return s * 0x2545F4914F6CDD1Dull;
+}
