@@ -134,3 +134,67 @@ int run_sender(SendCfg cfg) {
     }
     return false;
   };
+
+  // round loop: blast missing blocks, collect NAK feedback over UDP
+  std::vector<uint8_t> rbuf(65536);
+  while (!done) {
+    fprintf(stderr, "[send] round %u: sending %zu blocks\n", round, missing.size());
+    for (size_t k = 0; k < missing.size(); k++) send_block(missing[k]);
+    // end-of-round handshake, retry until NAK set or DONE
+    bool have_feedback = false;
+    std::set<uint32_t> parts_seen;
+    uint32_t part_cnt = 0;
+    std::vector<uint32_t> next_missing;
+    for (int attempt = 0; attempt < 40 && !have_feedback && !done; attempt++) {
+      PktHdr er{};
+      er.seq = 0;
+      er.round = htons(round);
+      er.type = PT_END_ROUND;
+      er.magic = MAGIC;
+      for (int i = 0; i < 5; i++) {
+        send(ufd, &er, sizeof er, 0);
+        usleep(3000);
+      }
+      uint64_t deadline = mono_ns() + 400ull * 1000 * 1000;  // 400ms window
+      uint64_t idle_after_first = 120ull * 1000 * 1000;
+      uint64_t last_rx = 0;
+      while (mono_ns() < deadline) {
+        pollfd pf{ufd, POLLIN, 0};
+        int pr = poll(&pf, 1, 20);
+        if (tcp_poll_done()) {
+          done = true;
+          break;
+        }
+        if (pr <= 0) {
+          if (last_rx && mono_ns() - last_rx > idle_after_first) break;
+          continue;
+        }
+        ssize_t n = recv(ufd, rbuf.data(), rbuf.size(), 0);
+        if (n < (ssize_t)sizeof(PktHdr)) continue;
+        PktHdr *ph = (PktHdr *)rbuf.data();
+        if (ph->magic != MAGIC) continue;
+        if (ph->type == PT_DONE) {
+          done = true;
+          break;
+        }
+        if (ph->type != PT_NAK || ntohs(ph->round) != round) continue;
+        NakSub *ns = (NakSub *)(rbuf.data() + sizeof(PktHdr));
+        uint32_t pi = ntohl(ns->part_idx), pc = ntohl(ns->part_cnt), cnt = ntohl(ns->count);
+        part_cnt = pc;
+        last_rx = mono_ns();
+        if (parts_seen.insert(pi).second) {
+          uint32_t *seqs = (uint32_t *)(rbuf.data() + sizeof(PktHdr) + sizeof(NakSub));
+          for (uint32_t i = 0; i < cnt; i++) next_missing.push_back(ntohl(seqs[i]));
+        }
+        if (parts_seen.size() == part_cnt) break;  // complete set
+      }
+      if (!done && !next_missing.empty()) have_feedback = true;
+    }
+    if (done) break;
+    if (!have_feedback) die("no NAK feedback after retries");
+    if (parts_seen.size() < part_cnt)
+      fprintf(stderr, "[send] round %u: NAK parts %zu/%u (lost parts roll to next round)\n",
+              round, parts_seen.size(), part_cnt);
+    missing.swap(next_missing);
+    round++;
+  }
