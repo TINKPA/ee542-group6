@@ -36,8 +36,6 @@ struct Pacer {
   void pace(uint32_t wire_bytes) {
     uint64_t now = mono_ns();
     if (next == 0) next = now;
-    // never accumulate more than 1ms of "credit" — bursts overflow tbf
-    if (next < now - 1000000ull) next = now - 1000000ull;
     if (next > now) {
       uint64_t wait = next - now;
       if (wait > 60000) {
@@ -198,3 +196,52 @@ int run_sender(SendCfg cfg) {
     missing.swap(next_missing);
     round++;
   }
+
+  double el = (mono_ns() - t0) / 1e9;
+  fprintf(stderr, "[send] DONE rounds=%u total_pkts=%llu elapsed(sender,incl-feedback)=%.3fs\n",
+          round, (unsigned long long)total_sent, el);
+  printf("SENDER_ELAPSED_S %.6f\nTOTAL_PKTS %llu\nROUNDS %u\n", el,
+         (unsigned long long)total_sent, round);
+  // final stats from receiver (t_last)
+  uint8_t t;
+  std::vector<uint8_t> p;
+  // may have already consumed TT_DONE above; receiver sends it once — try nonblocking read
+  close(tfd);
+  close(ufd);
+  munmap(fmap, fsize);
+  close(ffd);
+  (void)t;
+  (void)p;
+  return 0;
+}
+
+static void usage() {
+  fprintf(stderr,
+          "usage: ftr send <file> <dest_ip> [--port N] [--rate-mbps X] [--mtu N]\n"
+          "       ftr recv <out_path>      [--port N] [--drop p]\n");
+  exit(2);
+}
+
+int run_receiver(int argc, char **argv);  // receiver.cpp
+
+int main(int argc, char **argv) {
+  if (argc < 3) usage();
+  std::string mode = argv[1];
+  if (mode == "recv") return run_receiver(argc, argv);
+  if (mode != "send" || argc < 4) usage();
+  SendCfg c;
+  c.file = argv[2];
+  c.dest = argv[3];
+  for (int i = 4; i < argc; i++) {
+    std::string a = argv[i];
+    auto next = [&]() -> const char * {
+      if (i + 1 >= argc) usage();
+      return argv[++i];
+    };
+    if (a == "--port") c.port = atoi(next());
+    else if (a == "--rate-mbps") c.rate_mbps = atof(next());
+    else if (a == "--mtu") c.mtu = atoi(next());
+    else usage();
+  }
+  return run_sender(c);
+}
