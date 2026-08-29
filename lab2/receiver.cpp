@@ -173,3 +173,43 @@ int run_receiver(int argc, char **argv) {
             announce_done();
           }
         }
+      } else if (ph->type == PT_END_ROUND) {
+        uint16_t round = ntohs(ph->round);
+        if (bm.full()) {
+          send_done_udp();
+          continue;
+        }
+        uint64_t now = mono_ns();
+        if (round == last_round_answered && now - last_answer_t < 200ull * 1000 * 1000)
+          continue;  // duplicate marker within window
+        last_round_answered = round;
+        last_answer_t = now;
+        send_naks(round);
+      }
+    }
+    if (pfds[1].revents & (POLLIN | POLLHUP)) {
+      uint8_t t;
+      std::vector<uint8_t> p;
+      if (!tcp_recv_msg(tfd, t, p)) {
+        // sender closed: if complete we're done; else abort
+        if (done_announced) break;
+        fprintf(stderr, "[recv] tcp closed before completion\n");
+        break;
+      }
+    }
+    if (done_announced) {
+      // linger briefly to re-answer stray END_ROUND markers, then exit
+      static uint64_t done_at = 0;
+      if (!done_at) done_at = mono_ns();
+      if (mono_ns() - done_at > 1500ull * 1000 * 1000) break;
+    }
+  }
+
+  msync(fmap, fsize, MS_SYNC);
+  munmap(fmap, fsize);
+  close(ffd);
+  close(tfd);
+  close(ufd);
+  close(lfd);
+  return done_announced ? 0 : 1;
+}
