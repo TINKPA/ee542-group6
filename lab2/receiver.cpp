@@ -134,3 +134,42 @@ int run_receiver(int argc, char **argv) {
     }
   };
 
+  pollfd pfds[2] = {{ufd, POLLIN, 0}, {tfd, POLLIN, 0}};
+  while (true) {
+    int pr = poll(pfds, 2, 1000);
+    if (pr < 0) {
+      if (errno == EINTR) continue;
+      die("poll");
+    }
+    if (pfds[0].revents & POLLIN) {
+      sockaddr_in from{};
+      socklen_t flen = sizeof from;
+      ssize_t n = recvfrom(ufd, buf.data(), buf.size(), 0, (sockaddr *)&from, &flen);
+      if (n < (ssize_t)sizeof(PktHdr)) continue;
+      PktHdr *ph = (PktHdr *)buf.data();
+      if (ph->magic != MAGIC) continue;
+      if (!have_peer) {
+        peer = from;
+        peer_len = flen;
+        have_peer = true;
+      }
+      if (ph->type == PT_DATA) {
+        if (cfg.drop > 0 && (double)(rng_next(rng) >> 11) / 9007199254740992.0 < cfg.drop)
+          continue;  // simulated loss (debug)
+        uint32_t seq = ntohl(ph->seq);
+        if (seq >= N) continue;
+        uint32_t blen = (seq == N - 1) ? (uint32_t)(fsize - (uint64_t)(N - 1) * payload) : payload;
+        if (n < (ssize_t)(sizeof(PktHdr) + blen)) continue;
+        if (t_first == 0) {
+          t_first = real_ns();
+          t_first_mono = mono_ns();
+        }
+        if (!bm.test(seq)) {
+          memcpy(fmap + (uint64_t)seq * payload, buf.data() + sizeof(PktHdr), blen);
+          bm.set(seq);
+          if (bm.full()) {
+            t_last_real = real_ns();
+            t_last_mono = mono_ns();
+            announce_done();
+          }
+        }
