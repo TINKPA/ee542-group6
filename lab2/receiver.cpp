@@ -84,3 +84,53 @@ int run_receiver(int argc, char **argv) {
   uint64_t last_answer_t = 0;
   bool done_announced = false;
   uint32_t rounds_seen = 0;
+
+  auto send_done_udp = [&]() {
+    if (!have_peer) return;
+    PktHdr d{};
+    d.type = PT_DONE;
+    d.magic = MAGIC;
+    for (int i = 0; i < 5; i++) {
+      sendto(ufd, &d, sizeof d, 0, (sockaddr *)&peer, peer_len);
+      usleep(2000);
+    }
+  };
+  auto announce_done = [&]() {
+    if (done_announced) return;
+    done_announced = true;
+    printf("T_LAST_BIT_NS %llu\n", (unsigned long long)t_last_real);
+    printf("RECV_SPAN_S %.6f\n", (t_last_mono - t_first_mono) / 1e9);
+    fflush(stdout);
+    uint64_t tn = t_last_real;
+    tcp_send_msg(tfd, TT_DONE, &tn, sizeof tn);
+    send_done_udp();
+    fprintf(stderr, "[recv] COMPLETE rounds_seen=%u span=%.3fs\n", rounds_seen,
+            (t_last_mono - t_first_mono) / 1e9);
+  };
+  auto send_naks = [&](uint16_t round) {
+    bm.missing_list(mlist);
+    rounds_seen = round;
+    fprintf(stderr, "[recv] round %u end: missing=%zu\n", round, mlist.size());
+    const uint32_t per = (payload - sizeof(NakSub)) / 4;
+    const uint32_t parts = (uint32_t)((mlist.size() + per - 1) / per);
+    for (int copy = 0; copy < 3; copy++) {
+      for (uint32_t pi = 0; pi < parts; pi++) {
+        uint32_t beg = pi * per;
+        uint32_t cnt = (uint32_t)std::min<size_t>(per, mlist.size() - beg);
+        PktHdr *ph = (PktHdr *)pkt.data();
+        ph->seq = 0;
+        ph->round = htons(round);
+        ph->type = PT_NAK;
+        ph->magic = MAGIC;
+        NakSub *ns = (NakSub *)(pkt.data() + sizeof(PktHdr));
+        ns->part_idx = htonl(pi);
+        ns->part_cnt = htonl(parts);
+        ns->count = htonl(cnt);
+        uint32_t *seqs = (uint32_t *)(pkt.data() + sizeof(PktHdr) + sizeof(NakSub));
+        for (uint32_t i = 0; i < cnt; i++) seqs[i] = htonl(mlist[beg + i]);
+        sendto(ufd, pkt.data(), sizeof(PktHdr) + sizeof(NakSub) + cnt * 4, 0,
+               (sockaddr *)&peer, peer_len);
+      }
+    }
+  };
+
