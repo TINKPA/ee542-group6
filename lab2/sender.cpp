@@ -36,6 +36,8 @@ struct Pacer {
   void pace(uint32_t wire_bytes) {
     uint64_t now = mono_ns();
     if (next == 0) next = now;
+    // never accumulate more than 1ms of "credit" - bursts overflow tbf
+    if (next < now - 1000000ull) next = now - 1000000ull;
     if (next > now) {
       uint64_t wait = next - now;
       if (wait > 60000) {
