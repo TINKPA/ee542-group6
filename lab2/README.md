@@ -25,3 +25,14 @@ dd if=/dev/urandom of=data.bin bs=1M count=1024
 md5sum data.bin | tee data.bin.md5
 ```
 Every run must end with this md5 matching on both ends.
+
+## Section 1 - what the impaired links do
+
+| Condition | RTT | UDP | TCP |
+|---|---|---|---|
+| Case 1 - 10 ms, 1% loss | ~11.6 ms | 100 Mbps | 17.3 Mbps |
+| Case 2 - 200 ms, 20% loss | ~201 ms | 77.8 Mbps | **0.19 Mbps** |
+| Case 3 - 200 ms, 80 mbit cap | ~201 ms | 77.8 Mbps | 65.7 Mbps |
+
+Cases 2 and 3 deliver identical UDP throughput but differ ~450x for TCP. That
+gap is what our protocol exists to close.
