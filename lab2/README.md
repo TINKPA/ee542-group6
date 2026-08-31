@@ -36,3 +36,10 @@ Every run must end with this md5 matching on both ends.
 
 Cases 2 and 3 deliver identical UDP throughput but differ ~450x for TCP. That
 gap is what our protocol exists to close.
+
+## Measurement methodology
+
+- One-way time is sender first-bit to receiver last-bit, corrected by a
+  measured client/server clock offset (midpoint of a best-of-5 RTT bracket).
+- tbf `burst` must hold at least one full frame or pacing jitter becomes loss;
+  this dominates the MTU-9000 result (see below).
