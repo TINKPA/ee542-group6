@@ -43,3 +43,5 @@ gap is what our protocol exists to close.
   measured client/server clock offset (midpoint of a best-of-5 RTT bracket).
 - tbf `burst` must hold at least one full frame or pacing jitter becomes loss;
   this dominates the MTU-9000 result (see below).
+- The testbed adds 5-15% inherent loss on top of netem; effective loss p_eff
+  reaches ~0.29 in Case 2. Every run still converged and passed md5.
