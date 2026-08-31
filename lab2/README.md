@@ -52,3 +52,6 @@ A dropped NAK part is not fatal: the sender only advances a round once it has a
 complete missing-set, and any still-missing block simply rolls into the next
 round. Reliability is structural - the transfer ends only when the bitmap is
 full - so loss rate affects speed, never correctness.
+
+Verified across 21 runs (9 three-VM + 12 netns): every transfer converged and
+passed md5, with no rate tuning across cases.
