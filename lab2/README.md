@@ -45,3 +45,13 @@ gap is what our protocol exists to close.
   this dominates the MTU-9000 result (see below).
 - The testbed adds 5-15% inherent loss on top of netem; effective loss p_eff
   reaches ~0.29 in Case 2. Every run still converged and passed md5.
+
+## Robustness
+
+A dropped NAK part is not fatal: the sender only advances a round once it has a
+complete missing-set, and any still-missing block simply rolls into the next
+round. Reliability is structural - the transfer ends only when the bitmap is
+full - so loss rate affects speed, never correctness.
+
+Verified across 21 runs (9 three-VM + 12 netns): every transfer converged and
+passed md5, with no rate tuning across cases.
