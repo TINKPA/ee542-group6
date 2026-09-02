@@ -29,6 +29,16 @@ case "$CASE" in
   3) EXP_RTT=200; EXP_LOSS=0;  EXP_RATE=80  ;;
   *) echo "Case must be 1, 2 or 3"; exit 2 ;;
 esac
+EXP_RT_LOSS=$(awk -v p="$EXP_LOSS" 'BEGIN{printf "%.2f", (1-(1-p/100)^2)*100}')
+
+PINGS=200
+read -r LOSS_LO LOSS_HI <<<"$(awk -v e="$EXP_RT_LOSS" -v n="$PINGS" 'BEGIN{
+  p = e/100
+  sd = 100*sqrt(p*(1-p)/n)
+  m  = (0.2*e > 2.5*sd) ? 0.2*e : 2.5*sd
+  lo = e - m; if (lo < 0.3*e) lo = 0.3*e
+  printf "%.2f %.2f", lo, e + m
+}')"
 
 STAMP="$(date +%Y%m%d-%H%M%S)"
 DIR="$OUT/case${CASE}-${STAMP}"
@@ -54,7 +64,9 @@ if [ -z "$RTT" ] || [ -z "$LOSS" ]; then
   fail "could not parse ping output (peer unreachable?)"
 else
   note "measured RTT" "${RTT} ms (expect >= ${EXP_RTT})"
-  note "measured loss" "${LOSS}% (expect ~${EXP_LOSS}%)"
+  note "measured loss" "${LOSS}% (round trip; expect ~${EXP_RT_LOSS}%)"
+  note "configured per direction" "${EXP_LOSS}% on each router interface"
+  note "acceptance band" "${LOSS_LO}% .. ${LOSS_HI}% (n=${PINGS})"
 
   awk -v r="$RTT" -v e="$EXP_RTT" 'BEGIN{exit !(r >= e && r <= e*1.5)}' \
     && pass "RTT slightly above configured" \
@@ -65,51 +77,93 @@ else
       && pass "no packet loss" \
       || fail "expected no loss, measured ${LOSS}%"
   else
-    awk -v l="$LOSS" -v e="$EXP_LOSS" 'BEGIN{exit !(l >= e*0.8 && l <= e*1.2)}' \
-      && pass "loss within +-20% of configured" \
-      || fail "loss ${LOSS}% outside +-20% of ${EXP_LOSS}%"
+    awk -v l="$LOSS" -v lo="$LOSS_LO" -v hi="$LOSS_HI" 'BEGIN{exit !(l >= lo && l <= hi)}' \
+      && pass "loss consistent with ${EXP_RT_LOSS}% expected round trip" \
+      || fail "loss ${LOSS}% outside ${LOSS_LO}%..${LOSS_HI}%"
   fi
 fi
 echo
 
 # ---------------------------------------------------------------- UDP
-echo "[2/3] $IPERF UDP"
-$IPERF -c "$PEER" -u -b 100M -t 10 -J > "$DIR/iperf-udp.json" 2>"$DIR/iperf-udp.err" || true
-
-read -r UMBPS ULOSS <<<"$(python3 - "$DIR/iperf-udp.json" <<'PY' 2>/dev/null
-import json,sys
-try:
-    s=json.load(open(sys.argv[1]))["end"]["sum"]
-    print(round(s["bits_per_second"]/1e6,1), round(s.get("lost_percent",0),2))
-except Exception:
-    print("", "")
-PY
-)"
-
+echo "[2/3] UDP throughput and loss"
+# iperf3 carries a TCP control connection for setup and for returning the
+# receiver's stats. Under Case 2 (36% round-trip loss, 200ms RTT) that control
+# channel times out and no summary comes back, even though the UDP data flowed
+# fine. The handout specifies iperf version 2, which has no such dependency, so
+# prefer iperf2 when installed and fall back to iperf3 otherwise.
+UMBPS=""; ULOSS=""
+if command -v iperf >/dev/null 2>&1; then
+  echo "      using iperf2 (robust under heavy loss)"
+  iperf -u -c "$PEER" -b 100m -t 10 > "$DIR/iperf2-udp.txt" 2>&1 || true
+  # Parse ONLY the "Server Report" block: that is what actually ARRIVED.
+  # The client's own summary line reports what it SENT, which is not
+  # throughput and must never be reported as such.
+  read -r UMBPS ULOSS <<<"$(awk '
+    /Server Report:/ { sr=1 }
+    sr {
+      for (i=1;i<=NF;i++) {
+        if      ($i=="Mbits/sec") mb=$(i-1)
+        else if ($i=="Kbits/sec") mb=$(i-1)/1000
+        if ($i ~ /^\([0-9.]+%\)$/) { g=$i; gsub(/[()%]/,"",g); ls=g }
+      }
+    }
+    END { if (mb!="") printf "%s %s", mb, (ls==""?"0":ls) }
+  ' "$DIR/iperf2-udp.txt")"
+  if [ -z "$UMBPS" ] && grep -q "did not receive ack" "$DIR/iperf2-udp.txt" 2>/dev/null; then
+    echo "      no Server Report: iperf2 got no ack for its final datagram."
+    echo "      Usually means the netem queue is deep enough to delay it past"
+    echo "      the retry window - check NETEM_LIMIT on the router."
+  fi
+fi
+if [ -z "$UMBPS" ]; then
+  echo "      using iperf3"
+  $IPERF -c "$PEER" -u -b 100M -t 10 -J > "$DIR/iperf-udp.json" 2>"$DIR/iperf-udp.err" || true
+  UMBPS=$(grep -o '"bits_per_second":[[:space:]]*[0-9.]*' "$DIR/iperf-udp.json" 2>/dev/null | tail -1 | grep -o '[0-9.]*$' | awk '{printf "%.1f", $1/1e6}')
+  ULOSS=$(grep -o '"lost_percent":[[:space:]]*[0-9.-]*' "$DIR/iperf-udp.json" 2>/dev/null | tail -1 | grep -o '[0-9.-]*$')
+fi
 if [ -z "$UMBPS" ]; then
   fail "could not parse UDP iperf (is $IPERF -s running on $PEER?)"
 else
   note "UDP throughput" "${UMBPS} Mbps"
   note "UDP loss" "${ULOSS}%"
-  awk -v m="$UMBPS" -v e="$EXP_RATE" 'BEGIN{exit !(m >= e*0.7)}' \
-    && pass "UDP near the configured cap" \
-    || fail "UDP ${UMBPS} Mbps well under ${EXP_RATE} Mbps cap"
+  # Expected arrival rate: 100mbit is offered, the router caps at EXP_RATE,
+  # and EXP_LOSS is dropped per direction on the one-way path.
+  EXP_UDP=$(awk -v cap="$EXP_RATE" -v l="$EXP_LOSS" 'BEGIN{
+    o = (100 < cap) ? 100 : cap
+    printf "%.1f", o * (1 - l/100)
+  }')
+  note "UDP expected" "~${EXP_UDP} Mbps (offer 100, cap ${EXP_RATE}, ${EXP_LOSS}% one-way)"
+  # Bound BOTH sides. Too high matters: reading the sender's rate instead of
+  # the receiver's, or a shaper that is not actually enforcing its cap, both
+  # show up as a number above the ceiling.
+  awk -v m="$UMBPS" -v e="$EXP_UDP" 'BEGIN{exit !(m >= e*0.8 && m <= e*1.2)}' \
+    && pass "UDP within +-20% of expected ${EXP_UDP} Mbps" \
+    || fail "UDP ${UMBPS} Mbps outside +-20% of expected ${EXP_UDP} Mbps"
 fi
 echo
 
 # ---------------------------------------------------------------- TCP
-echo "[3/3] $IPERF TCP"
-$IPERF -c "$PEER" -t 10 -J > "$DIR/iperf-tcp.json" 2>"$DIR/iperf-tcp.err" || true
-
-TMBPS=$(python3 - "$DIR/iperf-tcp.json" <<'PY' 2>/dev/null
-import json,sys
-try:
-    print(round(json.load(open(sys.argv[1]))["end"]["sum_received"]["bits_per_second"]/1e6,1))
-except Exception:
-    print("")
-PY
-)
-
+echo "[3/3] TCP throughput"
+# Same iperf3 control-channel fragility as the UDP leg: under Case 2 the TCP
+# control connection often fails to return statistics even though the transfer
+# ran. Prefer iperf2, which reports send-side stats locally.
+TMBPS=""
+if command -v iperf >/dev/null 2>&1; then
+  echo "      using iperf2"
+  iperf -c "$PEER" -t 10 > "$DIR/iperf2-tcp.txt" 2>&1 || true
+  TMBPS=$(awk '{
+      for (i=1;i<=NF;i++) {
+        if      ($i=="Mbits/sec") mb=$(i-1)
+        else if ($i=="Kbits/sec") mb=$(i-1)/1000
+        else if ($i=="bits/sec")  mb=$(i-1)/1000000
+      }
+    } END { if (mb!="") printf "%.2f", mb }' "$DIR/iperf2-tcp.txt")
+fi
+if [ -z "$TMBPS" ]; then
+  echo "      using iperf3"
+  $IPERF -c "$PEER" -t 10 -J > "$DIR/iperf-tcp.json" 2>"$DIR/iperf-tcp.err" || true
+  TMBPS=$(grep -o '"bits_per_second":[[:space:]]*[0-9.]*' "$DIR/iperf-tcp.json" 2>/dev/null | tail -1 | grep -o '[0-9.]*$' | awk '{printf "%.2f", $1/1000000}')
+fi
 if [ -z "$TMBPS" ]; then
   fail "could not parse TCP iperf"
 else
@@ -120,6 +174,7 @@ fi
 # ---------------------------------------------------------------- summary
 {
   echo "case=$CASE peer=$PEER stamp=$STAMP"
+  echo "cfg_loss_per_dir_pct=$EXP_LOSS expected_rt_loss_pct=$EXP_RT_LOSS"
   echo "rtt_ms=$RTT loss_pct=$LOSS udp_mbps=$UMBPS udp_loss_pct=$ULOSS tcp_mbps=$TMBPS"
 } | tee "$DIR/summary.txt"
 
