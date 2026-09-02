@@ -1,0 +1,14 @@
+run_id,case,direction,src,dst,rtt_ms,ping_loss_pct,expected_rt_loss_pct,udp_mbps,udp_loss_pct,tcp_mbps,tool,valid,note
+case1-20260902-055851,1,c2s,client,server,11.499,1.5,1.99,100.0,3.67,17.5,iperf3,yes,
+case1-20260902-062456,1,c2s,client,server,11.584,4.0,1.99,100.0,3.76,17.3,iperf3,yes,
+case1-20260902-062732,1,c2s,client,server,11.584,1.0,1.99,100.0,3.70,17.2,iperf3,yes,
+case2-20260902-063801,2,c2s,client,server,201.602,30.0,36.00,,,0.10,iperf3,partial,iperf3 UDP control channel failed under 36% loss
+case2-20260902-065425,2,c2s,client,server,201.558,33.0,36.00,77.8,22,,iperf2/iperf3,partial,iperf3 TCP control channel failed; UDP via iperf2
+case2-20260902-070024,2,c2s,client,server,201.671,36.0,36.00,77.8,22,0.19,iperf2,yes,
+case3-20260902-070836,3,c2s,client,server,201.609,0.0,0.00,100.0,0,65.00,iperf2,NO,superseded: NETEM_LIMIT=20000 buffered the 100->80 excess; UDP figure is sender rate not receiver
+case3-20260902-072002,3,c2s,client,server,201.583,0.0,0.00,77.8,20,65.70,iperf2,yes,after NETEM_LIMIT reduced to 2500
+case1-20260902-080012,1,s2c,server,client,11.524,1.0,1.99,100.0,3.74,18.8,iperf3,partial,stale verify.sh on server; measurements valid assertions stale
+case1-20260902-080344,1,s2c,server,client,11.542,1.5,1.99,96.3,3.60,19.00,iperf2,yes,
+case1-20260902-080932,1,s2c,server,client,11.554,1.5,1.99,96.3,3.70,19.10,iperf2,yes,
+case2-20260902-081202,2,s2c,server,client,201.595,32.5,36.00,78.1,22,0.10,iperf2,yes,
+case3-20260902-081358,3,s2c,server,client,201.527,0.0,0.00,77.8,20,65.60,iperf2,yes,

@@ -23,11 +23,7 @@ IF_CLIENT="${IF_CLIENT:-eth2}"
 # this (BURST=64000) and say so in the report.
 BURST="${BURST:-9015}"
 LATENCY="${LATENCY:-0.001ms}"
-
-# netem defaults to a 1000-packet queue. At 200ms x 100mbit the BDP is ~2.5MB,
-# roughly 1700 packets at MTU 1500, so the default limit silently drops traffic
-# and caps throughput. Raise it. Set NETEM_LIMIT=1000 to see the default.
-NETEM_LIMIT="${NETEM_LIMIT:-20000}"
+NETEM_LIMIT="${NETEM_LIMIT:-2500}"
 
 usage() {
   cat <<USAGE
