@@ -1,0 +1,20 @@
+# Never commit the 1 GB test file or transferred copies.
+data.bin
+*.bin
+received*
+*.iso
+
+# Raw measurement dumps stay on the VMs; commit only summaries and charts.
+results/raw/
+results/**/ping.txt
+results/**/*.json
+
+# Phone footage - far too large for git.
+video/raw-phone-clips/
+*.mp4
+*.mov
+
+# Build output
+*.o
+src/**/ft
+bench/**/ft
