@@ -64,3 +64,4 @@ Jumbo frames run on the netns testbed (vmnet rejects >1500). They come out
 The cause is configuration, not frame size: the shaper's `burst` held exactly
 one 9000 B frame, leaving zero buffer, so any pacing jitter became loss. The
 lesson is that shaper burst must scale with MTU.
+A scaled-burst control run would confirm it directly.
