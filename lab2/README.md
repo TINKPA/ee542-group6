@@ -60,3 +60,7 @@ passed md5, with no rate tuning across cases.
 
 Jumbo frames run on the netns testbed (vmnet rejects >1500). They come out
 ~30% *slower*, all md5-verified.
+
+The cause is configuration, not frame size: the shaper's `burst` held exactly
+one 9000 B frame, leaving zero buffer, so any pacing jitter became loss. The
+lesson is that shaper burst must scale with MTU.
