@@ -73,3 +73,10 @@ A scaled-burst control run would confirm it directly.
 | 1 | 100M / 10ms / 1% | 973 s | **115 s** | 74.5 Mbps |
 | 2 | 100M / 200ms / 20% | ~15 d | **135 s** | 63.7 Mbps |
 | 3 | 80M / 200ms / 0% | 346 s | **125 s** | 69.0 Mbps |
+
+## Design by deletion
+
+The link is dedicated and fully known, so each classical mechanism can go:
+congestion control (no competing flows), slow start (rate known), backoff
+(loss is random, not congestion). What remains is pace-at-line-rate + retransmit
+only what the bitmap says is missing.
