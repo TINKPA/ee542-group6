@@ -80,3 +80,10 @@ The link is dedicated and fully known, so each classical mechanism can go:
 congestion control (no competing flows), slow start (rate known), backoff
 (loss is random, not congestion). What remains is pace-at-line-rate + retransmit
 only what the bitmap says is missing.
+
+## Analysis
+
+On an erasure channel of loss p, the lower bound is F/((1-p)*eta*R). The
+protocol meets it in expectation (each block needs 1/(1-p) transmissions), and
+the round structure adds only E[rounds]*RTT ~ 1.9 s in Case 2 - which is also
+the ceiling on what any FEC could save, hence no FEC.
