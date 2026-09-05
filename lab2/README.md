@@ -65,3 +65,11 @@ The cause is configuration, not frame size: the shaper's `burst` held exactly
 one 9000 B frame, leaving zero buffer, so any pacing jitter became loss. The
 lesson is that shaper burst must scale with MTU.
 A scaled-burst control run would confirm it directly.
+
+## Headline results (1 GiB, 3 reps/case, md5-verified both ends)
+
+| Case | Link | scp (TCP) | Ours (median) | Goodput |
+|---|---|---|---|---|
+| 1 | 100M / 10ms / 1% | 973 s | **115 s** | 74.5 Mbps |
+| 2 | 100M / 200ms / 20% | ~15 d | **135 s** | 63.7 Mbps |
+| 3 | 80M / 200ms / 0% | 346 s | **125 s** | 69.0 Mbps |
