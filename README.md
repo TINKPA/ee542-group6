@@ -1,11 +1,10 @@
 # ee542-group6
 
-USC EE542 Fall 2026 — Group 6 lab assignments
+USC EE542 Fall 2026 — Group 6 lab assignments.
 
-## 📹 Video logs — upload here
+**Group 6 (3 members):** Huacong Tang · Xiao Yang · Jiachen Lu
 
-**https://drive.google.com/drive/folders/1bIOpWOKy5Rc0xWSo0WjWOQLvE1GoMD-o?usp=sharing**
-
-**Log in with your USC account** to access the folder, then upload your daily
-video log there.
-
+| Lab | Report / Code | Video |
+|---|---|---|
+| Lab 1 | [Report](lab1/EE542_Lab1_Report.pdf) | [YouTube](https://youtu.be/l6OZbJtQHX0) |
+| Lab 2 | [Report](lab2/EE542_Lab2_Report.pdf) · [Code / README](lab2/README.md) | _(coming soon)_ |
