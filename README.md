@@ -8,5 +8,3 @@ USC EE542 Fall 2026 — Group 6 lab assignments.
 |---|---|---|---|
 | Lab 1 | - | - | - |
 | [Lab 2](lab2/README.md) | [Report](lab2/EE542_Lab2_Report.pdf) | [Code](lab2/src) | _(coming soon)_ |
-
-_Lab 1 was an individual assignment; only group work is indexed here._
