@@ -16,8 +16,15 @@ video/raw-phone-clips/
 
 # Build output
 *.o
-src/**/ft
+ftr
+src/ftr
 bench/**/ft
+
+# Bench runtime state: node IPs / key paths — machine-specific, never commit.
+bench/aws/hosts.env
+bench/aws/*state*.env
+bench/aws/results/
+*.jsonl
 
 # Report stays local - not published to the group repo.
 report/
