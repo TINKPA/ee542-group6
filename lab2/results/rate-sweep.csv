@@ -1,0 +1,7 @@
+# Case 2 sender-rate sweep (Mbps target vs measured one-way seconds), MTU 1500
+rate_mbps,oneway_s
+90,141.2
+93,138.7
+95,136.9
+97,134.9
+99,137.6
