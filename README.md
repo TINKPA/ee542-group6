@@ -1,6 +1,6 @@
-# Lab 2 — Fast, Reliable File Transfer
+# Lab2: Xiao's contribution
 
-Due **Saturday, September 5, 2026**.
+Due **Saturday, September 12, 2026**.
 
 | Where | What |
 |---|---|
@@ -32,8 +32,6 @@ All transfers verified byte-for-byte via MD5. Minimum requirement (20 Mbps) exce
 
 ### Section 1: Network Verification (iperf/ping)
 
-![Network Verification](results/network_verification.png)
-
 | Condition | Ping RTT (avg) | Ping Loss | UDP Throughput | UDP Loss | Jitter |
 |---|---|---|---|---|---|
 | Case 1 — 10 ms, 1% loss | 12.195 ms | 2% | 96.2 Mbps | 0.98% | 0.232 ms |
@@ -43,8 +41,6 @@ All transfers verified byte-for-byte via MD5. Minimum requirement (20 Mbps) exce
 *Note: Case 2 ping shows 41% end-to-end loss due to 20% bi-directional (1 - 0.8² ≈ 36% theoretical).*
 
 ### Section 2: Custom Protocol Results (1 GiB Transfer)
-
-![Custom Protocol Results](results/custom_protocol_results.png)
 
 #### MTU 1500
 
@@ -63,8 +59,6 @@ All transfers verified byte-for-byte via MD5. Minimum requirement (20 Mbps) exce
 | Case 3 — 200 ms, 80 Mbit cap | 114.82 sec | 74.82 Mbps | `063eec458df4281eb22110366334cf77` ✓ |
 
 ### Throughput Comparison
-
-![Throughput Comparison](results/throughput_comparison.png)
 
 ```
                             MTU 1500                    MTU 9001
