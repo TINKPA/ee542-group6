@@ -17,9 +17,9 @@ Due **Saturday, September 12, 2026**.
 
 | Condition | RTT | UDP | Custom (MTU 1500) | Custom (MTU 9001) |
 |---|---|---|---|---|
-| Case 1 — 10 ms, 1% loss | 12.2 ms | 96.2 Mbps | **32.23 Mbps** | **36.85 Mbps** |
-| Case 2 — 200 ms, 20% loss | 206.0 ms | 77.7 Mbps | **23.58 Mbps** | **27.42 Mbps** |
-| Case 3 — 200 ms, 80 Mbit cap | 201.3 ms | 78.4 Mbps | **71.36 Mbps** | **74.82 Mbps** |
+| Case 1 — 10 ms, 1% loss | 12.2 ms | 96.2 Mbps | **32.23 Mbps** | **33.85 Mbps** |
+| Case 2 — 200 ms, 20% loss | 206.0 ms | 77.7 Mbps | **23.58 Mbps** | **24.92 Mbps** |
+| Case 3 — 200 ms, 80 Mbit cap | 201.3 ms | 78.4 Mbps | **63.45 Mbps** | **67.82 Mbps** |
 
 Test file: `data.bin` — 1,073,741,824 bytes (1 GiB)
 MD5: `063eec458df4281eb22110366334cf77`
@@ -48,24 +48,24 @@ All transfers verified byte-for-byte via MD5. Minimum requirement (20 Mbps) exce
 |---|---|---|---|
 | Case 1 — 10 ms, 1% loss | 266.49 sec | 32.23 Mbps | `063eec458df4281eb22110366334cf77` ✓ |
 | Case 2 — 200 ms, 20% loss | 364.36 sec | 23.58 Mbps | `063eec458df4281eb22110366334cf77` ✓ |
-| Case 3 — 200 ms, 80 Mbit cap | 120.38 sec | 71.36 Mbps | `063eec458df4281eb22110366334cf77` ✓ |
+| Case 3 — 200 ms, 80 Mbit cap | 135.38 sec | 63.45 Mbps | `063eec458df4281eb22110366334cf77` ✓ |
 
 #### MTU 9001
 
 | Condition | Time | Throughput | MD5 |
 |---|---|---|---|
-| Case 1 — 10 ms, 1% loss | 233.12 sec | 36.85 Mbps | `063eec458df4281eb22110366334cf77` ✓ |
-| Case 2 — 200 ms, 20% loss | 313.28 sec | 27.42 Mbps | `063eec458df4281eb22110366334cf77` ✓ |
-| Case 3 — 200 ms, 80 Mbit cap | 114.82 sec | 74.82 Mbps | `063eec458df4281eb22110366334cf77` ✓ |
+| Case 1 — 10 ms, 1% loss | 253.62 sec | 33.85 Mbps | `063eec458df4281eb22110366334cf77` ✓ |
+| Case 2 — 200 ms, 20% loss | 344.68 sec | 24.92 Mbps | `063eec458df4281eb22110366334cf77` ✓ |
+| Case 3 — 200 ms, 80 Mbit cap | 126.64 sec | 67.82 Mbps | `063eec458df4281eb22110366334cf77` ✓ |
 
 ### Throughput Comparison
 
 ```
                             MTU 1500                    MTU 9001
                     ──────────────────────      ──────────────────────
-Case 1 (10ms, 1%)   ████████████████ 32.23      ██████████████████ 36.85 Mbps
-Case 2 (200ms, 20%) ████████████ 23.58          ██████████████ 27.42 Mbps
-Case 3 (200ms, 80M) ████████████████████████████████████ 71.36   █████████████████████████████████████ 74.82 Mbps
+Case 1 (10ms, 1%)   ████████████████ 32.23      █████████████████ 33.85 Mbps
+Case 2 (200ms, 20%) ████████████ 23.58          ████████████▌ 24.92 Mbps
+Case 3 (200ms, 80M) ███████████████████████████████▌ 63.45   █████████████████████████████████▊ 67.82 Mbps
                     ──────────────────────────────────────────────────
 Minimum Required    ██████████ 20.00 Mbps
 ```
@@ -80,19 +80,19 @@ Minimum Required    ██████████ 20.00 Mbps
 
 | Case | MTU 1500 | MTU 9001 | Improvement |
 |---|---|---|---|
-| Case 1 | 32.23 Mbps | 36.85 Mbps | +14.3% |
-| Case 2 | 23.58 Mbps | 27.42 Mbps | +16.3% |
-| Case 3 | 71.36 Mbps | 74.82 Mbps | +4.8% |
+| Case 1 | 32.23 Mbps | 33.85 Mbps | +5.0% |
+| Case 2 | 23.58 Mbps | 24.92 Mbps | +5.7% |
+| Case 3 | 63.45 Mbps | 67.82 Mbps | +6.9% |
 
-MTU 9001 provides ~14-16% improvement in lossy conditions (Cases 1 & 2) due to fewer packets and reduced header overhead. Case 3 shows smaller improvement as it's bottlenecked by the 80 Mbps link.
+MTU 9001 provides modest improvement (~5-7%) due to fewer packets and reduced header overhead.
 
 ### Custom Protocol vs TCP
 
 | Condition | Our Protocol | TCP (iperf) | Speedup |
 |---|---|---|---|
 | Case 1 | 32.23 Mbps | ~17 Mbps | **1.9×** |
-| Case 2 | 23.58 Mbps | ~0.2 Mbps | **118×** |
-| Case 3 | 71.36 Mbps | ~2.6 Mbps | **27×** |
+| Case 2 | 23.58 Mbps | ~0.018 Mbps | **~1300×** |
+| Case 3 | 63.45 Mbps | ~4.5 Mbps | **14×** |
 
 ---
 
@@ -101,11 +101,11 @@ MTU 9001 provides ~14-16% improvement in lossy conditions (Cases 1 & 2) due to f
 - [x] Freeze `protocol.h` as a group
 - [x] Sender and receiver implementation
 - [x] Case 1, MTU 1500 — **32.23 Mbps**, MD5 verified
-- [x] Case 1, MTU 9001 — **36.85 Mbps**, MD5 verified
+- [x] Case 1, MTU 9001 — **33.85 Mbps**, MD5 verified
 - [x] Case 2, MTU 1500 — **23.58 Mbps**, MD5 verified
-- [x] Case 2, MTU 9001 — **27.42 Mbps**, MD5 verified
-- [x] Case 3, MTU 1500 — **71.36 Mbps**, MD5 verified
-- [x] Case 3, MTU 9001 — **74.82 Mbps**, MD5 verified
+- [x] Case 2, MTU 9001 — **24.92 Mbps**, MD5 verified
+- [x] Case 3, MTU 1500 — **63.45 Mbps**, MD5 verified
+- [x] Case 3, MTU 9001 — **67.82 Mbps**, MD5 verified
 - [x] Report: flow chart, data structures, algorithm, analysis
 - [ ] Stitched video → YouTube
 - [ ] Submission PDF with YouTube link and GitHub logs
@@ -249,27 +249,26 @@ md5sum data.bin received.bin
 | Loss interpretation | Congestion signal → backoff | Random loss → maintain rate |
 | Window after loss | Halves (AIMD) | No window (blast all) |
 | Recovery mechanism | Slow start (RTT × rounds) | Immediate NACK retransmit |
-| Measured result | ~0.2 Mbps | **23.58 Mbps** (118× faster) |
 
 TCP's congestion control assumes packet loss indicates network congestion. With 20% random loss and 200ms RTT:
 1. Each loss triggers window reduction
 2. High RTT means slow recovery via slow start
 3. Window never grows large enough
-4. Throughput collapses to ~0.2 Mbps
+4. Throughput drops significantly
 
 Our blast+NACK protocol:
 1. Sends all blocks at full rate (no per-packet ACK)
 2. Receiver tracks arrivals in bitmap
 3. NACKs report missing ranges every 50ms
 4. Sender retransmits only missing blocks
-5. Maintains ~24-27 Mbps even with 20% loss
+5. Maintains reasonable throughput even with 20% loss
 
 ### Why does Case 3 achieve higher throughput than Cases 1 & 2?
 
 Case 3 has **no packet loss**, only a bandwidth bottleneck (80 Mbps). Without loss:
-- No retransmissions needed
-- Single pass completes the transfer
-- Throughput approaches the link capacity (~75 Mbps achieved vs 80 Mbps theoretical)
+- Fewer retransmissions needed
+- Transfer completes faster
+- Throughput approaches the link capacity
 
 ---
 
