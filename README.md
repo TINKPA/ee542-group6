@@ -91,7 +91,7 @@ MTU 9001 provides ~7-9% improvement due to fewer packets and reduced header over
 | Condition | Our Protocol | TCP (iperf) | Speedup |
 |---|---|---|---|
 | Case 1 | 66.82 Mbps | ~17 Mbps | **3.9×** |
-| Case 2 | 54.36 Mbps | ~0.018 Mbps | **~3000×** |
+| Case 2 | 54.36 Mbps | ~0.042 Mbps | **~1300×** |
 | Case 3 | 63.45 Mbps | ~4.5 Mbps | **14×** |
 
 ---
