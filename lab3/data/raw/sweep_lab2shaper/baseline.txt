@@ -1,0 +1,1 @@
+rtt_ms=10 loss=0 full_1GiB_s=345.18 mbps=24.89 md5_ok=true
