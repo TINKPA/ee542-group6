@@ -1,0 +1,16 @@
+# Node IPs / instance ids written by the AWS scripts - machine-specific.
+*state*.env
+l3_hosts.env
+hosts.env
+
+# Built kernel packages (27 MB of binaries). Rebuild with code/kernel/kbuild.sh.
+code/kernel/debs/
+
+# Raw per-run ss dumps stay on the VMs; commit only the CSV summaries and charts.
+data/raw/**/*.log
+
+# Report stays local, as for Lab 2.
+report/
+
+.DS_Store
+*.bak

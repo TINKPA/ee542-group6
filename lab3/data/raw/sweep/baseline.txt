@@ -1,0 +1,1 @@
+shaper=lab3 rtt_ms=10 loss=0 full_1GiB_s=90.98 mbps=94.42 md5_ok=true
