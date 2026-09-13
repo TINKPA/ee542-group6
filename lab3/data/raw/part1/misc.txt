@@ -1,0 +1,23 @@
+### ethtool -s enp39s0 speed 10
+netlink error: Operation not supported
+rc=75
+### ethtool -i
+driver: ena
+version: 7.0.0-1012-aws
+firmware-version: 
+### dmesg (last 15)
+[Fri Sep 11 09:51:01 2026] cfg80211: Loading compiled-in X.509 certificates for regulatory database
+[Fri Sep 11 09:51:01 2026] Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+[Fri Sep 11 09:51:01 2026] Loaded X.509 cert 'wens: 61c038651aabdcf94bd0ac7ff06c7248db18c600'
+[Fri Sep 11 09:51:01 2026] faux_driver regulatory: Direct firmware load for regulatory.db failed with error -2
+[Fri Sep 11 09:51:01 2026] cfg80211: failed to load regulatory.db
+[Fri Sep 11 09:51:03 2026] kauditd_printk_skb: 113 callbacks suppressed
+[Fri Sep 11 09:51:03 2026] audit: type=1400 audit(1789120263.732:124): apparmor="STATUS" operation="profile_replace" info="same as current profile, skipping" profile="unconfined" name="rsyslogd" pid=602 comm="apparmor_parser"
+[Fri Sep 11 09:51:04 2026] loop3: detected capacity change from 0 to 8
+[Fri Sep 11 09:51:04 2026] NET: Registered PF_QIPCRTR protocol family
+[Fri Sep 11 09:51:04 2026] audit: type=1400 audit(1789120264.364:125): apparmor="STATUS" operation="profile_replace" info="same as current profile, skipping" profile="unconfined" name="/usr/lib/snapd/snap-confine" pid=818 comm="apparmor_parser"
+[Fri Sep 11 09:51:47 2026] systemd-journald[163]: /var/log/journal/ec2141aa4d2774348041df2beecb7b3a/user-1000.journal: Journal file uses a different sequence number ID, rotating.
+[Fri Sep 11 09:51:48 2026] systemd-network[516]: segfault at 7ffcecad6ff8 ip 00007e20fb5bc477 sp 00007ffcecad7000 error 6 in libsystemd-shared-255.so[1bc477,7e20fb46a000+248000] likely on CPU 0 (core 0, socket 0)
+[Fri Sep 11 09:51:48 2026] Code: 00 00 b8 f4 ff ff ff e9 45 ff ff ff 0f 1f 80 00 00 00 00 49 89 f2 48 85 ff 0f 84 54 04 00 00 55 49 89 f9 48 89 e5 41 55 41 54 <53> 48 83 ec 08 0f b6 4f 2f 89 c8 83 e0 03 3c 01 0f 84 13 01 00 00
+[Fri Sep 11 10:52:44 2026] ena 0000:27:00.0: Type was not set for devlink port.
+[Fri Sep 11 14:48:43 2026] netem: version 1.3
