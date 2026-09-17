@@ -1,0 +1,2 @@
+rtt_ms,loss_pct,cap_s,bytes,mbps,bytes_sent,bytes_retrans,cwnd_last,rto_last_ms,ts
+200,20,60,35773440,4.77,47535983,10259444,1,962,1789708462
