@@ -23,7 +23,7 @@
  *            sets cwnd = in_flight + newly_acked and cong_avoid() is never
  *            called.  Under heavy random loss the flow is almost always in
  *            recovery, so the pin barely applies.
- * TODO: cong_avoid() may not be the right hook under heavy loss -- check whether
+ *   ee542c   pins the window from cong_control().  tcp_cong_control() hands the
  *            whole decision to the module and returns, so PRR never runs.  This
  *            is the hook BBR uses.
  *
@@ -34,7 +34,7 @@
  *
  * Build:  make -C /lib/modules/$(uname -r)/build M=$PWD modules
  * Load:   sudo insmod ee542_cc.ko cwnd=1730
- * Select: sudo sysctl -w net.ipv4.tcp_congestion_control=ee542  
+ * Select: sudo sysctl -w net.ipv4.tcp_congestion_control=ee542   (or ee542c)
  */
 
 #include <linux/kernel.h>
@@ -93,6 +93,25 @@ static void ee542_cong_avoid(struct sock *sk, u32 ack, u32 acked)
 	ee542_pin(sk);
 }
 
+/* The cong_control() signature gained ack/flag in 6.9 (commit 15fcdf6ae116). */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 9, 0)
+static void ee542_cong_control(struct sock *sk, u32 ack, int flag,
+			       const struct rate_sample *rs)
+#else
+static void ee542_cong_control(struct sock *sk, const struct rate_sample *rs)
+#endif
+{
+	ee542_pin(sk);
+	/* tcp_cong_control() returns right after calling us, so it never reaches
+	 * tcp_update_pacing_rate().  Without this the socket keeps whatever
+	 * pacing rate it had when the module took over and silently throttles.
+	 */
+	WRITE_ONCE(sk->sk_pacing_rate, READ_ONCE(sk->sk_max_pacing_rate));
+}
+
+/* Pin from cong_avoid(): the core's recovery path (PRR) still owns cwnd
+ * whenever the flow is in recovery.
+ */
 static struct tcp_congestion_ops ee542_avoid __read_mostly = {
 	.flags		= TCP_CONG_NON_RESTRICTED,
 	.name		= "ee542",
@@ -100,6 +119,19 @@ static struct tcp_congestion_ops ee542_avoid __read_mostly = {
 	.ssthresh	= ee542_ssthresh,
 	.undo_cwnd	= ee542_undo_cwnd,
 	.cong_avoid	= ee542_cong_avoid,
+};
+
+/* Pin from cong_control(): tcp_cong_control() returns immediately after calling
+ * us, so PRR and tcp_cong_avoid() never run.
+ */
+static struct tcp_congestion_ops ee542_control __read_mostly = {
+	.flags		= TCP_CONG_NON_RESTRICTED,
+	.name		= "ee542c",
+	.owner		= THIS_MODULE,
+	.ssthresh	= ee542_ssthresh,
+	.undo_cwnd	= ee542_undo_cwnd,
+	.cong_avoid	= ee542_cong_avoid,
+	.cong_control	= ee542_cong_control,
 };
 
 static int __init ee542_cc_init(void)
@@ -110,14 +142,20 @@ static int __init ee542_cc_init(void)
 	if (ret)
 		return ret;
 
+	ret = tcp_register_congestion_control(&ee542_control);
+	if (ret) {
+		tcp_unregister_congestion_control(&ee542_avoid);
+		return ret;
+	}
 
-	pr_info("ee542_cc: registered ee542 (cong_avoid), cwnd=%u\n",
+	pr_info("ee542_cc: registered ee542 (cong_avoid) and ee542c (cong_control), cwnd=%u\n",
 		ee542_cwnd);
 	return 0;
 }
 
 static void __exit ee542_cc_exit(void)
 {
+	tcp_unregister_congestion_control(&ee542_control);
 	tcp_unregister_congestion_control(&ee542_avoid);
 }
 
