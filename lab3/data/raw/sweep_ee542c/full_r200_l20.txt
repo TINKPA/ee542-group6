@@ -1,0 +1,1 @@
+shaper=lab3 cc=ee542c rtt_ms=200 loss=20 full_1GiB_s=799.38 mbps=10.75 md5_ok=true
