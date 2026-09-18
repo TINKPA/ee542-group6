@@ -93,7 +93,14 @@ build)
     scripts/config --disable MODULE_SIG_ALL --disable MODULE_SIG --disable SYSTEM_TRUSTED_KEYS --disable SYSTEM_REVOCATION_KEYS
     scripts/config --disable DEBUG_INFO_BTF --disable DEBUG_INFO_DWARF5 --enable DEBUG_INFO_NONE
     yes "" | make LSMOD=$HOME/target_lsmod.txt localmodconfig >/dev/null 2>&1 || true
+    # localmodconfig keeps only what the target had loaded, and inet_diag is
+    # built-in on stock Ubuntu so it never appears in lsmod -- it gets dropped.
+    # Without it `ss -ti` silently falls back to parsing /proc/net/tcp, which has
+    # no bytes_sent/bytes_retrans/rtt and reports rto in USER_HZ seconds, and
+    # every sender-side measurement in this lab reads ss, so put it back.
+    scripts/config --enable INET_DIAG --enable INET_TCP_DIAG --enable INET_DIAG_DESTROY
     make olddefconfig >/dev/null
+    grep -E "^CONFIG_INET_(TCP_)?DIAG" .config
     echo "modules to build: $(grep -c "=m$" .config)   (stock config has thousands)"
     echo "building on $(nproc) cores, $(date -u +%H:%M:%SZ)"
     time make -j4 bindeb-pkg LOCALVERSION=-ee542 2>&1 | tail -25
