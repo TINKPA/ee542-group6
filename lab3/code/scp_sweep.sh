@@ -23,7 +23,7 @@ AWS="$DIR/../../lab2/code/aws"
 SHAPER=${SHAPER:-lab3}
 CC=${CC:-}
 RD="$DIR/../data/raw/sweep$([ "$SHAPER" = lab2 ] && echo _lab2shaper)${CC:+_$CC}"; mkdir -p "$RD"
-SSH="ssh -o StrictHostKeyChecking=accept-new -o ConnectTimeout=10"
+SSH="ssh -o ServerAliveInterval=15 -o ServerAliveCountMax=4 -o StrictHostKeyChecking=accept-new -o ConnectTimeout=10"
 CSV="$RD/sweep.csv"
 [ -f "$CSV" ] || echo "rtt_ms,loss_pct,cap_s,bytes,mbps,bytes_sent,bytes_retrans,cwnd_last,rto_last_ms,ts" > "$CSV"
 

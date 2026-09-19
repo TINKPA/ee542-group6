@@ -12,7 +12,7 @@
 set -u
 DIR="$(cd "$(dirname "$0")" && pwd)"; AWS="$DIR/../../lab2/code/aws"; . "$AWS/hosts.env"
 OUT="$DIR/../data/raw/part1"; mkdir -p "$OUT"; BW=${1:-200mbit}
-SSH="ssh -o StrictHostKeyChecking=accept-new -o ConnectTimeout=10"
+SSH="ssh -o ServerAliveInterval=15 -o ServerAliveCountMax=4 -o StrictHostKeyChecking=accept-new -o ConnectTimeout=10"
 C() { $SSH ubuntu@$CLIENT_PUB "$@"; }; S() { $SSH ubuntu@$SERVER_PUB "$@"; }; R() { $SSH ubuntu@$ROUTER_PUB "$@"; }
 IF=$(C 'ip -o -4 route show default | awk "{print \$5}" | head -1')
 # clean slate on all three (router netem from the sweep must go too)

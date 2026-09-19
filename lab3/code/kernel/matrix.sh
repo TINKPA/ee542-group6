@@ -21,7 +21,7 @@ set -u
 DIR="$(cd "$(dirname "$0")" && pwd)"
 AWS="$DIR/../../../lab2/code/aws"
 . "$AWS/hosts.env"
-SSH="ssh -o StrictHostKeyChecking=accept-new -o ConnectTimeout=10"
+SSH="ssh -o ServerAliveInterval=15 -o ServerAliveCountMax=4 -o StrictHostKeyChecking=accept-new -o ConnectTimeout=10"
 RD="$DIR/../../data/raw/matrix"; mkdir -p "$RD"
 CSV="$RD/matrix.csv"
 RTT=200; LOSS=20
