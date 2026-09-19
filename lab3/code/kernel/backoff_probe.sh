@@ -20,7 +20,7 @@
 set -u
 DIR="$(cd "$(dirname "$0")" && pwd)"
 . "$DIR/../../../lab2/code/aws/hosts.env"
-SSH="ssh -o StrictHostKeyChecking=accept-new -o ConnectTimeout=10"
+SSH="ssh -o ServerAliveInterval=15 -o ServerAliveCountMax=4 -o StrictHostKeyChecking=accept-new -o ConnectTimeout=10"
 RD="$DIR/../../data/raw/backoff_probe"; mkdir -p "$RD"
 CC=${1:-cubic}; PROBE=${2:-70}
 

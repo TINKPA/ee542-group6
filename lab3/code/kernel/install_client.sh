@@ -15,7 +15,7 @@
 set -eu
 DIR="$(cd "$(dirname "$0")" && pwd)"
 . "$DIR/../../../lab2/code/aws/hosts.env"
-SSH="ssh -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15"
+SSH="ssh -o ServerAliveInterval=15 -o ServerAliveCountMax=4 -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15"
 KVER=7.0.14-ee542
 
 verify() {

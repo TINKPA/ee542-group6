@@ -26,7 +26,7 @@ DIR="$(cd "$(dirname "$0")" && pwd)"
 . "$DIR/aws/l3_hosts.env"
 OUT="$DIR/../data/raw/part1_location"; mkdir -p "$OUT"
 BW=${1:-200mbit}
-SSH="ssh -o StrictHostKeyChecking=accept-new -o ConnectTimeout=10"
+SSH="ssh -o ServerAliveInterval=15 -o ServerAliveCountMax=4 -o StrictHostKeyChecking=accept-new -o ConnectTimeout=10"
 C() { $SSH ubuntu@$L3_CLIENT_PUB "$@"; }
 S() { $SSH ubuntu@$L3_SERVER_PUB "$@"; }
 R() { $SSH ubuntu@$L3_ROUTER_PUB "$@"; }

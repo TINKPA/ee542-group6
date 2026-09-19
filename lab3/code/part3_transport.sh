@@ -28,7 +28,7 @@
 set -u
 DIR="$(cd "$(dirname "$0")" && pwd)"
 . "$DIR/../../lab2/code/aws/hosts.env"
-SSH="ssh -o StrictHostKeyChecking=accept-new -o ConnectTimeout=10"
+SSH="ssh -o ServerAliveInterval=15 -o ServerAliveCountMax=4 -o StrictHostKeyChecking=accept-new -o ConnectTimeout=10"
 RD="$DIR/../data/raw/transport"; mkdir -p "$RD"
 CC=${1:-ee542c}; T=${2:-30}; ONLY=${3:-both}   # both | iperf3 | nc
 CSV="$RD/transport.csv"
