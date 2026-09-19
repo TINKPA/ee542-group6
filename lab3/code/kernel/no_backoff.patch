@@ -1,0 +1,50 @@
+--- a/include/net/netns/ipv4.h
++++ b/include/net/netns/ipv4.h
+@@ -206,6 +206,7 @@
+ 	int sysctl_tcp_rto_max_ms;
+ 	u8 sysctl_tcp_recovery;
+ 	u8 sysctl_tcp_thin_linear_timeouts;
++	u8 sysctl_tcp_no_rto_backoff;	/* EE542: TCP*(inf), no exponential RTO backoff */
+ 	u8 sysctl_tcp_slow_start_after_idle;
+ 	u8 sysctl_tcp_retrans_collapse;
+ 	u8 sysctl_tcp_stdurg;
+--- a/net/ipv4/sysctl_net_ipv4.c
++++ b/net/ipv4/sysctl_net_ipv4.c
+@@ -1242,6 +1242,15 @@
+ 		.proc_handler   = proc_dou8vec_minmax,
+ 	},
+ 	{
++		.procname       = "tcp_no_rto_backoff",
++		.data           = &init_net.ipv4.sysctl_tcp_no_rto_backoff,
++		.maxlen         = sizeof(u8),
++		.mode           = 0644,
++		.proc_handler   = proc_dou8vec_minmax,
++		.extra1         = SYSCTL_ZERO,
++		.extra2         = SYSCTL_ONE,
++	},
++	{
+ 		.procname	= "tcp_slow_start_after_idle",
+ 		.data		= &init_net.ipv4.sysctl_tcp_slow_start_after_idle,
+ 		.maxlen		= sizeof(u8),
+--- a/net/ipv4/tcp_timer.c
++++ b/net/ipv4/tcp_timer.c
+@@ -665,6 +665,19 @@
+ 	 * linear-timeout retransmissions into a black hole
+ 	 */
+ 	if (sk->sk_state == TCP_ESTABLISHED &&
++	    READ_ONCE(net->ipv4.sysctl_tcp_no_rto_backoff)) {
++		/* EE542 Lab 3 / Mondal & Kuzmanovic 2008: on a link that drops
++		 * packets at random rather than from congestion, doubling the
++		 * retransmission timer adds delay without reducing load.  Keep
++		 * the timer at the RTT estimator's value and the backoff
++		 * counter at zero; icsk_retransmits still advances in
++		 * tcp_write_timeout(), so retries1/retries2 still apply.
++		 */
++		icsk->icsk_backoff = 0;
++		icsk->icsk_rto = clamp(__tcp_set_rto(tp),
++				       tcp_rto_min(sk),
++				       tcp_rto_max(sk));
++	} else if (sk->sk_state == TCP_ESTABLISHED &&
+ 	    (tp->thin_lto || READ_ONCE(net->ipv4.sysctl_tcp_thin_linear_timeouts)) &&
+ 	    tcp_stream_is_thin(tp) &&
+ 	    icsk->icsk_retransmits <= TCP_THIN_LINEAR_RETRIES) {

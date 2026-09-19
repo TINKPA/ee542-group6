@@ -1,0 +1,324 @@
+{
+	"start":	{
+		"connected":	[{
+				"socket":	5,
+				"local_host":	"10.0.1.20",
+				"local_port":	58348,
+				"remote_host":	"10.0.2.30",
+				"remote_port":	5201
+			}],
+		"version":	"iperf 3.16",
+		"system_info":	"Linux ip-10-0-1-20 7.0.0-1012-aws #12~24.04.1-Ubuntu SMP PREEMPT Wed Aug 12 14:00:57 UTC 2026 x86_64",
+		"timestamp":	{
+			"time":	"Fri, 18 Sep 2026 18:00:37 GMT",
+			"timesecs":	1789754437
+		},
+		"connecting_to":	{
+			"host":	"10.0.2.30",
+			"port":	5201
+		},
+		"cookie":	"owvui6l4zjunsym3lqogcxcpmrr3kxupzxbf",
+		"target_bitrate":	200000000,
+		"fq_rate":	0,
+		"sock_bufsize":	0,
+		"sndbuf_actual":	212992,
+		"rcvbuf_actual":	212992,
+		"test_start":	{
+			"protocol":	"UDP",
+			"num_streams":	1,
+			"blksize":	8949,
+			"omit":	0,
+			"duration":	10,
+			"bytes":	0,
+			"blocks":	0,
+			"reverse":	0,
+			"tos":	0,
+			"target_bitrate":	200000000,
+			"bidir":	0,
+			"fqrate":	0
+		}
+	},
+	"intervals":	[{
+			"streams":	[{
+					"socket":	5,
+					"start":	0,
+					"end":	1.000059,
+					"seconds":	1.0000590085983276,
+					"bytes":	24976659,
+					"bits_per_second":	199801481.99460372,
+					"packets":	2791,
+					"omitted":	false,
+					"sender":	true
+				}],
+			"sum":	{
+				"start":	0,
+				"end":	1.000059,
+				"seconds":	1.0000590085983276,
+				"bytes":	24976659,
+				"bits_per_second":	199801481.99460372,
+				"packets":	2791,
+				"omitted":	false,
+				"sender":	true
+			}
+		}, {
+			"streams":	[{
+					"socket":	5,
+					"start":	1.000059,
+					"end":	2.000062,
+					"seconds":	1.0000029802322388,
+					"bytes":	25003506,
+					"bits_per_second":	200027451.8717393,
+					"packets":	2794,
+					"omitted":	false,
+					"sender":	true
+				}],
+			"sum":	{
+				"start":	1.000059,
+				"end":	2.000062,
+				"seconds":	1.0000029802322388,
+				"bytes":	25003506,
+				"bits_per_second":	200027451.8717393,
+				"packets":	2794,
+				"omitted":	false,
+				"sender":	true
+			}
+		}, {
+			"streams":	[{
+					"socket":	5,
+					"start":	2.000062,
+					"end":	3.000063,
+					"seconds":	1.0000009536743164,
+					"bytes":	25003506,
+					"bits_per_second":	200027857.23857,
+					"packets":	2794,
+					"omitted":	false,
+					"sender":	true
+				}],
+			"sum":	{
+				"start":	2.000062,
+				"end":	3.000063,
+				"seconds":	1.0000009536743164,
+				"bytes":	25003506,
+				"bits_per_second":	200027857.23857,
+				"packets":	2794,
+				"omitted":	false,
+				"sender":	true
+			}
+		}, {
+			"streams":	[{
+					"socket":	5,
+					"start":	3.000063,
+					"end":	4.000062,
+					"seconds":	0.99999898672103882,
+					"bytes":	24994557,
+					"bits_per_second":	199956658.61187533,
+					"packets":	2793,
+					"omitted":	false,
+					"sender":	true
+				}],
+			"sum":	{
+				"start":	3.000063,
+				"end":	4.000062,
+				"seconds":	0.99999898672103882,
+				"bytes":	24994557,
+				"bits_per_second":	199956658.61187533,
+				"packets":	2793,
+				"omitted":	false,
+				"sender":	true
+			}
+		}, {
+			"streams":	[{
+					"socket":	5,
+					"start":	4.000062,
+					"end":	5.000063,
+					"seconds":	1.0000009536743164,
+					"bytes":	25003506,
+					"bits_per_second":	200027857.23857,
+					"packets":	2794,
+					"omitted":	false,
+					"sender":	true
+				}],
+			"sum":	{
+				"start":	4.000062,
+				"end":	5.000063,
+				"seconds":	1.0000009536743164,
+				"bytes":	25003506,
+				"bits_per_second":	200027857.23857,
+				"packets":	2794,
+				"omitted":	false,
+				"sender":	true
+			}
+		}, {
+			"streams":	[{
+					"socket":	5,
+					"start":	5.000063,
+					"end":	6.000062,
+					"seconds":	0.99999898672103882,
+					"bytes":	25003506,
+					"bits_per_second":	200028250.68441805,
+					"packets":	2794,
+					"omitted":	false,
+					"sender":	true
+				}],
+			"sum":	{
+				"start":	5.000063,
+				"end":	6.000062,
+				"seconds":	0.99999898672103882,
+				"bytes":	25003506,
+				"bits_per_second":	200028250.68441805,
+				"packets":	2794,
+				"omitted":	false,
+				"sender":	true
+			}
+		}, {
+			"streams":	[{
+					"socket":	5,
+					"start":	6.000062,
+					"end":	7.000062,
+					"seconds":	1,
+					"bytes":	24994557,
+					"bits_per_second":	199956456,
+					"packets":	2793,
+					"omitted":	false,
+					"sender":	true
+				}],
+			"sum":	{
+				"start":	6.000062,
+				"end":	7.000062,
+				"seconds":	1,
+				"bytes":	24994557,
+				"bits_per_second":	199956456,
+				"packets":	2793,
+				"omitted":	false,
+				"sender":	true
+			}
+		}, {
+			"streams":	[{
+					"socket":	5,
+					"start":	7.000062,
+					"end":	8.000062,
+					"seconds":	1,
+					"bytes":	25003506,
+					"bits_per_second":	200028048,
+					"packets":	2794,
+					"omitted":	false,
+					"sender":	true
+				}],
+			"sum":	{
+				"start":	7.000062,
+				"end":	8.000062,
+				"seconds":	1,
+				"bytes":	25003506,
+				"bits_per_second":	200028048,
+				"packets":	2794,
+				"omitted":	false,
+				"sender":	true
+			}
+		}, {
+			"streams":	[{
+					"socket":	5,
+					"start":	8.000062,
+					"end":	9.000062,
+					"seconds":	1,
+					"bytes":	24994557,
+					"bits_per_second":	199956456,
+					"packets":	2793,
+					"omitted":	false,
+					"sender":	true
+				}],
+			"sum":	{
+				"start":	8.000062,
+				"end":	9.000062,
+				"seconds":	1,
+				"bytes":	24994557,
+				"bits_per_second":	199956456,
+				"packets":	2793,
+				"omitted":	false,
+				"sender":	true
+			}
+		}, {
+			"streams":	[{
+					"socket":	5,
+					"start":	9.000062,
+					"end":	10.000274,
+					"seconds":	1.0002119541168213,
+					"bytes":	25003506,
+					"bits_per_second":	199985660.216012,
+					"packets":	2794,
+					"omitted":	false,
+					"sender":	true
+				}],
+			"sum":	{
+				"start":	9.000062,
+				"end":	10.000274,
+				"seconds":	1.0002119541168213,
+				"bytes":	25003506,
+				"bits_per_second":	199985660.216012,
+				"packets":	2794,
+				"omitted":	false,
+				"sender":	true
+			}
+		}],
+	"end":	{
+		"streams":	[{
+				"udp":	{
+					"socket":	5,
+					"start":	0,
+					"end":	10.000274,
+					"seconds":	10.000274,
+					"bytes":	249981366,
+					"bits_per_second":	199979613.358594,
+					"jitter_ms":	0.050985777913660379,
+					"lost_packets":	2766,
+					"packets":	27934,
+					"lost_percent":	9.90191164888666,
+					"out_of_order":	0,
+					"sender":	true
+				}
+			}],
+		"sum":	{
+			"start":	0,
+			"end":	10.000503,
+			"seconds":	10.000503,
+			"bytes":	249981366,
+			"bits_per_second":	199979613.358594,
+			"jitter_ms":	0.050985777913660379,
+			"lost_packets":	2766,
+			"packets":	27934,
+			"lost_percent":	9.90191164888666,
+			"sender":	true
+		},
+		"sum_sent":	{
+			"start":	0,
+			"end":	10.000274,
+			"seconds":	10.000274,
+			"bytes":	249981366,
+			"bits_per_second":	199979613.358594,
+			"jitter_ms":	0,
+			"lost_packets":	0,
+			"packets":	27934,
+			"lost_percent":	0,
+			"sender":	true
+		},
+		"sum_received":	{
+			"start":	0,
+			"end":	10.000503,
+			"seconds":	10.000503,
+			"bytes":	225228432,
+			"bits_per_second":	180173682.86375195,
+			"jitter_ms":	0.050985777913660379,
+			"lost_packets":	2766,
+			"packets":	27934,
+			"lost_percent":	9.90191164888666,
+			"sender":	false
+		},
+		"cpu_utilization_percent":	{
+			"host_total":	95.964512630330447,
+			"host_user":	95.964493590612,
+			"host_system":	0,
+			"remote_total":	3.415227531009684,
+			"remote_user":	1.1834602352581194,
+			"remote_system":	2.23177729524659
+		}
+	}
+}

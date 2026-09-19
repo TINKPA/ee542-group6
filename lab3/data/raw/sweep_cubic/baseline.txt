@@ -1,0 +1,1 @@
+shaper=lab3 cc=cubic rtt_ms=10 loss=0 full_1GiB_s=91.02 mbps=94.37 md5_ok=true

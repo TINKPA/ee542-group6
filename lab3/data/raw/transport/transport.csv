@@ -1,0 +1,5 @@
+transport,cc,secs,bytes,mbps,md5_ok,ts
+iperf3,ee542c,30,,37.81,,1789779276
+nc,ee542c,41.13,0,0.0,false,1789779323
+nc,ee542c,0.84,0,0.0,false,1789779423
+nc,ee542c,440.37,1073741824,19.51,true,1789779970

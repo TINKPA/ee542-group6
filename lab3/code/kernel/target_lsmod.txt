@@ -1,0 +1,41 @@
+Module                  Size  Used by
+qrtr                   53248  2
+cfg80211             1515520  0
+8021q                  49152  0
+garp                   24576  1 8021q
+mrp                    24576  1 8021q
+stp                    12288  1 garp
+llc                    16384  2 stp,garp
+binfmt_misc            24576  1
+nls_iso8859_1          12288  1
+intel_rapl_msr         20480  0
+intel_rapl_common      57344  1 intel_rapl_msr
+intel_uncore_frequency_common    20480  0
+skx_edac_common        24576  0
+ppdev                  24576  0
+nfit                   81920  1 skx_edac_common
+ghash_clmulni_intel    12288  0
+aesni_intel            98304  0
+rapl                   20480  0
+ena                   172032  0
+psmouse               217088  0
+parport_pc             53248  0
+parport                73728  2 parport_pc,ppdev
+i2c_piix4              32768  0
+i2c_smbus              20480  1 i2c_piix4
+ptp_vmclock            24576  0
+input_leds             12288  0
+mac_hid                12288  0
+serio_raw              20480  0
+sch_fq_codel           28672  2
+nf_conntrack          192512  0
+nf_defrag_ipv6         24576  1 nf_conntrack
+nf_defrag_ipv4         12288  1 nf_conntrack
+dm_multipath           45056  0
+msr                    12288  0
+efi_pstore             12288  0
+nfnetlink              20480  2
+dmi_sysfs              24576  0
+ip_tables              32768  0
+x_tables               65536  1 ip_tables
+autofs4                57344  2
