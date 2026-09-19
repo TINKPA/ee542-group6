@@ -1,0 +1,1 @@
+cc=ee542c no_rto_backoff=1 rtt_ms=200 loss=20 full_1GiB_s=836.55 mbps=10.27 md5_ok=true
