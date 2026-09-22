@@ -1,0 +1,15 @@
+# Instance id, IP and the PostgreSQL password written by aws_tb.sh.
+*state*.env
+
+# Device access tokens written by provision.py / replay.py.
+code/local/tb_devices.json
+
+# Real GPS tracks from the group's phones, and maps drawn from them: kept off
+# the public repo. code/export_hub.py and code/ha_fetch.py rebuild data/.
+data/
+out/
+
+# Report sources stay local; the PDF is lab5/EE542_Lab5_Report.pdf.
+report/
+
+__pycache__/
