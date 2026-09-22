@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EE 542 — Laboratory #4: Hadoop and Spark Tutorials (corrected)</title>
+<style>
+  :root {
+    --bg: #ffffff; --fg: #1a1a1a; --muted: #5c6773; --rule: #e2e6ea;
+    --code-bg: #f5f7f9; --code-fg: #1a2733; --accent: #7a1f2b; --link: #0b5fa5;
+    --callout-bg: #fbf3e0; --callout-border: #e0c264; --mandate: #c0272d; --corr: #0b6e3d; --corr-bg: #e8f6ed; --gone: #9aa4ad;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171a; --fg: #e6e9ec; --muted: #98a2ad; --rule: #2a3138;
+      --code-bg: #1c2126; --code-fg: #d5e0ea; --accent: #e0899a; --link: #6db3f2;
+      --callout-bg: #2a2415; --callout-border: #6b5a2a; --mandate: #ff7b7b; --corr: #62d195; --corr-bg: #14301f; --gone: #6b757e;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--fg);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    max-width: 860px; margin: 0 auto; padding: 2.5rem 1.4rem 6rem;
+  }
+  h1 { font-size: 1.7rem; line-height: 1.25; margin: 0 0 .3rem; }
+  h2 {
+    font-size: 1.35rem; margin: 2.8rem 0 .8rem; padding-bottom: .3rem;
+    border-bottom: 2px solid var(--accent); color: var(--accent);
+  }
+  h3 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  h4 { font-size: 1rem; margin: 1.3rem 0 .4rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  p { margin: .7rem 0; }
+  ul, ol { margin: .6rem 0; padding-left: 1.6rem; }
+  li { margin: .28rem 0; }
+  li > ul, li > ol { margin: .28rem 0; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .9em; }
+  p code, li code { background: var(--code-bg); color: var(--code-fg); padding: .08em .35em; border-radius: 4px; }
+  pre {
+    background: var(--code-bg); color: var(--code-fg); border: 1px solid var(--rule);
+    border-radius: 6px; padding: .8rem 1rem; overflow-x: auto; margin: .7rem 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .86rem; line-height: 1.5;
+  }
+  pre code { background: none; padding: 0; }
+  a { color: var(--link); }
+  .subtitle { color: var(--muted); margin: 0 0 1.5rem; font-size: 1.05rem; }
+  .callout {
+    background: var(--callout-bg); border: 1px solid var(--callout-border);
+    border-left-width: 4px; border-radius: 5px; padding: .7rem 1rem; margin: 1.2rem 0;
+  }
+  .note { color: var(--muted); font-size: .95em; }
+  nav.toc {
+    border: 1px solid var(--rule); border-radius: 8px; padding: 1rem 1.3rem;
+    margin: 2rem 0; background: var(--code-bg);
+  }
+  nav.toc strong { display: block; margin-bottom: .4rem; font-size: .82rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  nav.toc ol { margin: 0; }
+  nav.toc a { text-decoration: none; }
+  nav.toc a:hover { text-decoration: underline; }
+  hr { border: none; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
+  .q { margin: .5rem 0; }
+  .mandate { color: var(--mandate); font-weight: 700; }
+  del { color: var(--gone); text-decoration: line-through; text-decoration-thickness: 1px; }
+  ins { color: var(--corr); background: var(--corr-bg); text-decoration: none; padding: .02em .2em; border-radius: 3px; }
+  pre ins, pre del { background: none; padding: 0; }
+  pre ins { color: var(--corr); }
+  .why { display: block; color: var(--corr); font-size: .88em; margin: .35rem 0 .9rem; padding-left: .7rem; border-left: 3px solid var(--corr); }
+  .why b { font-weight: 700; }
+  .ok { color: var(--corr); font-weight: 700; }
+  table { border-collapse: collapse; width: 100%; margin: .9rem 0 1.4rem; font-size: .9em; }
+  th, td { border: 1px solid var(--rule); padding: .42rem .6rem; text-align: left; vertical-align: top; }
+  th { background: var(--code-bg); font-weight: 600; }
+  caption { caption-side: top; text-align: left; color: var(--corr); font-weight: 700; padding-bottom: .35rem; }
+  td code, th code { font-size: .95em; }
+</style>
+</head>
+<body>
+
+<h1>EE&nbsp;542 — Laboratory&nbsp;#4: Hadoop and Spark Tutorials <ins>(corrected)</ins></h1>
+<p class="subtitle">Instructor: Young H. Cho, Ph.D.</p>
+
+<div class="callout">
+  <p><strong>How to read this edition.</strong> <del>Struck-through text is what the handout prints.</del> <ins>Green text is the correction.</ins> A note under each change gives the reason and its errata id from <code>assignments/lab4/README.md</code>.</p>
+  <p>A <span class="ok">✓</span> means the handout's own version was run as a control on a two-node cluster (2026-09-21) and failed in the way described — not that the problem was inferred from reading. Everything else is read from the Hadoop/Spark source, their defaults, or a live HTTP check.</p>
+  <p>The corrected commands are the ones implemented in <code>assignments/lab4/code/</code>. The unmodified original is <code>EE542_Lab4_Hadoop_Spark_Tutorials_origin.html</code>.</p>
+</div>
+
+<nav class="toc">
+  <strong>Contents</strong>
+  <ol>
+    <li><a href="#s1">Setting up Hadoop on AWS EC2</a></li>
+    <li><a href="#s2">Hadoop MapReduce with Python</a></li>
+    <li><a href="#s3">Scaling Hadoop to Two Nodes</a></li>
+    <li><a href="#s4">Setting up Spark on AWS EC2</a></li>
+    <li><a href="#s5">Spark with Python (PySpark)</a></li>
+    <li><a href="#s6">Performance Comparison</a></li>
+  </ol>
+</nav>
+
+<h2 id="s1">1. Setting up Hadoop on AWS EC2</h2>
+
+<p>In this tutorial, you will set up a two-node Hadoop cluster on AWS EC2, run MapReduce jobs on the Gutenberg dataset, and then extend the setup to learn about Spark. You will then compare the performance of Hadoop and Spark implementations.</p>
+
+<p>Go through the links below for a detailed understanding of Hadoop, containers, and the map-reduce architecture.</p>
+
+<pre><code>https://en.wikipedia.org/wiki/MapReduce
+https://hadoop.apache.org/docs/<del>r2.10.1</del><ins>r3.3.6</ins>/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html
+https://hadoop.apache.org/docs/<del>r2.10.1</del><ins>r3.3.6</ins>/hadoop-yarn/hadoop-yarn-site/YARN.html
+https://hadoop.apache.org/docs/<del>r2.10.1</del><ins>r3.3.6</ins>/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html</code></pre>
+<span class="why"><b>E-12.</b> Step 2 installs 3.3.6, so the 2.10.1 documentation describes different defaults — including the port in Step 1 below.</span>
+
+<h3>Step 1: Launch Two EC2 Instances</h3>
+<ol>
+  <li>Log into AWS and launch two Ubuntu 22.04 EC2 instances (<del>t2.medium recommended</del><ins>c7i-flex.large</ins>).
+    <span class="why"><b>E-15.</b> t2 is a burstable family: once CPU credits are exhausted the instance is throttled. Sections 3 and 6 are entirely about execution time, so a throttled run silently corrupts the only numbers this lab produces. If you must use t2.medium, watch <code>CPUCreditBalance</code> and mark the throttled intervals on every plot.</span>
+  </li>
+  <li>Configure security groups to allow SSH (port 22) and Hadoop ports (<del>50070, 8088, etc.</del><ins>9870 for the NameNode UI, 8088 for the YARN ResourceManager, plus all traffic between the two instances</ins>).
+    <span class="why"><b>E-1.</b> 50070 was the NameNode UI in Hadoop 2.x. In 3.3.6 <code>dfs.namenode.http-address</code> defaults to <code>0.0.0.0:9870</code>; opening 50070 gets you a port nothing listens on. The internal RPC ports (9000, 8030–8033, 8040–8042, 9866, 9867, and the ephemeral shuffle ports) are too many to enumerate, so allow the whole security group to talk to itself instead.</span>
+  </li>
+  <li>SSH into both instances.</li>
+  <li><ins>Give the master passwordless SSH to the worker: generate a key on the master and append its public half to <code>~/.ssh/authorized_keys</code> on both nodes.</ins>
+    <span class="why"><b>E-17</b> <span class="ok">✓</span> The handout never mentions this, and nothing in Step 3 works without it: <code>start-dfs.sh</code> starts the remote DataNode by SSH-ing from the master to every host in <code>workers</code>.</span>
+  </li>
+</ol>
+
+<h3>Step 2: Install Java and Hadoop</h3>
+<p>Run the following on both nodes:</p>
+<pre><code>sudo apt update
+<del>sudo apt install -y openjdk-11-jdk ssh rsync</del>
+<ins>sudo apt install -y openjdk-11-jdk ssh rsync python3 bc</ins>
+wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz
+tar -xvzf hadoop-3.3.6.tar.gz
+sudo mv hadoop-3.3.6 /usr/local/hadoop</code></pre>
+<span class="why">The Hadoop URL is live (checked 2026-09-21). <code>python3</code> is what every mapper and reducer in Section 2 runs on; <code>bc</code> is only needed if you time jobs from the shell.</span>
+
+<h3>Step 3: Configure Hadoop</h3>
+<p><del>Edit configuration files (<code>core-site.xml</code>, <code>hdfs-site.xml</code>, <code>mapred-site.xml</code>, <code>yarn-site.xml</code>) on the master node to enable distributed mode and add the slave node's hostname in <code>workers</code> file.</del></p>
+<span class="why"><b>E-9.</b> The handout names four files and gives the contents of none, which is the single largest gap in it: "enable distributed mode" is a dozen properties, several of which have defaults that do not work on a 2 vCPU / 4 GiB node. The files below are the ones in <code>code/setup/conf/</code>. They go on <strong>both</strong> nodes, not just the master. Hostnames rather than IPs, with <code>master</code> and <code>worker1</code> added to <code>/etc/hosts</code> on both machines.</span>
+
+<div class="why"><b>Where to look this up.</b> These files were not copied from a template — they were written for this cluster and confirmed by starting it. Three sources, in the order they are useful (all checked 2026-09-21):
+  <ul>
+    <li><b>Which properties a distributed cluster needs</b> — the only official page on the subject:<br>
+      <a href="https://hadoop.apache.org/docs/r3.3.6/hadoop-project-dist/hadoop-common/ClusterSetup.html">ClusterSetup.html</a>
+      (and <a href="https://hadoop.apache.org/docs/r3.3.6/hadoop-project-dist/hadoop-common/SingleCluster.html">SingleCluster.html</a> for pseudo-distributed first).
+      It covers all four files and <code>etc/hadoop/workers</code>, but it gives a property list and a few examples, not a working file — and it cannot size memory for you.</li>
+    <li><b>What every property means and what it defaults to</b> — the dictionary, not a template:
+      <a href="https://hadoop.apache.org/docs/r3.3.6/hadoop-project-dist/hadoop-common/core-default.xml">core-default.xml</a> ·
+      <a href="https://hadoop.apache.org/docs/r3.3.6/hadoop-project-dist/hadoop-hdfs/hdfs-default.xml">hdfs-default.xml</a> ·
+      <a href="https://hadoop.apache.org/docs/r3.3.6/hadoop-mapreduce-client/hadoop-mapreduce-client-core/mapred-default.xml">mapred-default.xml</a> ·
+      <a href="https://hadoop.apache.org/docs/r3.3.6/hadoop-yarn/hadoop-yarn-common/yarn-default.xml">yarn-default.xml</a>.
+      This is where the port in Step 1 comes from: hdfs-default.xml lists <code>dfs.namenode.http-address</code> as <code>0.0.0.0:9870</code>.
+      Use the <code>r3.3.6</code> path, not the <code>r2.10.1</code> one the handout links.</li>
+    <li><b>What is actually in effect</b> — the running cluster, which outranks both pages when they disagree with it:
+      <code>hdfs getconf -confKey &lt;name&gt;</code>, or the full merged configuration at
+      <code>http://master:9870/conf</code> and <code>http://master:8088/conf</code>. This is the only way to tell "I set it" apart from "it took effect".</li>
+  </ul>
+  The memory properties below (<code>yarn.nodemanager.resource.memory-mb</code>, the three <code>*.memory.mb</code>, <code>vmem-check-enabled</code>) are sized for a 2 vCPU / 4 GiB node. Change the instance type and they have to change with it; no documentation page can pick them for you.</div>
+
+<p><ins><code>core-site.xml</code></ins></p>
+<pre><code><ins>&lt;property&gt;&lt;name&gt;fs.defaultFS&lt;/name&gt;&lt;value&gt;hdfs://master:9000&lt;/value&gt;&lt;/property&gt;
+&lt;property&gt;&lt;name&gt;hadoop.tmp.dir&lt;/name&gt;&lt;value&gt;/data/hadoop/tmp&lt;/value&gt;&lt;/property&gt;</ins></code></pre>
+
+<p><ins><code>hdfs-site.xml</code></ins></p>
+<pre><code><ins>&lt;property&gt;&lt;name&gt;dfs.replication&lt;/name&gt;&lt;value&gt;2&lt;/value&gt;&lt;/property&gt;
+&lt;property&gt;&lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;&lt;value&gt;/data/hadoop/nn&lt;/value&gt;&lt;/property&gt;
+&lt;property&gt;&lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;&lt;value&gt;/data/hadoop/dn&lt;/value&gt;&lt;/property&gt;
+&lt;property&gt;&lt;name&gt;dfs.namenode.http-address&lt;/name&gt;&lt;value&gt;0.0.0.0:9870&lt;/value&gt;&lt;/property&gt;</ins></code></pre>
+
+<p><ins><code>mapred-site.xml</code></ins></p>
+<pre><code><ins>&lt;property&gt;&lt;name&gt;mapreduce.framework.name&lt;/name&gt;&lt;value&gt;yarn&lt;/value&gt;&lt;/property&gt;
+&lt;property&gt;&lt;name&gt;yarn.app.mapreduce.am.env&lt;/name&gt;&lt;value&gt;HADOOP_MAPRED_HOME=/usr/local/hadoop&lt;/value&gt;&lt;/property&gt;
+&lt;property&gt;&lt;name&gt;mapreduce.map.env&lt;/name&gt;&lt;value&gt;HADOOP_MAPRED_HOME=/usr/local/hadoop&lt;/value&gt;&lt;/property&gt;
+&lt;property&gt;&lt;name&gt;mapreduce.reduce.env&lt;/name&gt;&lt;value&gt;HADOOP_MAPRED_HOME=/usr/local/hadoop&lt;/value&gt;&lt;/property&gt;
+&lt;property&gt;&lt;name&gt;yarn.app.mapreduce.am.resource.mb&lt;/name&gt;&lt;value&gt;1024&lt;/value&gt;&lt;/property&gt;
+&lt;property&gt;&lt;name&gt;mapreduce.map.memory.mb&lt;/name&gt;&lt;value&gt;1024&lt;/value&gt;&lt;/property&gt;
+&lt;property&gt;&lt;name&gt;mapreduce.reduce.memory.mb&lt;/name&gt;&lt;value&gt;1024&lt;/value&gt;&lt;/property&gt;</ins></code></pre>
+<span class="why">Without the three <code>*.env</code> properties the ApplicationMaster starts and then dies with "Cannot find MapReduce classes" on a tarball install. Without the three memory properties the defaults ask for more than the NodeManager advertises and every job sits in <code>ACCEPTED</code> forever.</span>
+
+<p><ins><code>yarn-site.xml</code></ins></p>
+<pre><code><ins>&lt;property&gt;&lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;&lt;value&gt;master&lt;/value&gt;&lt;/property&gt;
+&lt;property&gt;&lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;&lt;value&gt;mapreduce_shuffle&lt;/value&gt;&lt;/property&gt;
+&lt;property&gt;&lt;name&gt;yarn.nodemanager.resource.memory-mb&lt;/name&gt;&lt;value&gt;3072&lt;/value&gt;&lt;/property&gt;
+&lt;property&gt;&lt;name&gt;yarn.nodemanager.resource.cpu-vcores&lt;/name&gt;&lt;value&gt;2&lt;/value&gt;&lt;/property&gt;
+&lt;property&gt;&lt;name&gt;yarn.scheduler.minimum-allocation-mb&lt;/name&gt;&lt;value&gt;512&lt;/value&gt;&lt;/property&gt;
+&lt;property&gt;&lt;name&gt;yarn.scheduler.maximum-allocation-mb&lt;/name&gt;&lt;value&gt;3072&lt;/value&gt;&lt;/property&gt;
+&lt;property&gt;&lt;name&gt;yarn.nodemanager.vmem-check-enabled&lt;/name&gt;&lt;value&gt;false&lt;/value&gt;&lt;/property&gt;</ins></code></pre>
+<span class="why">The JVM reserves a large virtual address space it never touches; leaving the vmem check on gets containers killed for "beyond virtual memory limits" on a machine with RAM to spare.</span>
+
+<p><ins><code>workers</code> — one node for Section 2, both for Section 3:</ins></p>
+<pre><code><ins>master
+worker1</ins></code></pre>
+
+<p>Start Hadoop services:</p>
+<pre><code><ins>hdfs namenode -format -force    # first time only</ins>
+/usr/local/hadoop/sbin/start-dfs.sh
+/usr/local/hadoop/sbin/start-yarn.sh
+<ins>hdfs dfsadmin -report | grep -E '^(Live datanodes|Name:)'</ins></code></pre>
+<span class="why">The format step is missing from the handout and the NameNode will not start without it. The last line is the check that Section 3 actually happened: it should print one live DataNode now and two after Section 3.</span>
+
+<h2 id="s2">2. Hadoop MapReduce with Python</h2>
+
+<p>We will use the Gutenberg dataset (Project Gutenberg books). Upload text files to HDFS:</p>
+<pre><code>hdfs dfs -mkdir /gutenberg
+hdfs dfs -put *.txt /gutenberg/</code></pre>
+<span class="why"><b>E-13.</b> The handout never says which books or how many, yet corpus size decides the answer to every question in Section 6 — a few MB is small enough that Hadoop's fixed startup cost dominates. Pin the set and record it: <code>code/corpus.sh</code> fetches a fixed list of ids and writes a manifest, in a <code>small</code> tier (6 novels, ~4 MB) and a <code>large</code> tier (~1 GB).</span>
+
+<h4>Python Mapper (wordcount_mapper.py)</h4>
+<pre><code>#!/usr/bin/env python3
+import sys
+
+for line in sys.stdin:
+    for word in line.strip().split():
+        print(f"{word}\t1")</code></pre>
+<span class="why">Correct as printed.</span>
+
+<h4>Python Reducer (wordcount_reducer.py)</h4>
+<pre><code>#!/usr/bin/env python3
+import sys
+<del>from collections import defaultdict
+
+counts = defaultdict(int)
+for line in sys.stdin:
+    word, val = line.strip().split('\t')
+    counts[word] += int(val)
+
+for word, count in counts.items():
+    print(f"{word}\t{count}")</del>
+<ins>cur, total = None, 0
+for line in sys.stdin:
+    key, _, val = line.rstrip("\n").partition("\t")
+    if not val:
+        continue
+    if key != cur:
+        if cur is not None:
+            print(f"{cur}\t{total}")
+        cur, total = key, 0
+    total += int(val)
+
+if cur is not None:
+    print(f"{cur}\t{total}")</ins></code></pre>
+<span class="why"><b>E-11.</b> Streaming guarantees that records with the same key arrive consecutively, so the reducer can fold as it goes. The printed version holds the entire vocabulary in a dict, which is fine for six books and is the first thing to fail on the large corpus. Same output, bounded memory.</span>
+
+<p>Run the MapReduce jobs:</p>
+<pre><code><del>#&gt; hadoop jar /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-*.jar -input /gutenberg -output /output_wordcount -mapper wordcount_mapper.py -reducer wordcount_reducer.py</del>
+<ins>hdfs dfs -rm -r -f /output_wordcount
+hadoop jar /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-*.jar \
+  -files wordcount_mapper.py,wordcount_reducer.py \
+  -input /gutenberg -output /output_wordcount \
+  -mapper wordcount_mapper.py -reducer wordcount_reducer.py</ins></code></pre>
+<span class="why"><b>E-2</b> <span class="ok">✓</span> Without <code>-files</code> the scripts exist only on the machine you typed the command on. On one node that is invisible; on two nodes the control run gives <code>Task Id : ... Status : FAILED</code> and the worker's syslog reads <code>Cannot run program "wordcount_mapper.py": error=2, No such file or directory</code>. <b>E-10.</b> The <code>-rm</code> is not optional either: a job whose output directory already exists fails before it starts, and Section 3 asks you to re-run these jobs.</span>
+
+<h4>Min/Max Word Count Reducer (minmax_reducer.py)</h4>
+<pre><code>#!/usr/bin/env python3
+import sys
+
+min_word, min_count = None, float('inf')
+max_word, max_count = None, float('-inf')
+
+for line in sys.stdin:
+    word, val = line.strip().split('\t')
+    count = int(val)
+    if count &lt; min_count:
+        min_word, min_count = word, count
+    if count &gt; max_count:
+        max_word, max_count = word, count
+
+print(f"MIN\t{min_word}\t{min_count}")
+print(f"MAX\t{max_word}\t{max_count}")</code></pre>
+
+<p><ins>This reducer is fine. What it is run on is not. It needs a second job over the <em>output</em> of the wordcount job, with an identity mapper and exactly one reducer:</ins></p>
+<pre><code><ins># minmax_mapper.py — pass the word counts through unchanged
+#!/usr/bin/env python3
+import sys
+
+for line in sys.stdin:
+    key, _, val = line.rstrip("\n").partition("\t")
+    if key and val:
+        print(f"{key}\t{val}")</ins></code></pre>
+<pre><code><ins>hdfs dfs -rm -r -f /output_minmax
+hadoop jar /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-*.jar \
+  -files minmax_mapper.py,minmax_reducer.py \
+  -input /output_wordcount -output /output_minmax \
+  -mapper minmax_mapper.py -reducer minmax_reducer.py \
+  -numReduceTasks 1</ins></code></pre>
+<span class="why"><b>E-3</b> <span class="ok">✓</span> Run the handout's way — this reducer directly over <code>/gutenberg</code> — and every record reaching it is <code>word\t1</code>, so the extremes of a set of 1s are 1. The control run printed <code>MIN&nbsp;#1661]&nbsp;1</code> and <code>MAX&nbsp;#1661]&nbsp;1</code>: both bounds equal, both the same arbitrary token. The corrected two-pass version prints <code>MIN&nbsp;&lt;a&nbsp;hapax&gt;&nbsp;1</code> and <code>MAX&nbsp;the&nbsp;36214</code>. <code>-numReduceTasks 1</code> matters because a global extremum computed by several reducers gives one contradictory answer per partition.</span>
+
+<p class="mandate">Now, create a new mapper (char_mapper.py) and a new reducer (char_reducer.py) that count characters instead of words. Discuss the output results in the video log.</p>
+<span class="why"><ins>Worth knowing before you write it: the tab is Streaming's key/value separator, so a mapper that emits a literal tab or space as the key produces records the reducer cannot parse or a human cannot see. Escape them (<code>&lt;TAB&gt;</code>, <code>&lt;SPACE&gt;</code>) and the output is both parseable and discussable — the space is the most frequent character in English text by a wide margin, which is itself the first thing to say in the video log.</ins></span>
+
+<h2 id="s3">3. Scaling Hadoop to Two Nodes</h2>
+
+<p>Add the second node's hostname to the master's <code>workers</code> file and restart Hadoop services. Re-run the jobs and observe execution time improvements.</p>
+<pre><code><ins>stop-yarn.sh && stop-dfs.sh
+printf 'master\nworker1\n' > /usr/local/hadoop/etc/hadoop/workers
+start-dfs.sh && start-yarn.sh
+hdfs dfsadmin -report | grep -c '^Name:'     # expect 2
+yarn node -list                              # expect 2 RUNNING
+
+hdfs dfs -rm -r -f /output_wordcount /output_charcount /output_minmax</ins></code></pre>
+<span class="why"><b>E-10.</b> "Re-run the jobs" fails immediately unless the output directories go first. Stopping the daemons before editing <code>workers</code> matters too: leave them up and you get a cluster that reports two nodes and still schedules everything on the master.</span>
+<span class="why"><ins><b>Expect no improvement at this scale, and report that honestly.</b> A few MB of text is far below the point where a second node pays for the shuffle it adds; the fixed cost of a MapReduce job is tens of seconds regardless. "Observe execution time improvements" presumes the answer. Measure both corpus tiers and report what the timings actually show.</ins></span>
+
+<h2 id="s4">4. Setting up Spark on AWS EC2</h2>
+
+<ol>
+  <li>Download and install Spark on both nodes:</li>
+</ol>
+<pre><code><del>wget https://dlcdn.apache.org/spark/spark-3.5.1/spark-3.5.1-bin-hadoop3.tgz</del>
+<ins>wget https://archive.apache.org/dist/spark/spark-3.5.1/spark-3.5.1-bin-hadoop3.tgz</ins>
+tar xvf spark-3.5.1-bin-hadoop3.tgz
+sudo mv spark-3.5.1-bin-hadoop3 /opt/spark</code></pre>
+<span class="why"><b>E-14</b> <span class="ok">✓</span> The printed URL returns <strong>404</strong> (checked 2026-09-21). dlcdn carries only current releases and 3.5.1 has been superseded; <code>archive.apache.org</code> returns 200.</span>
+
+<ol start="2">
+  <li>Configure environment variables in <code>.bashrc</code>:</li>
+</ol>
+<pre><code><del>echo “export SPARK_HOME=/usr/local/spark” &gt;&gt; .bashrc
+echo “export PATH=$PATH:$SPARK_HOME/bin” &gt;&gt; .bashrc</del>
+<ins>echo 'export SPARK_HOME=/opt/spark' &gt;&gt; ~/.bashrc
+echo 'export PATH=$PATH:$SPARK_HOME/bin' &gt;&gt; ~/.bashrc
+echo 'export HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop' &gt;&gt; ~/.bashrc
+echo 'export PYSPARK_PYTHON=python3' &gt;&gt; ~/.bashrc</ins>
+source ~/.bashrc</code></pre>
+<span class="why"><b>E-6.</b> The <code>mv</code> two lines above puts Spark in <code>/opt/spark</code>; the export says <code>/usr/local/spark</code>. <b>E-7.</b> Double quotes expand at write time, so what lands in <code>.bashrc</code> is a snapshot of the current <code>PATH</code> with an empty component where <code>$SPARK_HOME</code> should be — it is not exported yet. Single quotes defer the expansion to login. <b>E-8.</b> The printed quotes are typographic (<code>“ ”</code>); pasted into a shell they are written literally and the variable is never set. <code>HADOOP_CONF_DIR</code> is what lets <code>spark-submit</code> find YARN and HDFS at all.</span>
+
+<ol start="3">
+  <li><ins>Put Spark's jars on HDFS, once, from the master:</ins></li>
+</ol>
+<pre><code><ins>hdfs dfs -mkdir -p /spark-jars
+hdfs dfs -put $SPARK_HOME/jars/*.jar /spark-jars/
+echo 'spark.yarn.jars hdfs:///spark-jars/*' &gt;&gt; $SPARK_HOME/conf/spark-defaults.conf</ins></code></pre>
+<span class="why"><b>E-16</b> <span class="ok">✓</span> Not in the handout at all, and it decides Section 6. Otherwise <code>spark-submit</code> uploads 322 MB of jars into the application's staging directory on <em>every</em> submission. Same job, two runs each: <strong>13.3 s and 11.2 s</strong> with the jars preloaded, <strong>42.6 s and 35.2 s</strong> without. Comparing Hadoop against Spark without this measures a file copy.</span>
+
+<h2 id="s5">5. Spark with Python (PySpark)</h2>
+
+<span class="why">Two changes apply to all three scripts. <b>E-4:</b> <code>SparkContext("local", …)</code> hardcodes the master, so Spark runs in a single JVM on the submitting machine and the second node never participates — which makes Section 6's "on one node / on two nodes" question unanswerable with the code as printed. Take the master from <code>spark-submit</code> instead. <b>E-5:</b> <code>"/gutenberg/*.txt"</code> carries no scheme; under a local master it resolves against the <em>local</em> filesystem, so Spark and Hadoop would be reading different bytes.</span>
+
+<h4>Word Count (spark_wordcount.py)</h4>
+<pre><code>from pyspark import SparkContext
+
+<del>sc = SparkContext("local", "WordCount")
+text = sc.textFile("/gutenberg/*.txt")</del>
+<ins>sc = SparkContext(appName="WordCount")
+text = sc.textFile("hdfs://master:9000/gutenberg/*.txt")</ins>
+counts = text.flatMap(lambda line: line.split()) \
+             .map(lambda word: (word, 1)) \
+             .reduceByKey(lambda a, b: a + b)
+counts.saveAsTextFile(<del>"/output_spark_wordcount"</del><ins>"hdfs://master:9000/output_spark_wordcount"</ins>)</code></pre>
+
+<h4>Character Frequency (spark_charcount.py)</h4>
+<pre><code>from pyspark import SparkContext
+
+<del>sc = SparkContext("local", "CharCount")
+text = sc.textFile("/gutenberg/*.txt")</del>
+<ins>sc = SparkContext(appName="CharCount")
+text = sc.textFile("hdfs://master:9000/gutenberg/*.txt")
+ESCAPE = {" ": "&lt;SPACE&gt;", "\t": "&lt;TAB&gt;"}</ins>
+chars = text.flatMap(lambda line: <del>list(line)</del><ins>[ESCAPE.get(c, c) for c in line]</ins>) \
+            .map(lambda ch: (ch, 1)) \
+            .reduceByKey(lambda a, b: a + b)
+chars.saveAsTextFile(<del>"/output_spark_charcount"</del><ins>"hdfs://master:9000/output_spark_charcount"</ins>)</code></pre>
+<span class="why"><ins>The escaping is not required here the way it is under Streaming, but matching the MapReduce version makes the two outputs diffable — which is how you check that the two implementations agree before you compare their speed.</ins></span>
+
+<h4>Min/Max Word Count (spark_minmax.py)</h4>
+<pre><code>from pyspark import SparkContext
+
+<del>sc = SparkContext("local", "MinMax")
+text = sc.textFile("/gutenberg/*.txt")</del>
+<ins>sc = SparkContext(appName="MinMax")
+text = sc.textFile("hdfs://master:9000/gutenberg/*.txt")</ins>
+counts = text.flatMap(lambda line: line.split()) \
+             .map(lambda word: (word, 1)) \
+             .reduceByKey(lambda a, b: a + b)<ins> \
+             .cache()</ins>
+
+min_word = counts.min(key=lambda x: x[1])
+max_word = counts.max(key=lambda x: x[1])
+
+print("MIN:", min_word)
+print("MAX:", max_word)</code></pre>
+<span class="why"><ins><code>min()</code> and <code>max()</code> are both actions. Without <code>.cache()</code> the second one recomputes the entire shuffle. With it, the measured scans were <strong>2.00 s</strong> and then <strong>0.19 s</strong> — one line of code, and the cleanest single piece of evidence for Section 6's third question.</ins></span>
+
+<p><ins>Submit them — this is the line that decides whether the second node is used:</ins></p>
+<pre><code><ins>spark-submit --master yarn spark_wordcount.py        # both nodes
+spark-submit --master 'local[*]' spark_wordcount.py  # what the handout's code does</ins></code></pre>
+
+<h2 id="s6">6. Performance Comparison</h2>
+
+<p>Now, run both Hadoop and Spark implementations and compare execution times.</p>
+
+<p>Questions for students:</p>
+<ul>
+  <li class="q">Which framework executed faster on one node? On two nodes?</li>
+  <li class="q">Which framework is easier to implement in Python?</li>
+  <li class="q">How does Spark's in-memory processing affect performance compared to Hadoop?</li>
+</ul>
+
+<span class="why"><ins><b>Measure two clocks, not one.</b> The wall clock of the submitting shell includes client JVM startup and the YARN submission round trip; the application's own elapsed time comes from the ResourceManager at <code>http://master:8088/ws/v1/cluster/apps/&lt;appId&gt;</code>. That endpoint serves MapReduce and Spark applications alike, which is what makes the two frameworks comparable rather than merely both timed. In one measured pair: 16.3 s at the shell, 12.8 s for the application — the 3.5 s difference is overhead that belongs to neither framework's processing.</ins></span>
+<span class="why"><ins>At the handout's data scale most of the total is fixed overhead, so a single total lets you "confirm" the expected answer without evidence. Report both clocks so the overhead stays visible, and measure two corpus sizes — a few MB as the handout implies, and ~1 GB — because whether a second node helps is a question about size, and one size cannot answer it. Three repetitions per cell, since a difference smaller than the spread is not a result.</ins></span>
+
+<h3><ins>What the report has to contain</ins></h3>
+
+<div class="why">One table and one figure. The handout asks three questions; only the first needs tabulating, and the other two are answered by numbers that fit in a sentence. Both come from <code>bench/matrix.sh</code>, whose CSV carries <code>wall_s</code> (the submitting shell) and <code>yarn_ms</code> (the application's own elapsed time from the ResourceManager) for every run.</div>
+
+<table>
+  <caption>Table 1 — Execution time (answers Q1)</caption>
+  <tr><th style="width:8rem">Rows</th><td>wordcount · charcount · minmax, each at both corpus sizes (~4 MB and ~1 GB) — 6 rows</td></tr>
+  <tr><th>Columns</th><td>MapReduce 1 node · MapReduce 2 nodes · Spark-YARN 1 node · Spark-YARN 2 nodes</td></tr>
+  <tr><th>Cells</th><td>application elapsed, mean ± spread over 3 runs</td></tr>
+  <tr><th>Source</th><td><code>matrix.csv</code>: <code>yarn_ms</code> grouped by <code>framework, job, tier, nodes</code>.</td></tr>
+</table>
+
+<table>
+  <caption>Figure 1 — The same table as grouped bars</caption>
+  <tr><th style="width:8rem">Form</th><td>Two panels, one per corpus size; x = job, colour = framework × node count, y = elapsed (s), error bars = spread over the 3 runs.</td></tr>
+  <tr><th>Reading it</th><td>If the error bars overlap, the difference is unresolved and the text says so instead of naming a winner. The two panels side by side are what answers Section 3: expect the two-node bars to be no shorter on the small corpus, where a few MB is far below the size at which a second node repays the shuffle it adds, and to be shorter on the large one if the second node pays at all. "Observe execution time improvements" presumes an answer that only the second panel can support.</td></tr>
+</table>
+
+<div class="why"><b>The rest goes in prose, not in a table.</b>
+  <ul>
+    <li><b>Testbed</b> — one paragraph: two c7i-flex.large, Hadoop 3.3.6, Spark 3.5.1, JDK 11, replication 2, both corpora (N books / M bytes each) from <code>corpus.sh</code>'s manifest.</li>
+    <li><b>Q2, easier in Python</b> — one sentence with counts: MapReduce minmax needs two programs and a second job over the first job's output with <code>-numReduceTasks 1</code>; Spark needs one script and two lines. Mention Spark's own traps (the master argument, the URI scheme) or the comparison is rigged.</li>
+    <li><b>Q3, in-memory processing</b> — one measured pair: the first action on the cached RDD took 2.00 s and the second 0.19 s, same data, same job. Say also what that number is <em>not</em>: the whole Hadoop/Spark gap includes JVM reuse and the absence of an intermediate write to HDFS, not just memory.</li>
+    <li><b>Overhead</b> — one sentence: of a 16.3 s wordcount, 12.8 s was the application and 3.5 s was client startup and submission. Enough to stop a reader from reading the totals as pure processing time.</li>
+  </ul>
+</div>
+
+<div class="why"><b>Three runs per cell,</b> reported as mean ± spread; a gap smaller than the spread is unresolved, not a win. Warm the cache first — the first run of any configuration is slower than every run after it.</div>
+
+<p class="mandate">Include all source code and compilation instructions into GitHub. Then include answers to the questions in the video log.</p>
+
+</body>
+</html>
