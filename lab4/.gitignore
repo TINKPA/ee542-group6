@@ -1,0 +1,9 @@
+# Node IPs / instance ids written by the AWS scripts - machine-specific.
+*state*.env
+l4_hosts.env
+
+# The corpora are rebuilt on the node by corpus.sh, never committed.
+data/corpus/
+
+# Report stays local until the video link is final, as for Lab 2 and Lab 3.
+report/
