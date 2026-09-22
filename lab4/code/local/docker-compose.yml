@@ -1,0 +1,28 @@
+# Two containers on their own network.  No published host ports: this is driven
+# with docker exec, and the Mac is already running other projects' containers.
+name: ee542l4
+services:
+  master:
+    build: .
+    image: ee542-lab4:local
+    hostname: master
+    command: ["master"]
+    environment: [ "NODES=${NODES:-one}" ]
+    volumes:
+      - ..:/opt/lab4:ro
+      - master-data:/data
+    networks: [l4]
+  worker1:
+    image: ee542-lab4:local
+    hostname: worker1
+    command: ["worker"]
+    environment: [ "NODES=${NODES:-one}" ]
+    volumes:
+      - ..:/opt/lab4:ro
+      - worker1-data:/data
+    networks: [l4]
+volumes:
+  master-data:
+  worker1-data:
+networks:
+  l4:
