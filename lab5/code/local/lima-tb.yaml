@@ -1,0 +1,26 @@
+# EE542 Lab 5 — local stand-in for the EC2 node of §2.
+# Ubuntu 24.04 (same release the EC2 AMI uses) so code/aws/tb_install.sh runs
+# here byte-for-byte as it does on the instance.  6 GiB because install.sh is
+# the memory peak (errata E-7); the script still adds its own 4 GiB swapfile.
+minimumLimaVersion: "2.0.0"
+vmType: "vz"
+images:
+- location: "https://cloud-images.ubuntu.com/releases/24.04/release/ubuntu-24.04-server-cloudimg-arm64.img"
+  arch: "aarch64"
+- location: "https://cloud-images.ubuntu.com/releases/24.04/release/ubuntu-24.04-server-cloudimg-amd64.img"
+  arch: "x86_64"
+cpus: 4
+memory: "6GiB"
+disk: "30GiB"
+mountType: "virtiofs"
+mounts:
+- location: "~/Documents/10_Projects/2026_Course_USC_EE542/assignments/lab5"
+  mountPoint: "/lab5"
+  writable: true
+# 8080 = ThingsBoard UI + HTTP telemetry, 1883 = MQTT, 5683/udp = CoAP.
+# Same four ports the EC2 security group opens (errata E-3).
+portForwards:
+- guestPort: 8080
+  hostPort: 8080
+- guestPort: 1883
+  hostPort: 1883
