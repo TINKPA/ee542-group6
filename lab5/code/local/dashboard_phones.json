@@ -1,0 +1,1089 @@
+{
+ "title": "EE542 Lab 5 \u2014 Phone fleet",
+ "name": "EE542 Lab 5 \u2014 Phone fleet",
+ "configuration": {
+  "description": "Lab 5 \u00a75 \u2014 every phone on one OpenStreetMap, plus the tracks and the raw latest telemetry.",
+  "widgets": {
+   "22222222-2222-4222-8222-222222222222": {
+    "id": "22222222-2222-4222-8222-222222222222",
+    "typeFullFqn": "system.map",
+    "type": "latest",
+    "sizeX": 8.5,
+    "sizeY": 6,
+    "row": 0,
+    "col": 0,
+    "config": {
+     "datasources": [],
+     "showTitle": true,
+     "backgroundColor": "rgba(0, 0, 0, 0)",
+     "color": "rgba(0, 0, 0, 0.87)",
+     "padding": "0px",
+     "settings": {
+      "mapType": "geoMap",
+      "markers": [
+       {
+        "dsType": "entity",
+        "dsLabel": "",
+        "dsDeviceId": null,
+        "dsEntityAliasId": "11111111-1111-4111-8111-111111111111",
+        "dsFilterId": null,
+        "additionalDataKeys": [
+         {
+          "name": "batt",
+          "type": "timeseries",
+          "label": "batt",
+          "color": "#2196f3",
+          "settings": {},
+          "aggregationType": "NONE",
+          "units": null,
+          "decimals": null,
+          "funcBody": null,
+          "usePostProcessing": null,
+          "postFuncBody": null
+         },
+         {
+          "name": "vel",
+          "type": "timeseries",
+          "label": "vel",
+          "color": "#2196f3",
+          "settings": {},
+          "aggregationType": "NONE",
+          "units": null,
+          "decimals": null,
+          "funcBody": null,
+          "usePostProcessing": null,
+          "postFuncBody": null
+         },
+         {
+          "name": "acc",
+          "type": "timeseries",
+          "label": "acc",
+          "color": "#2196f3",
+          "settings": {},
+          "aggregationType": "NONE",
+          "units": null,
+          "decimals": null,
+          "funcBody": null,
+          "usePostProcessing": null,
+          "postFuncBody": null
+         },
+         {
+          "name": "conn",
+          "type": "timeseries",
+          "label": "conn",
+          "color": "#2196f3",
+          "settings": {},
+          "aggregationType": "NONE",
+          "units": null,
+          "decimals": null,
+          "funcBody": null,
+          "usePostProcessing": null,
+          "postFuncBody": null
+         },
+         {
+          "name": "motionactivities",
+          "type": "timeseries",
+          "label": "motionactivities",
+          "color": "#2196f3",
+          "settings": {},
+          "aggregationType": "NONE",
+          "units": null,
+          "decimals": null,
+          "funcBody": null,
+          "usePostProcessing": null,
+          "postFuncBody": null
+         }
+        ],
+        "label": {
+         "show": true,
+         "type": "pattern",
+         "pattern": "${entityName}"
+        },
+        "tooltip": {
+         "show": true,
+         "trigger": "click",
+         "autoclose": true,
+         "type": "pattern",
+         "pattern": "<b>${entityName}</b><br/><b>lat/lon:</b> ${latitude:6}, ${longitude:6}<br/><b>speed:</b> ${vel} km/h &nbsp; <b>fix acc:</b> ${acc} m<br/><b>battery:</b> ${batt}% &nbsp; <b>link:</b> ${conn}<br/><b>motion:</b> ${motionactivities}",
+         "offsetX": 0,
+         "offsetY": -1
+        },
+        "groups": null,
+        "xKey": {
+         "name": "lat",
+         "type": "timeseries",
+         "label": "latitude",
+         "color": "#2196f3",
+         "settings": {},
+         "aggregationType": "NONE",
+         "units": null,
+         "decimals": null,
+         "funcBody": null,
+         "usePostProcessing": null,
+         "postFuncBody": null
+        },
+        "yKey": {
+         "name": "lon",
+         "type": "timeseries",
+         "label": "longitude",
+         "color": "#2196f3",
+         "settings": {},
+         "aggregationType": "NONE",
+         "units": null,
+         "decimals": null,
+         "funcBody": null,
+         "usePostProcessing": null,
+         "postFuncBody": null
+        },
+        "markerType": "shape",
+        "markerShape": {
+         "shape": "markerShape1",
+         "size": 34,
+         "color": {
+          "type": "function",
+          "color": "#307FE5",
+          "colorFunction": "var temperature = data.temperature;\nif (typeof temperature !== undefined) {\n    var percent = (temperature + 60)/120 * 100;\n    return tinycolor.mix('blue', 'red', percent).toHexString();\n}\nreturn 'blue';\n"
+         }
+        },
+        "markerIcon": {
+         "icon": "mdi:lightbulb-on",
+         "size": 34,
+         "color": {
+          "type": "constant",
+          "color": "#307FE5"
+         }
+        },
+        "markerImage": {
+         "type": "image",
+         "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xOTEuMzUgLTM1MS4xOCAxMDgzLjU4IDE3MzAuNDYiPjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBmaWxsPSIjZmU3NTY5IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMzciIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgZD0iTTM1MS44MzMgMTM2MC43OGMtMzguNzY2LTE5MC4zLTEwNy4xMTYtMzQ4LjY2NS0xODkuOTAzLTQ5NS40NEMxMDAuNTIzIDc1Ni40NjkgMjkuMzg2IDY1NS45NzgtMzYuNDM0IDU1MC40MDRjLTIxLjk3Mi0zNS4yNDQtNDAuOTM0LTcyLjQ3Ny02Mi4wNDctMTA5LjA1NC00Mi4yMTYtNzMuMTM3LTc2LjQ0NC0xNTcuOTM1LTc0LjI2OS0yNjcuOTMyIDIuMTI1LTEwNy40NzMgMzMuMjA4LTE5My42ODUgNzguMDMtMjY0LjE3M0MtMjEtMjA2LjY5IDEwMi40ODEtMzAxLjc0NSAyNjguMTY0LTMyNi43MjRjMTM1LjQ2Ni0yMC40MjUgMjYyLjQ3NSAxNC4wODIgMzUyLjU0MyA2Ni43NDcgNzMuNiA0My4wMzggMTMwLjU5NiAxMDAuNTI4IDE3My45MiAxNjguMjggNDUuMjIgNzAuNzE2IDc2LjM2IDE1NC4yNiA3OC45NzEgMjYzLjIzMyAxLjMzNyA1NS44My03LjgwNSAxMDcuNTMyLTIwLjY4NCAxNTAuNDE3LTEzLjAzNCA0My40MS0zMy45OTYgNzkuNjk1LTUyLjY0NiAxMTguNDU1LTM2LjQwNiA3NS42NTktODIuMDQ5IDE0NC45ODEtMTI3Ljg1NSAyMTQuMzQ1LTEzNi40MzcgMjA2LjYwNi0yNjQuNDk2IDQxNy4zMS0zMjAuNTggNzA2LjAyOHoiLz48Y2lyY2xlIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBjeD0iMzUyLjg5MSIgY3k9IjIyNS43NzkiIHI9IjE4My4zMzIiLz48L3N2Zz4=",
+         "imageSize": 34
+        },
+        "markerOffsetX": 0.5,
+        "markerOffsetY": 1
+       }
+      ],
+      "polygons": [],
+      "circles": [],
+      "additionalDataSources": [],
+      "layers": [
+       {
+        "label": "OpenStreetMap",
+        "provider": "openstreet",
+        "layerType": "OpenStreetMap.Mapnik"
+       },
+       {
+        "label": "Satellite",
+        "provider": "openstreet",
+        "layerType": "Esri.WorldImagery"
+       }
+      ],
+      "fitMapBounds": true
+     },
+     "title": "Where the phones are now",
+     "showTitleIcon": false,
+     "titleTooltip": "",
+     "dropShadow": true,
+     "enableFullscreen": true,
+     "widgetStyle": {},
+     "widgetCss": "",
+     "titleStyle": {
+      "fontSize": "16px",
+      "fontWeight": 400
+     },
+     "pageSize": 1024,
+     "noDataDisplayMessage": "",
+     "configMode": "basic",
+     "titleFont": null,
+     "titleColor": null,
+     "margin": "0px",
+     "borderRadius": "0px",
+     "iconSize": "24px",
+     "titleIcon": "map",
+     "iconColor": "#1F6BDD",
+     "actions": {}
+    }
+   },
+   "33333333-3333-4333-8333-333333333333": {
+    "id": "33333333-3333-4333-8333-333333333333",
+    "typeFullFqn": "system.trip_map",
+    "type": "timeseries",
+    "sizeX": 8.5,
+    "sizeY": 6,
+    "row": 0,
+    "col": 0,
+    "config": {
+     "datasources": [],
+     "timewindow": {
+      "selectedTab": 1,
+      "history": {
+       "historyType": 0,
+       "timewindowMs": 86400000
+      },
+      "aggregation": {
+       "type": "NONE",
+       "limit": 5000
+      }
+     },
+     "showTitle": true,
+     "backgroundColor": "rgba(0, 0, 0, 0)",
+     "color": "rgba(0, 0, 0, 0.87)",
+     "padding": "0px",
+     "settings": {
+      "mapType": "geoMap",
+      "layers": [
+       {
+        "label": "OpenStreetMap",
+        "provider": "openstreet",
+        "layerType": "OpenStreetMap.Mapnik"
+       },
+       {
+        "label": "Satellite",
+        "provider": "openstreet",
+        "layerType": "Esri.WorldImagery"
+       }
+      ],
+      "trips": [
+       {
+        "dsType": "entity",
+        "dsLabel": "",
+        "xKey": {
+         "name": "lat",
+         "type": "timeseries",
+         "label": "latitude",
+         "color": "#2196f3",
+         "settings": {},
+         "aggregationType": "NONE",
+         "units": null,
+         "decimals": null,
+         "funcBody": null,
+         "usePostProcessing": null,
+         "postFuncBody": null
+        },
+        "yKey": {
+         "name": "lon",
+         "type": "timeseries",
+         "label": "longitude",
+         "color": "#2196f3",
+         "settings": {},
+         "aggregationType": "NONE",
+         "units": null,
+         "decimals": null,
+         "funcBody": null,
+         "usePostProcessing": null,
+         "postFuncBody": null
+        },
+        "markerType": "shape",
+        "markerShape": {
+         "shape": "tripMarkerShape1",
+         "size": 34,
+         "color": {
+          "type": "constant",
+          "color": "#307FE5"
+         }
+        },
+        "markerIcon": {
+         "icon": "arrow_forward",
+         "size": 48,
+         "color": {
+          "type": "constant",
+          "color": "#307FE5"
+         }
+        },
+        "markerImage": {
+         "type": "image",
+         "image": "/assets/markers/tripShape1.svg",
+         "imageSize": 34
+        },
+        "markerOffsetX": 0.5,
+        "markerOffsetY": 0.5,
+        "positionFunction": "return {x: origXPos, y: origYPos};",
+        "markerClustering": {
+         "enable": false,
+         "zoomOnClick": true,
+         "maxZoom": null,
+         "maxClusterRadius": 80,
+         "zoomAnimation": true,
+         "showCoverageOnHover": true,
+         "spiderfyOnMaxZoom": false,
+         "chunkedLoad": false,
+         "lazyLoad": true,
+         "useClusterMarkerColorFunction": false,
+         "clusterMarkerColorFunction": null
+        },
+        "label": {
+         "show": true,
+         "type": "pattern",
+         "pattern": "${entityName}"
+        },
+        "tooltip": {
+         "show": true,
+         "trigger": "click",
+         "autoclose": true,
+         "type": "pattern",
+         "pattern": "<b>${entityName}</b><br/><b>lat/lon:</b> ${latitude:6}, ${longitude:6}<br/><b>speed:</b> ${vel} km/h &nbsp; <b>fix acc:</b> ${acc} m<br/><b>battery:</b> ${batt}% &nbsp; <b>link:</b> ${conn}<br/><b>motion:</b> ${motionactivities}",
+         "offsetX": 0,
+         "offsetY": -1
+        },
+        "click": {
+         "type": "doNothing"
+        },
+        "edit": {
+         "enabledActions": [],
+         "snappable": false
+        },
+        "rotateMarker": true,
+        "offsetAngle": 0,
+        "showPath": true,
+        "pathStrokeWeight": 4,
+        "pathStrokeColor": {
+         "type": "constant",
+         "color": "#307FE5"
+        },
+        "usePathDecorator": false,
+        "pathDecoratorSymbol": "arrowHead",
+        "pathDecoratorSymbolSize": 10,
+        "pathDecoratorSymbolColor": "#307FE5",
+        "pathDecoratorOffset": 20,
+        "pathEndDecoratorOffset": 20,
+        "pathDecoratorRepeat": 20,
+        "showPoints": true,
+        "pointSize": 8,
+        "pointColor": {
+         "type": "constant",
+         "color": "#307FE5"
+        },
+        "pointTooltip": {
+         "show": true,
+         "trigger": "click",
+         "autoclose": true,
+         "type": "pattern",
+         "pattern": "<b>${entityName}</b><br/><br/><b>Latitude:</b> ${latitude:7}<br/><b>Longitude:</b> ${longitude:7}<br/><b>End Time:</b> ${maxTime}<br/><b>Start Time:</b> ${minTime}",
+         "offsetX": 0,
+         "offsetY": -1
+        },
+        "dsDeviceId": null,
+        "dsEntityAliasId": "11111111-1111-4111-8111-111111111111",
+        "dsFilterId": null,
+        "additionalDataKeys": [
+         {
+          "name": "batt",
+          "type": "timeseries",
+          "label": "batt",
+          "color": "#2196f3",
+          "settings": {},
+          "aggregationType": "NONE",
+          "units": null,
+          "decimals": null,
+          "funcBody": null,
+          "usePostProcessing": null,
+          "postFuncBody": null
+         },
+         {
+          "name": "vel",
+          "type": "timeseries",
+          "label": "vel",
+          "color": "#2196f3",
+          "settings": {},
+          "aggregationType": "NONE",
+          "units": null,
+          "decimals": null,
+          "funcBody": null,
+          "usePostProcessing": null,
+          "postFuncBody": null
+         },
+         {
+          "name": "acc",
+          "type": "timeseries",
+          "label": "acc",
+          "color": "#2196f3",
+          "settings": {},
+          "aggregationType": "NONE",
+          "units": null,
+          "decimals": null,
+          "funcBody": null,
+          "usePostProcessing": null,
+          "postFuncBody": null
+         },
+         {
+          "name": "conn",
+          "type": "timeseries",
+          "label": "conn",
+          "color": "#2196f3",
+          "settings": {},
+          "aggregationType": "NONE",
+          "units": null,
+          "decimals": null,
+          "funcBody": null,
+          "usePostProcessing": null,
+          "postFuncBody": null
+         },
+         {
+          "name": "motionactivities",
+          "type": "timeseries",
+          "label": "motionactivities",
+          "color": "#2196f3",
+          "settings": {},
+          "aggregationType": "NONE",
+          "units": null,
+          "decimals": null,
+          "funcBody": null,
+          "usePostProcessing": null,
+          "postFuncBody": null
+         }
+        ]
+       }
+      ],
+      "markers": [],
+      "polygons": [],
+      "circles": [],
+      "polylines": [],
+      "additionalDataSources": [],
+      "controlsPosition": "topleft",
+      "zoomActions": [
+       "scroll",
+       "doubleClick",
+       "controlButtons"
+      ],
+      "scales": [],
+      "dragModeButton": false,
+      "fitMapBounds": true,
+      "useDefaultCenterPosition": false,
+      "defaultCenterPosition": "0,0",
+      "defaultZoomLevel": null,
+      "minZoomLevel": 16,
+      "mapPageSize": 16384,
+      "mapActionButtons": [],
+      "tripTimeline": {
+       "showTimelineControl": true,
+       "timeStep": 1000,
+       "speedOptions": [
+        1,
+        5,
+        10,
+        15,
+        25
+       ],
+       "showTimestamp": true,
+       "timestampFormat": {
+        "format": "yyyy-MM-dd HH:mm:ss",
+        "lastUpdateAgo": false,
+        "custom": false,
+        "auto": false
+       },
+       "snapToRealLocation": false,
+       "locationSnapFilter": "return true;"
+      },
+      "background": {
+       "type": "color",
+       "color": "#fff",
+       "overlay": {
+        "enabled": false,
+        "color": "rgba(255,255,255,0.72)",
+        "blur": 3
+       }
+      },
+      "padding": "8px"
+     },
+     "title": "Tracks",
+     "dropShadow": true,
+     "enableFullscreen": true,
+     "titleStyle": null,
+     "mobileHeight": null,
+     "configMode": "basic",
+     "actions": {},
+     "showTitleIcon": false,
+     "titleIcon": "assistant_navigation",
+     "iconColor": "#1F6BDD",
+     "useDashboardTimewindow": true,
+     "displayTimewindow": true,
+     "titleFont": {
+      "size": null,
+      "sizeUnit": "px",
+      "family": null,
+      "weight": null,
+      "style": null,
+      "lineHeight": null
+     },
+     "titleColor": null,
+     "titleTooltip": "",
+     "widgetStyle": {},
+     "widgetCss": "",
+     "pageSize": 1024,
+     "units": "",
+     "decimals": null,
+     "noDataDisplayMessage": "",
+     "timewindowStyle": {
+      "showIcon": false,
+      "iconSize": "24px",
+      "icon": null,
+      "iconPosition": "left",
+      "font": {
+       "size": 12,
+       "sizeUnit": "px",
+       "family": "Roboto",
+       "weight": "400",
+       "style": "normal",
+       "lineHeight": "16px"
+      },
+      "color": "rgba(0, 0, 0, 0.38)",
+      "displayTypePrefix": true
+     },
+     "margin": "0px",
+     "borderRadius": "0px",
+     "iconSize": "24px"
+    }
+   },
+   "44444444-4444-4444-8444-444444444444": {
+    "id": "44444444-4444-4444-8444-444444444444",
+    "typeFullFqn": "system.cards.entities_table",
+    "type": "latest",
+    "sizeX": 7.5,
+    "sizeY": 6.5,
+    "row": 0,
+    "col": 0,
+    "config": {
+     "showTitle": true,
+     "backgroundColor": "rgb(255, 255, 255)",
+     "color": "rgba(0, 0, 0, 0.87)",
+     "padding": "4px",
+     "settings": {
+      "entitiesTitle": "Entities",
+      "enableSearch": true,
+      "enableSelectColumnDisplay": true,
+      "enableStickyHeader": true,
+      "enableStickyAction": true,
+      "reserveSpaceForHiddenAction": "true",
+      "displayEntityName": false,
+      "displayEntityLabel": false,
+      "displayEntityType": false,
+      "displayPagination": true,
+      "defaultPageSize": 10,
+      "pageStepCount": 3,
+      "pageStepIncrement": 10,
+      "defaultSortOrder": "displayName",
+      "useRowStyleFunction": false
+     },
+     "title": "Latest telemetry",
+     "dropShadow": true,
+     "enableFullscreen": true,
+     "titleStyle": {
+      "fontSize": "16px",
+      "fontWeight": 400,
+      "padding": "5px 10px 5px 10px"
+     },
+     "showLegend": false,
+     "datasources": [
+      {
+       "type": "entity",
+       "name": null,
+       "entityAliasId": "11111111-1111-4111-8111-111111111111",
+       "filterId": null,
+       "dataKeys": [
+        {
+         "name": "lat",
+         "type": "timeseries",
+         "label": "lat",
+         "color": "#2196f3",
+         "settings": {},
+         "aggregationType": "NONE",
+         "units": null,
+         "decimals": null,
+         "funcBody": null,
+         "usePostProcessing": null,
+         "postFuncBody": null
+        },
+        {
+         "name": "lon",
+         "type": "timeseries",
+         "label": "lon",
+         "color": "#2196f3",
+         "settings": {},
+         "aggregationType": "NONE",
+         "units": null,
+         "decimals": null,
+         "funcBody": null,
+         "usePostProcessing": null,
+         "postFuncBody": null
+        },
+        {
+         "name": "vel",
+         "type": "timeseries",
+         "label": "vel",
+         "color": "#2196f3",
+         "settings": {},
+         "aggregationType": "NONE",
+         "units": null,
+         "decimals": null,
+         "funcBody": null,
+         "usePostProcessing": null,
+         "postFuncBody": null
+        },
+        {
+         "name": "batt",
+         "type": "timeseries",
+         "label": "batt",
+         "color": "#2196f3",
+         "settings": {},
+         "aggregationType": "NONE",
+         "units": null,
+         "decimals": null,
+         "funcBody": null,
+         "usePostProcessing": null,
+         "postFuncBody": null
+        },
+        {
+         "name": "conn",
+         "type": "timeseries",
+         "label": "conn",
+         "color": "#2196f3",
+         "settings": {},
+         "aggregationType": "NONE",
+         "units": null,
+         "decimals": null,
+         "funcBody": null,
+         "usePostProcessing": null,
+         "postFuncBody": null
+        },
+        {
+         "name": "acc",
+         "type": "timeseries",
+         "label": "acc",
+         "color": "#2196f3",
+         "settings": {},
+         "aggregationType": "NONE",
+         "units": null,
+         "decimals": null,
+         "funcBody": null,
+         "usePostProcessing": null,
+         "postFuncBody": null
+        },
+        {
+         "name": "motionactivities",
+         "type": "timeseries",
+         "label": "motionactivities",
+         "color": "#2196f3",
+         "settings": {},
+         "aggregationType": "NONE",
+         "units": null,
+         "decimals": null,
+         "funcBody": null,
+         "usePostProcessing": null,
+         "postFuncBody": null
+        },
+        {
+         "name": "tid",
+         "type": "timeseries",
+         "label": "tid",
+         "color": "#2196f3",
+         "settings": {},
+         "aggregationType": "NONE",
+         "units": null,
+         "decimals": null,
+         "funcBody": null,
+         "usePostProcessing": null,
+         "postFuncBody": null
+        }
+       ]
+      }
+     ],
+     "configMode": "basic",
+     "actions": {},
+     "showTitleIcon": false,
+     "titleIcon": "list",
+     "iconColor": null
+    }
+   },
+   "55555555-5555-4555-8555-555555555555": {
+    "id": "55555555-5555-4555-8555-555555555555",
+    "typeFullFqn": "system.time_series_chart",
+    "type": "timeseries",
+    "sizeX": 8,
+    "sizeY": 5,
+    "row": 0,
+    "col": 0,
+    "config": {
+     "datasources": [
+      {
+       "type": "entity",
+       "name": null,
+       "entityAliasId": "66666666-6666-4666-8666-666666666666",
+       "filterId": null,
+       "dataKeys": [
+        {
+         "name": "dist_phoneA_phoneB",
+         "type": "timeseries",
+         "label": "#7b1fa2",
+         "color": "#7b1fa2",
+         "settings": {},
+         "aggregationType": "NONE",
+         "units": null,
+         "decimals": null,
+         "funcBody": null,
+         "usePostProcessing": null,
+         "postFuncBody": null
+        },
+        {
+         "name": "dist_phoneA_phoneC",
+         "type": "timeseries",
+         "label": "#00796b",
+         "color": "#00796b",
+         "settings": {},
+         "aggregationType": "NONE",
+         "units": null,
+         "decimals": null,
+         "funcBody": null,
+         "usePostProcessing": null,
+         "postFuncBody": null
+        },
+        {
+         "name": "dist_phoneB_phoneC",
+         "type": "timeseries",
+         "label": "#c62828",
+         "color": "#c62828",
+         "settings": {},
+         "aggregationType": "NONE",
+         "units": null,
+         "decimals": null,
+         "funcBody": null,
+         "usePostProcessing": null,
+         "postFuncBody": null
+        }
+       ]
+      }
+     ],
+     "showTitle": true,
+     "backgroundColor": "rgba(0, 0, 0, 0)",
+     "color": "rgba(0, 0, 0, 0.87)",
+     "padding": "0px",
+     "settings": {
+      "showLegend": true,
+      "legendConfig": {
+       "direction": "column",
+       "position": "top",
+       "sortDataKeys": false,
+       "showMin": false,
+       "showMax": false,
+       "showAvg": true,
+       "showTotal": false,
+       "showLatest": false
+      },
+      "thresholds": [],
+      "dataZoom": true,
+      "stack": false,
+      "yAxis": {
+       "show": true,
+       "label": "",
+       "labelFont": {
+        "family": "Roboto",
+        "size": 12,
+        "sizeUnit": "px",
+        "style": "normal",
+        "weight": "600",
+        "lineHeight": "1"
+       },
+       "labelColor": "rgba(0, 0, 0, 0.54)",
+       "position": "left",
+       "showTickLabels": true,
+       "tickLabelFont": {
+        "family": "Roboto",
+        "size": 12,
+        "sizeUnit": "px",
+        "style": "normal",
+        "weight": "400",
+        "lineHeight": "1"
+       },
+       "tickLabelColor": "rgba(0, 0, 0, 0.54)",
+       "showTicks": true,
+       "ticksColor": "rgba(0, 0, 0, 0.54)",
+       "showLine": true,
+       "lineColor": "rgba(0, 0, 0, 0.54)",
+       "showSplitLines": true,
+       "splitLinesColor": "rgba(0, 0, 0, 0.12)"
+      },
+      "xAxis": {
+       "show": true,
+       "label": "",
+       "labelFont": {
+        "family": "Roboto",
+        "size": 12,
+        "sizeUnit": "px",
+        "style": "normal",
+        "weight": "600",
+        "lineHeight": "1"
+       },
+       "labelColor": "rgba(0, 0, 0, 0.54)",
+       "position": "bottom",
+       "showTickLabels": true,
+       "tickLabelFont": {
+        "family": "Roboto",
+        "size": 10,
+        "sizeUnit": "px",
+        "style": "normal",
+        "weight": "400",
+        "lineHeight": "1"
+       },
+       "tickLabelColor": "rgba(0, 0, 0, 0.54)",
+       "ticksFormat": {},
+       "showTicks": true,
+       "ticksColor": "rgba(0, 0, 0, 0.54)",
+       "showLine": true,
+       "lineColor": "rgba(0, 0, 0, 0.54)",
+       "showSplitLines": true,
+       "splitLinesColor": "rgba(0, 0, 0, 0.12)"
+      },
+      "legendLabelFont": {
+       "family": "Roboto",
+       "size": 12,
+       "sizeUnit": "px",
+       "style": "normal",
+       "weight": "400",
+       "lineHeight": "16px"
+      },
+      "legendLabelColor": "rgba(0, 0, 0, 0.76)",
+      "showTooltip": true,
+      "tooltipTrigger": "axis",
+      "tooltipValueFont": {
+       "family": "Roboto",
+       "size": 12,
+       "sizeUnit": "px",
+       "style": "normal",
+       "weight": "500",
+       "lineHeight": "16px"
+      },
+      "tooltipValueColor": "rgba(0, 0, 0, 0.76)",
+      "tooltipShowDate": true,
+      "tooltipDateFormat": {
+       "format": null,
+       "lastUpdateAgo": false,
+       "custom": false,
+       "auto": true,
+       "autoDateFormatSettings": {}
+      },
+      "tooltipDateFont": {
+       "family": "Roboto",
+       "size": 11,
+       "sizeUnit": "px",
+       "style": "normal",
+       "weight": "400",
+       "lineHeight": "16px"
+      },
+      "tooltipDateColor": "rgba(0, 0, 0, 0.76)",
+      "tooltipDateInterval": true,
+      "tooltipBackgroundColor": "rgba(255, 255, 255, 0.76)",
+      "tooltipBackgroundBlur": 4,
+      "background": {
+       "type": "color",
+       "color": "#fff",
+       "overlay": {
+        "enabled": false,
+        "color": "rgba(255,255,255,0.72)",
+        "blur": 3
+       }
+      },
+      "yAxes": {
+       "default": {
+        "units": null,
+        "decimals": 0,
+        "show": true,
+        "label": "",
+        "labelFont": {
+         "family": "Roboto",
+         "size": 12,
+         "sizeUnit": "px",
+         "style": "normal",
+         "weight": "600",
+         "lineHeight": "1"
+        },
+        "labelColor": "rgba(0, 0, 0, 0.54)",
+        "position": "left",
+        "showTickLabels": true,
+        "tickLabelFont": {
+         "family": "Roboto",
+         "size": 12,
+         "sizeUnit": "px",
+         "style": "normal",
+         "weight": "400",
+         "lineHeight": "1"
+        },
+        "tickLabelColor": "rgba(0, 0, 0, 0.54)",
+        "ticksFormatter": null,
+        "showTicks": true,
+        "ticksColor": "rgba(0, 0, 0, 0.54)",
+        "showLine": true,
+        "lineColor": "rgba(0, 0, 0, 0.54)",
+        "showSplitLines": true,
+        "splitLinesColor": "rgba(0, 0, 0, 0.12)",
+        "id": "default",
+        "order": 0
+       }
+      },
+      "noAggregationBarWidthSettings": {
+       "strategy": "group",
+       "groupWidth": {
+        "relative": true,
+        "relativeWidth": 2,
+        "absoluteWidth": 1000
+       },
+       "barWidth": {
+        "relative": true,
+        "relativeWidth": 2,
+        "absoluteWidth": 1000
+       }
+      },
+      "animation": {
+       "animation": true,
+       "animationThreshold": 2000,
+       "animationDuration": 500,
+       "animationEasing": "cubicOut",
+       "animationDelay": 0,
+       "animationDurationUpdate": 300,
+       "animationEasingUpdate": "cubicOut",
+       "animationDelayUpdate": 0
+      },
+      "padding": "12px"
+     },
+     "title": "Pairwise distance (from code/rendezvous.py)",
+     "dropShadow": true,
+     "enableFullscreen": true,
+     "titleStyle": null,
+     "mobileHeight": null,
+     "configMode": "basic",
+     "actions": {},
+     "showTitleIcon": false,
+     "titleIcon": "thermostat",
+     "iconColor": "#1F6BDD",
+     "useDashboardTimewindow": true,
+     "titleFont": {
+      "size": 16,
+      "sizeUnit": "px",
+      "family": "Roboto",
+      "weight": "500",
+      "style": "normal",
+      "lineHeight": "24px"
+     },
+     "titleColor": "rgba(0, 0, 0, 0.87)",
+     "titleTooltip": "",
+     "widgetStyle": {},
+     "widgetCss": "",
+     "pageSize": 1024,
+     "units": "",
+     "decimals": null,
+     "noDataDisplayMessage": "",
+     "margin": "0px",
+     "borderRadius": "0px",
+     "iconSize": "0px",
+     "timewindowStyle": {
+      "showIcon": false,
+      "iconSize": "24px",
+      "icon": null,
+      "iconPosition": "left",
+      "font": {
+       "size": 12,
+       "sizeUnit": "px",
+       "family": "Roboto",
+       "weight": "400",
+       "style": "normal",
+       "lineHeight": "16px"
+      },
+      "color": "rgba(0, 0, 0, 0.38)",
+      "displayTypePrefix": true
+     },
+     "displayTimewindow": true
+    }
+   }
+  },
+  "states": {
+   "default": {
+    "name": "EE542 Lab 5 \u2014 Phone fleet",
+    "root": true,
+    "layouts": {
+     "main": {
+      "widgets": {
+       "22222222-2222-4222-8222-222222222222": {
+        "sizeX": 12,
+        "sizeY": 9,
+        "row": 0,
+        "col": 0
+       },
+       "33333333-3333-4333-8333-333333333333": {
+        "sizeX": 12,
+        "sizeY": 9,
+        "row": 0,
+        "col": 12
+       },
+       "55555555-5555-4555-8555-555555555555": {
+        "sizeX": 24,
+        "sizeY": 5,
+        "row": 9,
+        "col": 0
+       },
+       "44444444-4444-4444-8444-444444444444": {
+        "sizeX": 24,
+        "sizeY": 6,
+        "row": 14,
+        "col": 0
+       }
+      },
+      "gridSettings": {
+       "backgroundColor": "#eeeeee",
+       "columns": 24,
+       "margin": 10,
+       "autoFillHeight": false,
+       "mobileAutoFillHeight": false,
+       "mobileRowHeight": 70,
+       "outerMargin": true,
+       "layoutType": "default"
+      }
+     }
+    }
+   }
+  },
+  "entityAliases": {
+   "11111111-1111-4111-8111-111111111111": {
+    "id": "11111111-1111-4111-8111-111111111111",
+    "alias": "Phones",
+    "filter": {
+     "type": "deviceType",
+     "resolveMultiple": true,
+     "deviceNameFilter": "phone",
+     "deviceTypes": [
+      "default"
+     ]
+    }
+   },
+   "66666666-6666-4666-8666-666666666666": {
+    "id": "66666666-6666-4666-8666-666666666666",
+    "alias": "Rendezvous",
+    "filter": {
+     "type": "deviceType",
+     "resolveMultiple": false,
+     "deviceNameFilter": "team-rendezvous",
+     "deviceTypes": [
+      "default"
+     ]
+    }
+   }
+  },
+  "timewindow": {
+   "displayValue": "",
+   "selectedTab": 1,
+   "history": {
+    "historyType": 0,
+    "timewindowMs": 86400000
+   },
+   "aggregation": {
+    "type": "NONE",
+    "limit": 50000
+   }
+  },
+  "settings": {
+   "stateControllerId": "entity",
+   "showTitle": false,
+   "showDashboardsSelect": true,
+   "showEntitiesSelect": true,
+   "showDashboardTimewindow": true,
+   "showDashboardExport": true,
+   "toolbarAlwaysOpen": true
+  }
+ }
+}
