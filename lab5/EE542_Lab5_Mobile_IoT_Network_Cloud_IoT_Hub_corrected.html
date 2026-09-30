@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EE 542 Lab Assignment 5: Mobile Phone-based IoT Network with IoT Hub in Cloud (corrected)</title>
+<style>
+  :root {
+    --bg: #ffffff; --fg: #1a1a1a; --muted: #5c6773; --rule: #e2e6ea;
+    --code-bg: #f5f7f9; --code-fg: #1a2733; --accent: #7a1f2b; --link: #0b5fa5;
+    --callout-bg: #fbf3e0; --callout-border: #e0c264; --mandate: #c0272d; --corr: #0b6e3d; --corr-bg: #e8f6ed; --gone: #9aa4ad;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171a; --fg: #e6e9ec; --muted: #98a2ad; --rule: #2a3138;
+      --code-bg: #1c2126; --code-fg: #d5e0ea; --accent: #e0899a; --link: #6db3f2;
+      --callout-bg: #2a2415; --callout-border: #6b5a2a; --mandate: #ff7b7b; --corr: #62d195; --corr-bg: #14301f; --gone: #6b757e;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--fg);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    max-width: 860px; margin: 0 auto; padding: 2.5rem 1.4rem 6rem;
+  }
+  h1 { font-size: 1.7rem; line-height: 1.25; margin: 0 0 .3rem; }
+  h2 {
+    font-size: 1.35rem; margin: 2.8rem 0 .8rem; padding-bottom: .3rem;
+    border-bottom: 2px solid var(--accent); color: var(--accent);
+  }
+  h3 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  h4 { font-size: 1rem; margin: 1.3rem 0 .4rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  p { margin: .7rem 0; }
+  ul, ol { margin: .6rem 0; padding-left: 1.6rem; }
+  li { margin: .28rem 0; }
+  li > ul, li > ol { margin: .28rem 0; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .9em; }
+  p code, li code { background: var(--code-bg); color: var(--code-fg); padding: .08em .35em; border-radius: 4px; }
+  pre {
+    background: var(--code-bg); color: var(--code-fg); border: 1px solid var(--rule);
+    border-radius: 6px; padding: .8rem 1rem; overflow-x: auto; margin: .7rem 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .86rem; line-height: 1.5;
+  }
+  pre code { background: none; padding: 0; }
+  a { color: var(--link); }
+  .subtitle { color: var(--muted); margin: 0 0 1.5rem; font-size: 1.05rem; }
+  .callout {
+    background: var(--callout-bg); border: 1px solid var(--callout-border);
+    border-left-width: 4px; border-radius: 5px; padding: .7rem 1rem; margin: 1.2rem 0;
+  }
+  .note { color: var(--muted); font-size: .95em; }
+  nav.toc {
+    border: 1px solid var(--rule); border-radius: 8px; padding: 1rem 1.3rem;
+    margin: 2rem 0; background: var(--code-bg);
+  }
+  nav.toc strong { display: block; margin-bottom: .4rem; font-size: .82rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  nav.toc ol { margin: 0; }
+  nav.toc a { text-decoration: none; }
+  nav.toc a:hover { text-decoration: underline; }
+  hr { border: none; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
+  .q { margin: .5rem 0; }
+  .mandate { color: var(--mandate); font-weight: 700; }
+  del { color: var(--gone); text-decoration: line-through; text-decoration-thickness: 1px; }
+  ins { color: var(--corr); background: var(--corr-bg); text-decoration: none; padding: .02em .2em; border-radius: 3px; }
+  pre ins, pre del { background: none; padding: 0; }
+  pre ins { color: var(--corr); }
+  .why { display: block; color: var(--corr); font-size: .88em; margin: .35rem 0 .9rem; padding-left: .7rem; border-left: 3px solid var(--corr); }
+  .why b { font-weight: 700; }
+  .ok { color: var(--corr); font-weight: 700; }
+  table { border-collapse: collapse; width: 100%; margin: .9rem 0 1.4rem; font-size: .9em; }
+  th, td { border: 1px solid var(--rule); padding: .42rem .6rem; text-align: left; vertical-align: top; }
+  th { background: var(--code-bg); font-weight: 600; }
+  caption { caption-side: top; text-align: left; color: var(--corr); font-weight: 700; padding-bottom: .35rem; }
+  td code, th code { font-size: .95em; }
+  /* Lab 5 additions: the phone walkthrough and the field dictionary. */
+  ol.taps { counter-reset: none; }
+  ol.taps > li { margin: .5rem 0; }
+  .screen { font-weight: 600; }
+  .row { background: var(--code-bg); border: 1px solid var(--rule); border-radius: 4px;
+         padding: .04em .4em; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .88em; }
+  .path { color: var(--muted); font-size: .92em; }
+  .measured { color: var(--corr); font-weight: 600; }
+  table.dict td:nth-child(1) { white-space: nowrap; }
+  .tag { display: inline-block; font-size: .74em; letter-spacing: .04em; text-transform: uppercase;
+         border: 1px solid var(--rule); border-radius: 3px; padding: .05em .35em; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<h1>EE&nbsp;542 Lab Assignment 5: Mobile Phone-based IoT Network with IoT Hub in Cloud <span class="tag">corrected</span></h1>
+<p class="subtitle">Instructor: Young Cho, Ph.D. &nbsp;·&nbsp; Corrected edition, 2026-09-22</p>
+
+<div class="callout">
+  <p><strong>How to read this edition.</strong> <del>Struck-through text is what the handout prints.</del> <ins>Green text is the correction.</ins> A note under each change gives the reason and its errata id from <code>assignments/lab5/README.md</code>.</p>
+  <p>A <span class="ok">✓</span> means the claim was tested on a running system rather than inferred from reading: either the handout's own version was run and failed as described, or a measurement corrected what an earlier edition of this document said. Claims about the iOS app are read from the published <a href="https://github.com/owntracks/ios">owntracks/ios</a> source with the file and line given, or measured from a live capture on 2026-09-21/22 (iPhone, iOS 27.0, OwnTracks 26.2.3, 43 payloads). Field values marked <span class="measured">like this</span> are from that capture, not from the documentation.</p>
+  <p>The handout's §4 is a single sentence where the entire phone configuration should be. <a href="#s4">Section 4</a> of this edition replaces it with the full walkthrough. <a href="#appA">Appendix A</a> is the field dictionary; <a href="#appB">Appendix B</a> covers remote commands. The unmodified original is <code>EE542_Lab5_Mobile_IoT_Network_Cloud_IoT_Hub_origin.html</code>.</p>
+</div>
+
+<nav class="toc">
+  <strong>Contents</strong>
+  <ol>
+    <li><a href="#s1">Turn Mobile Phone into Internet of Things</a></li>
+    <li><a href="#s2">Set up Thingsboard Community Edition on Amazon Web Services</a></li>
+    <li><a href="#s3">Configuring ThingsBoard</a></li>
+    <li><a href="#s4">Setting up OwnTracks App to Send HTTP messages to ThingsBoard</a> <span class="tag">rewritten</span></li>
+    <li><a href="#s5">IoT Hub Dashboard</a></li>
+    <li><a href="#s6">Custom Mapping Program</a></li>
+    <li><a href="#sub">Submission</a></li>
+  </ol>
+  <p style="margin:.6rem 0 0"><a href="#appA"><b>Appendix A</b>: OwnTracks field dictionary</a> · <a href="#appB"><b>Appendix B</b>: Remote commands</a> · <a href="#appC"><b>Appendix C</b>: what a local sink is for</a></p>
+</nav>
+
+<h2 id="s1">1. Turn Mobile Phone into Internet of Things</h2>
+
+<p>Go to <a href="https://owntracks.org">https://owntracks.org</a> to set up your phone. Download and install the OwnTracks App for your iPhone and/or Android phone.</p>
+
+<p>Go through the guide <a href="https://owntracks.org/booklet/">https://owntracks.org/booklet/</a>, including the Quick setup, to understand what OwnTracks can do while gaining hands-on experience with IoT and cloud infrastructure that work with the IoT.</p>
+
+<p><ins>Two pages of that booklet are the ones you will actually need: <a href="https://owntracks.org/booklet/tech/json/">tech/json</a> defines every field the phone emits, and <a href="https://owntracks.org/booklet/tech/http/">tech/http</a> defines the HTTP mode request and response. Appendix A of this document condenses both and adds what the iOS build emits but the booklet does not describe.</ins></p>
+<span class="why"><b>E-8.</b> "Go through the guide" is 40+ pages covering MQTT, the Recorder, Docker deployment and the desktop apps, none of which this lab uses. The two pages above are the whole surface you need.</span>
+
+<h2 id="s2">2. Set up Thingsboard Community Edition on Amazon Web Services</h2>
+
+<p>Configure and launch an Ubuntu Linux EC2 instance. A free-tier instance does work, but it is awfully slow to set up and run. So, you may want to use a larger instance with a modest fee. <del>Make sure to configure your security group to allow all IPv4 traffic from anywhere (0.0.0.0/0).</del> <ins>Open only tcp 22 (SSH), tcp 8080 (ThingsBoard UI), tcp 1883 (MQTT) and udp 5683 (CoAP) to 0.0.0.0/0.</ins> Moreover, make sure to create and download your security key. The downloaded file will have a name ending in ".pem" or ".ppk".</p>
+<span class="why"><b>E-3</b> <span class="ok">✓</span> Those four ports are every port this lab uses. <span class="measured">What "all traffic from anywhere" adds beyond them, from <code>ss -ltnup</code> on a running node (ThingsBoard 4.3.1.5 on Ubuntu 24.04, built by <code>code/aws/tb_install.sh</code>, 2026-09-22): tcp 7070 (edge RPC) and udp 5685–5688 (LwM2M and the other CoAP endpoints). PostgreSQL is not among them. It binds <code>127.0.0.1:5432</code>, so no security group can expose it.</span> Those extra listeners sit on a host whose ThingsBoard still has the published demo credentials from Step 5. The report should say which ports you opened and why. That is the one security decision this lab asks you to make.</span>
+
+<p><ins>Size the instance for the install, not for steady state: <strong>4 GiB RAM is the documented minimum</strong> and <code>install.sh</code> in Step 5 is the memory peak. On a 2 GiB instance the install is OOM-killed with no error in the log.</ins></p>
+<span class="why"><b>E-7</b> <span class="ok">✓</span> Observed on 2026-09-21. The fix used was c7i-flex.large plus 4 GiB of swap, with the ThingsBoard heap capped at <code>-Xmx2G</code> so PostgreSQL keeps room. The handout says only "free-tier is slow", which reads as a patience problem rather than a failure mode.</span>
+
+<p>Then, use the "ssh" terminal program to remotely log into the EC2 node.<br>
+<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-linux-inst-ssh.html">https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-linux-inst-ssh.html</a></p>
+
+<p>Your username should be ubuntu, and if you are using a Linux or Mac terminal with OpenSSH, you should be able to log in by typing the following (if your key file name is "key.pem" and your public IP address is "52.87.235.210"):</p>
+<pre><code>ssh -i key.pem ubuntu@52.87.235.210</code></pre>
+<p><ins>The key file must be mode 600 (<code>chmod 600 key.pem</code>) or OpenSSH refuses it.</ins> <span class="why"><b>E-9.</b> A freshly downloaded <code>.pem</code> is world-readable and SSH fails with "UNPROTECTED PRIVATE KEY FILE", which does not mention permissions in its first line.</span></p>
+
+<h3>Step 1. Install Java <del>17</del><ins>21</ins> (OpenJDK)</h3>
+<p>ThingsBoard service is running on Java <del>17</del><ins>17 or later; upstream builds and tests 4.3.x against 21</ins>. To install OpenJDK <del>17</del><ins>21</ins>, follow these instructions</p>
+<pre><code>sudo apt update &amp;&amp; sudo apt install openjdk-<del>17</del><ins>21</ins>-jdk</code></pre>
+<span class="why"><b>E-1.</b> 17 still meets the floor and will run, so this is a "prefer" not a "must". Use 21 unless you have a reason not to.</span>
+
+<p>Configure your operating system to use OpenJDK <del>17</del><ins>21</ins> by default. You can configure the default version by running the following command:</p>
+<pre><code>sudo update-alternatives --config java</code></pre>
+
+<p>To check the installed Java version on your system, use the following command:</p>
+<pre><code>java -version</code></pre>
+
+<h3>Step 2. ThingsBoard service installation</h3>
+<p>Follow the instructions on <a href="https://thingsboard.io/">https://thingsboard.io/</a> to download the install FREE community edition</p>
+
+<h3>Step 3. Configure ThingsBoard database</h3>
+<p>ThingsBoard can be configured to work with a variety of databases, including MySQL and PostgreSQL. See the corresponding architecture page for more details.</p>
+
+<h4>PostgreSQL Installation</h4>
+<pre><code># Automated repository configuration:
+sudo apt install -y postgresql-common
+sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh <ins>-y</ins>
+
+# install and launch the postgresql service:
+sudo apt update
+sudo apt -y install postgresql-<del>16</del><ins>18</ins>
+sudo service postgresql start</code></pre>
+<span class="why"><b>E-2.</b> The PGDG script now ships postgresql-18; asking for 16 pulls an older series than the repo is built around. <b>E-10</b> <span class="ok">✓</span> The <code>-y</code> matters if you are scripting this: the obvious workaround <code>yes | …apt.postgresql.org.sh</code> <em>aborts the whole script</em> under <code>set -euo pipefail</code>. When the PGDG script exits, <code>yes</code> takes SIGPIPE, and <code>pipefail</code> reports the pipeline as failed. The install died there with no error message and a healthy-looking log tail.</span>
+
+<p>The rest of Step 3 (setting the postgres password, creating the <code>thingsboard</code> database, and the <code>DB Configuration</code> block in <code>/etc/thingsboard/conf/thingsboard.conf</code>) is correct as printed in the handout.</p>
+
+<h3>Step 4. Choose ThingsBoard queue service</h3>
+<p>In-memory is the built-in default and is correct for this lab. Nothing to change.</p>
+
+<h3>Step 5. Run the installation script</h3>
+<pre><code>sudo /usr/share/thingsboard/bin/install/install.sh --loadDemo</code></pre>
+<p><ins>This is the memory peak. See E-7 above. Expect several minutes even on a paid instance.</ins></p>
+
+<h3>Step 6. Start ThingsBoard service</h3>
+<pre><code>sudo service thingsboard start</code></pre>
+<p>The UI is then at <code>http://&lt;your-public-ip&gt;:8080/</code>.</p>
+
+<p><del>If you are unable to access your ThingBoard web interface … One definite way to ensure access is to open all connections from all IP addresses and ports.</del></p>
+<span class="why"><b>E-3</b> (again). If 8080 does not answer, check in this order: the service is up (<code>systemctl status thingsboard</code>), it finished starting (it takes ~60 s after <code>start</code> returns), and the security group allows tcp 8080 from your address. Opening everything makes the symptom go away without telling you which of the three it was.</span>
+
+<h2 id="s3">3. Configuring ThingsBoard</h2>
+
+<p>Review <a href="https://thingsboard.io/docs/guides/">https://thingsboard.io/docs/guides/</a>. The default credentials after <code>--loadDemo</code> are:</p>
+<pre><code>System Administrator: sysadmin@thingsboard.org / sysadmin
+Tenant Administrator: tenant@thingsboard.org / tenant
+Customer User:        customer@thingsboard.org / customer</code></pre>
+<p><ins>These are published defaults on a host you just opened to the internet. Change the tenant password at first login, and say in the report that you did.</ins></p>
+<span class="why"><b>E-11.</b> The handout mentions the account profile page only in passing ("You can always change passwords"). Combined with E-3's 0.0.0.0/0 advice this is a live, publicly reachable admin account with a password printed in the assignment.</span>
+
+<p>Log in as <code>tenant@thingsboard.org</code>. Create a device for your phone: <strong>Entities → Devices → +  → Add new device</strong>. Fill in the Name, use the "default profile", then Add. The dialog that pops up shows connectivity for HTTP, MQTT and CoAP. Copy the URL under "Execute the following command" and ignore the curl wrapper:</p>
+<pre><code>http://&lt;your-public-ip&gt;:8080/api/v1/&lt;DEVICE_TOKEN&gt;/telemetry</code></pre>
+<p>In the handout's example <code>oylNvRDLFeTJfpszfA56</code> is the device token. <ins>Create <strong>one device per phone</strong>. Each gets its own token, and the token is the only thing identifying which phone a reading came from.</ins></p>
+<span class="why"><b>E-12.</b> §6 requires data from <em>multiple</em> phones. If two phones share one token their telemetry merges into one device and cannot be separated afterwards. See also the identity note in §4 Step 8.</span>
+
+<h2 id="s4">4. Setting up OwnTracks App to Send HTTP messages to ThingsBoard <span class="tag">rewritten</span></h2>
+
+<div class="callout">
+  <p><del>"Download and install an App named Owntracks from the Apple or Google App Store. On the App, go to Preferences. If everything was entered correctly, your phone should be sending several pieces of information to ThingsboardIO every 1 second."</del></p>
+  <p><b>E-4. This is the whole of §4 in the handout.</b> Between "go to Preferences" and "everything was entered correctly" there is nothing: no field names, no values, no permissions, no mention that iOS will refuse the connection outright. Every step below had to be reconstructed. This is the single highest-severity erratum in the assignment, because it is the step that connects the phone to the hub, the point of the lab.</p>
+</div>
+
+<p>Screen names and row labels below are exactly as they appear in <strong>OwnTracks 26.2.3 on iOS 27.0</strong>. Android's settings carry the same names but a different layout.</p>
+
+<h3>Step 0. Grant the location permission first</h3>
+
+<p>Set this before opening OwnTracks, in Apple's Settings app, not in OwnTracks:</p>
+<ol class="taps">
+  <li>Open the iOS <span class="screen">Settings</span> app (the grey gear on the home screen, not OwnTracks' own settings).</li>
+  <li>Scroll to the alphabetical list of apps at the bottom and tap <span class="screen">OwnTracks</span>.</li>
+  <li>Tap <span class="row">Location</span>.</li>
+  <li>Choose <span class="row">Always</span>. Not "While Using the App", not "Ask Next Time".</li>
+  <li>On the same screen leave <span class="row">Precise Location</span> <strong>on</strong>.</li>
+  <li>Go back one screen and confirm <span class="row">Motion &amp; Fitness</span> is on. This is what feeds the step counter and the <code>motionactivities</code> field.</li>
+</ol>
+
+<p><strong>Why this is step 0.</strong> With "While Using the App", iOS delivers locations only while OwnTracks is on screen. The app still looks healthy, still publishes when you press the publish button, and still reports Move mode, so nothing tells you anything is wrong. <span class="measured">Measured: with WhenInUse, 15 consecutive payloads showed an identical <code>lat</code>/<code>lon</code>/<code>vel</code>; after switching to Always the track moved normally.</span></p>
+
+<p>Verify it rather than trusting the toggle. iOS sometimes grants a temporary "Allow Once" instead. Appendix B's <code>status</code> command makes the phone report its own permission state; you want:</p>
+<pre><code>"locationManagerAuthorizationStatus": "kCLAuthorizationStatusAuthorizedAlways"</code></pre>
+
+<h3>Step 1. Open OwnTracks' settings</h3>
+<ol class="taps">
+  <li>Open <span class="screen">OwnTracks</span>. It starts on the <span class="row">Map</span> tab. The bottom bar is <span class="row">Map</span> / <span class="row">Friends</span> / <span class="row">Regions</span>.</li>
+  <li>Open the <span class="screen">Status Info</span> screen (the info control on the Map tab). It shows <b>Connection → Parameters</b> and <b>Status</b>, and below them a row of links: <span class="row">Settings</span> · <span class="row">Logs</span> · <span class="row">Send Debug Status</span>.</li>
+  <li>Tap <span class="row">Settings</span>. You are now on the <span class="screen">Settings</span> screen used for the rest of this section.</li>
+</ol>
+<p class="path">Keep <span class="screen">Status Info</span> in mind. It is where you read back <b>Parameters</b> (the endpoint actually in use) and <b>Status</b> (the last connection error in plain English). It is the fastest debugging screen in the app.</p>
+
+<h3>Step 2. Connection mode and endpoint</h3>
+<p>On the <span class="screen">Settings</span> screen, top section:</p>
+<table>
+<caption>Settings screen: connection rows</caption>
+<tr><th>Row</th><th>Set to</th><th>Note</th></tr>
+<tr><td><span class="row">Mode</span></td><td><b>HTTP</b></td><td>A two-segment control, <code>MQTT | HTTP</code>. Tap the HTTP half.</td></tr>
+<tr><td><span class="row">URL</span></td><td><code>http://&lt;ip&gt;:8080/api/v1/&lt;TOKEN&gt;/telemetry</code></td><td><b>This row, not <span class="row">Host</span>.</b> Paste the full URL from §3, scheme included.</td></tr>
+<tr><td><span class="row">DeviceID</span></td><td>anything unique per phone</td><td>Sent as the <code>X-Limit-D</code> header.</td></tr>
+<tr><td><span class="row">TrackerID</span></td><td>2 characters, unique per phone</td><td>Becomes <code>tid</code>; it is what map markers are labelled with.</td></tr>
+<tr><td><span class="row">UserID</span></td><td>unique per phone, e.g. <code>phoneA</code></td><td>Sent as <code>X-Limit-U</code>. See Step 8.</td></tr>
+<tr><td><span class="row">Authentication</span> / <span class="row">Password</span></td><td>off</td><td>ThingsBoard authenticates by the token in the URL, not HTTP Basic.</td></tr>
+</table>
+
+<p><strong>The <span class="row">URL</span> row is the one that matters, and it is far down the screen, below <span class="row">Secret encryption key</span> and well past <span class="row">Host</span>.</strong> <span class="row">Host</span>, <span class="row">Port</span>, <span class="row">TLS</span>, <span class="row">Proto</span> and <span class="row">Websockets</span> sit higher up and look like the obvious place for a server address, but <em>they are MQTT-only and are ignored in HTTP mode</em>.</p>
+<span class="why"><b>E-5</b> <span class="ok">✓</span> Source: <code>OwnTracksAppDelegate.m:1815</code> passes <code>url_preference</code> to <code>connectHTTP:</code>, whose signature takes <code>url / auth / user / pass / device / httpHeaders</code> and <em>no host, port or tls</em>; <code>Connection.m:455</code> then does <code>request.URL = [NSURL URLWithString:self.url]</code>. The MQTT path sets <code>self.url = nil</code> first and uses host/port instead. Putting the address in <span class="row">Host</span> leaves the URL empty, and the failure is reported as <code>kCFErrorDomainCFNetwork Code=2 … kCFGetAddrInfoFailureKey=8</code>. That is <code>EAI_NONAME</code>, which reads like a DNS outage but is really <code>NSURL</code> finding no host to resolve. Omitting <code>http://</code> produces the identical error, because then the scheme is parsed as the hostname.</span>
+
+<h3>Step 3. If iOS blocks the connection: App Transport Security</h3>
+
+<p>On iOS the plain <code>http://</code> URL from §3 <strong>will be refused by the operating system</strong>, before any packet leaves the phone. <span class="screen">Status Info → Status</span> shows:</p>
+<pre><code>error The resource could not be loaded because the App Transport
+Security policy requires the use of a secure connection.</code></pre>
+<span class="why"><b>E-6</b> <span class="ok">✓</span> <code>Base.lproj/OwnTracks-Info.plist</code> sets <code>NSAppTransportSecurity → NSAllowsArbitraryLoads = false</code> <em>with no exception dictionary at all</em>. There is no <code>NSAllowsLocalNetworking</code> entry either, so a private-range LAN address is refused exactly like a public one. The handout's entire §2–§3 build a plaintext <code>http://…:8080</code> endpoint that an iPhone cannot talk to.</span>
+
+<p>Three ways out, in order of preference:</p>
+<ol>
+  <li><b>Put TLS in front of ThingsBoard.</b> A reverse proxy (nginx/Caddy) on the EC2 host with a real certificate, so the phone posts to <code>https://…</code>. This is what a real deployment does and is the honest answer for the report.</li>
+  <li><b>Use an Android phone for the HTTP leg.</b> Android has no equivalent blanket restriction. If the team has both, this is the cheapest path.</li>
+  <li><b>Tunnel it.</b> Any transport that terminates TLS with a certificate iOS already trusts works. <span class="measured">What we used during data discovery: <code>tailscale serve --bg --https=443 http://127.0.0.1:8080</code>, which issues a real Let's Encrypt certificate for the machine's <code>*.ts.net</code> name. iOS accepted it with no profile to install.</span></li>
+</ol>
+<p>A self-signed certificate is <em>not</em> a fourth option unless you also install and trust its CA profile on the phone; ATS rejects it the same way.</p>
+
+<h3>Step 4. Reporting behaviour: the Expert Mode rows</h3>
+<p>Scroll down on the same <span class="screen">Settings</span> screen to the <span class="screen">Expert Mode</span> section. It is a long list; these are the rows that matter:</p>
+<table>
+<caption>Expert Mode: rows that affect what you capture</caption>
+<tr><th>Row</th><th>Handout implies</th><th>Set to</th><th>What it does</th></tr>
+<tr><td><span class="row">monitoring</span></td><td>not stated</td><td><b>2</b></td><td>−1 quiet, 0 manual, 1 significant, <b>2 move</b>. Only Move gives a continuous track.</td></tr>
+<tr><td><span class="row">extendedData</span></td><td>not stated</td><td><b>on</b></td><td>Off, a payload carries little more than lat/lon/tst. On, you get the 22 fields in Appendix A.</td></tr>
+<tr><td><span class="row">locatorInterval</span></td><td>"every 1 second"</td><td><b>60</b></td><td>Seconds between location updates.</td></tr>
+<tr><td><span class="row">locatorDisplacement</span></td><td>not stated</td><td><b>50</b></td><td>Metres of movement that also triggers a report. iOS fires on <em>whichever comes first</em>.</td></tr>
+<tr><td><span class="row">ignoreInaccurateLocations</span></td><td>not stated</td><td>0 (off)</td><td>Drops fixes worse than N metres. Leave off while collecting, or you silently lose the poor-accuracy samples.</td></tr>
+<tr><td><span class="row">ranging</span></td><td>not stated</td><td>off</td><td>iBeacon ranging. Not used by this lab.</td></tr>
+</table>
+<p>The numeric values for <span class="row">monitoring</span> are not printed anywhere in the app. The row just shows a number.</p>
+<span class="why"><b>E-13.</b> Source: <code>LocationManager.h:30</code>, <code>typedef NS_ENUM(NSInteger, LocationMonitoring) { Quiet = -1, Manual, Significant, Move }</code>. A phone left at the default <code>monitoring 1</code> looks configured and reports occasionally, which is easy to mistake for a working Move-mode setup.</span>
+
+<p><strong>The handout's "every 1 second" is not achievable, and the rate the app does produce is not a constant — it depends on how fast the phone is moving.</strong> The two Expert Mode rows are an OR, so a report is emitted whenever <em>either</em> condition is met first:</p>
+<p><code>cadence = min(locatorInterval, locatorDisplacement ÷ v) = min(60 s, 50 m ÷ v)</code></p>
+<p>That predicts a flat 60 s while slow, and a rate that climbs with speed once 50 m takes less than a minute to cover. Both halves were measured, on one iPhone, with the settings in the table above unchanged between the two captures:</p>
+<table>
+<caption>Cadence against the prediction, by speed band (2026-09-22/23, 1353 fixes over 8.7 h and 51 km, never charged)</caption>
+<tr><th>v (km/h)</th><th>fixes</th><th>median gap</th><th>predicted 180/v</th><th>median step</th><th>governed by</th></tr>
+<tr><td>0–1</td><td>225</td><td>60 s</td><td>—</td><td>1 m</td><td>interval</td></tr>
+<tr><td>1–5</td><td>62</td><td>60 s</td><td>180 s</td><td>10 m</td><td>interval</td></tr>
+<tr><td>5–30</td><td>100</td><td>10 s</td><td>9 s</td><td>51 m</td><td>displacement</td></tr>
+<tr><td>30–60</td><td>508</td><td>4 s</td><td>4 s</td><td>56 m</td><td>displacement</td></tr>
+<tr><td>60–90</td><td>177</td><td>3 s</td><td>3 s</td><td>56 m</td><td>displacement</td></tr>
+<tr><td>90–200</td><td>115</td><td>2 s</td><td>2 s</td><td>55 m</td><td>displacement</td></tr>
+</table>
+<p><span class="measured">The four fast bands match the prediction band for band, and the median step holds at 50–56 m across all of them — that is <code>locatorDisplacement</code> firing, not the timer. The crossover is where 50 m takes 60 s, i.e. <b>v ≈ 3 km/h, walking pace</b>.</span> This is why the earlier 33.5-minute walk produced a clean one-per-minute and nothing else: <span class="measured">walking sits almost exactly on the crossover, so the interval won every time.</span> A capture that only ever walked will report "60 s" as though it were a property of the app rather than a property of the walk.</p>
+<p>Battery, both captures, unplugged (<code>bs = 1</code>) throughout: <span class="measured">stationary 3.8 %/h, walking 11 %/h, and 6.9 %/h averaged over the 8.7-hour mixed day.</span> The cost is the GPS radio while moving, not the POST — a ~400-byte payload over an already-associated link is not what moves the needle. A true 1 Hz report rate would flatten the battery within the lab session, which is also why the handout's own closing NOTE warns about drain.</p>
+<p class="note">Consequence for §6: <code>code/rendezvous.py</code> resamples onto a 30 s grid with a 180 s <code>max-age</code>, both chosen against the 60 s walking cadence. Driving data arrives 15–30× denser, which the grid handles fine but which multiplies the volume — 8.7 hours of one phone is already 1353 fixes.</p>
+<span class="why"><b>E-14</b> <span class="ok">✓</span> iOS does not expose a fixed-rate location timer to apps; <code>locatorInterval</code> is a <em>desired</em> interval passed to CoreLocation, which delivers updates when it has them. Quoting "every 1 second" in the report as if it were the observed rate would be reporting a number nobody measured — but so would quoting a flat "60 s", which is only the walking case. Report the rule, <code>min(60 s, 50 m ÷ v)</code>, and the band table that establishes it.</span>
+
+<h3>Step 5. Remote commands (optional but do it)</h3>
+<p>Further down the <span class="screen">Settings</span> screen, past Expert Mode, are two more sections. <span class="screen">From Device</span> holds <span class="row">Allow external configuration</span> and <span class="row">Allow Intent Control</span>. Leave both off. <span class="screen">From Endpoint</span> holds the three you want:</p>
+<table>
+<caption>Settings → From Endpoint</caption>
+<tr><th>Row</th><th>Set to</th><th>Enables</th></tr>
+<tr><td><span class="row">cmd</span></td><td><b>on</b></td><td>"Enable remote commands". The master switch for everything in Appendix B.</td></tr>
+<tr><td><span class="row">allowRemoteLocation</span></td><td>on</td><td>The <code>reportLocation</code> command.</td></tr>
+<tr><td><span class="row">remoteConfiguration</span></td><td>on</td><td><code>setConfiguration</code>, which lets you change the rows in Step 4 from the server instead of by hand.</td></tr>
+</table>
+<p>With <span class="row">cmd</span> <b>off</b> the phone <em>silently discards</em> commands: no error, no reply, no log line at default level. That is indistinguishable from "the server never sent anything".</p>
+<span class="why"><b>E-15</b> <span class="ok">✓</span> Source: <code>OwnTracksAppDelegate.m:1065</code> gates every action behind <code>cmd_preference</code>. Worse, there is a decoy: the <span class="row">Publish Settings</span> button near the top of the Settings screen calls <code>[ad dump]</code> directly (<code>SettingsTVC.m:773</code>) with <em>no</em> gate. So you can receive a <code>dump</code> message while <code>cmd</code> is still off and conclude the switch is on. Read the switch out of the dump itself: <code>Settings.m:869</code> writes <code>dict["cmd"] = cmd_preference</code>.</span>
+
+<h3>Step 6. ThingsBoard expects flat key/value: check what arrives</h3>
+<p>ThingsBoard's telemetry endpoint stores a flat JSON object as key/value pairs. OwnTracks posts its own <code>_type: "location"</code> schema. The keys the dashboard in §5 needs (<code>lat</code> and <code>lon</code>) happen to be top-level, which is why §5 works at all. <ins>Nested values (<code>inregions</code>, <code>inrids</code>, <code>motionactivities</code> are arrays) are stored too, but as strings carrying the JSON text: readable in a table or a marker label, not plottable and not aggregatable.</ins></p>
+<span class="why"><b>E-16</b> <span class="ok">✓</span> The handout says the phone sends "several pieces of information" without saying which survive as telemetry. <span class="measured">Replaying the capture into ThingsBoard 4.3.1.5 kept all 23 keys the phone sent, arrays included: <code>motionactivities</code> reads back as the string <code>"[\"walking\"]"</code> and <code>inregions</code> as <code>"[]"</code>. The distinction that matters is type, not survival. A string key will not go into a chart or an aggregation.</span> Before building anything in §6, open <b>Entities → Devices → your device → Latest Telemetry</b> and read the actual key list. That is the ground truth for what the dashboard can use.</span>
+
+<h3>Step 7. Verify, in this order</h3>
+<ol class="taps">
+  <li><span class="screen">Status Info → Parameters</span> shows the URL you intended. If it is blank you filled in <span class="row">Host</span>. Go back to Step 2.</li>
+  <li><span class="screen">Status Info → Status</span> is not an error. ATS (Step 3) and connection errors both surface here in English.</li>
+  <li>Force one publish from the Map tab, then check <b>Latest Telemetry</b> in ThingsBoard. <span class="measured">A manual publish arrives as <code>t: "u"</code>; a timer-driven one as <code>t: "t"</code> (Appendix A).</span></li>
+  <li>Walk out of WiFi range and back. <span class="measured"><code>conn</code> flips <code>w</code> → <code>m</code> and <code>ssid</code>/<code>bssid</code> disappear from the payload.</span></li>
+</ol>
+
+<h3>Step 8. Telling the phones apart</h3>
+<p>Each phone must be distinguishable, and §6 depends on it. Three identifiers travel with every payload:</p>
+<table>
+<tr><th>Identifier</th><th>Where it comes from</th><th>Caveat</th></tr>
+<tr><td><code>X-Limit-U</code> header</td><td><span class="row">UserID</span></td><td><span class="measured">Defaults to the literal string <code>user</code> when left blank, so two unconfigured phones are indistinguishable.</span></td></tr>
+<tr><td><code>X-Limit-D</code> header</td><td><span class="row">DeviceID</span></td><td>Falls back to the vendor UUID, which is unique but unreadable.</td></tr>
+<tr><td><code>tid</code> in the payload</td><td><span class="row">TrackerID</span></td><td><span class="measured">Config showed <code>tid: ""</code> while payloads carried <code>BA</code>. The app derives it from the UUID tail when the row is blank, so a blank row does not mean a blank <code>tid</code>.</span></td></tr>
+</table>
+<p>Set <span class="row">UserID</span> and <span class="row">TrackerID</span> explicitly on every phone. <ins>Do not plan to separate phones by source IP: if you put any reverse proxy in front (Step 3), every request arrives from <code>127.0.0.1</code>.</ins> <span class="measured">Confirmed during capture.</span></p>
+
+<h2 id="s5">5. IoT Hub Dashboard</h2>
+
+<p>To verify the phone data is arriving, select your Device under <b>Entities → Devices</b>, then the <b>Latest Telemetry</b> tab under Device detail. Values should change over time.</p>
+
+<p>Create the map: <b>Dashboards → + → new dashboard →</b> title <b>→ Add → Add new widget → Maps → OpenStreetMap</b>. Set type to <b>Device</b>, select your phone, and for Data keys type <code>lat</code> then <code>lon</code>. Then open the <b>Appearance</b> tab next to Data and set <b>Latitude key name</b> to <code>lat</code> and <b>Longitude key name</b> to <code>lon</code>. Apply.</p>
+
+<p><del>If you move your phone around, you should also see the updated movement in the map every second.</del> <ins>Expect one new position per <code>locatorInterval</code>, one per 60 s with the Step 4 values.</ins></p>
+<span class="why"><b>E-14</b> (again). Same "every 1 second" claim as §4. If the marker does not move at all, the cause is almost always Step 0 (WhenInUse) rather than the widget.</span>
+
+<h2 id="s6">6. Custom Mapping Program</h2>
+
+<p>Now, you should have a pretty good idea of how these things work. Given these new tools, you ought to be able to make custom end-to-end IoT solutions. For this lab, try to create some sort of interesting mapping solution using multiple phone data. You can use GPS data, as well as additional sensor data you may have access to from the OwnTracks app.</p>
+
+<div class="callout">
+<p><b>Reading the one hard constraint.</b> "using <b>multiple phone data</b>" means several phones reporting at once, not several kinds of data from one phone. Plan for one ThingsBoard device and one distinct <span class="row">UserID</span>/<span class="row">TrackerID</span> per team member (§3 E-12, §4 Step 8). A single-phone solution, however polished, does not satisfy the sentence.</p>
+<p><b>"Additional sensor data" is more than it sounds.</b> Beyond GPS the handset also supplies barometric pressure, WiFi network identity, an iOS motion classifier, battery state, connection type, and, only on request, the pedometer. Appendix A lists all of it with what was actually observed to vary.</p>
+</div>
+
+<h2 id="sub">Submission</h2>
+
+<p class="mandate">Provide a video per team that demonstrates the entire working solution: that the assignment tasks are complete, the final application presented, and the design decisions and reasoning discussed. Include how the team worked together, the team's name, and the names of all team members.</p>
+
+<p><ins>The course website adds two requirements the handout does not mention. Each member records a short in-person summary at the end of every working day on a <b>phone camera</b>, not screen-capture software, and all the clips are stitched into one edited video. A <b>PDF containing the YouTube link and the GitHub commit logs</b> is submitted alongside it. Commits are graded per author, so every member pushes their own work with a clear message.</ins></p>
+<span class="why"><b>E-17.</b> The handout's Submission section says only "provide a video". Submitting just a video would miss the PDF and the per-member commit log entirely.</span>
+
+<div class="callout">
+<p>NOTE: Once all is done, stop/terminate the EC2 instance and properly exit the OwnTracks App. Otherwise you may be charged for the cloud instance, and your phone's battery will drain because the app runs in the background. <ins>Also set <span class="row">monitoring</span> back to 1, or revoke the Always location permission. Move mode with Always is the configuration that drains the battery.</ins></p>
+</div>
+
+<p class="mandate"><em>There will be a 50% penalty for all late submissions.</em></p>
+
+<hr>
+
+<h2 id="appA">Appendix A: OwnTracks field dictionary</h2>
+
+<p>Definitions and units are from the official schema at <a href="https://owntracks.org/booklet/tech/json/">owntracks.org/booklet/tech/json</a>. Where the booklet is silent, the source file and line in <a href="https://github.com/owntracks/ios">owntracks/ios</a> is given instead. The <b>Observed</b> column is from our own capture (iPhone, iOS 27.0, OwnTracks 26.2.3, 28 de-duplicated <code>location</code> payloads over 33.5 minutes, 2026-09-21/22). It is what this one handset did, not a specification.</p>
+
+<h3>A.1 <code>_type: "location"</code>, sent automatically</h3>
+
+<table class="dict">
+<caption>Table A.1: location payload fields</caption>
+<tr><th>Field</th><th>Meaning</th><th>Type / unit</th><th>Range or values</th><th>Observed</th></tr>
+<tr><td><code>lat</code></td><td>latitude</td><td>float, degrees</td><td>−90 … 90; <b>required</b></td><td class="measured">34.0370 … 34.0376</td></tr>
+<tr><td><code>lon</code></td><td>longitude</td><td>float, degrees</td><td>−180 … 180; <b>required</b></td><td class="measured">−118.4603 … −118.4599</td></tr>
+<tr><td><code>tst</code></td><td>UNIX epoch timestamp of the location <em>fix</em></td><td>integer, seconds</td><td><b>required</b></td><td class="measured">spans 2007 s</td></tr>
+<tr><td><code>acc</code></td><td>accuracy of the reported location</td><td>integer, metres</td><td>optional; smaller is better</td><td class="measured">14 in 27 of 28 payloads, 40 once (effectively constant on this device)</td></tr>
+<tr><td><code>alt</code></td><td>altitude above sea level</td><td>integer, metres</td><td>optional</td><td class="measured">55 … 58</td></tr>
+<tr><td><code>vac</code></td><td>vertical accuracy of <code>alt</code></td><td>integer, metres</td><td>optional</td><td class="measured">3 … 13, 8 distinct values</td></tr>
+<tr><td><code>vel</code></td><td>velocity</td><td>integer, km/h</td><td>optional</td><td class="measured">0 … 5 (walking)</td></tr>
+<tr><td><code>cog</code></td><td>course over ground</td><td>integer, degrees</td><td>optional; 0–359</td><td class="measured">11 … 359, 11 distinct</td></tr>
+<tr><td><code>p</code></td><td>barometric pressure</td><td>float, kPa</td><td>optional; iOS needs the barometer</td><td class="measured">100.634 … 100.662</td></tr>
+<tr><td><code>batt</code></td><td>device battery level</td><td>integer, percent</td><td>0 … 100</td><td class="measured">40 → 34 over 33.5 min</td></tr>
+<tr><td><code>bs</code></td><td>battery status</td><td>integer</td><td><b>0</b> unknown, <b>1</b> unplugged, <b>2</b> charging, <b>3</b> full</td><td class="measured">always 1</td></tr>
+<tr><td><code>conn</code></td><td>internet connectivity at the time of the fix</td><td>string</td><td><b>w</b> WiFi, <b>m</b> mobile/cellular, <b>o</b> offline</td><td class="measured">w ×18, m ×10</td></tr>
+<tr><td><code>SSID</code></td><td>name of the WLAN the phone is on</td><td>string</td><td>optional, iOS only</td><td class="measured"><b>emitted lowercase <code>ssid</code></b>; present in 18/28, absent on cellular</td></tr>
+<tr><td><code>BSSID</code></td><td>MAC of the access point</td><td>string</td><td>optional, iOS only</td><td class="measured"><b>emitted lowercase <code>bssid</code></b>; one AP seen</td></tr>
+<tr><td><code>t</code></td><td>what triggered this report</td><td>string</td><td><b>p</b> ping, <b>c</b> region/circular, <b>C</b> beacon, <b>b</b> beacon, <b>r</b> response to reportLocation, <b>u</b> manual, <b>t</b> timer, <b>v</b> monitoring change</td><td class="measured">t ×18, u ×8, absent ×2</td></tr>
+<tr><td><code>m</code></td><td>monitoring mode when the message was built</td><td>integer</td><td><b>1</b> significant, <b>2</b> move</td><td class="measured">always 2</td></tr>
+<tr><td><code>tid</code></td><td>tracker ID, the initials shown on map markers</td><td>string, 2 chars</td><td>optional in MQTT, <b>required for HTTP</b></td><td class="measured">BA</td></tr>
+<tr><td><code>topic</code></td><td>the MQTT topic this would have used</td><td>string</td><td>HTTP payloads only</td><td class="measured">present in all</td></tr>
+<tr><td><code>created_at</code></td><td>when the <em>message</em> was constructed, which differs from <code>tst</code> when a message was queued offline and flushed later</td><td>integer, epoch s</td><td>optional</td><td class="measured">only 6/28 (the backfilled ones)</td></tr>
+<tr><td><code>inregions</code></td><td>names of regions the device is currently inside</td><td>array of strings</td><td>optional</td><td class="measured">always <code>[]</code> (none defined)</td></tr>
+<tr><td><code>inrids</code></td><td>ids of those regions</td><td>array of strings</td><td>optional</td><td class="measured">always <code>[]</code></td></tr>
+<tr><td><code>motionactivities</code></td><td>iOS/Android motion classifier</td><td>array of strings</td><td>stationary, walking, running, automotive, cycling, unknown</td><td class="measured">stationary ×18, walking ×7</td></tr>
+<tr><td><code>rad</code></td><td>radius around a region on enter/leave</td><td>integer, metres</td><td>region events only</td><td class="measured">not seen</td></tr>
+<tr><td><code>poi</code> / <code>tag</code></td><td>point-of-interest name / user tag</td><td>string</td><td>optional, user-set</td><td class="measured">not seen</td></tr>
+</table>
+
+<p><b>Two traps in this table.</b> (1) The booklet spells the WiFi fields <code>SSID</code>/<code>BSSID</code> but iOS 26.2.3 emits <code>ssid</code>/<code>bssid</code>, so an exact-match key lookup silently misses them. (2) <code>acc</code> was effectively a constant on this handset while <code>vac</code> varied freely, so a design that depends on horizontal-accuracy variation should be validated on your own phones before it is committed to.</p>
+
+<h3>A.2 <code>_type: "steps"</code>, only on request</h3>
+
+<p>Returned in reply to <code>reportSteps</code>. The booklet documents <code>tst</code>, <code>steps</code>, <code>from</code> and <code>to</code> only; the other three are read from <code>OwnTracksAppDelegate.m:1390–1420</code>, where they come straight from <code>CMPedometerData</code>.</p>
+
+<table class="dict">
+<caption>Table A.2: steps payload fields</caption>
+<tr><th>Field</th><th>Meaning</th><th>Type / unit</th><th>Notes</th><th>Observed</th></tr>
+<tr><td><code>steps</code></td><td>steps walked in the window (<code>numberOfSteps</code>)</td><td>integer</td><td><b>−1</b> means the pedometer returned nothing</td><td class="measured">3649</td></tr>
+<tr><td><code>distance</code></td><td>distance walked in the window (<code>CMPedometerData.distance</code>)</td><td>integer, metres</td><td>omitted if iOS has no estimate</td><td class="measured">2249</td></tr>
+<tr><td><code>floorsup</code></td><td>floors ascended (<code>floorsAscended</code>)</td><td>integer</td><td>needs the barometer; omitted if nil</td><td class="measured">2</td></tr>
+<tr><td><code>floorsdown</code></td><td>floors descended (<code>floorsDescended</code>)</td><td>integer</td><td>same</td><td class="measured">3</td></tr>
+<tr><td><code>from</code> / <code>to</code></td><td>effective start/end of the window</td><td>integer, epoch s</td><td>defaults: <code>to</code> = now, <code>from</code> = midnight of that day</td><td class="measured">a 24 h window</td></tr>
+<tr><td><code>tst</code></td><td>timestamp of the request itself</td><td>integer, epoch s</td><td>not the window</td><td class="measured">not seen</td></tr>
+</table>
+
+<p>Apple caps pedometer history at roughly seven days, so a window older than that returns nothing rather than an error.</p>
+
+<h3>A.3 <code>_type: "status"</code>, only on request</h3>
+
+<p>An <code>iOS</code> (or <code>android</code>) sub-object of device and permission state. The fields worth reading:</p>
+
+<table class="dict">
+<caption>Table A.3: status, iOS sub-object</caption>
+<tr><th>Field</th><th>Why it matters</th><th>Observed</th></tr>
+<tr><td><code>locationManagerAuthorizationStatus</code></td><td><b>The Step 0 check.</b> Want <code>kCLAuthorizationStatusAuthorizedAlways</code>; <code>…WhenInUse</code> means background tracking is dead.</td><td class="measured">WhenInUse → Always after the fix</td></tr>
+<tr><td><code>motionActivityManagerAuthorizationStatus</code></td><td>Gates <code>motionactivities</code> and the pedometer.</td><td class="measured">Authorized</td></tr>
+<tr><td><code>pedometerIsStepCountingAvailable</code><br><code>pedometerIsFloorCountingAvailable</code><br><code>pedometerIsDistanceAvailable</code></td><td>Whether A.2 will return anything on this handset.</td><td class="measured">all true</td></tr>
+<tr><td><code>altimeterIsRelativeAltitudeAvailable</code></td><td>Whether <code>p</code> and <code>floorsup/down</code> exist at all.</td><td class="measured">true</td></tr>
+<tr><td><code>backgroundRefreshStatus</code></td><td>If not <code>Available</code>, iOS suspends the app and reporting stops.</td><td class="measured">Available</td></tr>
+<tr><td><code>deviceModel</code>, <code>deviceSystemVersion</code>, <code>version</code></td><td>Identifies the handset and app build for the report.</td><td class="measured">iPhone, iOS 27.0, 26.2.3</td></tr>
+<tr><td><code>deviceIdentifierForVendor</code></td><td>The UUID that <code>DeviceID</code> and <code>tid</code> fall back to.</td><td class="measured">present</td></tr>
+</table>
+
+<h3>A.4 <code>_type: "waypoints"</code></h3>
+<p><code>waypoints</code> is an array of waypoint objects (each with <code>desc</code>, <code>lat</code>, <code>lon</code>, <code>rad</code> in metres, <code>rid</code>, <code>wtst</code>), plus <code>_creator</code>. <span class="measured">Ours was <code>[]</code>. No regions had been defined, so the region-based fields <code>inregions</code>, <code>inrids</code> and trigger <code>t: "c"</code> can never fire until you create some.</span></p>
+
+<h3>A.5 Data hygiene before you build on any of this</h3>
+<ul>
+  <li><b>De-duplicate.</b> <span class="measured">1 of 29 captured payloads was a byte-identical repeat.</span> Key on <code>(tst, tid)</code>. Repeats inflate path length and dwell time.</li>
+  <li><b>Sort by <code>tst</code>, not arrival order.</b> Queued messages arrive late; that is what <code>created_at</code> marks.</li>
+  <li><b>Treat absent as absent, not zero.</b> <code>ssid</code> vanishes on cellular; <code>t</code> was missing from 2 payloads.</li>
+  <li><b>Check variation before designing around a field.</b> A field that never changes is a constant, not a measurement (<code>acc</code> here).</li>
+</ul>
+
+<h2 id="appB">Appendix B: Remote commands</h2>
+
+<p>In HTTP mode the phone only ever speaks first, so the server's <em>response body</em> to a POST is the sole channel back. Returning a JSON array of command objects makes the phone act on them; returning <code>[]</code> is the documented "nothing for you". All of these require <span class="row">cmd</span> on (§4 Step 5).</p>
+
+<table>
+<caption>Table B.1: <code>_type: "cmd"</code> actions</caption>
+<tr><th>action</th><th>Effect</th><th>Extra gate</th></tr>
+<tr><td><code>reportLocation</code></td><td>Publish a location now; arrives with <code>t: "r"</code>.</td><td><span class="row">allowRemoteLocation</span>, and monitoring must be 1 or 2</td></tr>
+<tr><td><code>reportSteps</code></td><td>Publish a <code>steps</code> message. Optional <code>from</code>/<code>to</code> epoch seconds.</td><td>Motion &amp; Fitness permission</td></tr>
+<tr><td><code>status</code></td><td>Publish a <code>status</code> message (Table A.3).</td><td>none</td></tr>
+<tr><td><code>dump</code></td><td>Publish the entire configuration.</td><td>none</td></tr>
+<tr><td><code>waypoints</code></td><td>Publish the defined regions.</td><td>none</td></tr>
+<tr><td><code>setConfiguration</code></td><td>Change settings remotely. Carries a <code>configuration</code> object.</td><td><span class="row">remoteConfiguration</span></td></tr>
+<tr><td><code>setWaypoints</code> / <code>clearWaypoints</code></td><td>Import or delete regions.</td><td><span class="row">remoteConfiguration</span></td></tr>
+</table>
+
+<p><code>setConfiguration</code> is a <b>per-key merge</b>, not a replace. <code>Settings.m:408</code> guards every one of its 35 keys with <code>if (object)</code>, so omitted keys keep their values. The inner object <b>must</b> carry <code>"_type": "configuration"</code> or it is rejected at <code>Settings.m:418</code>. Example, tightening the reporting cadence without touching the URL:</p>
+<pre><code>[{"_type": "cmd",
+  "action": "setConfiguration",
+  "configuration": {"_type": "configuration",
+                    "locatorDisplacement": 50,
+                    "locatorInterval": 60}}]</code></pre>
+
+<p class="mandate">Sending a command is not the same as it taking effect. Follow every <code>setConfiguration</code> with a <code>dump</code> and read the value back; follow a permission change with a <code>status</code>. Both of the §4 errata that cost the most time looked exactly like success from the server side.</p>
+
+<h2 id="appC">Appendix C: why point the phone at a local sink first</h2>
+
+<p>Before the phone talks to ThingsBoard, point it at a trivial HTTP server that stores every payload verbatim. ThingsBoard shows you the keys it managed to parse; a raw sink shows you what the phone actually sent, headers included. That is where <code>X-Limit-U</code> and <code>X-Limit-D</code> live.</p>
+
+<p>That is what <code>assignments/lab5/code/owntracks_sink.py</code> does: it appends each POST body to a JSONL file with receive time and headers, answers <code>[]</code>, serves a live per-<code>_type</code> field census on <code>GET /</code>, and stages the Appendix B commands via <code>GET /cmd/&lt;action&gt;</code>. <code>code/census.py</code> then prints, per field, coverage, observed range, and whether it varies at all. That last column is the one that matters. Every measurement in Appendix A came from those two scripts.</p>
+
+<p>Note that the same ATS restriction (§4 Step 3) applies to the sink, so it too needs to be reachable over HTTPS from the phone.</p>
+
+</body>
+</html>
