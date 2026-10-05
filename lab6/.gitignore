@@ -1,0 +1,16 @@
+# Raw logs, CSVs and the plots they produce stay local; the scripts in code/
+# regenerate them on the cloud instance. The committed artifact is the compiled
+# report, lab6/EE542_Lab6_Report.pdf.
+data/
+report/
+video/
+out/
+
+# Compiled binaries and build leftovers.
+matrix_cpu
+conv_cpu
+*.o
+*.so
+a.out
+
+__pycache__/
