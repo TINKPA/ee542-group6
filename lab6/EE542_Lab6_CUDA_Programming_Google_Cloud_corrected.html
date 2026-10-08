@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EE 542 — Laboratory #6: High-Performance CUDA Programming on Google Cloud</title>
+<style>
+  :root {
+    --bg: #ffffff; --fg: #1a1a1a; --muted: #5c6773; --rule: #e2e6ea;
+    --code-bg: #f5f7f9; --code-fg: #1a2733; --accent: #7a1f2b; --link: #0b5fa5;
+    --callout-bg: #fbf3e0; --callout-border: #e0c264; --mandate: #c0272d;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171a; --fg: #e6e9ec; --muted: #98a2ad; --rule: #2a3138;
+      --code-bg: #1c2126; --code-fg: #d5e0ea; --accent: #e0899a; --link: #6db3f2;
+      --callout-bg: #2a2415; --callout-border: #6b5a2a; --mandate: #ff7b7b;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--fg);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    max-width: 860px; margin: 0 auto; padding: 2.5rem 1.4rem 6rem;
+  }
+  h1 { font-size: 1.7rem; line-height: 1.25; margin: 0 0 .3rem; }
+  h2 {
+    font-size: 1.35rem; margin: 2.8rem 0 .8rem; padding-bottom: .3rem;
+    border-bottom: 2px solid var(--accent); color: var(--accent);
+  }
+  h3 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  h4 { font-size: 1rem; margin: 1.3rem 0 .4rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  p { margin: .7rem 0; }
+  ul, ol { margin: .6rem 0; padding-left: 1.6rem; }
+  li { margin: .28rem 0; }
+  li > ul, li > ol { margin: .28rem 0; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .9em; }
+  p code, li code { background: var(--code-bg); color: var(--code-fg); padding: .08em .35em; border-radius: 4px; }
+  pre {
+    background: var(--code-bg); color: var(--code-fg); border: 1px solid var(--rule);
+    border-radius: 6px; padding: .8rem 1rem; overflow-x: auto; margin: .7rem 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .86rem; line-height: 1.5;
+  }
+  pre code { background: none; padding: 0; }
+  a { color: var(--link); }
+  .subtitle { color: var(--muted); margin: 0 0 1.5rem; font-size: 1.05rem; }
+  .callout {
+    background: var(--callout-bg); border: 1px solid var(--callout-border);
+    border-left-width: 4px; border-radius: 5px; padding: .7rem 1rem; margin: 1.2rem 0;
+  }
+  .note { color: var(--muted); font-size: .95em; }
+  nav.toc {
+    border: 1px solid var(--rule); border-radius: 8px; padding: 1rem 1.3rem;
+    margin: 2rem 0; background: var(--code-bg);
+  }
+  nav.toc strong { display: block; margin-bottom: .4rem; font-size: .82rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  nav.toc ol { margin: 0; }
+  nav.toc a { text-decoration: none; }
+  nav.toc a:hover { text-decoration: underline; }
+  hr { border: none; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
+  .q { margin: .5rem 0; }
+  .mandate { color: var(--mandate); font-weight: 700; }
+  table { border-collapse: collapse; width: 100%; margin: .9rem 0 1.4rem; font-size: .92em; }
+  th, td { border: 1px solid var(--rule); padding: .42rem .6rem; text-align: left; vertical-align: top; }
+  th { background: var(--code-bg); font-weight: 600; }
+  .spec { margin: .6rem 0 .6rem 1.6rem; }
+  .spec dt { font-weight: 600; display: inline; }
+  .spec dd { display: inline; margin: 0; }
+  .spec dd::after { content: ""; display: block; }
+</style>
+</head>
+<body>
+
+<h1>Laboratory #6<br>High-Performance CUDA Programming on Google Cloud</h1>
+<p class="subtitle">Instructor: Young H. Cho, Ph.D.</p>
+
+<nav class="toc">
+  <strong>Contents</strong>
+  <ol>
+    <li><a href="#obj">Objectives</a></li>
+    <li><a href="#p1">Part 1: Matrix Multiplication on the CPU</a></li>
+    <li><a href="#p2">Part 2: Introduction to CUDA Programming</a></li>
+    <li><a href="#p3">Part 3: Running CUDA on a Cloud instance</a></li>
+    <li><a href="#p4">Part 4: Optimizing CUDA Code</a></li>
+    <li><a href="#p5">Part 5: Performance Comparison</a></li>
+    <li><a href="#p6">Part 6: Continued Improvements</a></li>
+    <li><a href="#p7">Part 7: Creating a Shared Library and Using it in Python</a></li>
+    <li><a href="#p8">Part 8: Adding Custom Functions to the Shared Library</a></li>
+    <li><a href="#deliv">Deliverables</a></li>
+  </ol>
+</nav>
+
+<h2 id="obj">Objectives</h2>
+
+<p>By the end of this lab, you will be able to:</p>
+<ol>
+  <li>Write and execute a C program performing large matrix operations on a CPU.</li>
+  <li>Measure CPU execution performance with different matrix sizes.</li>
+  <li>Port the program to CUDA and execute it on a GPU.</li>
+  <li>Deploy a GPU-enabled container on a Cloud and run CUDA programs.</li>
+  <li>Optimize CUDA code for better GPU performance.</li>
+  <li>Compare performance results between CPU, naïve CUDA, optimized CUDA, and cuBLAS implementations.</li>
+  <li>Analyze performance scaling as the problem size grows.</li>
+  <li>Create shared libraries using CUDA and make use of the acceleration from Python.</li>
+</ol>
+
+<h2 id="p1">Part 1: Matrix Multiplication on the CPU</h2>
+
+<h3>Step 1.1: Write a C Program for Matrix Multiplication</h3>
+
+<p>You need to implement a program that does a matrix multiplication in C</p>
+
+<p>Example Code:</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;time.h&gt;
+
+void matrixMultiplyCPU(float *A, float *B, float *C, int N) {
+    for (int i = 0; i &lt; N; i++) {
+        for (int j = 0; j &lt; N; j++) {
+            float sum = 0.0f;
+            for (int k = 0; k &lt; N; k++) {
+                sum += A[i * N + k] * B[k * N + j];
+            }
+            C[i * N + j] = sum;
+        }
+    }
+}
+
+int main(int argc, char **argv) {
+    int N = (argc &gt; 1) ? atoi(argv[1]) : 1024; // allow matrix size as input
+    size_t size = N * N * sizeof(float);
+
+    float *A = (float *)malloc(size);
+    float *B = (float *)malloc(size);
+    float *C = (float *)malloc(size);
+
+    for (int i = 0; i &lt; N * N; i++) {
+        A[i] = rand() % 100 / 100.0f;
+        B[i] = rand() % 100 / 100.0f;
+    }
+
+    clock_t start = clock();
+    matrixMultiplyCPU(A, B, C, N);
+    clock_t end = clock();
+
+    double elapsed = (double)(end - start) / CLOCKS_PER_SEC;
+    printf("CPU execution time (N=%d): %f seconds\n", N, elapsed);
+
+    free(A); free(B); free(C);
+    return 0;
+}</code></pre>
+
+<h3>Step 1.2: Compile and Run</h3>
+<pre><code>gcc matrix_cpu.c -o matrix_cpu -O2
+./matrix_cpu 512
+./matrix_cpu 1024
+./matrix_cpu 2048</code></pre>
+
+<p>More measurements should be made to record and graph runtimes for several N values. You may want to write a script to automate this data collection.</p>
+
+<p class="mandate">Include these in your laboratory report.</p>
+
+<h2 id="p2">Part 2: Introduction to CUDA Programming</h2>
+
+<h3>Step 2.1: Naïve CUDA Kernel</h3>
+
+<p>Implement a CUDA kernel where each thread computes one element of the output matrix.</p>
+<pre><code>__global__ void matrixMultiplyGPU(float *A, float *B, float *C, int N) {
+    int row = blockIdx.y * blockDim.y + threadIdx.y;
+    int col = blockIdx.x * blockDim.x + threadIdx.x;
+
+    if (row &lt; N &amp;&amp; col &lt; N) {
+        float sum = 0.0f;
+        for (int k = 0; k &lt; N; k++) {
+            sum += A[row * N + k] * B[k * N + col];
+        }
+        C[row * N + col] = sum;
+    }
+}</code></pre>
+
+<p>Run the CUDA program with multiple matrix sizes (512, 1024, 2048, etc.) and measure execution time as you did in Part 1. If you have an Nvidia GPU that supports CUDA on your computer.</p>
+
+<p>[Optional] You may set up the development kit on your computer to execute and make these measurements. On an Intel-based computer with an Nvidia GPU, you can install CUDA 13 on Windows or Linux by following the instructions on<br>
+<a href="https://developer.nvidia.com/cuda-downloads">https://developer.nvidia.com/cuda-downloads</a><br>
+While this step is optional, you may find that that the additional hardware and the skills you gain going through this will be very useful and convenient for your career in the long run.</p>
+
+<h2 id="p3">Part 3: Running CUDA on a Cloud instance</h2>
+
+<h3>Step 3.1: Provision a GPU Instance</h3>
+
+<p>Create a GPU container on a Cloud: Different Clouds will have their own instructions. Go through their instructions and tutorials to do this.</p>
+
+<p>There may be ways to get free credits to use Cloud through each vendor and/or through USC. But it is often insufficient or inapplicable.</p>
+
+<dl class="spec">
+  <dt>GPU:</dt> <dd>NVIDIA Tesla T4 or V100</dd>
+  <dt>Machine type:</dt> <dd>n1-standard-8 or higher</dd>
+  <dt>OS:</dt> <dd>Ubuntu 20.04 LTS or other supported Linux</dd>
+</dl>
+
+<p>Alternatively, you may want to purchase an NVIDIA GPU. These days, many gaming laptops have RTX 40XX or RTX 50XX GPUs. You can use these to do the assignment. However, it is recommended that you run an example on a Cloud instance once CUDA is working.</p>
+
+<h3>Step 3.2: Install CUDA Toolkit</h3>
+<pre><code>sudo apt-get update
+sudo apt-get install -y nvidia-driver-470
+sudo apt-get install -y nvidia-cuda-toolkit
+nvcc --version</code></pre>
+
+<h3>Step 3.3: Run Naïve CUDA Program</h3>
+<pre><code>nvcc matrix_gpu.cu -o matrix_gpu
+./matrix_gpu 1024</code></pre>
+
+<p>Record runtimes for different N values.</p>
+
+<h2 id="p4">Part 4: Optimizing CUDA Code</h2>
+
+<h3>Step 4.1: Shared Memory Tiling</h3>
+
+<p>Introduce tiling with shared memory to reduce global memory accesses.</p>
+<pre><code>#define TILE_WIDTH 16
+
+__global__ void matrixMultiplyTiled(float *A, float *B, float *C, int N) {
+    __shared__ float ds_A[TILE_WIDTH][TILE_WIDTH];
+    __shared__ float ds_B[TILE_WIDTH][TILE_WIDTH];
+
+    int bx = blockIdx.x; int by = blockIdx.y;
+    int tx = threadIdx.x; int ty = threadIdx.y;
+    int Row = by * TILE_WIDTH + ty;
+    int Col = bx * TILE_WIDTH + tx;
+
+    float Pvalue = 0.0;
+    for (int m = 0; m &lt; (N + TILE_WIDTH - 1) / TILE_WIDTH; ++m) {
+        if (Row &lt; N &amp;&amp; (m*TILE_WIDTH+tx) &lt; N)
+            ds_A[ty][tx] = A[Row * N + m * TILE_WIDTH + tx];
+        else
+            ds_A[ty][tx] = 0.0f;
+
+        if (Col &lt; N &amp;&amp; (m*TILE_WIDTH+ty) &lt; N)
+            ds_B[ty][tx] = B[(m*TILE_WIDTH + ty) * N + Col];
+        else
+            ds_B[ty][tx] = 0.0f;
+
+        __syncthreads();
+
+        for (int k = 0; k &lt; TILE_WIDTH; ++k)
+            Pvalue += ds_A[ty][k] * ds_B[k][tx];
+        __syncthreads();
+    }
+
+    if (Row &lt; N &amp;&amp; Col &lt; N)
+        C[Row * N + Col] = Pvalue;
+}</code></pre>
+
+<p>Measure runtimes with N = 512, 1024, 2048.</p>
+
+<h2 id="p5">Part 5: Performance Comparison</h2>
+
+<p>Create a table:</p>
+<table>
+  <thead>
+    <tr><th>Implementation</th><th>N=512</th><th>N=1024</th><th>N=2048</th><th>…</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>CPU (C)</td><td>X sec</td><td>Y sec</td><td>Z sec</td><td>…</td></tr>
+    <tr><td>Naïve CUDA</td><td>A ms</td><td>B ms</td><td>C ms</td><td>…</td></tr>
+    <tr><td>Optimized CUDA</td><td>D ms</td><td>E ms</td><td>F ms</td><td>…</td></tr>
+  </tbody>
+</table>
+
+<p>Compute speedup = CPU time / GPU time.</p>
+
+<p>As you increase the size of your data, you should notice overhead when using a GPU/DPU interface card connected as a CPU peripheral. Consider the impact of overhead when defining function constraints and optimizing the program's overall performance.</p>
+
+<h2 id="p6">Part 6: Continued Improvements</h2>
+
+<h3>Step 6.1: cuBLAS</h3>
+
+<p>Use cuBLAS (already included with CUDA Toolkit) to perform matrix multiplication.</p>
+<pre><code>cublasSgemm(handle,
+            CUBLAS_OP_N, CUBLAS_OP_N,
+            N, N, N,
+            &amp;alpha,
+            d_B, N,
+            d_A, N,
+            &amp;beta,
+            d_C, N);</code></pre>
+
+<p>Measure runtimes for N = 512, 1024, 2048, etc. and add them to the table:</p>
+<table>
+  <thead>
+    <tr><th>Implementation</th><th>N=512</th><th>N=1024</th><th>N=2048</th><th>…</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>CPU (C)</td><td>X sec</td><td>Y sec</td><td>Z sec</td><td>…</td></tr>
+    <tr><td>Naïve CUDA</td><td>A ms</td><td>B ms</td><td>C ms</td><td>…</td></tr>
+    <tr><td>Optimized CUDA</td><td>D ms</td><td>E ms</td><td>F ms</td><td>…</td></tr>
+    <tr><td>cuBLAS</td><td>G ms</td><td>H ms</td><td>I ms</td><td>…</td></tr>
+  </tbody>
+</table>
+
+<h4>Analysis Questions</h4>
+<ol>
+  <li class="q">How does performance change as matrix size increases?</li>
+  <li class="q">At what point does the GPU significantly outperform the CPU?</li>
+  <li class="q">How much speedup is gained by tiling optimization vs. naïve CUDA?</li>
+  <li class="q">How close is your optimized kernel to cuBLAS performance?</li>
+  <li class="q">Why might cuBLAS still outperform hand-written kernels?</li>
+</ol>
+
+<h3>Step 6.2: Any other room for improvement?</h3>
+
+<p>There are several online guides and tutorials on improving CUDA performance. Conduct a short research on this topic and attempt to produce a version of your code that is better than all the previous renditions of the code. Then add the result into the table and talk about it on the Video log.</p>
+
+<h2 id="p7">Part 7: Creating a Shared Library and Using it in Python</h2>
+
+<p>In this part, compile your CUDA matrix multiplication kernel from Part 4 into a shared library (.so file) and call it from Python using ctypes.</p>
+
+<h3>Step 7.1: Write a Library Interface</h3>
+
+<p>Modify the CUDA code to expose a function suitable for Python to call:</p>
+<pre><code>#include &lt;cuda_runtime.h&gt;
+#include &lt;stdio.h&gt;
+
+#define TILE_WIDTH 16
+
+__global__ void matrixMultiplyTiled(float *A, float *B, float *C, int N) {
+    __shared__ float ds_A[TILE_WIDTH][TILE_WIDTH];
+    __shared__ float ds_B[TILE_WIDTH][TILE_WIDTH];
+
+    int bx = blockIdx.x; int by = blockIdx.y;
+    int tx = threadIdx.x; int ty = threadIdx.y;
+    int Row = by * TILE_WIDTH + ty;
+    int Col = bx * TILE_WIDTH + tx;
+
+    float Pvalue = 0.0;
+    for (int m = 0; m &lt; (N + TILE_WIDTH - 1) / TILE_WIDTH; ++m) {
+        if (Row &lt; N &amp;&amp; (m*TILE_WIDTH+tx) &lt; N)
+            ds_A[ty][tx] = A[Row * N + m * TILE_WIDTH + tx];
+        else
+            ds_A[ty][tx] = 0.0f;
+
+        if (Col &lt; N &amp;&amp; (m*TILE_WIDTH+ty) &lt; N)
+            ds_B[ty][tx] = B[(m*TILE_WIDTH + ty) * N + Col];
+        else
+            ds_B[ty][tx] = 0.0f;
+
+        __syncthreads();
+
+        for (int k = 0; k &lt; TILE_WIDTH; ++k)
+            Pvalue += ds_A[ty][k] * ds_B[k][tx];
+        __syncthreads();
+    }
+
+    if (Row &lt; N &amp;&amp; Col &lt; N)
+        C[Row * N + Col] = Pvalue;
+}
+
+// Exposed C function for Python
+extern "C" void gpu_matrix_multiply(float *h_A, float *h_B, float *h_C, int N) {
+    size_t size = N * N * sizeof(float);
+    float *d_A, *d_B, *d_C;
+
+    cudaMalloc((void**)&amp;d_A, size);
+    cudaMalloc((void**)&amp;d_B, size);
+    cudaMalloc((void**)&amp;d_C, size);
+
+    cudaMemcpy(d_A, h_A, size, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_B, h_B, size, cudaMemcpyHostToDevice);
+
+    dim3 dimBlock(TILE_WIDTH, TILE_WIDTH);
+    dim3 dimGrid((N + TILE_WIDTH - 1) / TILE_WIDTH, (N + TILE_WIDTH - 1) / TILE_WIDTH);
+
+    matrixMultiplyTiled&lt;&lt;&lt;dimGrid, dimBlock&gt;&gt;&gt;(d_A, d_B, d_C, N);
+    cudaDeviceSynchronize();
+
+    cudaMemcpy(h_C, d_C, size, cudaMemcpyDeviceToHost);
+
+    cudaFree(d_A); cudaFree(d_B); cudaFree(d_C);
+}</code></pre>
+
+<h3>Step 7.2: Compile as a Shared Library</h3>
+<pre><code>nvcc -Xcompiler -fPIC -shared matrix_lib.cu -o libmatrix.so</code></pre>
+<p>This creates a dynamic library <code>libmatrix.so</code> that Python can call.</p>
+
+<h3>Step 7.3: Python Code Using the Library</h3>
+
+<p>Write a Python script to call the CUDA library using ctypes:</p>
+<pre><code>import ctypes
+import numpy as np
+import time
+
+# Load shared library
+lib = ctypes.cdll.LoadLibrary("./libmatrix.so")
+
+# Define argument types
+lib.gpu_matrix_multiply.argtypes = [
+    np.ctypeslib.ndpointer(dtype=np.float32, ndim=1, flags="C_CONTIGUOUS"),
+    np.ctypeslib.ndpointer(dtype=np.float32, ndim=1, flags="C_CONTIGUOUS"),
+    np.ctypeslib.ndpointer(dtype=np.float32, ndim=1, flags="C_CONTIGUOUS"),
+    ctypes.c_int
+]
+
+N = 1024
+A = np.random.rand(N, N).astype(np.float32)
+B = np.random.rand(N, N).astype(np.float32)
+C = np.zeros((N, N), dtype=np.float32)
+
+start = time.time()
+lib.gpu_matrix_multiply(A.ravel(), B.ravel(), C.ravel(), N)
+end = time.time()
+
+print(f"Python call to CUDA library completed in {end - start:.4f} seconds")</code></pre>
+
+<h2 id="p8">Part 8: Adding Custom Functions to the Shared Library</h2>
+
+<h3>Step 8.1: Convolution Function</h3>
+
+<p>Write a C code for an N by N (smaller filter matrix) to an M by M (larger image matrix) convolution function. Assume that each pixel of the matrix is a single unsigned integer, making the matrices monochrome images. You may create, generate, and convert images using various online and offline image tools, as well as MATLAB and SciPy (saving as 32-bit PNG or TIFF may result in these matrices). Filters may be designed for different types of image processing, including edge detection. For more information, you may search the web. (i.e., <a href="https://en.wikipedia.org/wiki/Kernel_(image_processing)">https://en.wikipedia.org/wiki/Kernel_(image_processing)</a>)</p>
+
+<p>Create a few image processing filters, including edge detection. Collect a sample of images. Then test your convolution function on the images using the filters and demonstrate that your function works properly with images of the results included in your report.</p>
+
+<p>Collect performance numbers for at least images and templates of 3 different Ns and 3 different Ms.</p>
+
+<h3>Step 8.2: Porting the Convolution Function to CUDA</h3>
+
+<p>Port your C code to CUDA. Collect the performance numbers for the same images and templates. Compare the performances.</p>
+
+<h3>Step 8.3: Adding and Using the Convolution to your Custom Python Library</h3>
+
+<p>Add your CUDA-accelerated functions of your choice to the shared library. Then write Python code(s) that use the newly created library functions to accelerate a program. Compare the performance of your CUDA-accelerated Python program against a non-accelerated C program, and a directly executed CUDA executable that performs the same function.</p>
+
+<h2 id="deliv">Deliverables</h2>
+
+<ol class="mandate">
+  <li>Source code: CPU, naïve CUDA, optimized CUDA, cuBLAS, Shared Libraries, and Python codes in GitHub</li>
+  <li>Video Log: Include the explanation of the following in the video log.
+    <ul>
+      <li>Plot execution time vs. matrix size for All CPU and GPU implementations</li>
+      <li>Explain observations on performance scaling.</li>
+      <li>Analysis of overhead associated with using GPU/DPU accelerator</li>
+      <li>Reflections on optimization trade-offs.</li>
+      <li>List and description of your shared library for Python</li>
+    </ul>
+  </li>
+</ol>
+
+</body>
+</html>
