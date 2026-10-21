@@ -1,0 +1,28 @@
+PASS   2.7s  When can I apply for post-completion OPT?
+      facts [True, True]  sources ['SEVP', 'USC OIS', 'USCIS', 'eCFR']
+PASS   2.1s  How many hours a week can I work on campus while classes are in session?
+      facts [True]  sources ['SEVP', 'USC OIS', 'eCFR']
+PASS   2.0s  Can I do CPT in my first semester as a graduate student?
+      facts [True]  sources ['ICE', 'SEVP', 'USC OIS']
+PASS   1.7s  If I do 12 months of full-time CPT, can I still get OPT?
+      facts [True]  sources ['ICE', 'SEVP', 'USC OIS', 'USCIS', 'eCFR']
+PASS   1.9s  How many days of unemployment are allowed during post-completion OPT?
+      facts [True]  sources ['SEVP', 'USC OIS', 'USCIS', 'eCFR']
+PASS   2.2s  How many days of unemployment do I get in total with the STEM OPT extension?
+      facts [True]  sources ['SEVP', 'USC OIS', 'USCIS']
+PASS   1.8s  How long is the STEM OPT extension?
+      facts [True]  sources ['SEVP', 'USC OIS', 'USCIS', 'eCFR']
+PASS   1.9s  When should I apply for the STEM OPT extension?
+      facts [True]  sources ['SEVP', 'USC OIS', 'USCIS']
+PASS   1.6s  What form does my employer and I complete for a STEM OPT training plan?
+      facts [True]  sources ['ICE', 'SEVP', 'USC OIS', 'USCIS']
+PASS   1.5s  How long is the grace period after I complete my program?
+      facts [True]  sources ['USC OIS', 'USCIS', 'eCFR']
+PASS   2.3s  What do I need to re-enter the U.S. after traveling abroad as an F-1 student?
+      facts [True, True, True]  sources ['SEVP', 'USC OIS']
+PASS   2.3s  Can I take a reduced course load because of a medical condition, and for how long?
+      facts [True]  sources ['SEVP', 'USC OIS', 'eCFR']
+PASS   1.1s  [out of scope] What is the best pizza place near the USC campus?
+      I can only help with F-1 student questions: status, OPT, CPT, employment and travel.
+
+13/13 passed (openai retrieval)

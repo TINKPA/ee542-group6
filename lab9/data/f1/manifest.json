@@ -1,0 +1,592 @@
+[
+ {
+  "id": "ecfr_8cfr214_2f",
+  "agency": "eCFR",
+  "title": "8 CFR 214.2(f) - F-1 students (regulation text)",
+  "url": "https://www.ecfr.gov/current/title-8/section-214.2#p-214.2(f)",
+  "file": "ecfr_8cfr214_2f.txt",
+  "fetched_at": "2026-10-20T00:20:02Z",
+  "bytes": 83426,
+  "sha256": "5df5a3cd0e6459f469e836656207827691a081371b5a9490c859bd562fab5f71"
+ },
+ {
+  "id": "uscis_opt",
+  "agency": "USCIS",
+  "title": "Optional Practical Training (OPT) for F-1 Students",
+  "url": "https://www.uscis.gov/working-in-the-united-states/students-and-exchange-visitors/optional-practical-training-opt-for-f-1-students",
+  "file": "uscis_opt.html",
+  "fetched_at": "2026-10-20T00:18:19Z",
+  "bytes": 90234,
+  "sha256": "05d8002bd5cd2987684cfe83cd3f7821a37bcae6b5bf71035a8eb2c6961ac01a"
+ },
+ {
+  "id": "uscis_stem_opt",
+  "agency": "USCIS",
+  "title": "OPT Extension for STEM Students (STEM OPT)",
+  "url": "https://www.uscis.gov/working-in-the-united-states/students-and-exchange-visitors/optional-practical-training-extension-for-stem-students-stem-opt",
+  "file": "uscis_stem_opt.html",
+  "fetched_at": "2026-10-20T00:18:20Z",
+  "bytes": 94874,
+  "sha256": "46e941f6cf47963a40ab760d116d55b5a2018db3f09bad40a5ea5e2880497ef6"
+ },
+ {
+  "id": "uscis_students_employment",
+  "agency": "USCIS",
+  "title": "Students and Employment",
+  "url": "https://www.uscis.gov/working-in-the-united-states/students-and-exchange-visitors/students-and-employment",
+  "file": "uscis_students_employment.html",
+  "fetched_at": "2026-10-20T00:18:21Z",
+  "bytes": 85851,
+  "sha256": "ecac98632627048eccc38a554957e3901c278b833f167f1bb7eaa38c99f362ef"
+ },
+ {
+  "id": "uscis_i765_instructions",
+  "agency": "USCIS",
+  "title": "Form I-765 Instructions (Application for Employment Authorization)",
+  "url": "https://www.uscis.gov/sites/default/files/document/forms/i-765instr.pdf",
+  "file": "uscis_i765_instructions.pdf",
+  "fetched_at": "2026-10-20T00:18:23Z",
+  "bytes": 580406,
+  "sha256": "2bf87fd107831352d2ceec4c32ebadf11f9f4b5ada6e8a9acc793d3dfe5be10f"
+ },
+ {
+  "id": "sevp_stem_overview",
+  "agency": "SEVP",
+  "title": "STEM OPT Extension Overview",
+  "url": "https://studyinthestates.dhs.gov/stem-opt-hub/stem-opt-extension-overview",
+  "file": "sevp_stem_overview.html",
+  "fetched_at": "2026-10-20T00:18:24Z",
+  "bytes": 84304,
+  "sha256": "429bac2a9a80bb6f223fe244d5a3f03a3ad42e2698a5000d86c699730066d741"
+ },
+ {
+  "id": "sevp_stem_faq",
+  "agency": "SEVP",
+  "title": "STEM OPT Frequently Asked Questions",
+  "url": "https://studyinthestates.dhs.gov/stem-opt-hub/stem-opt-frequently-asked-questions",
+  "file": "sevp_stem_faq.html",
+  "fetched_at": "2026-10-20T00:18:26Z",
+  "bytes": 88378,
+  "sha256": "7ccd313dfaf13b9d3580ea7cd0ae05267e6580aea20a141fc0c490e3bbbfb151"
+ },
+ {
+  "id": "sevp_stem_eligibility",
+  "agency": "SEVP",
+  "title": "Students: Determining STEM OPT Extension Eligibility",
+  "url": "https://studyinthestates.dhs.gov/stem-opt-hub/students-determining-stem-opt-extension-eligibility",
+  "file": "sevp_stem_eligibility.html",
+  "fetched_at": "2026-10-20T00:18:28Z",
+  "bytes": 80576,
+  "sha256": "51fc78db72b4766788dd889dff397f4cb715dcb2fe9b02d2e4973d39049ce013"
+ },
+ {
+  "id": "sevp_stem_reporting",
+  "agency": "SEVP",
+  "title": "Students: STEM OPT Reporting Requirements",
+  "url": "https://studyinthestates.dhs.gov/stem-opt-hub/students-stem-opt-reporting-requirements",
+  "file": "sevp_stem_reporting.html",
+  "fetched_at": "2026-10-20T00:18:29Z",
+  "bytes": 86350,
+  "sha256": "e0d84406f16a8b92df899a7175bbe3190ce07b81847d2cbdde3a2c6e160f4154"
+ },
+ {
+  "id": "sevp_stem_cip",
+  "agency": "SEVP",
+  "title": "Eligible CIP Codes for the STEM OPT Extension",
+  "url": "https://studyinthestates.dhs.gov/stem-opt-hub/eligible-cip-codes-for-the-stem-opt-extension",
+  "file": "sevp_stem_cip.html",
+  "fetched_at": "2026-10-20T00:18:31Z",
+  "bytes": 77434,
+  "sha256": "74f0334218fe30d5d17c5f819be34d1b85d116e491a40af5507ae88483c93cd5"
+ },
+ {
+  "id": "sevp_i983",
+  "agency": "SEVP",
+  "title": "Students and the Form I-983",
+  "url": "https://studyinthestates.dhs.gov/students/students-and-the-form-i-983",
+  "file": "sevp_i983.html",
+  "fetched_at": "2026-10-20T00:18:32Z",
+  "bytes": 86797,
+  "sha256": "6c47754718fa053699d2acf2d9decd676daf297429756d51d1c4190ca1bf8591"
+ },
+ {
+  "id": "sevp_i983_overview",
+  "agency": "SEVP",
+  "title": "Form I-983 Overview",
+  "url": "https://studyinthestates.dhs.gov/students/form-i-983-overview",
+  "file": "sevp_i983_overview.html",
+  "fetched_at": "2026-10-20T00:18:33Z",
+  "bytes": 82826,
+  "sha256": "7c041a9330ef7e083a2f0b5aaab4567a9bba9af0f9fe109a9833da3044ccdfac"
+ },
+ {
+  "id": "sevp_working",
+  "agency": "SEVP",
+  "title": "Working in the United States (F and M students)",
+  "url": "https://studyinthestates.dhs.gov/students/work/working-in-the-united-states",
+  "file": "sevp_working.html",
+  "fetched_at": "2026-10-20T00:18:35Z",
+  "bytes": 85260,
+  "sha256": "c02f45224685b2cfd21c2c732bb7c493cbbfaa3bfa9cd85e1448b16c814260c5"
+ },
+ {
+  "id": "sevp_applying_pt",
+  "agency": "SEVP",
+  "title": "Applying for Practical Training",
+  "url": "https://studyinthestates.dhs.gov/students/work/applying-for-practical-training",
+  "file": "sevp_applying_pt.html",
+  "fetched_at": "2026-10-20T00:18:36Z",
+  "bytes": 101194,
+  "sha256": "5b5789831fe279df78849545781e60f54aed08475bf0b43e5da454fed1c3264c"
+ },
+ {
+  "id": "sevp_training",
+  "agency": "SEVP",
+  "title": "Training Opportunities in the United States",
+  "url": "https://studyinthestates.dhs.gov/students/training-opportunities-in-the-united-states",
+  "file": "sevp_training.html",
+  "fetched_at": "2026-10-20T00:18:37Z",
+  "bytes": 87709,
+  "sha256": "638414402beafbbb6494c7a41a66c5a33074f15ad922e7fcf3dcaf7d99358ebe"
+ },
+ {
+  "id": "sevp_cap_gap",
+  "agency": "SEVP",
+  "title": "H-1B Status and the Cap-Gap Extension",
+  "url": "https://studyinthestates.dhs.gov/students/h-1b-status-and-the-cap-gap-extension",
+  "file": "sevp_cap_gap.html",
+  "fetched_at": "2026-10-20T00:18:40Z",
+  "bytes": 98051,
+  "sha256": "a6d8d7beb152b3bd9a374336e4312acac41c8942e2479e599321b593de52f5bb"
+ },
+ {
+  "id": "sevp_ssn",
+  "agency": "SEVP",
+  "title": "Obtaining a Social Security Number",
+  "url": "https://studyinthestates.dhs.gov/students/work/obtaining-a-social-security-number",
+  "file": "sevp_ssn.html",
+  "fetched_at": "2026-10-20T00:18:41Z",
+  "bytes": 84316,
+  "sha256": "f61a7058855a32bfaba71d62b16d75296e543a2126dfbbef8d68d06853c2cc0a"
+ },
+ {
+  "id": "sevp_everify",
+  "agency": "SEVP",
+  "title": "Understanding E-Verify",
+  "url": "https://studyinthestates.dhs.gov/students/work/understanding-e-verify",
+  "file": "sevp_everify.html",
+  "fetched_at": "2026-10-20T00:18:42Z",
+  "bytes": 83920,
+  "sha256": "805906988ccd820484cc3c6a618cded138038ca321861c3a2d7b3b0c206179ce"
+ },
+ {
+  "id": "sevp_maintaining",
+  "agency": "SEVP",
+  "title": "Maintaining Status",
+  "url": "https://studyinthestates.dhs.gov/students/maintaining-status",
+  "file": "sevp_maintaining.html",
+  "fetched_at": "2026-10-20T00:18:44Z",
+  "bytes": 88930,
+  "sha256": "8a1dd5d946957656758bab83659aa9653c3c7be9fa8df422595cff1feb8913f7"
+ },
+ {
+  "id": "sevp_full_course",
+  "agency": "SEVP",
+  "title": "Full Course of Study",
+  "url": "https://studyinthestates.dhs.gov/students/study/full-course-of-study",
+  "file": "sevp_full_course.html",
+  "fetched_at": "2026-10-20T00:18:45Z",
+  "bytes": 89188,
+  "sha256": "382fcc8adfb39f4f54db2c2dfa6d109f66d14ca0c3d63092805d8c13329e932e"
+ },
+ {
+  "id": "sevp_travel",
+  "agency": "SEVP",
+  "title": "Traveling as an F or M Student",
+  "url": "https://studyinthestates.dhs.gov/students/study/traveling-as-an-f-or-m-student",
+  "file": "sevp_travel.html",
+  "fetched_at": "2026-10-20T00:18:46Z",
+  "bytes": 84273,
+  "sha256": "3ad69373a78c0733ca8160e948254550eae07a6f0df3c96260d0eeb4902363a4"
+ },
+ {
+  "id": "sevp_transfer",
+  "agency": "SEVP",
+  "title": "Transferring to Another School",
+  "url": "https://studyinthestates.dhs.gov/students/study/transferring-to-another-school",
+  "file": "sevp_transfer.html",
+  "fetched_at": "2026-10-20T00:18:48Z",
+  "bytes": 81592,
+  "sha256": "3e35d9bbf597f255e5bb43076767ce0605182bb164a9f6f7fbf24c51adc09eff"
+ },
+ {
+  "id": "sevp_transfer_f1",
+  "agency": "SEVP",
+  "title": "Instructions for Transferring to Another School as an F-1 Student",
+  "url": "https://studyinthestates.dhs.gov/students/study/instructions-for-transferring-to-another-school-as-an-f-1-student",
+  "file": "sevp_transfer_f1.html",
+  "fetched_at": "2026-10-20T00:18:49Z",
+  "bytes": 82916,
+  "sha256": "874851400d303b1854625752003b35907c8c4686bdb443e83fbb320c41d2f83c"
+ },
+ {
+  "id": "sevp_change_status",
+  "agency": "SEVP",
+  "title": "Change of Status",
+  "url": "https://studyinthestates.dhs.gov/students/change-of-status",
+  "file": "sevp_change_status.html",
+  "fetched_at": "2026-10-20T00:18:51Z",
+  "bytes": 90459,
+  "sha256": "f840bc4f5c11273de8bd0b7f38bdf372d05e939ea88c56e0aeebe16ebd6c0ccd"
+ },
+ {
+  "id": "sevp_i20",
+  "agency": "SEVP",
+  "title": "Students and the Form I-20",
+  "url": "https://studyinthestates.dhs.gov/students/prepare/students-and-the-form-i-20",
+  "file": "sevp_i20.html",
+  "fetched_at": "2026-10-20T00:18:53Z",
+  "bytes": 86017,
+  "sha256": "d28829fc1043d0b99aa12985314b0d51c17b9025ce8bf03c099b5c17a4ba496d"
+ },
+ {
+  "id": "sevp_i901",
+  "agency": "SEVP",
+  "title": "Paying the I-901 SEVIS Fee",
+  "url": "https://studyinthestates.dhs.gov/students/prepare/paying-the-i-901-sevis-fee",
+  "file": "sevp_i901.html",
+  "fetched_at": "2026-10-20T00:18:54Z",
+  "bytes": 85785,
+  "sha256": "3ab2ee7ca8cb1304a2a2ca8b2fd1278711350eac43174514da161c322b1bdf8a"
+ },
+ {
+  "id": "sevp_lifecycle",
+  "agency": "SEVP",
+  "title": "International Student Life Cycle",
+  "url": "https://studyinthestates.dhs.gov/students/international-student-life-cycle",
+  "file": "sevp_lifecycle.html",
+  "fetched_at": "2026-10-20T00:18:56Z",
+  "bytes": 92723,
+  "sha256": "baff9ac70c2ab5a424d6bdddc6872d1247546b50ef4d2aebfa0cab7aa210e473"
+ },
+ {
+  "id": "sevp_emergency",
+  "agency": "SEVP",
+  "title": "Maintain F and M Status in Emergency Events",
+  "url": "https://studyinthestates.dhs.gov/students/study/maintain-f-and-m-status-in-emergency-events",
+  "file": "sevp_emergency.html",
+  "fetched_at": "2026-10-20T00:18:58Z",
+  "bytes": 83415,
+  "sha256": "624fd45cd07f7ccfee2d3b2215f76522871587975528453f1b0f07c195c5dfc3"
+ },
+ {
+  "id": "sevp_i515a",
+  "agency": "SEVP",
+  "title": "Form I-515A Overview",
+  "url": "https://studyinthestates.dhs.gov/students/travel/form-i-515a-overview",
+  "file": "sevp_i515a.html",
+  "fetched_at": "2026-10-20T00:18:59Z",
+  "bytes": 96793,
+  "sha256": "40a9a642bb01cb35d50d83e79cce9cf6e243521fc8c2854be1e04a66abea6872"
+ },
+ {
+  "id": "sevp_secondary",
+  "agency": "SEVP",
+  "title": "What Is Secondary Inspection?",
+  "url": "https://studyinthestates.dhs.gov/students/travel/what-is-secondary-inspection",
+  "file": "sevp_secondary.html",
+  "fetched_at": "2026-10-20T00:19:01Z",
+  "bytes": 81905,
+  "sha256": "8dc875d673a556da47c075866e5db22266b5cc4422e1875b83c5b67cc9e8d686"
+ },
+ {
+  "id": "ice_practical_training",
+  "agency": "ICE",
+  "title": "SEVP Practical Training",
+  "url": "https://www.ice.gov/sevis/practical-training",
+  "file": "ice_practical_training.html",
+  "fetched_at": "2026-10-20T00:19:02Z",
+  "bytes": 113751,
+  "sha256": "90d106c571fdb7808b8b38f4b7e06fc0a4cdbfde488acd484d62997399847864"
+ },
+ {
+  "id": "usc_f1_employment",
+  "agency": "USC OIS",
+  "title": "F-1 Student Employment",
+  "url": "https://ois.usc.edu/employment/f1-student-employment/",
+  "file": "usc_f1_employment.html",
+  "fetched_at": "2026-10-20T00:19:03Z",
+  "bytes": 196631,
+  "sha256": "576e9d5acaadb57f929a982ed27dda86922a59f2c4a88812a02b34f5cf618a46"
+ },
+ {
+  "id": "usc_on_campus",
+  "agency": "USC OIS",
+  "title": "On-Campus Employment",
+  "url": "https://ois.usc.edu/employment/on-campus-employment/",
+  "file": "usc_on_campus.html",
+  "fetched_at": "2026-10-20T00:19:04Z",
+  "bytes": 202319,
+  "sha256": "5b530c184e424a3da62d9a3abc7987ea8e744d073f01b3966ce3ccbe656ae3c6"
+ },
+ {
+  "id": "usc_offsite",
+  "agency": "USC OIS",
+  "title": "Offsite (Non-USC) Employment",
+  "url": "https://ois.usc.edu/employment/offsite-non-usc-employment/",
+  "file": "usc_offsite.html",
+  "fetched_at": "2026-10-20T00:19:06Z",
+  "bytes": 201600,
+  "sha256": "74e5fbb3c52b0e8c7ba8948aa34362c4131f266ecf4f6e2fae17a1d83b34b7df"
+ },
+ {
+  "id": "usc_other_employment",
+  "agency": "USC OIS",
+  "title": "Additional Forms of Employment",
+  "url": "https://ois.usc.edu/employment/additional-forms-of-employment/",
+  "file": "usc_other_employment.html",
+  "fetched_at": "2026-10-20T00:19:07Z",
+  "bytes": 199934,
+  "sha256": "1e80da45b2433e072ee2984ae5b8cd912e91869152b3bbf4adc94315a8f9e656"
+ },
+ {
+  "id": "usc_cpt",
+  "agency": "USC OIS",
+  "title": "Curricular Practical Training (CPT)",
+  "url": "https://ois.usc.edu/employment/curricular-practical-training-cpt/",
+  "file": "usc_cpt.html",
+  "fetched_at": "2026-10-20T00:19:08Z",
+  "bytes": 214189,
+  "sha256": "c20bb2ff044291a9de63ec5c8495193b5013e01d4658b28cf5ce88562a00fcb1"
+ },
+ {
+  "id": "usc_opt",
+  "agency": "USC OIS",
+  "title": "Optional Practical Training (OPT)",
+  "url": "https://ois.usc.edu/employment/optional-practical-training-opt/",
+  "file": "usc_opt.html",
+  "fetched_at": "2026-10-20T00:19:09Z",
+  "bytes": 194813,
+  "sha256": "6369efeda0a7fb51240f145e36d4d4c967ff3c2b53098f3d667891a8cb370435"
+ },
+ {
+  "id": "usc_pre_opt",
+  "agency": "USC OIS",
+  "title": "Pre-Completion OPT",
+  "url": "https://ois.usc.edu/employment/pre-completion-opt/",
+  "file": "usc_pre_opt.html",
+  "fetched_at": "2026-10-20T00:19:11Z",
+  "bytes": 251588,
+  "sha256": "53490e8666644603f5bec6e86254f281337a4f2f4055518a60e7531ceb743aac"
+ },
+ {
+  "id": "usc_post_opt",
+  "agency": "USC OIS",
+  "title": "Post-Completion OPT",
+  "url": "https://ois.usc.edu/employment/post-completion-opt/",
+  "file": "usc_post_opt.html",
+  "fetched_at": "2026-10-20T00:19:12Z",
+  "bytes": 284688,
+  "sha256": "f7198c764fc71128a28378ed54d29959f41a1554c440cb46940736b787a76ce7"
+ },
+ {
+  "id": "usc_stem_opt",
+  "agency": "USC OIS",
+  "title": "STEM OPT Extension",
+  "url": "https://ois.usc.edu/employment/stem-opt-extension/",
+  "file": "usc_stem_opt.html",
+  "fetched_at": "2026-10-20T00:19:13Z",
+  "bytes": 298014,
+  "sha256": "83ff0f7adea3b6ba5e371b6e82f95089ea779018024c849ac9c5194be9fa4b69"
+ },
+ {
+  "id": "usc_stem_prior",
+  "agency": "USC OIS",
+  "title": "STEM OPT Extension Based on a Prior Degree",
+  "url": "https://ois.usc.edu/employment/stem-opt-extension-prior-degree/",
+  "file": "usc_stem_prior.html",
+  "fetched_at": "2026-10-20T00:19:14Z",
+  "bytes": 276907,
+  "sha256": "d1c0cc21576a1cd381f70f4720b1181677dc47bd7d8117f20e5422231a5488bc"
+ },
+ {
+  "id": "usc_cap_gap",
+  "agency": "USC OIS",
+  "title": "Cap-Gap Extension",
+  "url": "https://ois.usc.edu/employment/cap-gap-extension/",
+  "file": "usc_cap_gap.html",
+  "fetched_at": "2026-10-20T00:19:17Z",
+  "bytes": 201454,
+  "sha256": "fd310c54520fa34db8065230f42a0c3c8cd4e178efd9ed3c75301cfc7046e715"
+ },
+ {
+  "id": "usc_maintaining",
+  "agency": "USC OIS",
+  "title": "Guidelines for Maintaining Status",
+  "url": "https://ois.usc.edu/maintaining-status/guidelines-maintaining-status/",
+  "file": "usc_maintaining.html",
+  "fetched_at": "2026-10-20T00:19:18Z",
+  "bytes": 227774,
+  "sha256": "13fa632d6f4b756b073277d3fc68a7866679e21eda576a6e4027fb127c46a4dd"
+ },
+ {
+  "id": "usc_rcl",
+  "agency": "USC OIS",
+  "title": "Reduced Course Load",
+  "url": "https://ois.usc.edu/maintaining-status/reduced-course-load/",
+  "file": "usc_rcl.html",
+  "fetched_at": "2026-10-20T00:19:20Z",
+  "bytes": 203863,
+  "sha256": "442e8c14e42e0b8699e05764b4ca8b2efd509cf4f8555ec359df0a691e276e66"
+ },
+ {
+  "id": "usc_loa",
+  "agency": "USC OIS",
+  "title": "Leave of Absence",
+  "url": "https://ois.usc.edu/maintaining-status/leave-of-absence/",
+  "file": "usc_loa.html",
+  "fetched_at": "2026-10-20T00:19:21Z",
+  "bytes": 235997,
+  "sha256": "b2d50ad236dd514dd260f903f559924c8461e8ab299287a973f92fffcd66c868"
+ },
+ {
+  "id": "usc_extend",
+  "agency": "USC OIS",
+  "title": "Extending Your Program (Students)",
+  "url": "https://ois.usc.edu/maintaining-status/extending-program-students/",
+  "file": "usc_extend.html",
+  "fetched_at": "2026-10-20T00:19:23Z",
+  "bytes": 204372,
+  "sha256": "60a9bd89c6d88afaddb8bfccbbfea4a1b444dfda962604243fbc6c8bf534b547"
+ },
+ {
+  "id": "usc_completion",
+  "agency": "USC OIS",
+  "title": "Program Completion (Students)",
+  "url": "https://ois.usc.edu/maintaining-status/program-completion-students/",
+  "file": "usc_completion.html",
+  "fetched_at": "2026-10-20T00:19:24Z",
+  "bytes": 207110,
+  "sha256": "400aad7d16420766e1261f81dc269758855bcb5f9751caf588f340fc62724bef"
+ },
+ {
+  "id": "usc_other_school",
+  "agency": "USC OIS",
+  "title": "Attending Another Institution",
+  "url": "https://ois.usc.edu/maintaining-status/attending-another-institution/",
+  "file": "usc_other_school.html",
+  "fetched_at": "2026-10-20T00:19:25Z",
+  "bytes": 204566,
+  "sha256": "3f62e78f61bf18b2ef7ece1af44138d86be1c64dfdcfd23ddb869ad98848b7a9"
+ },
+ {
+  "id": "usc_change_status",
+  "agency": "USC OIS",
+  "title": "Change of Status to F-1",
+  "url": "https://ois.usc.edu/maintaining-status/change-of-status-f1/",
+  "file": "usc_change_status.html",
+  "fetched_at": "2026-10-20T00:19:26Z",
+  "bytes": 205052,
+  "sha256": "4ad41ea81753c59c7fa141e79a1354ec609a25d0ec55ea964da2944e86241afa"
+ },
+ {
+  "id": "usc_progressive",
+  "agency": "USC OIS",
+  "title": "Progressive Degree Program",
+  "url": "https://ois.usc.edu/maintaining-status/progressive-degree-program/",
+  "file": "usc_progressive.html",
+  "fetched_at": "2026-10-20T00:19:27Z",
+  "bytes": 200250,
+  "sha256": "b8ba8c4e57fb590f26d5c9bba67ec294948572a77ec954a19a2a7f1ebc09e96d"
+ },
+ {
+  "id": "usc_reentry",
+  "agency": "USC OIS",
+  "title": "Requirements for Reentry",
+  "url": "https://ois.usc.edu/travel/requirements-for-reentry/",
+  "file": "usc_reentry.html",
+  "fetched_at": "2026-10-20T00:19:29Z",
+  "bytes": 202754,
+  "sha256": "2892364a8996174969d4d0e1b4f37995000f3fa141c12e0b09e1a0635f311a6b"
+ },
+ {
+  "id": "usc_entering",
+  "agency": "USC OIS",
+  "title": "Entering the United States",
+  "url": "https://ois.usc.edu/travel/entering-united-states/",
+  "file": "usc_entering.html",
+  "fetched_at": "2026-10-20T00:19:30Z",
+  "bytes": 205676,
+  "sha256": "ec5b79e4f1ea82d2ecb9e5d0fbcdc3a847456a910b8fb1b7236c0f9bcdbfb928"
+ },
+ {
+  "id": "usc_renew_visa",
+  "agency": "USC OIS",
+  "title": "Renewing Your Passport or F-1/J-1 Visa",
+  "url": "https://ois.usc.edu/travel/renewing-passport-f1-j1-visa/",
+  "file": "usc_renew_visa.html",
+  "fetched_at": "2026-10-20T00:19:31Z",
+  "bytes": 194597,
+  "sha256": "b7523fff6d471d9b4f403f8271bcb286896fbb462c08abb807bf61f68522f446"
+ },
+ {
+  "id": "usc_auto_reval",
+  "agency": "USC OIS",
+  "title": "Automatic Revalidation",
+  "url": "https://ois.usc.edu/travel/automatic-revalidation/",
+  "file": "usc_auto_reval.html",
+  "fetched_at": "2026-10-20T00:19:32Z",
+  "bytes": 187399,
+  "sha256": "7ead6a31887e492112e1e6f4f122af8e1d500bc1c0862061c5ed356517b92184"
+ },
+ {
+  "id": "usc_visa_types",
+  "agency": "USC OIS",
+  "title": "Student Visa Types",
+  "url": "https://ois.usc.edu/getting-started/student-visa-types/",
+  "file": "usc_visa_types.html",
+  "fetched_at": "2026-10-20T00:19:34Z",
+  "bytes": 217559,
+  "sha256": "5a4add9eaff12f1b5bdc65ab3ad6427407eca24bf7126f80898e36fd61128b98"
+ },
+ {
+  "id": "usc_transfer_in",
+  "agency": "USC OIS",
+  "title": "Transferring to USC",
+  "url": "https://ois.usc.edu/getting-started/transferring-to-usc/",
+  "file": "usc_transfer_in.html",
+  "fetched_at": "2026-10-20T00:19:36Z",
+  "bytes": 202608,
+  "sha256": "8e157b6fb93ac473d6f9e9b8b96457700f2076f9c7939bb47b904969678dff57"
+ },
+ {
+  "id": "usc_apply_visa",
+  "agency": "USC OIS",
+  "title": "Applying for a Visa (Students)",
+  "url": "https://ois.usc.edu/getting-started/applying-for-visa-students/",
+  "file": "usc_apply_visa.html",
+  "fetched_at": "2026-10-20T00:19:37Z",
+  "bytes": 219854,
+  "sha256": "b9f87e5b7d517f550c156311501cbd201151d56348dec3ae3b88688ced54fe44"
+ },
+ {
+  "id": "usc_duration_status",
+  "agency": "USC OIS",
+  "title": "Duration of Status Rule Change (news)",
+  "url": "https://ois.usc.edu/duration-status-rule-change/",
+  "file": "usc_duration_status.html",
+  "fetched_at": "2026-10-20T00:19:38Z",
+  "bytes": 294348,
+  "sha256": "62f00cf8415212027ee09bb64f2464d936b894af2231f53aa2616f94a7318d29"
+ },
+ {
+  "id": "usc_opt_fees",
+  "agency": "USC OIS",
+  "title": "Update Regarding Proposed OPT Fees (news)",
+  "url": "https://ois.usc.edu/update-regarding-proposed-opt-fees/",
+  "file": "usc_opt_fees.html",
+  "fetched_at": "2026-10-20T00:19:39Z",
+  "bytes": 185711,
+  "sha256": "4c45eef31bdd10f56f24cfc744cfa92a980a63db51e9dfc5fcf89bbfb4b5a2cc"
+ }
+]
