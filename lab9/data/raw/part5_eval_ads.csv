@@ -1,0 +1,46 @@
+method,family,R@1,R@5,R@10,MRR,page@5,median_rank,note
+OpenAI text-embedding-3-small (1536-d),reference,0.665,0.925,0.945,0.7790988087559483,0.945,1.0,
+"BM25 (k1=1.5, b=0.75)",reference,0.625,0.895,0.935,0.7382763145523422,0.93,1.0,
+mean Word2Vec vector (100-d),reference,0.425,0.715,0.79,0.5504157904225544,0.835,2.0,
+hist N=100 K=200 baseline,histogram,0.18,0.405,0.535,0.29217136113976905,0.59,9.0,handout baseline fit 0s
+hist N=100 K=200 +stopwords,histogram,0.205,0.465,0.6,0.33147716093458185,0.585,7.0,single improvement fit 0s
+hist N=100 K=200 +soft,histogram,0.26,0.48,0.6,0.36815408224744817,0.685,6.0,single improvement fit 0s
+hist N=100 K=200 +word_idf,histogram,0.21,0.395,0.555,0.31100549416099704,0.56,8.0,single improvement fit 0s
+hist N=100 K=200 +bin_idf,histogram,0.285,0.5,0.615,0.38666510860116915,0.66,5.5,single improvement fit 0s
+hist N=100 K=200 +sqrt,histogram,0.27,0.51,0.625,0.3872087954581997,0.675,5.0,single improvement fit 0s
+hist N=100 K=200 +stopwords+word_idf+bin_idf,histogram,0.165,0.36,0.555,0.2812482531356886,0.505,9.0,stacked fit 0s
+hist N=100 K=200 +stopwords+soft+word_idf+bin_idf,histogram,0.235,0.545,0.69,0.37346341813980294,0.69,5.0,stacked fit 0s
+hist N=100 K=200 +stopwords+soft+word_idf+bin_idf+sqrt,histogram,0.285,0.6,0.745,0.43025427295422003,0.735,4.0,stacked fit 0s
+hist N=50 K=50 +stopwords+soft+word_idf+bin_idf,sweep,0.175,0.41,0.515,0.29276814706953436,0.595,10.0,fit 5s
+hist N=50 K=100 +stopwords+soft+word_idf+bin_idf,sweep,0.23,0.475,0.64,0.3482419669816887,0.645,6.0,fit 0s
+hist N=50 K=200 +stopwords+soft+word_idf+bin_idf,sweep,0.26,0.54,0.685,0.39627630605981407,0.675,5.0,fit 0s
+hist N=50 K=400 +stopwords+soft+word_idf+bin_idf,sweep,0.31,0.6,0.705,0.4361661106882394,0.69,4.0,fit 0s
+hist N=50 K=800 +stopwords+soft+word_idf+bin_idf,sweep,0.3,0.58,0.695,0.4239758310512437,0.735,4.0,fit 0s
+hist N=50 K=1600 +stopwords+soft+word_idf+bin_idf,sweep,0.32,0.675,0.78,0.47807817341887476,0.765,3.0,fit 0s
+hist N=100 K=50 +stopwords+soft+word_idf+bin_idf,sweep,0.18,0.395,0.53,0.28449772792708655,0.57,9.0,fit 0s
+hist N=100 K=100 +stopwords+soft+word_idf+bin_idf,sweep,0.195,0.495,0.605,0.3305369830661239,0.635,6.0,fit 0s
+hist N=100 K=200 +stopwords+soft+word_idf+bin_idf,sweep,0.235,0.545,0.69,0.37346341813980294,0.69,5.0,fit 0s
+hist N=100 K=400 +stopwords+soft+word_idf+bin_idf,sweep,0.255,0.57,0.745,0.4079078932670447,0.71,4.0,fit 0s
+hist N=100 K=800 +stopwords+soft+word_idf+bin_idf,sweep,0.27,0.665,0.76,0.44071006965736426,0.805,3.0,fit 0s
+hist N=100 K=1600 +stopwords+soft+word_idf+bin_idf,sweep,0.31,0.725,0.805,0.48828204654260465,0.815,2.0,fit 0s
+hist N=200 K=50 +stopwords+soft+word_idf+bin_idf,sweep,0.125,0.38,0.53,0.2553436725769201,0.55,9.0,fit 8s
+hist N=200 K=100 +stopwords+soft+word_idf+bin_idf,sweep,0.18,0.48,0.63,0.32402646878801744,0.605,6.0,fit 0s
+hist N=200 K=200 +stopwords+soft+word_idf+bin_idf,sweep,0.24,0.5,0.63,0.36404074809296766,0.66,5.5,fit 0s
+hist N=200 K=400 +stopwords+soft+word_idf+bin_idf,sweep,0.245,0.56,0.715,0.39138652434563426,0.68,4.0,fit 0s
+hist N=200 K=800 +stopwords+soft+word_idf+bin_idf,sweep,0.32,0.645,0.795,0.4642261066878565,0.79,3.0,fit 0s
+hist N=200 K=1600 +stopwords+soft+word_idf+bin_idf,sweep,0.34,0.68,0.82,0.4954726243219652,0.825,3.0,fit 0s
+hist N=100 K=800 +stopwords+soft+word_idf+bin_idf+sqrt,final,0.375,0.755,0.84,0.537691157217242,0.84,2.0,fit 0s
+hist N=100 K=800 +stopwords+soft+bin_idf+sqrt,final,0.42,0.78,0.845,0.5761795479723069,0.875,2.0,fit 0s
+hist N=100 K=1600 +stopwords+soft+word_idf+bin_idf+sqrt,final,0.425,0.795,0.84,0.5909192076895627,0.865,2.0,fit 0s
+hist N=100 K=1600 +stopwords+soft+bin_idf+sqrt,final,0.475,0.805,0.855,0.628517576378029,0.885,2.0,fit 0s
+hist N=100 K=3200 +stopwords+soft+word_idf+bin_idf+sqrt,final,0.455,0.8,0.89,0.6087463414160039,0.865,2.0,fit 1s
+hist N=100 K=3200 +stopwords+soft+bin_idf+sqrt,final,0.505,0.835,0.905,0.6556717980044321,0.895,1.0,fit 1s
+hist N=200 K=800 +stopwords+soft+word_idf+bin_idf+sqrt,final,0.4,0.78,0.86,0.5630330076208809,0.855,2.0,fit 0s
+hist N=200 K=800 +stopwords+soft+bin_idf+sqrt,final,0.45,0.795,0.865,0.5993552831105261,0.87,2.0,fit 0s
+hist N=200 K=1600 +stopwords+soft+word_idf+bin_idf+sqrt,final,0.445,0.785,0.875,0.5988805317985377,0.87,2.0,fit 0s
+hist N=200 K=1600 +stopwords+soft+bin_idf+sqrt,final,0.48,0.83,0.885,0.6353073886485222,0.915,2.0,fit 0s
+hist N=200 K=3200 +stopwords+soft+word_idf+bin_idf+sqrt,final,0.455,0.8,0.89,0.6091630080826705,0.865,2.0,fit 1s
+hist N=200 K=3200 +stopwords+soft+bin_idf+sqrt,final,0.505,0.835,0.905,0.6569217980044322,0.895,1.0,fit 1s
+hybrid 0.50*hist(K=1600) + 0.50*meanW2V,final,0.49,0.815,0.885,0.6376529765239072,0.885,2.0,
+hybrid 0.70*hist(K=1600) + 0.30*meanW2V,final,0.47,0.83,0.885,0.6245996695312771,0.895,2.0,
+hybrid 0.85*hist(K=1600) + 0.15*meanW2V,final,0.465,0.8,0.86,0.6183526698975197,0.88,2.0,

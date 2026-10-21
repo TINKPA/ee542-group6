@@ -1,0 +1,14 @@
+1763 chunks, 200 test questions; e.g. "How can I renew my EAD if I have applied to extend my T-1 status?" -> chunk 4485
+OpenAI text-embedding-3-small (1536-d)       R@1 0.520  R@5 0.905  R@10 0.970  MRR 0.682  page@5 0.970  median rank 1  
+BM25 (k1=1.5, b=0.75)                        R@1 0.345  R@5 0.645  R@10 0.750  MRR 0.484  page@5 0.845  median rank 2  
+mean Word2Vec vector (100-d)                 R@1 0.215  R@5 0.465  R@10 0.595  MRR 0.337  page@5 0.780  median rank 6  
+hist N=100 K=200 baseline                    R@1 0.115  R@5 0.225  R@10 0.290  MRR 0.180  page@5 0.430  median rank 38  handout baseline fit 0s
+hist N=100 K=200 +stopwords                  R@1 0.090  R@5 0.265  R@10 0.405  MRR 0.184  page@5 0.590  median rank 17  single improvement fit 0s
+hist N=100 K=200 +soft                       R@1 0.115  R@5 0.295  R@10 0.375  MRR 0.205  page@5 0.605  median rank 25  single improvement fit 0s
+hist N=100 K=200 +word_idf                   R@1 0.125  R@5 0.280  R@10 0.340  MRR 0.202  page@5 0.505  median rank 28  single improvement fit 0s
+hist N=100 K=200 +bin_idf                    R@1 0.110  R@5 0.330  R@10 0.450  MRR 0.224  page@5 0.575  median rank 14  single improvement fit 0s
+hist N=100 K=200 +sqrt                       R@1 0.115  R@5 0.325  R@10 0.415  MRR 0.220  page@5 0.565  median rank 14  single improvement fit 0s
+hist N=100 K=200 +stopwords+word_idf+bin_idf R@1 0.070  R@5 0.170  R@10 0.285  MRR 0.143  page@5 0.510  median rank 25  stacked fit 0s
+hist N=100 K=200 +stopwords+soft+word_idf+bin_idf R@1 0.120  R@5 0.300  R@10 0.425  MRR 0.218  page@5 0.570  median rank 18  stacked fit 0s
+hist N=100 K=200 +stopwords+soft+word_idf+bin_idf+sqrt R@1 0.150  R@5 0.345  R@10 0.480  MRR 0.250  page@5 0.635  median rank 12  stacked fit 0s
+wrote lab9/data/raw/part5_eval_f1.csv

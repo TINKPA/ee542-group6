@@ -1,0 +1,13 @@
+method,family,R@1,R@5,R@10,MRR,page@5,median_rank,note
+OpenAI text-embedding-3-small (1536-d),reference,0.52,0.905,0.97,0.6824784792909793,0.97,1.0,
+"BM25 (k1=1.5, b=0.75)",reference,0.345,0.645,0.75,0.4838864634854821,0.845,2.0,
+mean Word2Vec vector (100-d),reference,0.215,0.465,0.595,0.3372694579650083,0.78,6.0,
+hist N=100 K=200 baseline,histogram,0.115,0.225,0.29,0.17961288842317244,0.43,38.0,handout baseline fit 0s
+hist N=100 K=200 +stopwords,histogram,0.09,0.265,0.405,0.18363972405107185,0.59,17.0,single improvement fit 0s
+hist N=100 K=200 +soft,histogram,0.115,0.295,0.375,0.2048259609903593,0.605,25.0,single improvement fit 0s
+hist N=100 K=200 +word_idf,histogram,0.125,0.28,0.34,0.20162751109901628,0.505,27.5,single improvement fit 0s
+hist N=100 K=200 +bin_idf,histogram,0.11,0.33,0.45,0.22400657704978447,0.575,14.0,single improvement fit 0s
+hist N=100 K=200 +sqrt,histogram,0.115,0.325,0.415,0.2198392352142894,0.565,14.5,single improvement fit 0s
+hist N=100 K=200 +stopwords+word_idf+bin_idf,histogram,0.07,0.17,0.285,0.14288809711681041,0.51,25.0,stacked fit 0s
+hist N=100 K=200 +stopwords+soft+word_idf+bin_idf,histogram,0.12,0.3,0.425,0.21783212713747047,0.57,18.0,stacked fit 0s
+hist N=100 K=200 +stopwords+soft+word_idf+bin_idf+sqrt,histogram,0.15,0.345,0.48,0.24986265086289106,0.635,12.5,stacked fit 0s
