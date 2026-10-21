@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>F-1 Compass · USC international student chat</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="auth" id="auth">
+      <h1>F-1 Compass</h1>
+      <p>A group chat for USC international students, with a bot that answers F-1, OPT, CPT and travel
+        questions from official sources (8 CFR 214.2(f), USCIS, SEVP, ICE, USC OIS) and links each answer to them.</p>
+      <p>Create an account or log in to join the chat.</p>
+      <div class="row">
+        <input id="username" placeholder="Username">
+        <input id="password" placeholder="Password" type="password">
+      </div>
+      <div class="row">
+        <button id="signupBtn">Sign Up</button>
+        <button id="loginBtn">Log In</button>
+      </div>
+      <div class="hint">Messages that contain a question mark “?” are answered by the F-1 Compass bot.
+        It gives general information, not legal advice: confirm decisions with your DSO at USC OIS.</div>
+      <div id="authMsg" class="msg"></div>
+    </div>
+    <div class="chat hidden" id="chat">
+      <div class="header">
+        <h2>F-1 Compass <span class="sub">USC international students</span></h2>
+        <button id="logoutBtn">Log Out</button>
+      </div>
+      <div id="messages" class="messages"></div>
+      <div class="suggest" id="suggest">
+        <button class="chip">When can I apply for post-completion OPT?</button>
+        <button class="chip">Can I do CPT in my first semester?</button>
+        <button class="chip">How many unemployment days do I get on STEM OPT?</button>
+        <button class="chip">What do I need to re-enter the U.S. after travel?</button>
+      </div>
+      <div class="composer">
+        <input id="chatInput" placeholder="Type a message… (end with ? to ask the bot)">
+        <button id="sendBtn">Send</button>
+      </div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
