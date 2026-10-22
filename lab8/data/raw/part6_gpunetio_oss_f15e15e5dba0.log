@@ -1,0 +1,50 @@
+Cloning into '/root/gpunetio'...
+commit b2b7a29
+Compiling src/doca_verbs_utils.cpp -> obj/doca_verbs_utils.o
+make[1]: Entering directory '/root/gpunetio/examples/gpunetio_verbs_put_bw'
+make[1]: Entering directory '/root/gpunetio/examples/gpunetio_verbs_write_lat'
+make[1]: Entering directory '/root/gpunetio/examples/gpunetio_verbs_write_bw'
+/usr/local/cuda/bin/nvcc -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -std=c++17 -arch=sm_89 -I/root/gpunetio/include/device  -c gpunetio_verbs_put_bw_kernel.cu -o build/gpunetio_verbs_put_bw_kernel.o
+/usr/local/cuda/bin/nvcc -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -std=c++17 -arch=sm_89 -I/root/gpunetio/include/device  -c gpunetio_verbs_write_lat_kernel.cu -o build/gpunetio_verbs_write_lat_kernel.o
+g++ -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -std=c++17 -fPIC  -c /root/gpunetio/examples/verbs_common.cpp -o build//root/gpunetio/examples/verbs_common.o
+g++ -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -std=c++17 -fPIC  -c gpunetio_verbs_put_bw_sample.cpp -o build/gpunetio_verbs_put_bw_sample.o
+g++ -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -std=c++17 -fPIC  -c /root/gpunetio/examples/verbs_common.cpp -o build//root/gpunetio/examples/verbs_common.o
+/usr/local/cuda/bin/nvcc -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -std=c++17 -arch=sm_89 -I/root/gpunetio/include/device  -c gpunetio_verbs_write_bw_kernel.cu -o build/gpunetio_verbs_write_bw_kernel.o
+g++ -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -std=c++17 -fPIC  -c gpunetio_verbs_put_bw_main.cpp -o build/gpunetio_verbs_put_bw_main.o
+g++ -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -std=c++17 -fPIC  -c gpunetio_verbs_write_lat_sample.cpp -o build/gpunetio_verbs_write_lat_sample.o
+g++ -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -std=c++17 -fPIC  -c /root/gpunetio/examples/verbs_common.cpp -o build//root/gpunetio/examples/verbs_common.o
+g++ -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -std=c++17 -fPIC  -c gpunetio_verbs_write_bw_sample.cpp -o build/gpunetio_verbs_write_bw_sample.o
+g++ -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -std=c++17 -fPIC  -c gpunetio_verbs_write_lat_main.cpp -o build/gpunetio_verbs_write_lat_main.o
+g++ -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -std=c++17 -fPIC  -c gpunetio_verbs_write_bw_main.cpp -o build/gpunetio_verbs_write_bw_main.o
+Linking library lib/libdoca_gpunetio_host.so.5.0.0
+Installing library to /root/gpunetio/install/lib and headers to /root/gpunetio/install/include
+/usr/local/cuda/bin/nvcc -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -o gpunetio_verbs_write_bw build/gpunetio_verbs_write_bw_kernel.o build//root/gpunetio/examples/verbs_common.o build/gpunetio_verbs_write_bw_sample.o build/gpunetio_verbs_write_bw_main.o -L/root/gpunetio/lib -ldoca_gpunetio_host -L/usr/local/cuda/lib64 -libverbs -lmlx5 -lcuda -lcudart
+make[1]: Leaving directory '/root/gpunetio/examples/gpunetio_verbs_write_bw'
+/usr/local/cuda/bin/nvcc -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -o gpunetio_verbs_write_lat build/gpunetio_verbs_write_lat_kernel.o build//root/gpunetio/examples/verbs_common.o build/gpunetio_verbs_write_lat_sample.o build/gpunetio_verbs_write_lat_main.o -L/root/gpunetio/lib -ldoca_gpunetio_host -L/usr/local/cuda/lib64 -libverbs -lmlx5 -lcuda -lcudart
+/usr/local/cuda/bin/nvcc -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -o gpunetio_verbs_put_bw build/gpunetio_verbs_put_bw_kernel.o build//root/gpunetio/examples/verbs_common.o build/gpunetio_verbs_put_bw_sample.o build/gpunetio_verbs_put_bw_main.o -L/root/gpunetio/lib -ldoca_gpunetio_host -L/usr/local/cuda/lib64 -libverbs -lmlx5 -lcuda -lcudart
+make[1]: Leaving directory '/root/gpunetio/examples/gpunetio_verbs_write_lat'
+make[1]: Leaving directory '/root/gpunetio/examples/gpunetio_verbs_put_bw'
+Installing examples to /root/gpunetio/install/examples
+build exit=0
+gpunetio_verbs_put_bw
+gpunetio_verbs_write_bw
+gpunetio_verbs_write_lat
+## GPU short PCI address: 03:00.0
+## ibv_devices
+    device          	   node GUID
+    ------          	----------------
+## DOCA_GPUNETIO_LOG=6 gpunetio_verbs_write_lat -g 03:00.0 -d mlx5_0
+Mon Oct 19 08:30:06 2026 [INFO] [/root/gpunetio/examples/verbs_common.cpp]: 256: create_verbs_resources(): Setting GPU device 0 at 03:00.0
+Mon Oct 19 08:30:06 2026 [WARNING] [src/doca_gpunetio_sdk_wrapper.cpp]: 305: doca_gpu_sdk_wrapper_create(): Env var DOCA_SDK_LIB_PATH not set (null). DOCA SDK is not in use
+Mon Oct 19 08:30:06 2026 [INFO] [src/doca_gpunetio.cpp]: 151: doca_gpu_create(): Use DOCA GPUNetIO open
+Mon Oct 19 08:30:06 2026 [ERR] [src/doca_gpunetio_gdrcopy.cpp]: 131: doca_gpu_gdrcopy_ftable_init(): Failed to open libgdrapi.so.2 then libgdrapi.so
+Mon Oct 19 08:30:06 2026 [ERR] [src/doca_gpunetio_gdrcopy.cpp]: 182: doca_gpu_init_gdrcopy(): Error in doca_gpu_gdrcopy_ftable_init
+Mon Oct 19 08:30:06 2026 [INFO] [src/doca_gpunetio_gdrcopy.cpp]: 214: doca_gpu_gdrcopy_is_supported(): GDRCopy usage is disabled
+Mon Oct 19 08:30:06 2026 [ERR] [/root/gpunetio/examples/verbs_common.cpp]: 170: open_ib_device(): Failed to get RDMA devices list, ibdev_list null
+Mon Oct 19 08:30:06 2026 [ERR] [/root/gpunetio/examples/verbs_common.cpp]: 266: create_verbs_resources(): Failed to create doca network context
+Mon Oct 19 08:30:06 2026 [ERR] [/root/gpunetio/examples/verbs_common.cpp]: 368: destroy_verbs_resources(): Failed to destroy doca verbs high-level qp
+Mon Oct 19 08:30:06 2026 [ERR] [/root/gpunetio/examples/verbs_common.cpp]: 358: create_verbs_resources(): Failed to destroy resources: 6
+Mon Oct 19 08:30:06 2026 [ERR] [gpunetio_verbs_write_lat_sample.cpp]: 276: verbs_server(): Failed to create local rdma resources: 18
+Mon Oct 19 08:30:06 2026 [ERR] [gpunetio_verbs_write_lat_main.cpp]: 108: main(): verbs_server() failed
+Mon Oct 19 08:30:06 2026 [INFO] [gpunetio_verbs_write_lat_main.cpp]: 125: main(): Sample finished with errors
+exit=1

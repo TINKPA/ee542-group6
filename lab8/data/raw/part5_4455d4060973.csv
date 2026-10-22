@@ -1,0 +1,3 @@
+host,batch,bytes,h2d_pinned_ms,h2d_pageable_ms,pinned_GBps,pageable_GBps,h2d_pinned_sync_median_ms,preprocess_ms,trt_fp16_ms,end_to_end_ms,copy_share_pct
+4455d4060973,1,150528,0.01261,0.02178,11.94181,6.91163,0.01853,0.03189,0.36492,0.40160,3.13871
+4455d4060973,16,2408448,0.18179,0.21321,13.24856,11.29618,0.18854,0.09282,1.24652,1.54718,11.74971

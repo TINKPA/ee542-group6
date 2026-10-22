@@ -1,0 +1,72 @@
+## meson.build diff
+68a69
+> nvcc_flags += ['-gencode', 'arch=compute_89,code=sm_89']
+87a89
+> nvcc_flags_link += ['-gencode=arch=compute_89,code=sm_89']
+Cuda linker for the host machine: nvcc nvlink 13.0.88
+Build cuda_13.0.r13.0/compiler.36424714_0
+Host machine cpu family: x86_64
+Host machine cpu: x86_64
+Found pkg-config: YES (/usr/bin/pkg-config) 1.8.1
+Run-time dependency doca-common found: YES 3.5.0098
+Run-time dependency doca-gpunetio found: YES 3.5.0098
+Run-time dependency doca-argp found: YES 3.5.0098
+Run-time dependency doca-eth found: YES 3.5.0098
+Run-time dependency doca-flow found: YES 3.5.0098
+meson.build:57: WARNING: Module CUDA has no backwards or forwards compatibility and might not exist in future releases.
+Run-time dependency CUDA (modules: cudart, cuda) found: YES 13.0 (/usr/local/cuda)
+Build targets in project: 1
+
+Found ninja-1.11.1 at /usr/bin/ninja
+[2/6] Compiling C object doca_gpunetio_simple_receive.p/gpunetio_simple_receive_main.c.o
+[3/6] Compiling C object doca_gpunetio_simple_receive.p/.._.._common.c.o
+[4/6] Compiling C object doca_gpunetio_simple_receive.p/host_gpunetio_simple_receive_sample.c.o
+[5/6] Compiling Cuda object doca_gpunetio_simple_receive.p/device_gpunetio_simple_receive_kernel.cu.o
+[6/6] Linking target doca_gpunetio_simple_receive
+-rwxr-xr-x 1 root root 280016 Oct 19 17:31 /tmp/build/doca_gpunetio_simple_receive
+## cuobjdump archs
+sm_100 sm_75 sm_80 sm_89 sm_90 
+## GPU 31:00.0  NIC 27:00.0
+27:00.0 Ethernet controller: Amazon.com, Inc. Elastic Network Adapter (ENA)
+## doca_gpunetio_simple_receive -n 27:00.0 -g 31:00.0 -e 0
+[2026-10-19 17:31:47:364542][3506446336][DOCA][INF][CORE][doca_log.cpp:1335] DOCA version 3.5.0098
+[2026-10-19 17:31:47:364581][3506446336][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:198][main] Starting the sample
+[2026-10-19 17:31:47:928249][3506446336][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:240][main] Sample configuration:
+	GPU 31:00.0
+	NIC 27:00.0
+	Receive exec scope Thread
+	
+[2026-10-19 17:31:47:928368][3506446336][DOCA][WRN][COMMON][common.c:98][open_doca_device_with_pci_and_callback] Matching device not found
+[2026-10-19 17:31:47:928377][3506446336][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_sample.c:85][init_doca_device] Failed to open NIC device based on PCI address
+[2026-10-19 17:31:47:928380][3506446336][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_sample.c:659][gpunetio_simple_receive] Function init_doca_device returned Requested Resource Not Found
+[2026-10-19 17:31:47:928383][3506446336][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:249][main] gpunetio_simple_receive() encountered an error: Requested Resource Not Found
+[2026-10-19 17:31:47:928388][3506446336][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:261][main] Sample finished with errors
+exit=1
+## doca_gpunetio_simple_receive -n 27:00.0 -g 31:00.0 -e 1
+[2026-10-19 17:31:48:001962][1057120256][DOCA][INF][CORE][doca_log.cpp:1335] DOCA version 3.5.0098
+[2026-10-19 17:31:48:002003][1057120256][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:198][main] Starting the sample
+[2026-10-19 17:31:48:134903][1057120256][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:240][main] Sample configuration:
+	GPU 31:00.0
+	NIC 27:00.0
+	Receive exec scope Warp
+	
+[2026-10-19 17:31:48:134997][1057120256][DOCA][WRN][COMMON][common.c:98][open_doca_device_with_pci_and_callback] Matching device not found
+[2026-10-19 17:31:48:135004][1057120256][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_sample.c:85][init_doca_device] Failed to open NIC device based on PCI address
+[2026-10-19 17:31:48:135015][1057120256][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_sample.c:659][gpunetio_simple_receive] Function init_doca_device returned Requested Resource Not Found
+[2026-10-19 17:31:48:135018][1057120256][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:249][main] gpunetio_simple_receive() encountered an error: Requested Resource Not Found
+[2026-10-19 17:31:48:135022][1057120256][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:261][main] Sample finished with errors
+exit=1
+## doca_gpunetio_simple_receive -n 27:00.0 -g 31:00.0 -e 2
+[2026-10-19 17:31:48:206195][141221888][DOCA][INF][CORE][doca_log.cpp:1335] DOCA version 3.5.0098
+[2026-10-19 17:31:48:206256][141221888][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:198][main] Starting the sample
+[2026-10-19 17:31:48:338739][141221888][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:240][main] Sample configuration:
+	GPU 31:00.0
+	NIC 27:00.0
+	Receive exec scope Block
+	
+[2026-10-19 17:31:48:338869][141221888][DOCA][WRN][COMMON][common.c:98][open_doca_device_with_pci_and_callback] Matching device not found
+[2026-10-19 17:31:48:338877][141221888][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_sample.c:85][init_doca_device] Failed to open NIC device based on PCI address
+[2026-10-19 17:31:48:338880][141221888][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_sample.c:659][gpunetio_simple_receive] Function init_doca_device returned Requested Resource Not Found
+[2026-10-19 17:31:48:338882][141221888][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:249][main] gpunetio_simple_receive() encountered an error: Requested Resource Not Found
+[2026-10-19 17:31:48:338887][141221888][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:261][main] Sample finished with errors
+exit=1

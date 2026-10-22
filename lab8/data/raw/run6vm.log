@@ -1,0 +1,203 @@
+=== host view
+name, driver_version, pci.bus_id
+NVIDIA L4, 595.91.07, 00000000:31:00.0
+27:00.0 Ethernet controller: Amazon.com, Inc. Elastic Network Adapter (ENA)
+31:00.0 3D controller: NVIDIA Corporation Device 27b8 (rev a1)
+ls: cannot access '/dev/infiniband': No such file or directory
+=== 6.1 docker + nvidia container toolkit
+Docker version 29.9.0, build f415da8
+NVIDIA Container Toolkit CLI version 1.20.1
+## docker run --gpus all ubuntu nvidia-smi -L
+Unable to find image 'ubuntu:latest' locally
+latest: Pulling from library/ubuntu
+d9d511d19a19: Pulling fs layer
+435bf5c20694: Pulling fs layer
+d9d511d19a19: Download complete
+2e7e55092090: Download complete
+435bf5c20694: Download complete
+d9d511d19a19: Pull complete
+435bf5c20694: Pull complete
+Digest: sha256:c098726dd9b9733f3e885f8de0ef375206a311b0a317eadc40d347b1115fb944
+Status: Downloaded newer image for ubuntu:latest
+GPU 0: NVIDIA L4 (UUID: GPU-3f75eddc-750a-7065-67e0-69ce7572dafe)
+=== 6.2 pull nvcr.io/nvidia/doca/doca:devel-cuda13.0.0-3.5.0-devel-host
+nvcr.io/nvidia/doca/doca:devel-cuda13.0.0-3.5.0-devel-host
+nvcr.io/nvidia/doca/doca:devel-cuda13.0.0-3.5.0-devel-host 22.1GB
+=== 6.2 doca_caps
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 13.0.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+# 2026-10-19T17:30:13Z ip-172-31-36-82
+Ubuntu 24.04.4 LTS
+6.8.0-1066-aws
+## nvidia-smi
+name, driver_version, pci.bus_id
+NVIDIA L4, 595.91.07, 00000000:31:00.0
+## nvcc
+Cuda compilation tools, release 13.0, V13.0.88
+Build cuda_13.0.r13.0/compiler.36424714_0
+## doca_caps --version
+DOCA Version: 3.5.0098
+## doca_caps --list-libs
+        common                                        installed
+        aes_gcm                                       installed
+        argp                                          installed
+        comch                                         installed
+        compress                                      installed
+        devemu_pci                                    installed
+        dma                                           installed
+        dpa                                           installed
+        dpdk_bridge                                   installed
+        erasure_coding                                installed
+        eth                                           installed
+        flow                                          installed
+        gpunetio                                      installed
+        mgmt                                          installed
+        pcc                                           installed
+        rdma                                          installed
+        sha                                           installed
+        telemetry                                     installed
+        telemetry_exporter                            installed
+        urom                                          installed
+        verbs                                         installed
+## doca_caps --list-devs
+No DOCA device was found
+exit=1
+## lspci (network + 3D/VGA)
+00:01.3 Non-VGA unclassified device: Intel Corporation 82371AB/EB/MB PIIX4 ACPI (rev 08)
+00:03.0 VGA compatible controller: Amazon.com, Inc. Device 1111
+27:00.0 Ethernet controller: Amazon.com, Inc. Elastic Network Adapter (ENA)
+31:00.0 3D controller: NVIDIA Corporation AD104GL [L4] (rev a1)
+## lspci -nn mellanox (15b3)
+count=0
+## ibv_devices
+    device          	   node GUID
+    ------          	----------------
+## /dev/infiniband
+ls: cannot access '/dev/infiniband': No such file or directory
+## ip -br link
+/root/lab8/code/part6/doca_explore.sh: line 21: ip: command not found
+## hugepages
+AnonHugePages:         0 kB
+ShmemHugePages:        0 kB
+FileHugePages:         0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+Hugetlb:               0 kB
+=== 6.3 simple_receive + open-source GPUNetIO
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 13.0.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+## meson.build diff
+68a69
+> nvcc_flags += ['-gencode', 'arch=compute_89,code=sm_89']
+87a89,90
+> nvcc_flags_link += ['-gencode=arch=compute_89,code=sm_89']
+> nvcc_flags += ['-gencode', 'arch=compute_89,code=sm_89']
+Cuda linker for the host machine: nvcc nvlink 13.0.88
+Build cuda_13.0.r13.0/compiler.36424714_0
+Host machine cpu family: x86_64
+Host machine cpu: x86_64
+Found pkg-config: YES (/usr/bin/pkg-config) 1.8.1
+Run-time dependency doca-common found: YES 3.5.0098
+Run-time dependency doca-gpunetio found: YES 3.5.0098
+Run-time dependency doca-argp found: YES 3.5.0098
+Run-time dependency doca-eth found: YES 3.5.0098
+Run-time dependency doca-flow found: YES 3.5.0098
+meson.build:57: WARNING: Module CUDA has no backwards or forwards compatibility and might not exist in future releases.
+Run-time dependency CUDA (modules: cudart, cuda) found: YES 13.0 (/usr/local/cuda)
+Build targets in project: 1
+
+Found ninja-1.11.1 at /usr/bin/ninja
+[2/6] Compiling C object doca_gpunetio_simple_receive.p/gpunetio_simple_receive_main.c.o
+[3/6] Compiling C object doca_gpunetio_simple_receive.p/host_gpunetio_simple_receive_sample.c.o
+[4/6] Compiling C object doca_gpunetio_simple_receive.p/.._.._common.c.o
+[5/6] Compiling Cuda object doca_gpunetio_simple_receive.p/device_gpunetio_simple_receive_kernel.cu.o
+[6/6] Linking target doca_gpunetio_simple_receive
+-rwxr-xr-x 1 root root 280016 Oct 19 17:30 /tmp/build/doca_gpunetio_simple_receive
+## cuobjdump archs
+sm_100 sm_75 sm_80 sm_89 sm_90 
+## GPU 31:00.0  NIC 27:00.0
+27:00.0 Ethernet controller: Amazon.com, Inc. Elastic Network Adapter (ENA)
+## doca_gpunetio_simple_receive -n 27:00.0 -g 31:00.0 -e 0
+[2026-10-19 17:30:25:798774][2005929984][DOCA][INF][CORE][doca_log.cpp:1335] DOCA version 3.5.0098
+[2026-10-19 17:30:25:798810][2005929984][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:198][main] Starting the sample
+[2026-10-19 17:30:25:799953][2005929984][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:227][main] CUDA initialization failed: system has unsupported display driver / cuda driver combination
+[2026-10-19 17:30:25:799963][2005929984][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:261][main] Sample finished with errors
+exit=1
+## doca_gpunetio_simple_receive -n 27:00.0 -g 31:00.0 -e 1
+[2026-10-19 17:30:25:804696][4151033856][DOCA][INF][CORE][doca_log.cpp:1335] DOCA version 3.5.0098
+[2026-10-19 17:30:25:804729][4151033856][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:198][main] Starting the sample
+[2026-10-19 17:30:25:805765][4151033856][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:227][main] CUDA initialization failed: system has unsupported display driver / cuda driver combination
+[2026-10-19 17:30:25:805773][4151033856][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:261][main] Sample finished with errors
+exit=1
+## doca_gpunetio_simple_receive -n 27:00.0 -g 31:00.0 -e 2
+[2026-10-19 17:30:25:810475][2353950720][DOCA][INF][CORE][doca_log.cpp:1335] DOCA version 3.5.0098
+[2026-10-19 17:30:25:810509][2353950720][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:198][main] Starting the sample
+[2026-10-19 17:30:25:811576][2353950720][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:227][main] CUDA initialization failed: system has unsupported display driver / cuda driver combination
+[2026-10-19 17:30:25:811585][2353950720][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:261][main] Sample finished with errors
+exit=1
+Cloning into '/root/gpunetio'...
+commit b2b7a29
+g++ -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -std=c++17 -fPIC  -c /root/gpunetio/examples/verbs_common.cpp -o build//root/gpunetio/examples/verbs_common.o
+g++ -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -std=c++17 -fPIC  -c /root/gpunetio/examples/verbs_common.cpp -o build//root/gpunetio/examples/verbs_common.o
+g++ -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -std=c++17 -fPIC  -c gpunetio_verbs_write_lat_sample.cpp -o build/gpunetio_verbs_write_lat_sample.o
+g++ -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -std=c++17 -fPIC  -c gpunetio_verbs_write_bw_sample.cpp -o build/gpunetio_verbs_write_bw_sample.o
+g++ -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -std=c++17 -fPIC  -c gpunetio_verbs_write_lat_main.cpp -o build/gpunetio_verbs_write_lat_main.o
+g++ -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -std=c++17 -fPIC  -c gpunetio_verbs_write_bw_main.cpp -o build/gpunetio_verbs_write_bw_main.o
+/usr/local/cuda/bin/nvcc -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -o gpunetio_verbs_put_bw build/gpunetio_verbs_put_bw_kernel.o build//root/gpunetio/examples/verbs_common.o build/gpunetio_verbs_put_bw_sample.o build/gpunetio_verbs_put_bw_main.o -L/root/gpunetio/lib -ldoca_gpunetio_host -L/usr/local/cuda/lib64 -libverbs -lmlx5 -lcuda -lcudart
+/usr/bin/ld: cannot find -ldoca_gpunetio_host: No such file or directory
+collect2: error: ld returned 1 exit status
+make[1]: *** [Makefile:57: gpunetio_verbs_put_bw] Error 1
+make[1]: Leaving directory '/root/gpunetio/examples/gpunetio_verbs_put_bw'
+make: *** [Makefile:216: examples/gpunetio_verbs_put_bw] Error 2
+make: *** Waiting for unfinished jobs....
+/usr/local/cuda/bin/nvcc -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -o gpunetio_verbs_write_bw build/gpunetio_verbs_write_bw_kernel.o build//root/gpunetio/examples/verbs_common.o build/gpunetio_verbs_write_bw_sample.o build/gpunetio_verbs_write_bw_main.o -L/root/gpunetio/lib -ldoca_gpunetio_host -L/usr/local/cuda/lib64 -libverbs -lmlx5 -lcuda -lcudart
+/usr/local/cuda/bin/nvcc -I/root/gpunetio/include -I/root/gpunetio/include/host -I/root/gpunetio/include/common -I../ -I/root/gpunetio/src -I/usr/local/cuda/include  -o gpunetio_verbs_write_lat build/gpunetio_verbs_write_lat_kernel.o build//root/gpunetio/examples/verbs_common.o build/gpunetio_verbs_write_lat_sample.o build/gpunetio_verbs_write_lat_main.o -L/root/gpunetio/lib -ldoca_gpunetio_host -L/usr/local/cuda/lib64 -libverbs -lmlx5 -lcuda -lcudart
+/usr/bin/ld: cannot find -ldoca_gpunetio_host: No such file or directory
+collect2: error: ld returned 1 exit status
+make[1]: *** [Makefile:57: gpunetio_verbs_write_bw] Error 1
+make[1]: Leaving directory '/root/gpunetio/examples/gpunetio_verbs_write_bw'
+make: *** [Makefile:216: examples/gpunetio_verbs_write_bw] Error 2
+/usr/bin/ld: cannot find -ldoca_gpunetio_host: No such file or directory
+collect2: error: ld returned 1 exit status
+make[1]: *** [Makefile:57: gpunetio_verbs_write_lat] Error 1
+make[1]: Leaving directory '/root/gpunetio/examples/gpunetio_verbs_write_lat'
+make: *** [Makefile:216: examples/gpunetio_verbs_write_lat] Error 2
+build exit=2
+ls: cannot access '/root/gpunetio/install/examples': No such file or directory
+## GPU short PCI address: 31:00.0
+## ibv_devices
+    device          	   node GUID
+    ------          	----------------
+## DOCA_GPUNETIO_LOG=6 gpunetio_verbs_write_lat -g 31:00.0 -d mlx5_0
+/root/lab8/code/part6/gpunetio_oss.sh: line 26: /root/gpunetio/install/examples/gpunetio_verbs_write_lat: No such file or directory
+exit=127
+ALL DONE

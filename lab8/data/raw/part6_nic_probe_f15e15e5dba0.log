@@ -1,0 +1,32 @@
+## 0000:41:00.0
+aer_dev_correctable aer_dev_fatal aer_dev_nonfatal ari_enabled broken_parity_status class config consistent_dma_mask_bits current_link_speed current_link_width d3cold_allowed device dma_mask_bits driver driver_override enable hwmon infiniband infiniband_mad infiniband_verbs irq link local_cpulist lo
+
+driver: ../../../../bus/pci/drivers/mlx5_core
+net: infiniband: rocep65s0f0
+## 0000:41:00.1
+aer_dev_correctable aer_dev_fatal aer_dev_nonfatal ari_enabled broken_parity_status class config consistent_dma_mask_bits current_link_speed current_link_width d3cold_allowed device dma_mask_bits driver driver_override enable hwmon irq link local_cpulist local_cpus max_link_speed max_link_width mlx5
+
+driver: ../../../../bus/pci/drivers/mlx5_core
+net: infiniband: ls: cannot access '/sys/bus/pci/devices/0000:41:00.1/infiniband': No such file or directory
+## /sys/class/infiniband
+rocep65s0f0
+## /sys/class/net
+bonding_masters
+eth0
+lo
+## capabilities
+CapInh:	0000000000000000
+CapPrm:	00000000a80425fb
+CapEff:	00000000a80425fb
+CapBnd:	00000000a80425fb
+CapAmb:	0000000000000000
+## lsmod mlx
+ib_iser
+ib_umad
+ib_ipoib
+ib_cm
+mlx5_ib
+ib_uverbs
+ib_core
+mlx5_core
+mlxfw

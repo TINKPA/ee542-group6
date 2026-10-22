@@ -1,0 +1,60 @@
+# 2026-10-19T17:30:13Z ip-172-31-36-82
+Ubuntu 24.04.4 LTS
+6.8.0-1066-aws
+## nvidia-smi
+name, driver_version, pci.bus_id
+NVIDIA L4, 595.91.07, 00000000:31:00.0
+## nvcc
+Cuda compilation tools, release 13.0, V13.0.88
+Build cuda_13.0.r13.0/compiler.36424714_0
+## doca_caps --version
+DOCA Version: 3.5.0098
+## doca_caps --list-libs
+        common                                        installed
+        aes_gcm                                       installed
+        argp                                          installed
+        comch                                         installed
+        compress                                      installed
+        devemu_pci                                    installed
+        dma                                           installed
+        dpa                                           installed
+        dpdk_bridge                                   installed
+        erasure_coding                                installed
+        eth                                           installed
+        flow                                          installed
+        gpunetio                                      installed
+        mgmt                                          installed
+        pcc                                           installed
+        rdma                                          installed
+        sha                                           installed
+        telemetry                                     installed
+        telemetry_exporter                            installed
+        urom                                          installed
+        verbs                                         installed
+## doca_caps --list-devs
+No DOCA device was found
+exit=1
+## lspci (network + 3D/VGA)
+00:01.3 Non-VGA unclassified device: Intel Corporation 82371AB/EB/MB PIIX4 ACPI (rev 08)
+00:03.0 VGA compatible controller: Amazon.com, Inc. Device 1111
+27:00.0 Ethernet controller: Amazon.com, Inc. Elastic Network Adapter (ENA)
+31:00.0 3D controller: NVIDIA Corporation AD104GL [L4] (rev a1)
+## lspci -nn mellanox (15b3)
+count=0
+## ibv_devices
+    device          	   node GUID
+    ------          	----------------
+## /dev/infiniband
+ls: cannot access '/dev/infiniband': No such file or directory
+## ip -br link
+/root/lab8/code/part6/doca_explore.sh: line 21: ip: command not found
+## hugepages
+AnonHugePages:         0 kB
+ShmemHugePages:        0 kB
+FileHugePages:         0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+Hugetlb:               0 kB

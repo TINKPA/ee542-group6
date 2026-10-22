@@ -1,0 +1,213 @@
+=== Part 1.3 check
+# probed 2026-10-19T08:25:41Z on 4455d4060973
+## os
+Ubuntu 22.04.5 LTS
+6.8.0-124-generic x86_64
+## cpu
+CPU(s):                                  48
+Model name:                              AMD EPYC 9254 24-Core Processor
+MemTotal:       527869180 kB
+## nvidia-smi
+Mon Oct 19 08:25:41 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.159.04             Driver Version: 580.159.04     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA L4                      On  |   00000000:03:00.0 Off |                    0 |
+| N/A   35C    P8             16W /   72W |       0MiB /  23034MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+name, driver_version, memory.total [MiB], pci.bus_id, pcie.link.gen.current, pcie.link.width.current
+NVIDIA L4, 580.159.04, 23034 MiB, 00000000:03:00.0, 1, 8
+## nvcc
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2024 NVIDIA Corporation
+Built on Tue_Oct_29_23:50:19_PDT_2024
+Cuda compilation tools, release 12.6, V12.6.85
+Build cuda_12.6.r12.6/compiler.35059454_0
+## torch
+2.14.1+cu130 cuda 13.0 available True
+## torchvision
+0.29.1+cu130
+## tensorrt
+11.4.0.106
+## onnx
+1.23.2
+## dpdk
+21.11.9
+## gcc
+gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
+=== Part 2.1 export
+0.3%0.6%0.8%1.1%1.4%1.7%2.0%2.2%2.5%2.8%3.1%3.4%3.6%3.9%4.2%4.5%4.8%5.0%5.3%5.6%5.9%6.2%6.4%6.7%7.0%7.3%7.6%7.8%8.1%8.4%8.7%9.0%9.2%9.5%9.8%10.1%10.4%10.6%10.9%11.2%11.5%11.8%12.0%12.3%12.6%12.9%13.2%13.4%13.7%14.0%14.3%14.6%14.8%15.1%15.4%15.7%16.0%16.2%16.5%16.8%17.1%17.4%17.6%17.9%18.2%18.5%18.8%19.0%19.3%19.6%19.9%20.2%20.4%20.7%21.0%21.3%21.6%21.8%22.1%22.4%22.7%23.0%23.2%23.5%23.8%24.1%24.4%24.6%24.9%25.2%25.5%25.7%26.0%26.3%26.6%26.9%27.1%27.4%27.7%28.0%28.3%28.5%28.8%29.1%29.4%29.7%29.9%30.2%30.5%30.8%31.1%31.3%31.6%31.9%32.2%32.5%32.7%33.0%33.3%33.6%33.9%34.1%34.4%34.7%35.0%35.3%35.5%35.8%36.1%36.4%36.7%36.9%37.2%37.5%37.8%38.1%38.3%38.6%38.9%39.2%39.5%39.7%40.0%40.3%40.6%40.9%41.1%41.4%41.7%42.0%42.3%42.5%42.8%43.1%43.4%43.7%43.9%44.2%44.5%44.8%45.1%45.3%45.6%45.9%46.2%46.5%46.7%47.0%47.3%47.6%47.9%48.1%48.4%48.7%49.0%49.3%49.5%49.8%50.1%50.4%50.7%50.9%51.2%51.5%51.8%52.1%52.3%52.6%52.9%53.2%53.5%53.7%54.0%54.3%54.6%54.9%55.1%55.4%55.7%56.0%56.3%56.5%56.8%57.1%57.4%57.7%57.9%58.2%58.5%58.8%59.1%59.3%59.6%59.9%60.2%60.5%60.7%61.0%61.3%61.6%61.9%62.1%62.4%62.7%63.0%63.3%63.5%63.8%64.1%64.4%64.7%64.9%65.2%65.5%65.8%66.1%66.3%66.6%66.9%67.2%67.5%67.7%68.0%68.3%68.6%68.9%69.1%69.4%69.7%70.0%70.3%70.5%70.8%71.1%71.4%71.7%71.9%72.2%72.5%72.8%73.1%73.3%73.6%73.9%74.2%74.4%74.7%75.0%75.3%75.6%75.8%76.1%76.4%76.7%77.0%77.2%77.5%77.8%78.1%78.4%78.6%78.9%79.2%79.5%79.8%80.0%80.3%80.6%80.9%81.2%81.4%81.7%82.0%82.3%82.6%82.8%83.1%83.4%83.7%84.0%84.2%84.5%84.8%85.1%85.4%85.6%85.9%86.2%86.5%86.8%87.0%87.3%87.6%87.9%88.2%88.4%88.7%89.0%89.3%89.6%89.8%90.1%90.4%90.7%91.0%91.2%91.5%91.8%92.1%92.4%92.6%92.9%93.2%93.5%93.8%94.0%94.3%94.6%94.9%95.2%95.4%95.7%96.0%96.3%96.6%96.8%97.1%97.4%97.7%98.0%98.2%98.5%98.8%99.1%99.4%99.6%99.9%100.0%
+/root/lab8/code/cloud/../part2/export_onnx.py:19: UserWarning: # 'dynamic_axes' is not recommended when dynamo=True, and may lead to 'torch._dynamo.exc.UserError: Constraints violated.' Supply the 'dynamic_shapes' argument instead if export is unsuccessful.
+  torch.onnx.export(
+/root/lab8/code/cloud/../part2/export_onnx.py:19: UserWarning: # 'dynamic_axes' is not recommended when dynamo=True, and may lead to 'torch._dynamo.exc.UserError: Constraints violated.' Supply the 'dynamic_shapes' argument instead if export is unsuccessful.
+  torch.onnx.export(
+Downloading: "https://download.pytorch.org/models/resnet18-f37072fd.pth" to /root/.cache/torch/hub/checkpoints/resnet18-f37072fd.pth
+[torch.onnx] Obtain model graph for `ResNet([...]` with `torch.export.export(..., strict=False)`...
+[torch.onnx] Obtain model graph for `ResNet([...]` with `torch.export.export(..., strict=False)`... ✅
+[torch.onnx] Run decompositions...
+[torch.onnx] Run decompositions... ✅
+[torch.onnx] Translate the graph into ONNX...
+[torch.onnx] Translate the graph into ONNX... ✅
+[torch.onnx] Optimize the ONNX graph...
+[torch.onnx] Optimize the ONNX graph... ✅
+wrote ./resnet18_fp32.onnx (torch.float32)
+[torch.onnx] Obtain model graph for `ResNet([...]` with `torch.export.export(..., strict=False)`...
+[torch.onnx] Obtain model graph for `ResNet([...]` with `torch.export.export(..., strict=False)`... ✅
+[torch.onnx] Run decompositions...
+[torch.onnx] Run decompositions... ✅
+[torch.onnx] Translate the graph into ONNX...
+[torch.onnx] Translate the graph into ONNX... ✅
+[torch.onnx] Optimize the ONNX graph...
+[torch.onnx] Optimize the ONNX graph... ✅
+wrote ./resnet18_fp16.onnx (torch.float16)
+-rw-r--r-- 1 root root    89587 Oct 19 08:25 resnet18_fp16.onnx
+-rw-r--r-- 1 root root 23396352 Oct 19 08:25 resnet18_fp16.onnx.data
+-rw-r--r-- 1 root root    89297 Oct 19 08:25 resnet18_fp32.onnx
+-rw-r--r-- 1 root root 46792704 Oct 19 08:25 resnet18_fp32.onnx.data
+=== Part 2.2 build
+input input (-1, 3, 224, 224) DataType.FLOAT; output logits DataType.FLOAT
+wrote resnet18_fp32.engine (47.0 MB)
+input input (-1, 3, 224, 224) DataType.HALF; output logits DataType.HALF
+wrote resnet18_fp16.engine (23.6 MB)
+=== Part 2.4 bench
+[10/19/2026-08:26:16] [TRT] [W] Using default stream in enqueueV3() may lead to performance issues due to additional calls to cudaStreamSynchronize() by TensorRT to ensure correct synchronization. Please use non-default stream instead.
+[10/19/2026-08:26:16] [TRT] [W] Using default stream in enqueueV3() may lead to performance issues due to additional calls to cudaStreamSynchronize() by TensorRT to ensure correct synchronization. Please use non-default stream instead.
+GPU NVIDIA L4 | torch 2.14.1+cu130 | cudnn.allow_tf32=True matmul.allow_tf32=False
+
+Implementation                      batch 1                     batch 8                    batch 32
+PyTorch FP32     0.987 ms  1.00x    1013 img/s  2.669 ms  1.00x    2997 img/s 10.217 ms  1.00x    3132 img/s
+TensorRT FP32    1.219 ms  0.81x     820 img/s  2.231 ms  1.20x    3586 img/s  8.517 ms  1.20x    3757 img/s
+TensorRT FP16    0.365 ms  2.70x    2739 img/s  0.621 ms  4.30x   12883 img/s  2.599 ms  3.93x   12314 img/s
+
+accuracy vs PyTorch FP32 (32 random batches of 32 = 1024 images)
+  TensorRT FP32: max|dlogit| = 0.01059, top-1 agreement = 1024/1024 = 100.00%
+  TensorRT FP16: max|dlogit| = 0.03460, top-1 agreement = 1024/1024 = 100.00%
+wrote /root/lab8/code/cloud/../../data/raw/part2_4455d4060973.csv
+=== Parts 3+4
+dpdk_rx.c:3:1: warning: multi-line comment [-Wcomment]
+    3 | //   sudo ./dpdk_rx -l 0 --no-huge -m 512 --no-pci \
+      | ^
+16 images x 150528 B, 1400 B/chunk -> 108 packets/image (last chunk 728 B)
+largest IP datagram 1450 B (MTU 1500: fits), largest frame 1464 B
+wrote images.pcap: 1728 packets = 1728 chunks + 0 duplicates + 0 noise; shuffled=False
+wrote frames_orig.bin and labels.json
+16 images x 150528 B, 1400 B/chunk -> 108 packets/image (last chunk 728 B)
+largest IP datagram 1450 B (MTU 1500: fits), largest frame 1464 B
+wrote images_shuf.pcap: 1728 packets = 1728 chunks + 0 duplicates + 0 noise; shuffled=True
+wrote frames_orig.bin and labels.json
+16 images x 150528 B, 1400 B/chunk -> 108 packets/image (last chunk 728 B)
+largest IP datagram 1450 B (MTU 1500: fits), largest frame 1464 B
+wrote images_hard.pcap: 1914 packets = 1728 chunks + 86 duplicates + 100 noise; shuffled=True
+wrote frames_orig.bin and labels.json
+=== images.pcap
+TELEMETRY: No legacy callbacks, legacy socket not created
+frame_ids written: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+port stats: ipackets=1728 imissed=0 ierrors=0 rx_nombuf=0
+received=1728 accepted=1728 dropped=0 [dup=0 not_ipv4=0 bad_ip=0 not_udp=0 ip_frag=0 other_port=0 short=0 bad_magic=0 bad_hdr=0 inconsistent=0 no_slot=0]
+frames complete=16 incomplete=0 -> rx_images.bin
+rx window 2.246 ms (first to last packet), 769244 pkt/s
+frame  0 sha256 dd65d6d3503bc5a1 MATCH
+frame  1 sha256 3dbb5810e93d5db4 MATCH
+frame  2 sha256 2b836d478ae91868 MATCH
+frame  3 sha256 773126a5971d927e MATCH
+frame  4 sha256 cd2ec7383ed9d049 MATCH
+frame  5 sha256 e9dc2c6985be5e8f MATCH
+frame  6 sha256 b2eb450a0aafb040 MATCH
+frame  7 sha256 9586dc0f25128809 MATCH
+frame  8 sha256 e241710b3455bd69 MATCH
+frame  9 sha256 c2b4156a2284fc24 MATCH
+frame 10 sha256 55770b91a0bc4e47 MATCH
+frame 11 sha256 343332aaf9daa21b MATCH
+frame 12 sha256 b1a812a8de5058b9 MATCH
+frame 13 sha256 4a05d40ee5c603b2 MATCH
+frame 14 sha256 011609c54fcfdfff MATCH
+frame 15 sha256 ff711aa2579d52bf MATCH
+16/16 frames identical, rx file has 16 frames
+=== images_shuf.pcap
+TELEMETRY: No legacy callbacks, legacy socket not created
+frame_ids written: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+port stats: ipackets=1728 imissed=0 ierrors=0 rx_nombuf=0
+received=1728 accepted=1728 dropped=0 [dup=0 not_ipv4=0 bad_ip=0 not_udp=0 ip_frag=0 other_port=0 short=0 bad_magic=0 bad_hdr=0 inconsistent=0 no_slot=0]
+frames complete=16 incomplete=0 -> rx_images_shuf.bin
+rx window 2.330 ms (first to last packet), 741656 pkt/s
+frame  0 sha256 dd65d6d3503bc5a1 MATCH
+frame  1 sha256 3dbb5810e93d5db4 MATCH
+frame  2 sha256 2b836d478ae91868 MATCH
+frame  3 sha256 773126a5971d927e MATCH
+frame  4 sha256 cd2ec7383ed9d049 MATCH
+frame  5 sha256 e9dc2c6985be5e8f MATCH
+frame  6 sha256 b2eb450a0aafb040 MATCH
+frame  7 sha256 9586dc0f25128809 MATCH
+frame  8 sha256 e241710b3455bd69 MATCH
+frame  9 sha256 c2b4156a2284fc24 MATCH
+frame 10 sha256 55770b91a0bc4e47 MATCH
+frame 11 sha256 343332aaf9daa21b MATCH
+frame 12 sha256 b1a812a8de5058b9 MATCH
+frame 13 sha256 4a05d40ee5c603b2 MATCH
+frame 14 sha256 011609c54fcfdfff MATCH
+frame 15 sha256 ff711aa2579d52bf MATCH
+16/16 frames identical, rx file has 16 frames
+=== images_hard.pcap
+TELEMETRY: No legacy callbacks, legacy socket not created
+frame_ids written: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+port stats: ipackets=1914 imissed=0 ierrors=0 rx_nombuf=0
+received=1914 accepted=1728 dropped=186 [dup=86 not_ipv4=50 bad_ip=0 not_udp=0 ip_frag=0 other_port=50 short=0 bad_magic=0 bad_hdr=0 inconsistent=0 no_slot=0]
+frames complete=16 incomplete=0 -> rx_images_hard.bin
+rx window 2.401 ms (first to last packet), 797327 pkt/s
+frame  0 sha256 dd65d6d3503bc5a1 MATCH
+frame  1 sha256 3dbb5810e93d5db4 MATCH
+frame  2 sha256 2b836d478ae91868 MATCH
+frame  3 sha256 773126a5971d927e MATCH
+frame  4 sha256 cd2ec7383ed9d049 MATCH
+frame  5 sha256 e9dc2c6985be5e8f MATCH
+frame  6 sha256 b2eb450a0aafb040 MATCH
+frame  7 sha256 9586dc0f25128809 MATCH
+frame  8 sha256 e241710b3455bd69 MATCH
+frame  9 sha256 c2b4156a2284fc24 MATCH
+frame 10 sha256 55770b91a0bc4e47 MATCH
+frame 11 sha256 343332aaf9daa21b MATCH
+frame 12 sha256 b1a812a8de5058b9 MATCH
+frame 13 sha256 4a05d40ee5c603b2 MATCH
+frame 14 sha256 011609c54fcfdfff MATCH
+frame 15 sha256 ff711aa2579d52bf MATCH
+16/16 frames identical, rx file has 16 frames
+log: /root/lab8/code/part4/../../data/raw/part34_4455d4060973.log
+=== Part 5
+[10/19/2026-08:26:47] [TRT] [W] Using default stream in enqueueV3() may lead to performance issues due to additional calls to cudaStreamSynchronize() by TensorRT to ensure correct synchronization. Please use non-default stream instead.
+ id  received -> class                  original -> class                  truth
+  0     0 tench                            0 tench                            0 OK
+  1     1 goldfish                         1 goldfish                         1 OK
+  2    22 bald eagle                      22 bald eagle                      22 OK
+  3   145 king penguin                   145 king penguin                   145 OK
+  4   207 golden retriever               207 golden retriever               207 OK
+  5   285 Egyptian cat                   285 Egyptian cat                   281 OK
+  6   340 zebra                          340 zebra                          340 OK
+  7   404 airliner                       404 airliner                       404 OK
+  8   407 ambulance                      407 ambulance                      407 OK
+  9   483 castle                         483 castle                         483 OK
+ 10   661 Model T                        661 Model T                        555 OK
+ 11   779 school bus                     779 school bus                     779 OK
+ 12   738 pot                            738 pot                            954 OK
+ 13   963 pizza                          963 pizza                          963 OK
+ 14   980 volcano                        980 volcano                        980 OK
+ 15   985 daisy                          985 daisy                          985 OK
+received == original class: 16/16; top-1 vs ImageNet label: 13/16
+
+batch     bytes  H2D pinned   GB/s  H2D pageable   GB/s  preproc  TRT FP16  copy+pre+inf  copy %
+    1    150528    0.0126ms  11.94      0.0218ms   6.92 0.0321ms  0.3639ms      0.4005ms    3.1%
+   16   2408448    0.1817ms  13.25      0.2131ms  11.30 0.0929ms  1.2420ms      1.5407ms   11.8%
+wrote /root/lab8/code/cloud/../../data/raw/part5_4455d4060973.csv
+ALL DONE
