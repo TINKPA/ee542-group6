@@ -1,0 +1,45 @@
+{
+ "frame_bytes": 150528,
+ "shape": [
+  224,
+  224,
+  3
+ ],
+ "layout": "HWC uint8 RGB",
+ "labels": [
+  0,
+  1,
+  22,
+  145,
+  207,
+  281,
+  340,
+  404,
+  407,
+  483,
+  555,
+  779,
+  954,
+  963,
+  980,
+  985
+ ],
+ "names": [
+  "n01440764_tench.JPEG",
+  "n01443537_goldfish.JPEG",
+  "n01614925_bald_eagle.JPEG",
+  "n02056570_king_penguin.JPEG",
+  "n02099601_golden_retriever.JPEG",
+  "n02123045_tabby.JPEG",
+  "n02391049_zebra.JPEG",
+  "n02690373_airliner.JPEG",
+  "n02701002_ambulance.JPEG",
+  "n02980441_castle.JPEG",
+  "n03345487_fire_engine.JPEG",
+  "n04146614_school_bus.JPEG",
+  "n07753592_banana.JPEG",
+  "n07873807_pizza.JPEG",
+  "n09472597_volcano.JPEG",
+  "n11939491_daisy.JPEG"
+ ]
+}

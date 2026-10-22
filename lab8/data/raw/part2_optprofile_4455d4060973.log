@@ -1,0 +1,6 @@
+fp32_opt1.engine b1=0.783ms b8=3.473ms b32=13.941ms
+fp32_opt8.engine b1=1.215ms b8=2.266ms b32=8.657ms
+fp32_opt32.engine b1=1.193ms b8=2.017ms b32=6.478ms
+fp16_opt1.engine b1=0.207ms b8=1.025ms b32=4.104ms
+fp16_opt8.engine b1=0.375ms b8=0.592ms b32=2.624ms
+fp16_opt32.engine b1=0.754ms b8=0.939ms b32=2.626ms

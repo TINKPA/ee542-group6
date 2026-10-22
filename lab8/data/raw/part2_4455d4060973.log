@@ -1,0 +1,11 @@
+GPU NVIDIA L4 | torch 2.14.1+cu130 | cudnn.allow_tf32=True matmul.allow_tf32=False
+
+Implementation                      batch 1                     batch 8                    batch 32
+PyTorch FP32     0.992 ms  1.00x    1008 img/s  2.636 ms  1.00x    3035 img/s 10.259 ms  1.00x    3119 img/s
+TensorRT FP32    1.218 ms  0.81x     821 img/s  2.229 ms  1.18x    3589 img/s  8.528 ms  1.20x    3753 img/s
+TensorRT FP16    0.364 ms  2.73x    2747 img/s  0.626 ms  4.21x   12789 img/s  2.602 ms  3.94x   12297 img/s
+
+accuracy vs PyTorch FP32 (32 random batches of 32 = 1024 images)
+  TensorRT FP32: max|dlogit| = 0.01059, top-1 agreement = 1024/1024 = 100.00%
+  TensorRT FP16: max|dlogit| = 0.03460, top-1 agreement = 1024/1024 = 100.00%
+wrote /root/lab8/code/cloud/../../data/raw/part2_4455d4060973.csv

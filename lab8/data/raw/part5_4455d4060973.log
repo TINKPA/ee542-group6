@@ -1,0 +1,25 @@
+ id  received -> class                  original -> class                  truth
+  0     0 tench                            0 tench                            0 OK
+  1     1 goldfish                         1 goldfish                         1 OK
+  2    22 bald eagle                      22 bald eagle                      22 OK
+  3   145 king penguin                   145 king penguin                   145 OK
+  4   207 golden retriever               207 golden retriever               207 OK
+  5   285 Egyptian cat                   285 Egyptian cat                   281 OK
+  6   340 zebra                          340 zebra                          340 OK
+  7   404 airliner                       404 airliner                       404 OK
+  8   407 ambulance                      407 ambulance                      407 OK
+  9   483 castle                         483 castle                         483 OK
+ 10   661 Model T                        661 Model T                        555 OK
+ 11   779 school bus                     779 school bus                     779 OK
+ 12   738 pot                            738 pot                            954 OK
+ 13   963 pizza                          963 pizza                          963 OK
+ 14   980 volcano                        980 volcano                        980 OK
+ 15   985 daisy                          985 daisy                          985 OK
+received == original class: 16/16; top-1 vs ImageNet label: 13/16
+
+batch     bytes  H2D pinned   GB/s  H2D pageable   GB/s  preproc  TRT FP16  copy+pre+inf  copy %
+    1    150528    0.0126ms  11.94      0.0218ms   6.91 0.0319ms  0.3649ms      0.4016ms    3.1%
+   16   2408448    0.1818ms  13.25      0.2132ms  11.30 0.0928ms  1.2465ms      1.5472ms   11.7%
+batch 1: one isolated pinned H2D copy incl. launch + sync, median 18.5 us
+batch 16: one isolated pinned H2D copy incl. launch + sync, median 188.5 us
+wrote /root/lab8/code/cloud/../../data/raw/part5_4455d4060973.csv

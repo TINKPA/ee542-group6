@@ -1,0 +1,72 @@
+# 2026-10-19T08:26:18Z f15e15e5dba0
+Ubuntu 24.04.4 LTS
+6.8.0-138-generic
+## nvidia-smi
+name, driver_version, pci.bus_id
+NVIDIA L4, 595.91.07, 00000000:03:00.0
+## nvcc
+Cuda compilation tools, release 13.0, V13.0.88
+Build cuda_13.0.r13.0/compiler.36424714_0
+## doca_caps --version
+DOCA Version: 3.5.0098
+## doca_caps --list-libs
+        common                                        installed
+        aes_gcm                                       installed
+        argp                                          installed
+        comch                                         installed
+        compress                                      installed
+        devemu_pci                                    installed
+        dma                                           installed
+        dpa                                           installed
+        dpdk_bridge                                   installed
+        erasure_coding                                installed
+        eth                                           installed
+        flow                                          installed
+        gpunetio                                      installed
+        mgmt                                          installed
+        pcc                                           installed
+        rdma                                          installed
+        sha                                           installed
+        telemetry                                     installed
+        telemetry_exporter                            installed
+        urom                                          installed
+        verbs                                         installed
+## doca_caps --list-devs
+No DOCA device was found
+exit=1
+## lspci (network + 3D/VGA)
+01:00.0 3D controller: NVIDIA Corporation AD104GL [L4] (rev a1)
+02:00.0 3D controller: NVIDIA Corporation AD104GL [L4] (rev a1)
+03:00.0 3D controller: NVIDIA Corporation AD104GL [L4] (rev a1)
+04:00.0 Ethernet controller: Intel Corporation I350 Gigabit Network Connection (rev 01)
+04:00.1 Ethernet controller: Intel Corporation I350 Gigabit Network Connection (rev 01)
+41:00.0 Ethernet controller: Mellanox Technologies MT27710 Family [ConnectX-4 Lx]
+41:00.1 Ethernet controller: Mellanox Technologies MT27710 Family [ConnectX-4 Lx]
+42:00.0 Non-Volatile memory controller: Intel Corporation NVMe Datacenter SSD [3DNAND, Beta Rock Controller]
+43:00.0 Non-Volatile memory controller: Intel Corporation NVMe Datacenter SSD [3DNAND, Beta Rock Controller]
+c1:00.0 3D controller: NVIDIA Corporation AD104GL [L4] (rev a1)
+c2:00.0 3D controller: NVIDIA Corporation AD104GL [L4] (rev a1)
+c3:00.0 3D controller: NVIDIA Corporation AD104GL [L4] (rev a1)
+c4:00.0 3D controller: NVIDIA Corporation AD104GL [L4] (rev a1)
+c6:00.0 VGA compatible controller: ASPEED Technology, Inc. ASPEED Graphics Family (rev 52)
+## lspci -nn mellanox (15b3)
+41:00.0 Ethernet controller [0200]: Mellanox Technologies MT27710 Family [ConnectX-4 Lx] [15b3:1015]
+41:00.1 Ethernet controller [0200]: Mellanox Technologies MT27710 Family [ConnectX-4 Lx] [15b3:1015]
+count=2
+## ibv_devices
+    device          	   node GUID
+    ------          	----------------
+## /dev/infiniband
+ls: cannot access '/dev/infiniband': No such file or directory
+## ip -br link
+/root/lab8/code/part6/doca_explore.sh: line 21: ip: command not found
+## hugepages
+AnonHugePages:    827392 kB
+ShmemHugePages:        0 kB
+FileHugePages:    530432 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+Hugetlb:               0 kB

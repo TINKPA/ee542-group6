@@ -1,0 +1,84 @@
+16 images x 150528 B, 1400 B/chunk -> 108 packets/image (last chunk 728 B)
+largest IP datagram 1450 B (MTU 1500: fits), largest frame 1464 B
+wrote images.pcap: 1728 packets = 1728 chunks + 0 duplicates + 0 noise; shuffled=False
+wrote frames_orig.bin and labels.json
+16 images x 150528 B, 1400 B/chunk -> 108 packets/image (last chunk 728 B)
+largest IP datagram 1450 B (MTU 1500: fits), largest frame 1464 B
+wrote images_shuf.pcap: 1728 packets = 1728 chunks + 0 duplicates + 0 noise; shuffled=True
+wrote frames_orig.bin and labels.json
+16 images x 150528 B, 1400 B/chunk -> 108 packets/image (last chunk 728 B)
+largest IP datagram 1450 B (MTU 1500: fits), largest frame 1464 B
+wrote images_hard.pcap: 1914 packets = 1728 chunks + 86 duplicates + 100 noise; shuffled=True
+wrote frames_orig.bin and labels.json
+=== images.pcap
+TELEMETRY: No legacy callbacks, legacy socket not created
+frame_ids written: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+port stats: ipackets=1728 imissed=0 ierrors=0 rx_nombuf=0
+received=1728 accepted=1728 dropped=0 [dup=0 not_ipv4=0 bad_ip=0 not_udp=0 ip_frag=0 other_port=0 short=0 bad_magic=0 bad_hdr=0 inconsistent=0 no_slot=0]
+frames complete=16 incomplete=0 -> rx_images.bin
+rx window 2.246 ms (first to last packet), 769244 pkt/s
+frame  0 sha256 dd65d6d3503bc5a1 MATCH
+frame  1 sha256 3dbb5810e93d5db4 MATCH
+frame  2 sha256 2b836d478ae91868 MATCH
+frame  3 sha256 773126a5971d927e MATCH
+frame  4 sha256 cd2ec7383ed9d049 MATCH
+frame  5 sha256 e9dc2c6985be5e8f MATCH
+frame  6 sha256 b2eb450a0aafb040 MATCH
+frame  7 sha256 9586dc0f25128809 MATCH
+frame  8 sha256 e241710b3455bd69 MATCH
+frame  9 sha256 c2b4156a2284fc24 MATCH
+frame 10 sha256 55770b91a0bc4e47 MATCH
+frame 11 sha256 343332aaf9daa21b MATCH
+frame 12 sha256 b1a812a8de5058b9 MATCH
+frame 13 sha256 4a05d40ee5c603b2 MATCH
+frame 14 sha256 011609c54fcfdfff MATCH
+frame 15 sha256 ff711aa2579d52bf MATCH
+16/16 frames identical, rx file has 16 frames
+=== images_shuf.pcap
+TELEMETRY: No legacy callbacks, legacy socket not created
+frame_ids written: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+port stats: ipackets=1728 imissed=0 ierrors=0 rx_nombuf=0
+received=1728 accepted=1728 dropped=0 [dup=0 not_ipv4=0 bad_ip=0 not_udp=0 ip_frag=0 other_port=0 short=0 bad_magic=0 bad_hdr=0 inconsistent=0 no_slot=0]
+frames complete=16 incomplete=0 -> rx_images_shuf.bin
+rx window 2.330 ms (first to last packet), 741656 pkt/s
+frame  0 sha256 dd65d6d3503bc5a1 MATCH
+frame  1 sha256 3dbb5810e93d5db4 MATCH
+frame  2 sha256 2b836d478ae91868 MATCH
+frame  3 sha256 773126a5971d927e MATCH
+frame  4 sha256 cd2ec7383ed9d049 MATCH
+frame  5 sha256 e9dc2c6985be5e8f MATCH
+frame  6 sha256 b2eb450a0aafb040 MATCH
+frame  7 sha256 9586dc0f25128809 MATCH
+frame  8 sha256 e241710b3455bd69 MATCH
+frame  9 sha256 c2b4156a2284fc24 MATCH
+frame 10 sha256 55770b91a0bc4e47 MATCH
+frame 11 sha256 343332aaf9daa21b MATCH
+frame 12 sha256 b1a812a8de5058b9 MATCH
+frame 13 sha256 4a05d40ee5c603b2 MATCH
+frame 14 sha256 011609c54fcfdfff MATCH
+frame 15 sha256 ff711aa2579d52bf MATCH
+16/16 frames identical, rx file has 16 frames
+=== images_hard.pcap
+TELEMETRY: No legacy callbacks, legacy socket not created
+frame_ids written: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+port stats: ipackets=1914 imissed=0 ierrors=0 rx_nombuf=0
+received=1914 accepted=1728 dropped=186 [dup=86 not_ipv4=50 bad_ip=0 not_udp=0 ip_frag=0 other_port=50 short=0 bad_magic=0 bad_hdr=0 inconsistent=0 no_slot=0]
+frames complete=16 incomplete=0 -> rx_images_hard.bin
+rx window 2.401 ms (first to last packet), 797327 pkt/s
+frame  0 sha256 dd65d6d3503bc5a1 MATCH
+frame  1 sha256 3dbb5810e93d5db4 MATCH
+frame  2 sha256 2b836d478ae91868 MATCH
+frame  3 sha256 773126a5971d927e MATCH
+frame  4 sha256 cd2ec7383ed9d049 MATCH
+frame  5 sha256 e9dc2c6985be5e8f MATCH
+frame  6 sha256 b2eb450a0aafb040 MATCH
+frame  7 sha256 9586dc0f25128809 MATCH
+frame  8 sha256 e241710b3455bd69 MATCH
+frame  9 sha256 c2b4156a2284fc24 MATCH
+frame 10 sha256 55770b91a0bc4e47 MATCH
+frame 11 sha256 343332aaf9daa21b MATCH
+frame 12 sha256 b1a812a8de5058b9 MATCH
+frame 13 sha256 4a05d40ee5c603b2 MATCH
+frame 14 sha256 011609c54fcfdfff MATCH
+frame 15 sha256 ff711aa2579d52bf MATCH
+16/16 frames identical, rx file has 16 frames

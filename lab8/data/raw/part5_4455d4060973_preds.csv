@@ -1,0 +1,17 @@
+frame_id,name,label,pred_rx,pred_orig,pred_rx_name
+0,n01440764_tench.JPEG,0,0,0,tench
+1,n01443537_goldfish.JPEG,1,1,1,goldfish
+2,n01614925_bald_eagle.JPEG,22,22,22,bald eagle
+3,n02056570_king_penguin.JPEG,145,145,145,king penguin
+4,n02099601_golden_retriever.JPEG,207,207,207,golden retriever
+5,n02123045_tabby.JPEG,281,285,285,Egyptian cat
+6,n02391049_zebra.JPEG,340,340,340,zebra
+7,n02690373_airliner.JPEG,404,404,404,airliner
+8,n02701002_ambulance.JPEG,407,407,407,ambulance
+9,n02980441_castle.JPEG,483,483,483,castle
+10,n03345487_fire_engine.JPEG,555,661,661,Model T
+11,n04146614_school_bus.JPEG,779,779,779,school bus
+12,n07753592_banana.JPEG,954,738,738,pot
+13,n07873807_pizza.JPEG,963,963,963,pizza
+14,n09472597_volcano.JPEG,980,980,980,volcano
+15,n11939491_daisy.JPEG,985,985,985,daisy
