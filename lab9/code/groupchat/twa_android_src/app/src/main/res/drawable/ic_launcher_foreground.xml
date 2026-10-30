@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A compass needle on a ring, inside the 66dp adaptive-icon safe zone. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <path android:strokeColor="#E2E8F0" android:strokeWidth="4"
+        android:pathData="M54,28a26,26 0,1 1,0 52a26,26 0,1 1,0 -52z"/>
+    <path android:fillColor="#67E8F9" android:pathData="M54,34 L61,54 L54,51 L47,54 Z"/>
+    <path android:fillColor="#E2E8F0" android:pathData="M54,74 L47,54 L54,57 L61,54 Z"/>
+</vector>

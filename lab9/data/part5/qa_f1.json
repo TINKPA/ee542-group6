@@ -1,0 +1,802 @@
+[
+ {
+  "chunk_id": 4485,
+  "question": "How can I renew my EAD if I have applied to extend my T-1 status?"
+ },
+ {
+  "chunk_id": 5713,
+  "question": "What are some effective ways to show connections to my home country when applying for a U.S. visa?"
+ },
+ {
+  "chunk_id": 4695,
+  "question": "Will the STEM OPT student take the place of existing U.S. employees?"
+ },
+ {
+  "chunk_id": 4800,
+  "question": "What does it mean if E-Verify shows a tentative nonconfirmation for a student's employment eligibility?"
+ },
+ {
+  "chunk_id": 4756,
+  "question": "What are the eligibility requirements for CPT?"
+ },
+ {
+  "chunk_id": 4163,
+  "question": "What should an F-1 student do if their program end date is extended after it has already passed?"
+ },
+ {
+  "chunk_id": 4891,
+  "question": "When should a student request a new Form I-20?"
+ },
+ {
+  "chunk_id": 5328,
+  "question": "What are the requirements for starting a STEM OPT extension?"
+ },
+ {
+  "chunk_id": 4992,
+  "question": "How long does it take for payroll services to get updated information after a degree check?"
+ },
+ {
+  "chunk_id": 5346,
+  "question": "What steps should a student take if they earned their STEM degree at USC but did not receive an I-20?"
+ },
+ {
+  "chunk_id": 4431,
+  "question": "What are the requirements for renewing my employment authorization?"
+ },
+ {
+  "chunk_id": 4096,
+  "question": "What are the conditions under which an F-1 student can change their major or educational level during their first year?"
+ },
+ {
+  "chunk_id": 4544,
+  "question": "What is required for E-Verify to validate an employee's work eligibility in the U.S.?"
+ },
+ {
+  "chunk_id": 4463,
+  "question": "What should I do if I need to replace my employment authorization card?"
+ },
+ {
+  "chunk_id": 4446,
+  "question": "What documents do I need to provide if my spouse or unmarried child is supporting my application?"
+ },
+ {
+  "chunk_id": 5306,
+  "question": "What steps should a student take to cancel their STEM OPT Extension and return home?"
+ },
+ {
+  "chunk_id": 4816,
+  "question": "What do M-1 students need to do to get authorization for practical training employment?"
+ },
+ {
+  "chunk_id": 5534,
+  "question": "What should a student do if their Form I-20/DS-2019 has expired?"
+ },
+ {
+  "chunk_id": 5197,
+  "question": "What steps should I take if my OPT EAD has an error caused by USCIS?"
+ },
+ {
+  "chunk_id": 4328,
+  "question": "What are the requirements for maintaining compliance as an employer of a STEM OPT student?"
+ },
+ {
+  "chunk_id": 4156,
+  "question": "What happens if an F-1 student applies for an extension of stay within the specified timeframe?"
+ },
+ {
+  "chunk_id": 4232,
+  "question": "What criteria must be met for student compensation to align with that of U.S. workers?"
+ },
+ {
+  "chunk_id": 4617,
+  "question": "What are the payroll tax savings associated with a STEM OPT participant who is exempt from taxes?"
+ },
+ {
+  "chunk_id": 4603,
+  "question": "What are the conditions for STEM OPT applicants to work at a start-up or small business?"
+ },
+ {
+  "chunk_id": 5373,
+  "question": "What should I do if there is a mistake on my Employment Authorization Document?"
+ },
+ {
+  "chunk_id": 5829,
+  "question": "Am I allowed to switch my field of study while studying in the United States?"
+ },
+ {
+  "chunk_id": 4351,
+  "question": "What types of off-campus work can F-1 students pursue after their first year?"
+ },
+ {
+  "chunk_id": 5050,
+  "question": "What is the first step students need to take before applying for OPT?"
+ },
+ {
+  "chunk_id": 5800,
+  "question": "What options do I have if my OPT application is denied but my program end date hasn't passed?"
+ },
+ {
+  "chunk_id": 5801,
+  "question": "What options do I have if my Form I-20's Program End Date has passed but I'm still within my grace period?"
+ },
+ {
+  "chunk_id": 4137,
+  "question": "Can a student with academic difficulties also be allowed to take fewer courses due to a medical issue?"
+ },
+ {
+  "chunk_id": 5185,
+  "question": "Is it necessary to correct the start and end dates on my I-20 for my OPT application?"
+ },
+ {
+  "chunk_id": 5088,
+  "question": "How can I find out the current processing times for my Form I-765 application?"
+ },
+ {
+  "chunk_id": 5157,
+  "question": "What steps should a student take if their application is denied?"
+ },
+ {
+  "chunk_id": 5289,
+  "question": "When should students submit their final self-evaluations if they are transitioning to H-1B status?"
+ },
+ {
+  "chunk_id": 5336,
+  "question": "What date should I use for the start of my STEM OPT in relation to my Post-Completion OPT?"
+ },
+ {
+  "chunk_id": 5228,
+  "question": "What happens if my STEM OPT Extension I-20 Request is not complete or has errors?"
+ },
+ {
+  "chunk_id": 5243,
+  "question": "What steps should I follow to submit my updated information to USCIS for the STEM OPT Extension?"
+ },
+ {
+  "chunk_id": 4374,
+  "question": "What are the conditions for my Form I-765 to be processed within 60 days?"
+ },
+ {
+  "chunk_id": 4699,
+  "question": "What factors could affect a student's compensation or training hours in a STEM program?"
+ },
+ {
+  "chunk_id": 4938,
+  "question": "What should I do if I receive a Form I-515A?"
+ },
+ {
+  "chunk_id": 4813,
+  "question": "What are the consequences of working without permission as an F-1 student?"
+ },
+ {
+  "chunk_id": 4668,
+  "question": "What are the responsibilities of STEM OPT students and their employers regarding the completion of the required form?"
+ },
+ {
+  "chunk_id": 5409,
+  "question": "What documentation do students need to provide when leaving the U.S. before their EAD expires?"
+ },
+ {
+  "chunk_id": 5022,
+  "question": "How should awards from the USC entrepreneurship program be allocated to students?"
+ },
+ {
+  "chunk_id": 5285,
+  "question": "What steps should I follow to add a new employer for my STEM OPT?"
+ },
+ {
+  "chunk_id": 4346,
+  "question": "What are the requirements for photos submitted to USCIS?"
+ },
+ {
+  "chunk_id": 4406,
+  "question": "What documents do I need to submit to apply for a B-1 visa as a personal or domestic servant?"
+ },
+ {
+  "chunk_id": 5214,
+  "question": "What are the eligibility requirements for filing Form I-765 related to STEM degrees?"
+ },
+ {
+  "chunk_id": 4837,
+  "question": "What are the limitations on online classes for F-1 and M-1 students regarding their full course of study?"
+ },
+ {
+  "chunk_id": 5377,
+  "question": "How do I request a new I-20 if mine is lost or damaged?"
+ },
+ {
+  "chunk_id": 4630,
+  "question": "What is the purpose of a student participating in STEM OPT?"
+ },
+ {
+  "chunk_id": 5372,
+  "question": "What will students receive if their STEM OPT Extension application is approved?"
+ },
+ {
+  "chunk_id": 4940,
+  "question": "What happens if I don't submit my documents within 30 days of entering the country?"
+ },
+ {
+  "chunk_id": 5132,
+  "question": "How long does it take for OIS to process the OPT I-20 Request after the advisor completes their section?"
+ },
+ {
+  "chunk_id": 4323,
+  "question": "What documents do I need to submit for a STEM OPT extension?"
+ },
+ {
+  "chunk_id": 4272,
+  "question": "What happens to employment authorization during a labor dispute?"
+ },
+ {
+  "chunk_id": 4315,
+  "question": "What are the requirements for photos submitted to USCIS for STEM OPT?"
+ },
+ {
+  "chunk_id": 5309,
+  "question": "Can students engage in remote work while on the STEM OPT Extension?"
+ },
+ {
+  "chunk_id": 5123,
+  "question": "What are the submission dates for OPT I-20 requests based on my program's end date?"
+ },
+ {
+  "chunk_id": 5449,
+  "question": "What documents do non-U.S. citizens need to have with them at all times?"
+ },
+ {
+  "chunk_id": 5275,
+  "question": "What should I do if I want to switch from in-person to remote work during my STEM OPT?"
+ },
+ {
+  "chunk_id": 5272,
+  "question": "What is the employer's responsibility regarding compensation for STEM OPT students?"
+ },
+ {
+  "chunk_id": 5230,
+  "question": "How will I receive my STEM OPT Extension I-20 from OIS?"
+ },
+ {
+  "chunk_id": 4805,
+  "question": "What is the significance of maintaining my F or M student status while studying in the U.S.?"
+ },
+ {
+  "chunk_id": 5628,
+  "question": "How long is a travel signature valid for?"
+ },
+ {
+  "chunk_id": 5220,
+  "question": "Where should I submit the completed Form I-983 for my STEM OPT Extension?"
+ },
+ {
+  "chunk_id": 5576,
+  "question": "When can a student transfer their status during or after their OPT or STEM OPT Extension?"
+ },
+ {
+  "chunk_id": 4821,
+  "question": "Who should I consult if I have questions about my visa status as an F or M student?"
+ },
+ {
+  "chunk_id": 5370,
+  "question": "How can I find out the current processing times for my application?"
+ },
+ {
+  "chunk_id": 4522,
+  "question": "What are the different reasons I can choose for applying for an employment authorization document?"
+ },
+ {
+  "chunk_id": 4495,
+  "question": "What should U-1 petitioners do to apply for an EAD if the statutory cap is reached?"
+ },
+ {
+  "chunk_id": 5483,
+  "question": "What is the process for requesting a reduced course load?"
+ },
+ {
+  "chunk_id": 4983,
+  "question": "How many hours can F-1 and J-1 students work on campus while also engaging in CPT or Pre-Completion Academic Training during the fall and spring semesters?"
+ },
+ {
+  "chunk_id": 4738,
+  "question": "When can I submit my application for STEM OPT?"
+ },
+ {
+  "chunk_id": 5059,
+  "question": "What steps do I need to follow to apply for Pre-Completion OPT?"
+ },
+ {
+  "chunk_id": 5626,
+  "question": "How long is a travel signature valid for F-1 students?"
+ },
+ {
+  "chunk_id": 5496,
+  "question": "Can I take a Leave of Absence to change my major?"
+ },
+ {
+  "chunk_id": 5751,
+  "question": "How is the Admit Until Date (AUD) calculated for F-1 and J-1 students?"
+ },
+ {
+  "chunk_id": 5083,
+  "question": "How can I get help if I have questions about a USCIS notice regarding biometrics?"
+ },
+ {
+  "chunk_id": 5518,
+  "question": "How do I pay the SEVIS fee for my student visa?"
+ },
+ {
+  "chunk_id": 5378,
+  "question": "What documents do I need to include when applying for a STEM OPT Extension?"
+ },
+ {
+  "chunk_id": 4643,
+  "question": "How often do STEM OPT students need to verify their SEVIS details with their DSO?"
+ },
+ {
+  "chunk_id": 4709,
+  "question": "When can active F-1 students start applying for on-campus jobs?"
+ },
+ {
+  "chunk_id": 5085,
+  "question": "How has USCIS changed its review process for immigration applications regarding social media?"
+ },
+ {
+  "chunk_id": 4935,
+  "question": "What should I do if I get a Form I-515A?"
+ },
+ {
+  "chunk_id": 5702,
+  "question": "What documents do I need to bring when arriving at a U.S. airport for customs?"
+ },
+ {
+  "chunk_id": 4344,
+  "question": "What are the employer's responsibilities when completing Form I-983 for a STEM OPT student?"
+ },
+ {
+  "chunk_id": 5616,
+  "question": "What documents do I need to reenter the U.S.?"
+ },
+ {
+  "chunk_id": 5462,
+  "question": "What steps should F-1 or J-1 students take to transfer to a different university in the U.S. after being suspended or dismissed from USC?"
+ },
+ {
+  "chunk_id": 5472,
+  "question": "What are the requirements for a student to request a reduced course load due to academic challenges?"
+ },
+ {
+  "chunk_id": 4844,
+  "question": "What should I do before traveling internationally regarding my SEVIS record?"
+ },
+ {
+  "chunk_id": 4305,
+  "question": "When can I submit my application for post-completion OPT?"
+ },
+ {
+  "chunk_id": 4659,
+  "question": "How does a period of unemployment impact a STEM OPT student's status?"
+ },
+ {
+  "chunk_id": 4897,
+  "question": "What information is required to pay the I-901 SEVIS fee for F and M students?"
+ },
+ {
+  "chunk_id": 4462,
+  "question": "What form do I need to submit for family unity benefits?"
+ },
+ {
+  "chunk_id": 4154,
+  "question": "When is an extension of stay application considered to be filed on time?"
+ },
+ {
+  "chunk_id": 4620,
+  "question": "What changes to a STEM OPT participant's Training Plan need to be reported to the DSO?"
+ },
+ {
+  "chunk_id": 5425,
+  "question": "What should I do if my OPT has expired but my Cap-Gap Extension is still under review?"
+ },
+ {
+  "chunk_id": 5774,
+  "question": "Do I need to file for an Extension of Stay if I require more time for OPT or Academic Training?"
+ },
+ {
+  "chunk_id": 5455,
+  "question": "What is the grace period for J-1 students after completing their program?"
+ },
+ {
+  "chunk_id": 5542,
+  "question": "How long does it take for OIS to process my form after submission?"
+ },
+ {
+  "chunk_id": 4825,
+  "question": "What factors determine what constitutes a full course of study for international students?"
+ },
+ {
+  "chunk_id": 5706,
+  "question": "What should I consider when providing my name for a student visa application?"
+ },
+ {
+  "chunk_id": 5225,
+  "question": "How can I obtain a STEM OPT Extension I-20 from OIS?"
+ },
+ {
+  "chunk_id": 4568,
+  "question": "What documents do I need if I filed Form I-589 during exclusion or deportation proceedings?"
+ },
+ {
+  "chunk_id": 5008,
+  "question": "What is the first step required for a scholar to obtain permission for off-site employment?"
+ },
+ {
+  "chunk_id": 5759,
+  "question": "What is the difference between an Extension of Stay and a program extension?"
+ },
+ {
+  "chunk_id": 5298,
+  "question": "What happens if I submit my STEM OPT application after the specified time on the I-20?"
+ },
+ {
+  "chunk_id": 4472,
+  "question": "What documents do I need to submit with Form I-765 for different categories of applicants?"
+ },
+ {
+  "chunk_id": 5468,
+  "question": "What is the effective date for this policy regarding requests?"
+ },
+ {
+  "chunk_id": 5216,
+  "question": "What steps do I need to follow to apply for a STEM OPT Extension?"
+ },
+ {
+  "chunk_id": 4585,
+  "question": "What is the estimated time required for completing the application process?"
+ },
+ {
+  "chunk_id": 4973,
+  "question": "What are the requirements for continuing to work on an expired EAD while waiting for a 24-month extension?"
+ },
+ {
+  "chunk_id": 4280,
+  "question": "What are the conditions a student must meet to request reinstatement of their status?"
+ },
+ {
+  "chunk_id": 4750,
+  "question": "When can I start working after receiving my EAD?"
+ },
+ {
+  "chunk_id": 4379,
+  "question": "What should I do if my TPS EAD is lost or damaged?"
+ },
+ {
+  "chunk_id": 5522,
+  "question": "What steps do I need to take after declaring a Leave of Absence with my academic department?"
+ },
+ {
+  "chunk_id": 5813,
+  "question": "What should I do if I graduate in summer 2027 and want to apply for OPT after the specified date?"
+ },
+ {
+  "chunk_id": 4640,
+  "question": "What are the requirements for F-1 students to qualify for STEM OPT extensions?"
+ },
+ {
+  "chunk_id": 4414,
+  "question": "Am I allowed to work if I am the spouse of an E-2 CNMI investor with a Foreign Retiree Investment Certification?"
+ },
+ {
+  "chunk_id": 5514,
+  "question": "What are the eligibility criteria for CPT and OPT for students returning with an Initial I-20?"
+ },
+ {
+  "chunk_id": 5764,
+  "question": "What steps do I need to take to request an Extension of Stay with USCIS?"
+ },
+ {
+  "chunk_id": 5634,
+  "question": "What should new students do if they experience visa delays and can't attend the orientation?"
+ },
+ {
+  "chunk_id": 4720,
+  "question": "What steps should I take to obtain CPT authorization from my Designated School Official?"
+ },
+ {
+  "chunk_id": 5224,
+  "question": "When should a student set their STEM OPT Extension start date if their post-completion OPT ends on November 19, 2026?"
+ },
+ {
+  "chunk_id": 4986,
+  "question": "What payment methods are recommended for receiving compensation after securing a job?"
+ },
+ {
+  "chunk_id": 4237,
+  "question": "What should the student and employer do if there are changes to the practical training opportunity?"
+ },
+ {
+  "chunk_id": 5016,
+  "question": "What tax obligations do F-1 students have when starting a business?"
+ },
+ {
+  "chunk_id": 4153,
+  "question": "What are the requirements for an F-1 student to apply for an extension of stay?"
+ },
+ {
+  "chunk_id": 4258,
+  "question": "What conditions must be met for a student to receive a 24-month OPT extension?"
+ },
+ {
+  "chunk_id": 5401,
+  "question": "What steps should I follow to complete the 18-month validation report for my STEM OPT extension?"
+ },
+ {
+  "chunk_id": 5036,
+  "question": "What are the requirements for students transferring to USC to apply for CPT after completing OPT or STEM OPT?"
+ },
+ {
+  "chunk_id": 5682,
+  "question": "What does the letter \"R\" signify on a passport?"
+ },
+ {
+  "chunk_id": 5535,
+  "question": "What are the acceptable reasons for delaying the completion of the program?"
+ },
+ {
+  "chunk_id": 4244,
+  "question": "What happens to my F-1 status if I experience unemployment while on post-completion OPT?"
+ },
+ {
+  "chunk_id": 5664,
+  "question": "Why should I make my social media profiles accessible to everyone during the visa application process?"
+ },
+ {
+  "chunk_id": 5738,
+  "question": "What will happen to my admission status when I return to the U.S. after traveling internationally?"
+ },
+ {
+  "chunk_id": 5657,
+  "question": "How should Canadian students enter their name when arriving at USC?"
+ },
+ {
+  "chunk_id": 4806,
+  "question": "What does it mean to maintain my F or M student visa status?"
+ },
+ {
+  "chunk_id": 5487,
+  "question": "What steps should J-1 students take if they need to reduce their course load?"
+ },
+ {
+  "chunk_id": 5387,
+  "question": "What should students do if they miss the deadline for filing?"
+ },
+ {
+  "chunk_id": 5464,
+  "question": "What happens to my SEVIS record if I don't choose an option by the deadline?"
+ },
+ {
+  "chunk_id": 4610,
+  "question": "What tax obligations do STEM OPT participants have regarding Social Security and Medicare contributions?"
+ },
+ {
+  "chunk_id": 5039,
+  "question": "What programs are offered at USC for graduate studies in various fields?"
+ },
+ {
+  "chunk_id": 4385,
+  "question": "Where can I find the latest information on filing Form I-881?"
+ },
+ {
+  "chunk_id": 5785,
+  "question": "Am I eligible to be in the transition group when the new rule starts?"
+ },
+ {
+  "chunk_id": 4430,
+  "question": "What are the eligibility requirements for renewing employment authorization under the (c)(35) category?"
+ },
+ {
+  "chunk_id": 5133,
+  "question": "What happens if my OPT application is incomplete or contains mistakes?"
+ },
+ {
+  "chunk_id": 4085,
+  "question": "What documentation do the eligible spouse and children of an F-1 student need to provide for admission?"
+ },
+ {
+  "chunk_id": 5045,
+  "question": "What are the current dates for CPT eligibility for students in their final semester?"
+ },
+ {
+  "chunk_id": 5620,
+  "question": "Can students travel abroad while waiting for their EAD after their program ends?"
+ },
+ {
+  "chunk_id": 4899,
+  "question": "What payment methods are available for the I-901 SEVIS fee for students from specific countries?"
+ },
+ {
+  "chunk_id": 5793,
+  "question": "What happens to my F-1 status if my OPT application is denied after my program end date?"
+ },
+ {
+  "chunk_id": 5258,
+  "question": "How can I get a new I-20 if mine is lost or damaged?"
+ },
+ {
+  "chunk_id": 5424,
+  "question": "What services are available for students applying for a Cap-Gap Extension?"
+ },
+ {
+  "chunk_id": 5562,
+  "question": "What are the requirements for obtaining a PTAAI letter at USC?"
+ },
+ {
+  "chunk_id": 5741,
+  "question": "What are the main changes in how F-1 and J-1 students and scholars maintain their status in the U.S.?"
+ },
+ {
+  "chunk_id": 4773,
+  "question": "Can an M-1 student have an employer file for H-1B status if the job is unrelated to their studies?"
+ },
+ {
+  "chunk_id": 5543,
+  "question": "What do I need to include when submitting the form for extending my J-1 program?"
+ },
+ {
+  "chunk_id": 5259,
+  "question": "What documents do I need to include when applying for a STEM OPT Extension?"
+ },
+ {
+  "chunk_id": 4211,
+  "question": "What type of degree is required for the 24-month OPT extension?"
+ },
+ {
+  "chunk_id": 5490,
+  "question": "What are the criteria for students to be eligible for a Leave of Absence?"
+ },
+ {
+  "chunk_id": 4924,
+  "question": "What should F-1 students do if they want to continue their education after graduation?"
+ },
+ {
+  "chunk_id": 4165,
+  "question": "What are the conditions an F-1 student must fulfill to change their educational goals or transfer to a different school?"
+ },
+ {
+  "chunk_id": 5170,
+  "question": "What happens to unemployment days if my EAD start date is delayed?"
+ },
+ {
+  "chunk_id": 4953,
+  "question": "What should students do to ensure their SEVIS record remains active?"
+ },
+ {
+  "chunk_id": 5604,
+  "question": "What are the enrollment requirements for undergraduate PDP students regarding coursework?"
+ },
+ {
+  "chunk_id": 4971,
+  "question": "What should I know about the E-Verify program and the Form I-983 for my STEM OPT application?"
+ },
+ {
+  "chunk_id": 5781,
+  "question": "Will traveling affect my pending employment authorization application?"
+ },
+ {
+  "chunk_id": 4146,
+  "question": "What role does the DSO play in reporting to SEVP regarding students with varying study requirements?"
+ },
+ {
+  "chunk_id": 5680,
+  "question": "How can I verify that my name is accurate on my visa?"
+ },
+ {
+  "chunk_id": 5532,
+  "question": "When can I return to the U.S. after getting my reactivated or initial I-20?"
+ },
+ {
+  "chunk_id": 5014,
+  "question": "What should non-F-1 or J-1 student-athletes do before receiving payment for NIL activities?"
+ },
+ {
+  "chunk_id": 4290,
+  "question": "What is required for a border commuter student regarding the Form I-20 for each term?"
+ },
+ {
+  "chunk_id": 5580,
+  "question": "What information is available to the new school in SEVIS after a student is released for an F-1 transfer?"
+ },
+ {
+  "chunk_id": 4486,
+  "question": "What documents do I need to submit for T nonimmigrant status?"
+ },
+ {
+  "chunk_id": 5670,
+  "question": "What determines the visa issuance fee for applicants?"
+ },
+ {
+  "chunk_id": 4633,
+  "question": "What are the requirements for a student to apply for a second STEM OPT extension?"
+ },
+ {
+  "chunk_id": 5637,
+  "question": "What should students do if they can't arrive in the U.S. by the date on their I-20 or DS-2019?"
+ },
+ {
+  "chunk_id": 4217,
+  "question": "What are the requirements for a degree to qualify for a 24-month OPT extension?"
+ },
+ {
+  "chunk_id": 4939,
+  "question": "What documents do I need to send to SEVP with my DSO?"
+ },
+ {
+  "chunk_id": 5728,
+  "question": "What should I do to stay informed about updates on the rule and its implementation?"
+ },
+ {
+  "chunk_id": 4671,
+  "question": "What information is needed in Section 1 of Form I-983?"
+ },
+ {
+  "chunk_id": 4327,
+  "question": "What must an employer do to offer practical training to a STEM OPT student during their extension?"
+ },
+ {
+  "chunk_id": 5406,
+  "question": "What steps should I follow to update my STEM OPT employment information if my employer's details have changed?"
+ },
+ {
+  "chunk_id": 5074,
+  "question": "What should a student do if they miss the 30-day deadline to file the Form I-765?"
+ },
+ {
+  "chunk_id": 4172,
+  "question": "What happens to a student's SEVIS record after the transfer request is approved?"
+ },
+ {
+  "chunk_id": 4779,
+  "question": "What should I do to find out if I qualify for a cap gap extension?"
+ },
+ {
+  "chunk_id": 5066,
+  "question": "How does full-time Pre-Completion OPT affect the duration of Post-Completion OPT?"
+ },
+ {
+  "chunk_id": 5617,
+  "question": "What documents do I need to bring for international travel as a student?"
+ },
+ {
+  "chunk_id": 5612,
+  "question": "What are the requirements for Viterbi PDP students regarding OPT and leaves of absence?"
+ },
+ {
+  "chunk_id": 5559,
+  "question": "What is the procedure for J-1 students to work in the U.S. after graduation?"
+ },
+ {
+  "chunk_id": 5408,
+  "question": "When do students need to submit their final self-evaluations for H-1B status?"
+ },
+ {
+  "chunk_id": 4762,
+  "question": "What do I need to do to get authorization for OPT?"
+ },
+ {
+  "chunk_id": 5624,
+  "question": "What documents do I need to bring when reentering the United States on an F-1 visa?"
+ },
+ {
+  "chunk_id": 5484,
+  "question": "What should I expect after my advisor approves my request?"
+ },
+ {
+  "chunk_id": 5541,
+  "question": "What documentation is needed for a double major and after extending a program?"
+ },
+ {
+  "chunk_id": 4121,
+  "question": "What is the duration of authorized employment for different categories under the I-9 verification process?"
+ },
+ {
+  "chunk_id": 4426,
+  "question": "What types of evidence can I submit to support my H-4 employment authorization application?"
+ }
+]

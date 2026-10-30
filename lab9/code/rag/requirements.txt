@@ -1,0 +1,17 @@
+langchain>=1.0
+langchain-classic>=1.0      # ConversationalRetrievalChain + ConversationBufferMemory live here since LangChain 1.0
+langchain-community>=0.4    # FAISS vector store wrapper
+langchain-openai>=1.0
+langchain-text-splitters>=1.0
+faiss-cpu>=1.8
+pypdf>=5.0
+beautifulsoup4>=4.12        # .html documents
+streamlit>=1.40
+python-dotenv>=1.0
+sqlalchemy>=2.0
+pymysql>=1.1
+cryptography>=42            # MySQL 8 caching_sha2_password
+fonttools
+gensim>=4.3                 # Part 5 Word2Vec
+fastapi>=0.115               # Part 4 RAG API
+uvicorn>=0.30

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">F-1 Compass</string>
+    <!-- The deployed web app. On the emulator, `adb reverse tcp:8000 tcp:8000`
+         makes the device's localhost:8000 reach the chat server on the Mac. -->
+    <string name="defaultUrl">http://localhost:8000/</string>
+</resources>
