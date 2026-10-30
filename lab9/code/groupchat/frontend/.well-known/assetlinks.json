@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "edu.usc.ee542.group6.f1compass",
+      "sha256_cert_fingerprints": [
+        "1B:05:20:A3:CC:0C:8D:F4:C6:17:E4:FA:85:89:34:01:3F:A9:21:34:00:7A:57:E6:2F:68:40:CE:88:71:BA:D9"
+      ]
+    }
+  }
+]
