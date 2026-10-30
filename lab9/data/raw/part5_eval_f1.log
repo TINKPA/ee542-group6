@@ -1,0 +1,49 @@
+1763 chunks, 200 test questions; e.g. "How can I renew my EAD if I have applied to extend my T-1 status?" -> chunk 4485
+OpenAI text-embedding-3-small (1536-d)       R@1 0.520  R@5 0.905  R@10 0.970  MRR 0.682  page@5 0.970  median rank 1  
+BM25 (k1=1.5, b=0.75)                        R@1 0.345  R@5 0.645  R@10 0.750  MRR 0.484  page@5 0.845  median rank 2  
+mean Word2Vec vector (100-d)                 R@1 0.215  R@5 0.465  R@10 0.595  MRR 0.337  page@5 0.780  median rank 6  
+hist N=100 K=200 baseline                    R@1 0.115  R@5 0.225  R@10 0.290  MRR 0.180  page@5 0.430  median rank 38  handout baseline fit 0s
+hist N=100 K=200 +stopwords                  R@1 0.090  R@5 0.265  R@10 0.405  MRR 0.184  page@5 0.590  median rank 17  single improvement fit 0s
+hist N=100 K=200 +soft                       R@1 0.115  R@5 0.295  R@10 0.375  MRR 0.205  page@5 0.605  median rank 25  single improvement fit 0s
+hist N=100 K=200 +word_idf                   R@1 0.125  R@5 0.280  R@10 0.340  MRR 0.202  page@5 0.505  median rank 28  single improvement fit 0s
+hist N=100 K=200 +bin_idf                    R@1 0.110  R@5 0.330  R@10 0.450  MRR 0.224  page@5 0.575  median rank 14  single improvement fit 0s
+hist N=100 K=200 +sqrt                       R@1 0.115  R@5 0.325  R@10 0.415  MRR 0.220  page@5 0.565  median rank 14  single improvement fit 0s
+hist N=100 K=200 +stopwords+word_idf+bin_idf R@1 0.070  R@5 0.170  R@10 0.285  MRR 0.143  page@5 0.510  median rank 25  stacked fit 0s
+hist N=100 K=200 +stopwords+soft+word_idf+bin_idf R@1 0.120  R@5 0.300  R@10 0.425  MRR 0.218  page@5 0.570  median rank 18  stacked fit 0s
+hist N=100 K=200 +stopwords+soft+word_idf+bin_idf+sqrt R@1 0.150  R@5 0.345  R@10 0.480  MRR 0.250  page@5 0.635  median rank 12  stacked fit 0s
+K / N sweep (stopwords + word_idf + bin_idf + soft)
+hist N=50 K=50 +stopwords+soft+word_idf+bin_idf R@1 0.080  R@5 0.240  R@10 0.365  MRR 0.163  page@5 0.545  median rank 30  fit 6s
+hist N=50 K=100 +stopwords+soft+word_idf+bin_idf R@1 0.115  R@5 0.305  R@10 0.385  MRR 0.211  page@5 0.630  median rank 22  fit 0s
+hist N=50 K=200 +stopwords+soft+word_idf+bin_idf R@1 0.100  R@5 0.290  R@10 0.385  MRR 0.204  page@5 0.595  median rank 18  fit 0s
+hist N=50 K=400 +stopwords+soft+word_idf+bin_idf R@1 0.110  R@5 0.320  R@10 0.430  MRR 0.222  page@5 0.605  median rank 14  fit 0s
+hist N=50 K=800 +stopwords+soft+word_idf+bin_idf R@1 0.125  R@5 0.390  R@10 0.500  MRR 0.253  page@5 0.645  median rank 10  fit 0s
+hist N=50 K=1600 +stopwords+soft+word_idf+bin_idf R@1 0.125  R@5 0.420  R@10 0.565  MRR 0.261  page@5 0.655  median rank 9  fit 0s
+hist N=100 K=50 +stopwords+soft+word_idf+bin_idf R@1 0.095  R@5 0.225  R@10 0.325  MRR 0.171  page@5 0.575  median rank 31  fit 0s
+hist N=100 K=100 +stopwords+soft+word_idf+bin_idf R@1 0.105  R@5 0.300  R@10 0.415  MRR 0.202  page@5 0.600  median rank 17  fit 0s
+hist N=100 K=200 +stopwords+soft+word_idf+bin_idf R@1 0.120  R@5 0.300  R@10 0.425  MRR 0.218  page@5 0.570  median rank 18  fit 0s
+hist N=100 K=400 +stopwords+soft+word_idf+bin_idf R@1 0.095  R@5 0.325  R@10 0.430  MRR 0.207  page@5 0.605  median rank 16  fit 0s
+hist N=100 K=800 +stopwords+soft+word_idf+bin_idf R@1 0.090  R@5 0.335  R@10 0.470  MRR 0.213  page@5 0.590  median rank 12  fit 0s
+hist N=100 K=1600 +stopwords+soft+word_idf+bin_idf R@1 0.180  R@5 0.410  R@10 0.575  MRR 0.296  page@5 0.660  median rank 8  fit 0s
+hist N=200 K=50 +stopwords+soft+word_idf+bin_idf R@1 0.080  R@5 0.245  R@10 0.345  MRR 0.166  page@5 0.490  median rank 29  fit 11s
+hist N=200 K=100 +stopwords+soft+word_idf+bin_idf R@1 0.100  R@5 0.295  R@10 0.425  MRR 0.201  page@5 0.555  median rank 16  fit 0s
+hist N=200 K=200 +stopwords+soft+word_idf+bin_idf R@1 0.120  R@5 0.300  R@10 0.420  MRR 0.224  page@5 0.610  median rank 16  fit 0s
+hist N=200 K=400 +stopwords+soft+word_idf+bin_idf R@1 0.125  R@5 0.345  R@10 0.495  MRR 0.240  page@5 0.625  median rank 11  fit 0s
+hist N=200 K=800 +stopwords+soft+word_idf+bin_idf R@1 0.175  R@5 0.450  R@10 0.535  MRR 0.302  page@5 0.675  median rank 8  fit 0s
+hist N=200 K=1600 +stopwords+soft+word_idf+bin_idf R@1 0.155  R@5 0.405  R@10 0.535  MRR 0.285  page@5 0.660  median rank 8  fit 0s
+final grid: full stack (+sqrt) at large K, and the ablation that drops word_idf
+hist N=100 K=800 +stopwords+soft+word_idf+bin_idf+sqrt R@1 0.130  R@5 0.430  R@10 0.550  MRR 0.269  page@5 0.650  median rank 8  fit 0s
+hist N=100 K=800 +stopwords+soft+bin_idf+sqrt R@1 0.185  R@5 0.500  R@10 0.610  MRR 0.325  page@5 0.715  median rank 6  fit 0s
+hist N=100 K=1600 +stopwords+soft+word_idf+bin_idf+sqrt R@1 0.195  R@5 0.495  R@10 0.600  MRR 0.321  page@5 0.675  median rank 6  fit 0s
+hist N=100 K=1600 +stopwords+soft+bin_idf+sqrt R@1 0.210  R@5 0.555  R@10 0.650  MRR 0.361  page@5 0.765  median rank 4  fit 0s
+hist N=100 K=3200 +stopwords+soft+word_idf+bin_idf+sqrt R@1 0.220  R@5 0.500  R@10 0.615  MRR 0.346  page@5 0.695  median rank 6  fit 1s
+hist N=100 K=3200 +stopwords+soft+bin_idf+sqrt R@1 0.250  R@5 0.585  R@10 0.665  MRR 0.396  page@5 0.795  median rank 4  fit 1s
+hist N=200 K=800 +stopwords+soft+word_idf+bin_idf+sqrt R@1 0.215  R@5 0.490  R@10 0.600  MRR 0.342  page@5 0.695  median rank 6  fit 0s
+hist N=200 K=800 +stopwords+soft+bin_idf+sqrt R@1 0.220  R@5 0.540  R@10 0.660  MRR 0.365  page@5 0.760  median rank 4  fit 0s
+hist N=200 K=1600 +stopwords+soft+word_idf+bin_idf+sqrt R@1 0.195  R@5 0.490  R@10 0.600  MRR 0.332  page@5 0.690  median rank 6  fit 0s
+hist N=200 K=1600 +stopwords+soft+bin_idf+sqrt R@1 0.250  R@5 0.570  R@10 0.675  MRR 0.393  page@5 0.785  median rank 4  fit 0s
+hist N=200 K=3200 +stopwords+soft+word_idf+bin_idf+sqrt R@1 0.220  R@5 0.500  R@10 0.615  MRR 0.346  page@5 0.695  median rank 6  fit 1s
+hist N=200 K=3200 +stopwords+soft+bin_idf+sqrt R@1 0.250  R@5 0.585  R@10 0.665  MRR 0.396  page@5 0.795  median rank 4  fit 1s
+hybrid 0.50*hist(K=1600) + 0.50*meanW2V      R@1 0.215  R@5 0.570  R@10 0.675  MRR 0.375  page@5 0.780  median rank 4  
+hybrid 0.70*hist(K=1600) + 0.30*meanW2V      R@1 0.210  R@5 0.560  R@10 0.630  MRR 0.358  page@5 0.745  median rank 4  
+hybrid 0.85*hist(K=1600) + 0.15*meanW2V      R@1 0.220  R@5 0.530  R@10 0.605  MRR 0.352  page@5 0.715  median rank 5  
+wrote lab9/data/raw/part5_eval_f1.csv

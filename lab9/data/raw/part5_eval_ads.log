@@ -1,0 +1,59 @@
+1203 chunks, 200 test questions; e.g. "What steps are left to finalize the amplifier design and assess its performance?" -> chunk 1513
+OpenAI text-embedding-3-small (1536-d)       R@1 0.665  R@5 0.925  R@10 0.945  MRR 0.779  page@5 0.945  median rank 1  
+BM25 (k1=1.5, b=0.75)                        R@1 0.625  R@5 0.895  R@10 0.935  MRR 0.738  page@5 0.930  median rank 1  
+mean Word2Vec vector (100-d)                 R@1 0.425  R@5 0.715  R@10 0.790  MRR 0.550  page@5 0.835  median rank 2  
+hist N=100 K=200 baseline                    R@1 0.180  R@5 0.405  R@10 0.535  MRR 0.292  page@5 0.590  median rank 9  handout baseline fit 0s
+hist N=100 K=200 +stopwords                  R@1 0.205  R@5 0.465  R@10 0.600  MRR 0.331  page@5 0.585  median rank 7  single improvement fit 0s
+hist N=100 K=200 +soft                       R@1 0.260  R@5 0.480  R@10 0.600  MRR 0.368  page@5 0.685  median rank 6  single improvement fit 0s
+hist N=100 K=200 +word_idf                   R@1 0.210  R@5 0.395  R@10 0.555  MRR 0.311  page@5 0.560  median rank 8  single improvement fit 0s
+hist N=100 K=200 +bin_idf                    R@1 0.285  R@5 0.500  R@10 0.615  MRR 0.387  page@5 0.660  median rank 6  single improvement fit 0s
+hist N=100 K=200 +sqrt                       R@1 0.270  R@5 0.510  R@10 0.625  MRR 0.387  page@5 0.675  median rank 5  single improvement fit 0s
+hist N=100 K=200 +stopwords+word_idf+bin_idf R@1 0.165  R@5 0.360  R@10 0.555  MRR 0.281  page@5 0.505  median rank 9  stacked fit 0s
+hist N=100 K=200 +stopwords+soft+word_idf+bin_idf R@1 0.235  R@5 0.545  R@10 0.690  MRR 0.373  page@5 0.690  median rank 5  stacked fit 0s
+hist N=100 K=200 +stopwords+soft+word_idf+bin_idf+sqrt R@1 0.285  R@5 0.600  R@10 0.745  MRR 0.430  page@5 0.735  median rank 4  stacked fit 0s
+K / N sweep (stopwords + word_idf + bin_idf + soft)
+hist N=50 K=50 +stopwords+soft+word_idf+bin_idf R@1 0.175  R@5 0.410  R@10 0.515  MRR 0.293  page@5 0.595  median rank 10  fit 5s
+hist N=50 K=100 +stopwords+soft+word_idf+bin_idf R@1 0.230  R@5 0.475  R@10 0.640  MRR 0.348  page@5 0.645  median rank 6  fit 0s
+hist N=50 K=200 +stopwords+soft+word_idf+bin_idf R@1 0.260  R@5 0.540  R@10 0.685  MRR 0.396  page@5 0.675  median rank 5  fit 0s
+hist N=50 K=400 +stopwords+soft+word_idf+bin_idf R@1 0.310  R@5 0.600  R@10 0.705  MRR 0.436  page@5 0.690  median rank 4  fit 0s
+hist N=50 K=800 +stopwords+soft+word_idf+bin_idf R@1 0.300  R@5 0.580  R@10 0.695  MRR 0.424  page@5 0.735  median rank 4  fit 0s
+hist N=50 K=1600 +stopwords+soft+word_idf+bin_idf R@1 0.320  R@5 0.675  R@10 0.780  MRR 0.478  page@5 0.765  median rank 3  fit 0s
+hist N=100 K=50 +stopwords+soft+word_idf+bin_idf R@1 0.180  R@5 0.395  R@10 0.530  MRR 0.284  page@5 0.570  median rank 9  fit 0s
+hist N=100 K=100 +stopwords+soft+word_idf+bin_idf R@1 0.195  R@5 0.495  R@10 0.605  MRR 0.331  page@5 0.635  median rank 6  fit 0s
+hist N=100 K=200 +stopwords+soft+word_idf+bin_idf R@1 0.235  R@5 0.545  R@10 0.690  MRR 0.373  page@5 0.690  median rank 5  fit 0s
+hist N=100 K=400 +stopwords+soft+word_idf+bin_idf R@1 0.255  R@5 0.570  R@10 0.745  MRR 0.408  page@5 0.710  median rank 4  fit 0s
+hist N=100 K=800 +stopwords+soft+word_idf+bin_idf R@1 0.270  R@5 0.665  R@10 0.760  MRR 0.441  page@5 0.805  median rank 3  fit 0s
+hist N=100 K=1600 +stopwords+soft+word_idf+bin_idf R@1 0.310  R@5 0.725  R@10 0.805  MRR 0.488  page@5 0.815  median rank 2  fit 0s
+hist N=200 K=50 +stopwords+soft+word_idf+bin_idf R@1 0.125  R@5 0.380  R@10 0.530  MRR 0.255  page@5 0.550  median rank 9  fit 8s
+hist N=200 K=100 +stopwords+soft+word_idf+bin_idf R@1 0.180  R@5 0.480  R@10 0.630  MRR 0.324  page@5 0.605  median rank 6  fit 0s
+hist N=200 K=200 +stopwords+soft+word_idf+bin_idf R@1 0.240  R@5 0.500  R@10 0.630  MRR 0.364  page@5 0.660  median rank 6  fit 0s
+hist N=200 K=400 +stopwords+soft+word_idf+bin_idf R@1 0.245  R@5 0.560  R@10 0.715  MRR 0.391  page@5 0.680  median rank 4  fit 0s
+hist N=200 K=800 +stopwords+soft+word_idf+bin_idf R@1 0.320  R@5 0.645  R@10 0.795  MRR 0.464  page@5 0.790  median rank 3  fit 0s
+hist N=200 K=1600 +stopwords+soft+word_idf+bin_idf R@1 0.340  R@5 0.680  R@10 0.820  MRR 0.495  page@5 0.825  median rank 3  fit 0s
+final grid: full stack (+sqrt) at large K, and the ablation that drops word_idf
+hist N=100 K=800 +stopwords+soft+word_idf+bin_idf+sqrt R@1 0.375  R@5 0.755  R@10 0.840  MRR 0.538  page@5 0.840  median rank 2  fit 0s
+hist N=100 K=800 +stopwords+soft+bin_idf+sqrt R@1 0.420  R@5 0.780  R@10 0.845  MRR 0.576  page@5 0.875  median rank 2  fit 0s
+hist N=100 K=1600 +stopwords+soft+word_idf+bin_idf+sqrt R@1 0.425  R@5 0.795  R@10 0.840  MRR 0.591  page@5 0.865  median rank 2  fit 0s
+hist N=100 K=1600 +stopwords+soft+bin_idf+sqrt R@1 0.475  R@5 0.805  R@10 0.855  MRR 0.629  page@5 0.885  median rank 2  fit 0s
+hist N=100 K=3200 +stopwords+soft+word_idf+bin_idf+sqrt R@1 0.455  R@5 0.800  R@10 0.890  MRR 0.609  page@5 0.865  median rank 2  fit 1s
+hist N=100 K=3200 +stopwords+soft+bin_idf+sqrt R@1 0.505  R@5 0.835  R@10 0.905  MRR 0.656  page@5 0.895  median rank 1  fit 1s
+hist N=200 K=800 +stopwords+soft+word_idf+bin_idf+sqrt R@1 0.400  R@5 0.780  R@10 0.860  MRR 0.563  page@5 0.855  median rank 2  fit 0s
+hist N=200 K=800 +stopwords+soft+bin_idf+sqrt R@1 0.450  R@5 0.795  R@10 0.865  MRR 0.599  page@5 0.870  median rank 2  fit 0s
+hist N=200 K=1600 +stopwords+soft+word_idf+bin_idf+sqrt R@1 0.445  R@5 0.785  R@10 0.875  MRR 0.599  page@5 0.870  median rank 2  fit 0s
+hist N=200 K=1600 +stopwords+soft+bin_idf+sqrt R@1 0.480  R@5 0.830  R@10 0.885  MRR 0.635  page@5 0.915  median rank 2  fit 0s
+hist N=200 K=3200 +stopwords+soft+word_idf+bin_idf+sqrt R@1 0.455  R@5 0.800  R@10 0.890  MRR 0.609  page@5 0.865  median rank 2  fit 1s
+hist N=200 K=3200 +stopwords+soft+bin_idf+sqrt R@1 0.505  R@5 0.835  R@10 0.905  MRR 0.657  page@5 0.895  median rank 1  fit 1s
+hybrid 0.50*hist(K=1600) + 0.50*meanW2V      R@1 0.490  R@5 0.815  R@10 0.885  MRR 0.638  page@5 0.885  median rank 2  
+hybrid 0.70*hist(K=1600) + 0.30*meanW2V      R@1 0.470  R@5 0.830  R@10 0.885  MRR 0.625  page@5 0.895  median rank 2  
+hybrid 0.85*hist(K=1600) + 0.15*meanW2V      R@1 0.465  R@5 0.800  R@10 0.860  MRR 0.618  page@5 0.880  median rank 2  
+example clusters (K=200, most frequent words first):
+  cluster  34: lib, defs, kit, browse, unzip, designkit, confusion
+  cluster 145: than, less, equal, times, tones
+  cluster 195: port, specify, ip, tcp, companydomainname, computername
+  cluster  16: template, session, saved, future, calibration, preselect
+  cluster  65: point, shunt, intended, rc, generated, combination, solve, rb
+  cluster  30: ghz, per, lower, cutoff, dbpolar, pinch, edges, frequenc, respect, dbmtow, ratio, polar
+  cluster 126: dbm, sweep, swept, vs, plotted, ebn0, disable, sinegen, comment, eb, symrate, index
+  cluster 194: not, does
+example chunk 1513 (66 words): bin 180 = 0.182 [figure, cookbook, amplifier, performance]; bin 29 = 0.167 [the, at, each, pin]; bin 92 = 0.091 [shown, it, below, results]; bin 93 = 0.076 [system, once, look, complete]; bin 55 = 0.061 [to, license, correct, lmutil]; bin 140 = 0.045 [circuit, above, table, illustration]; bins used 28/200, sum 1.000
+wrote /Users/danieltang/Documents/10_Projects/2026_Course_USC_EE542/assignments/lab9/data/raw/part5_eval_ads.csv

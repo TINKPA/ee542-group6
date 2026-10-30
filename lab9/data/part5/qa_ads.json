@@ -1,0 +1,802 @@
+[
+ {
+  "chunk_id": 1513,
+  "question": "What steps are left to finalize the amplifier design and assess its performance?"
+ },
+ {
+  "chunk_id": 2322,
+  "question": "What is the purpose of FLEXLM_TIMEOUT and how does it affect license server connections?"
+ },
+ {
+  "chunk_id": 1690,
+  "question": "What parameters are being analyzed in the ADS simulations for the voltage controlled resonator?"
+ },
+ {
+  "chunk_id": 2145,
+  "question": "How is the b_core codeword associated with a specific CPU or hardware device?"
+ },
+ {
+  "chunk_id": 1659,
+  "question": "How can I find the models for SMT components in the Advanced Design System?"
+ },
+ {
+  "chunk_id": 2019,
+  "question": "How can the orthotropic thermal conductivity of materials be defined in the new syntax?"
+ },
+ {
+  "chunk_id": 2213,
+  "question": "What is the order of license requests after the start-up license is checked?"
+ },
+ {
+  "chunk_id": 1489,
+  "question": "What are the key design considerations for amplifiers in different frequency ranges?"
+ },
+ {
+  "chunk_id": 1747,
+  "question": "What guidelines can help in selecting the appropriate section of the Smith Chart for load pull analysis?"
+ },
+ {
+  "chunk_id": 1959,
+  "question": "What are the contact numbers for Keysight in different regions?"
+ },
+ {
+  "chunk_id": 2403,
+  "question": "What is the purpose of the License Setup Wizard?"
+ },
+ {
+  "chunk_id": 1384,
+  "question": "How do I open Excel to view the budget simulation results?"
+ },
+ {
+  "chunk_id": 1229,
+  "question": "How can I adjust the values of components in the LPF circuit for tuning?"
+ },
+ {
+  "chunk_id": 1267,
+  "question": "How do I set up the HB simulation controller in my schematic?"
+ },
+ {
+  "chunk_id": 1937,
+  "question": "What is the reported simulation time for the complete system analysis on a Dual Core Win7 machine?"
+ },
+ {
+  "chunk_id": 1594,
+  "question": "What do the waveforms of the fundamental and third harmonic currents look like at the MESFET output?"
+ },
+ {
+  "chunk_id": 2404,
+  "question": "What is the role of LSF in managing job submissions across host machines?"
+ },
+ {
+  "chunk_id": 1302,
+  "question": "How do I create the geometry for a patch antenna in the workspace?"
+ },
+ {
+  "chunk_id": 1618,
+  "question": "Why is the bias point current lower than the expected final value?"
+ },
+ {
+  "chunk_id": 1289,
+  "question": "What settings should I use for the frequency sweep in the EM setup?"
+ },
+ {
+  "chunk_id": 2258,
+  "question": "How do I install the USB dongle drivers for Keysight EEsof products?"
+ },
+ {
+  "chunk_id": 2094,
+  "question": "What is the default installation path for SystemVueVTB on a Windows system?"
+ },
+ {
+  "chunk_id": 2242,
+  "question": "How should I format the network license server address when setting up a node-locked license on Linux?"
+ },
+ {
+  "chunk_id": 1674,
+  "question": "What is the minimum loaded Q value needed for the resonator to achieve a compliant phase noise response?"
+ },
+ {
+  "chunk_id": 2234,
+  "question": "What value should I enter in the New System Variable dialog box?"
+ },
+ {
+  "chunk_id": 1564,
+  "question": "What factors should be considered to improve harmonic generation in a frequency multiplier?"
+ },
+ {
+  "chunk_id": 2401,
+  "question": "What is the purpose of job control in relation to feature usage?"
+ },
+ {
+  "chunk_id": 1797,
+  "question": "What is ACPR and why is it important for wireless signals?"
+ },
+ {
+  "chunk_id": 1980,
+  "question": "How do I install ADS after downloading it?"
+ },
+ {
+  "chunk_id": 1434,
+  "question": "What steps should be taken to improve the performance of the filter design?"
+ },
+ {
+  "chunk_id": 2271,
+  "question": "How can I view the details of a selected license?"
+ },
+ {
+  "chunk_id": 1759,
+  "question": "What options are available for network design tools?"
+ },
+ {
+  "chunk_id": 1406,
+  "question": "How do I view simulation results in ADS after running a circuit simulation?"
+ },
+ {
+  "chunk_id": 2333,
+  "question": "What is the version and build number of the LMGRD software?"
+ },
+ {
+  "chunk_id": 1559,
+  "question": "What are the non-linearities in MESFETs that can be used for harmonic frequency generation?"
+ },
+ {
+  "chunk_id": 2212,
+  "question": "How can CAD administrators control the appearance of the Product Selector for users?"
+ },
+ {
+  "chunk_id": 1360,
+  "question": "What specifications should be set for the Amplifier components in the circuit?"
+ },
+ {
+  "chunk_id": 2022,
+  "question": "What new features have been introduced for superconductors in the ADS material definitions?"
+ },
+ {
+  "chunk_id": 1328,
+  "question": "What should be considered regarding the accuracy of S-parameters and magnetic field solutions during the iterative process?"
+ },
+ {
+  "chunk_id": 1256,
+  "question": "What factors limit the number of frequencies in a system using harmonic balance?"
+ },
+ {
+  "chunk_id": 2185,
+  "question": "What are the different types of licenses available for Keysight EEsof software?"
+ },
+ {
+  "chunk_id": 1581,
+  "question": "What type of simulator can be used to improve the performance of the circuit described?"
+ },
+ {
+  "chunk_id": 1623,
+  "question": "How can I view the DC voltages and currents at each node after running the simulation?"
+ },
+ {
+  "chunk_id": 1880,
+  "question": "How do I set up a TkPlot to visualize data from the SineGen source?"
+ },
+ {
+  "chunk_id": 1789,
+  "question": "How can I calculate the Peak Envelope Power (PEP) and display it in a table?"
+ },
+ {
+  "chunk_id": 2057,
+  "question": "How can I handle long path names in Windows?"
+ },
+ {
+  "chunk_id": 1322,
+  "question": "How does the FEM Simulator represent vector field quantities within tetrahedra?"
+ },
+ {
+  "chunk_id": 1774,
+  "question": "How do I copy the power amplifier design along with its subcircuits?"
+ },
+ {
+  "chunk_id": 1335,
+  "question": "How do I set up the substrate for my simulation in the software?"
+ },
+ {
+  "chunk_id": 2326,
+  "question": "How can I remove my previous license server configuration?"
+ },
+ {
+  "chunk_id": 2225,
+  "question": "How do I start the FlexNet license server managers on my computer?"
+ },
+ {
+  "chunk_id": 2002,
+  "question": "What types of job configurations can be executed in the Design Cloud?"
+ },
+ {
+  "chunk_id": 1922,
+  "question": "What are the prerequisites for conducting a mixed signal system simulation involving DSP and RF systems?"
+ },
+ {
+  "chunk_id": 1779,
+  "question": "How do I start the optimization process and check the results?"
+ },
+ {
+  "chunk_id": 1365,
+  "question": "How can I simulate phase noise in a receiver system using ADS?"
+ },
+ {
+  "chunk_id": 1413,
+  "question": "How can I optimize the lengths of transmission lines to achieve a 2GHz cutoff frequency?"
+ },
+ {
+  "chunk_id": 2259,
+  "question": "How do I install the drivers for the Wibu dongle on my system?"
+ },
+ {
+  "chunk_id": 1733,
+  "question": "What components are needed for the gate bias section in the design?"
+ },
+ {
+  "chunk_id": 2285,
+  "question": "What should I do if I change the license file for the software?"
+ },
+ {
+  "chunk_id": 1867,
+  "question": "What are the formulas for Tstep in relation to bandpass and baseband signals?"
+ },
+ {
+  "chunk_id": 2189,
+  "question": "What happens when the maximum number of concurrent users for a Keysight EEsof license is reached?"
+ },
+ {
+  "chunk_id": 1345,
+  "question": "What options can be adjusted to improve simulation speed and mesh quality?"
+ },
+ {
+  "chunk_id": 1509,
+  "question": "What steps are taken after stabilizing the circuit to design the matching networks for the amplifier?"
+ },
+ {
+  "chunk_id": 1665,
+  "question": "How can I simulate the design directly from the layout without re-entering parameters?"
+ },
+ {
+  "chunk_id": 2378,
+  "question": "What should I check to verify that the features I have match my licenses?"
+ },
+ {
+  "chunk_id": 1918,
+  "question": "How do I configure the DF controller and Parameter Sweep controller for BER calculations?"
+ },
+ {
+  "chunk_id": 2064,
+  "question": "What issues can arise when there are multiple INCREMENT lines with the same name on the license server?"
+ },
+ {
+  "chunk_id": 1286,
+  "question": "How do I define the properties of a conductor in the schematic design?"
+ },
+ {
+  "chunk_id": 1884,
+  "question": "How can I improve the resolution of the spectrum plot in the simulation?"
+ },
+ {
+  "chunk_id": 1751,
+  "question": "How do I determine the necessary input power for the device?"
+ },
+ {
+  "chunk_id": 2347,
+  "question": "What are the different license file variables for Keysight EEsof products?"
+ },
+ {
+  "chunk_id": 2354,
+  "question": "What should I do if my USB dongle is not recognized by the license server?"
+ },
+ {
+  "chunk_id": 1626,
+  "question": "What does the dBm function assume about the load when measuring output power?"
+ },
+ {
+  "chunk_id": 2014,
+  "question": "What changes were made to the AEL files and design kits in the ADS 2024 installation?"
+ },
+ {
+  "chunk_id": 2218,
+  "question": "What steps should I follow to set up a license server for my software?"
+ },
+ {
+  "chunk_id": 2253,
+  "question": "How can I configure the license environment variable for a specific product?"
+ },
+ {
+  "chunk_id": 1232,
+  "question": "How can I manage the visibility of graphs when I have multiple saved states?"
+ },
+ {
+  "chunk_id": 1889,
+  "question": "What are some key references related to data flow programming in the document?"
+ },
+ {
+  "chunk_id": 2238,
+  "question": "How do I set up the License Server Manager and configure the product environment variable?"
+ },
+ {
+  "chunk_id": 2289,
+  "question": "What does the variable <PRODUCT>_PRODSEL_AUTOSTART indicate when the check-box is selected?"
+ },
+ {
+  "chunk_id": 1773,
+  "question": "Where can I find the Current Probe component and the PAE function in the software?"
+ },
+ {
+  "chunk_id": 1769,
+  "question": "What are the phase angles for the series lines and shunt stubs?"
+ },
+ {
+  "chunk_id": 1591,
+  "question": "What is the relationship between the maximum drain-gate voltage and the avalanche voltage?"
+ },
+ {
+  "chunk_id": 1780,
+  "question": "What steps should I follow to conduct a power sweep analysis for the amplifier?"
+ },
+ {
+  "chunk_id": 1818,
+  "question": "How do I create the posts for the MEMS switch in the simulation setup?"
+ },
+ {
+  "chunk_id": 2389,
+  "question": "What should I do if I encounter issues with the license server due to firewall or antivirus settings?"
+ },
+ {
+  "chunk_id": 1484,
+  "question": "What is the main goal of the paper on amplifier design?"
+ },
+ {
+  "chunk_id": 1234,
+  "question": "What are the steps involved in optimizing a low-pass filter circuit in ADS?"
+ },
+ {
+  "chunk_id": 1672,
+  "question": "What are the specifications for the feedback oscillator being designed in this tutorial?"
+ },
+ {
+  "chunk_id": 2240,
+  "question": "What are the steps to configure a floating license on a Linux system?"
+ },
+ {
+  "chunk_id": 1499,
+  "question": "How do I set up the FET Curve Tracer for my active device?"
+ },
+ {
+  "chunk_id": 1811,
+  "question": "How can I determine the physical characteristics of a \u03bb/4 CPW transmission line based on its electrical specifications?"
+ },
+ {
+  "chunk_id": 2298,
+  "question": "What types of server setups are compatible with Keysight EEsof licensing?"
+ },
+ {
+  "chunk_id": 1268,
+  "question": "How do I run the simulation and plot the output in dBm?"
+ },
+ {
+  "chunk_id": 1557,
+  "question": "What are the benefits of using MESFET multipliers over SRD multipliers when bandwidth is below 50%?"
+ },
+ {
+  "chunk_id": 1511,
+  "question": "What types of matching networks can be utilized for amplifiers operating in the microwave frequency range?"
+ },
+ {
+  "chunk_id": 2305,
+  "question": "How does the licensing work for a distributed simulation using the N-pack feature?"
+ },
+ {
+  "chunk_id": 1989,
+  "question": "What improvements have been made to the Component Model Library Tools regarding design references?"
+ },
+ {
+  "chunk_id": 1295,
+  "question": "What are the common shapes used for the radiating elements in a microstrip patch antenna?"
+ },
+ {
+  "chunk_id": 1869,
+  "question": "What type of signal information is captured when sampling in modulated versus non-modulated cases?"
+ },
+ {
+  "chunk_id": 2241,
+  "question": "How do I configure client computers to connect to the network license server?"
+ },
+ {
+  "chunk_id": 1992,
+  "question": "How can I configure environment variables for managing simulation data files?"
+ },
+ {
+  "chunk_id": 1526,
+  "question": "What are some methods for analyzing circuits in ADS?"
+ },
+ {
+  "chunk_id": 1497,
+  "question": "What are the specifications for the amplifier design?"
+ },
+ {
+  "chunk_id": 1787,
+  "question": "How do I set up the data display for the 2-Tone simulations in the Keysight EEsof EDA Advanced Design System?"
+ },
+ {
+  "chunk_id": 2056,
+  "question": "How can I remove x86 paths from my environment variables?"
+ },
+ {
+  "chunk_id": 1332,
+  "question": "What are the essential steps to perform a successful FEM simulation in ADS?"
+ },
+ {
+  "chunk_id": 1743,
+  "question": "What are the conditions required for a device to be considered stable?"
+ },
+ {
+  "chunk_id": 2407,
+  "question": "What is the role of the agileesofd vendor daemon in relation to Keysight EEsof licenses?"
+ },
+ {
+  "chunk_id": 2351,
+  "question": "Where can I find the license file for the server?"
+ },
+ {
+  "chunk_id": 1862,
+  "question": "How can I ensure a specific carrier frequency is used in the feedback path?"
+ },
+ {
+  "chunk_id": 2044,
+  "question": "What issues were resolved regarding connectivity and plane shapes in the recent update?"
+ },
+ {
+  "chunk_id": 1428,
+  "question": "What are the steps to determine the physical dimensions of the coupled lines for a distributed bandpass filter?"
+ },
+ {
+  "chunk_id": 2045,
+  "question": "What issues were addressed in the latest update regarding design import and export functionalities?"
+ },
+ {
+  "chunk_id": 2180,
+  "question": "What is the format for specifying a license increment in the document?"
+ },
+ {
+  "chunk_id": 2372,
+  "question": "What should I do if I confirm that the remote license server is operational but still encounter communication issues?"
+ },
+ {
+  "chunk_id": 1715,
+  "question": "How can I get a non-linear model for the GaN components I'm using in my power amplifier designs?"
+ },
+ {
+  "chunk_id": 1925,
+  "question": "What components are necessary in the Ptolemy environment for an RF subcircuit using an Envelope controller?"
+ },
+ {
+  "chunk_id": 2106,
+  "question": "What are the licensing terms for software used in U.S. Government contracts?"
+ },
+ {
+  "chunk_id": 1938,
+  "question": "How can I enable the Fast Cosim feature in the RF_Tx and RF_Rx subcircuits?"
+ },
+ {
+  "chunk_id": 2293,
+  "question": "How can I enable debugging for the vendor daemon without restarting the license server?"
+ },
+ {
+  "chunk_id": 1730,
+  "question": "What steps should I follow to create a bias network in the schematic cell?"
+ },
+ {
+  "chunk_id": 1612,
+  "question": "How can I set up a simulation for IV characteristics using ADS?"
+ },
+ {
+  "chunk_id": 1451,
+  "question": "How should I adjust the lengths of the coupler lines to account for the TEE effect?"
+ },
+ {
+  "chunk_id": 1968,
+  "question": "How do I begin the setup for a counted license?"
+ },
+ {
+  "chunk_id": 1543,
+  "question": "What was the yield percentage achieved in the initial trials?"
+ },
+ {
+  "chunk_id": 1551,
+  "question": "What are the challenges associated with designing nonlinear circuits?"
+ },
+ {
+  "chunk_id": 1725,
+  "question": "How do I set up a workspace in ADS to use the RFMD GaN library for my amplifier design?"
+ },
+ {
+  "chunk_id": 2276,
+  "question": "How can I configure my firewall to allow access to FlexNet licenses?"
+ },
+ {
+  "chunk_id": 1764,
+  "question": "How do I adjust the Smith Chart to show specific electrical lengths?"
+ },
+ {
+  "chunk_id": 2215,
+  "question": "How do I configure a node-locked or floating license on a Windows system?"
+ },
+ {
+  "chunk_id": 1377,
+  "question": "What types of components are compatible with the Budget Controller system?"
+ },
+ {
+  "chunk_id": 1940,
+  "question": "How can I set up BER simulations for RF and DSP co-simulation?"
+ },
+ {
+  "chunk_id": 1523,
+  "question": "What is the purpose of statistical analysis in design simulations?"
+ },
+ {
+  "chunk_id": 2387,
+  "question": "What are the common causes of interference with FlexNet communications?"
+ },
+ {
+  "chunk_id": 1364,
+  "question": "What steps are involved in setting up the receiver system diagram with the HB simulation controller?"
+ },
+ {
+  "chunk_id": 2360,
+  "question": "What should I do if my virtual machine or Linux distribution is not supported for licensing?"
+ },
+ {
+  "chunk_id": 2269,
+  "question": "What functions can I perform using the Product Selector?"
+ },
+ {
+  "chunk_id": 1410,
+  "question": "How can I build a model using library components in ADS?"
+ },
+ {
+  "chunk_id": 1966,
+  "question": "How do I install the ADS software on Linux?"
+ },
+ {
+  "chunk_id": 1447,
+  "question": "What are the physical dimensions for the microstrip lines used in the branch line coupler design?"
+ },
+ {
+  "chunk_id": 1897,
+  "question": "What effect does the Root Raised Cosine filter have on the constellation?"
+ },
+ {
+  "chunk_id": 1975,
+  "question": "How can I install ADS on a Windows computer?"
+ },
+ {
+  "chunk_id": 1795,
+  "question": "What parameters should I set for the Fast Cosim configuration?"
+ },
+ {
+  "chunk_id": 2349,
+  "question": "What should I do if my Keysight-EEsof application has a licensing issue while running?"
+ },
+ {
+  "chunk_id": 1518,
+  "question": "What factors contribute to variations in microwave circuit design?"
+ },
+ {
+  "chunk_id": 1516,
+  "question": "What factors contribute to the challenges in achieving reliable circuit performance?"
+ },
+ {
+  "chunk_id": 1815,
+  "question": "What are the dimensions and spacing parameters for the \u03bb/4 CPW transmission line?"
+ },
+ {
+  "chunk_id": 1491,
+  "question": "What factors determine the stability of an amplifier during its design?"
+ },
+ {
+  "chunk_id": 1724,
+  "question": "What are the essential steps involved in designing a power amplifier?"
+ },
+ {
+  "chunk_id": 2301,
+  "question": "What types of licenses are available for distributed simulations in ADS and GoldenGate?"
+ },
+ {
+  "chunk_id": 1247,
+  "question": "How can I create a template for Optimization Goals in the design software?"
+ },
+ {
+  "chunk_id": 2179,
+  "question": "What information is included in the INCREMENT line for a licensed codeword?"
+ },
+ {
+  "chunk_id": 2294,
+  "question": "How can I enable debugging for the license server without restarting it?"
+ },
+ {
+  "chunk_id": 1248,
+  "question": "How can I access and use a saved template for optimization in my design?"
+ },
+ {
+  "chunk_id": 2375,
+  "question": "How can I verify that my licenses are valid and not expired?"
+ },
+ {
+  "chunk_id": 2138,
+  "question": "What operating systems are compatible with the License Server?"
+ },
+ {
+  "chunk_id": 2388,
+  "question": "What should I check first if I'm experiencing communication issues with FlexNet?"
+ },
+ {
+  "chunk_id": 2311,
+  "question": "What is the default duration for retrying a failed license checkout for remote simulations?"
+ },
+ {
+  "chunk_id": 1711,
+  "question": "What is the role of power amplifiers in a transmission system?"
+ },
+ {
+  "chunk_id": 2297,
+  "question": "How can I prevent the license expiration warning from appearing at startup?"
+ },
+ {
+  "chunk_id": 1868,
+  "question": "What color and thickness represent different data types in the document?"
+ },
+ {
+  "chunk_id": 2176,
+  "question": "What port number should I use for a UNIX system if I don't specify one?"
+ },
+ {
+  "chunk_id": 1977,
+  "question": "What happens to the licensing tool path if I install an EEsof product released after August 1, 2014?"
+ },
+ {
+  "chunk_id": 1678,
+  "question": "What is the effective quality factor (Qe) for the resonator given the unloaded Q of the inductor?"
+ },
+ {
+  "chunk_id": 2296,
+  "question": "How can I suppress licensing error messages in the Keysight EEsof software?"
+ },
+ {
+  "chunk_id": 1366,
+  "question": "How do I set up a Phase noise analysis in the Harmonic Balance simulator using ADS?"
+ },
+ {
+  "chunk_id": 1387,
+  "question": "What are the main types of filters and their ideal characteristics?"
+ },
+ {
+  "chunk_id": 2310,
+  "question": "How does the availability of quad-pack licenses affect the execution of jobs in simulations?"
+ },
+ {
+  "chunk_id": 1252,
+  "question": "How can I save my setup as a template in the software?"
+ },
+ {
+  "chunk_id": 2338,
+  "question": "How can I locate the Flex ID for my hardware security key?"
+ },
+ {
+  "chunk_id": 1319,
+  "question": "What types of structures can the FEM simulator model for electromagnetic simulation?"
+ },
+ {
+  "chunk_id": 2069,
+  "question": "What should I consider when configuring license files for a vendor daemon on my server?"
+ },
+ {
+  "chunk_id": 2175,
+  "question": "What is the significance of the hostid values in the license file for Keysight EEsof?"
+ },
+ {
+  "chunk_id": 1522,
+  "question": "What are the specifications of the substrate used for amplifier design?"
+ },
+ {
+  "chunk_id": 1914,
+  "question": "How can I label and connect the nodes in the Numeric-Signal Processing library?"
+ },
+ {
+  "chunk_id": 1986,
+  "question": "What new features have been added to circuit simulation in ADS 2024?"
+ },
+ {
+  "chunk_id": 1756,
+  "question": "What impedance should be used for load termination in the source pull simulation?"
+ },
+ {
+  "chunk_id": 1807,
+  "question": "What are the applications of RF MEMS switches in high-frequency systems?"
+ },
+ {
+  "chunk_id": 1633,
+  "question": "What is the importance of knowing the input and output impedances when designing matching networks for a device?"
+ },
+ {
+  "chunk_id": 2323,
+  "question": "What are the potential consequences of not specifying a TCP/IP port for the license server?"
+ },
+ {
+  "chunk_id": 1461,
+  "question": "How do I set up the EM simulation for a microstrip line?"
+ },
+ {
+  "chunk_id": 1233,
+  "question": "How do I apply the tuning values to the design schematic?"
+ },
+ {
+  "chunk_id": 1763,
+  "question": "How do I lock the impedance point after shifting it?"
+ },
+ {
+  "chunk_id": 1355,
+  "question": "How do I apply the symmetry plane in the simulation?"
+ },
+ {
+  "chunk_id": 1766,
+  "question": "What strategies can be used to minimize the size of a matching network on a PCB?"
+ },
+ {
+  "chunk_id": 2103,
+  "question": "What should I do if the online documentation doesn't display correctly in Konqueror on Linux?"
+ },
+ {
+  "chunk_id": 1625,
+  "question": "What is the process for measuring output power as input power increases in the Harmonic Balance controller?"
+ },
+ {
+  "chunk_id": 1990,
+  "question": "What new features are included in version 0.7.0 of pwdatatools?"
+ },
+ {
+  "chunk_id": 1442,
+  "question": "What are the component values for the lumped model at a design frequency of 2 GHz?"
+ },
+ {
+  "chunk_id": 2021,
+  "question": "What should I do to submit remote jobs after the built-in support is removed in ADS 2025?"
+ },
+ {
+  "chunk_id": 2352,
+  "question": "What should I do if the license file path and information about the software are not displayed when running the command?"
+ },
+ {
+  "chunk_id": 1337,
+  "question": "How do I set up the FEM simulation in the EM Simulation Setup window?"
+ },
+ {
+  "chunk_id": 1555,
+  "question": "What distinguishes a FET multiplier from a conventional power amplifier in terms of output frequency?"
+ },
+ {
+  "chunk_id": 1552,
+  "question": "How can nonlinear circuit simulators aid in the development of MESFET frequency multipliers?"
+ },
+ {
+  "chunk_id": 2255,
+  "question": "How do I configure licenses for multiple Keysight EEsof products on my Linux system?"
+ },
+ {
+  "chunk_id": 2062,
+  "question": "How do I set up the license server for my software on the same computer?"
+ },
+ {
+  "chunk_id": 1588,
+  "question": "What substrate material and thickness were used for the frequency tripler circuit design?"
+ },
+ {
+  "chunk_id": 1578,
+  "question": "What factors should be considered when selecting a Bandpass filter topology?"
+ },
+ {
+  "chunk_id": 2308,
+  "question": "What types of simulations can the Quad-pack Simulation License support simultaneously?"
+ }
+]
