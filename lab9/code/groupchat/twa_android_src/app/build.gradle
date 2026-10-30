@@ -1,0 +1,29 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    // EE542 Lab 9 Part 2: our own package (the template's com.helloworld.* is the instructor's)
+    namespace 'edu.usc.ee542.group6.f1compass'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "edu.usc.ee542.group6.f1compass"
+        minSdk 21
+        targetSdk 35
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug { }
+    }
+}
+
+dependencies {
+    implementation 'com.google.androidbrowserhelper:androidbrowserhelper:2.5.0'
+}

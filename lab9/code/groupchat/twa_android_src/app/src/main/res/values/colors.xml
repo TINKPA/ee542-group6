@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- the web app's background (#0f172a) and accent (#4f46e5) -->
+    <color name="brand_dark">#0F172A</color>
+    <color name="brand_accent">#4F46E5</color>
+</resources>
