@@ -1,0 +1,183 @@
+[
+ {
+  "question": "When can I apply for post-completion OPT?",
+  "ok": true,
+  "facts": {
+   "90 days": true,
+   "60 days": true
+  },
+  "sources": [
+   "SEVP",
+   "USC OIS",
+   "USCIS",
+   "eCFR"
+  ],
+  "seconds": 2.7,
+  "answer": "You may apply for post-completion Optional Practical Training (OPT) after completing your degree program. You must apply after your Designated School Official (DSO) enters the recommendation for OPT into your SEVIS record, and you must apply within 30 days after this recommendation is entered. Additionally, you can apply up to 90 days before you complete your degree, but no later than 60 days after you complete your degree [USCIS: Optional Practical Training (OPT) for F-1 Students; USC OIS: Post-Completion OPT].\n\nNot legal advice; confirm with your DSO at USC OIS."
+ },
+ {
+  "question": "How many hours a week can I work on campus while classes are in session?",
+  "ok": true,
+  "facts": {
+   "20 hours": true
+  },
+  "sources": [
+   "SEVP",
+   "USC OIS",
+   "eCFR"
+  ],
+  "seconds": 2.1,
+  "answer": "While classes are in session, you may work on-campus for no more than 20 hours per week [SEVP: Working in the United States (F and M students)]. \n\nNot legal advice; confirm with your DSO at USC OIS."
+ },
+ {
+  "question": "Can I do CPT in my first semester as a graduate student?",
+  "ok": true,
+  "facts": {
+   "(one|1) (full )?academic year|first semester|immediate": true
+  },
+  "sources": [
+   "ICE",
+   "SEVP",
+   "USC OIS"
+  ],
+  "seconds": 2.0,
+  "answer": "Yes, as a graduate student, you may be authorized for Curricular Practical Training (CPT) during your first semester if your program requires this type of experience. You must consult your designated school official (DSO) for details, and they will provide you with a new Form I-20 that shows the approval for this employment [ICE: SEVP Practical Training]. \n\nNot legal advice; confirm with your DSO at USC OIS."
+ },
+ {
+  "question": "If I do 12 months of full-time CPT, can I still get OPT?",
+  "ok": true,
+  "facts": {
+   "(not|no longer) (be )?eligible|ineligible|lose": true
+  },
+  "sources": [
+   "ICE",
+   "SEVP",
+   "USC OIS",
+   "USCIS",
+   "eCFR"
+  ],
+  "seconds": 1.7,
+  "answer": "No, if you complete 12 months or more of full-time Curricular Practical Training (CPT) at your current degree level, you will be ineligible for Optional Practical Training (OPT). However, part-time CPT does not impact your eligibility for OPT [USC OIS: Post-Completion OPT]. \n\nNot legal advice; confirm with your DSO at USC OIS."
+ },
+ {
+  "question": "How many days of unemployment are allowed during post-completion OPT?",
+  "ok": true,
+  "facts": {
+   "90 days": true
+  },
+  "sources": [
+   "SEVP",
+   "USC OIS",
+   "USCIS",
+   "eCFR"
+  ],
+  "seconds": 1.9,
+  "answer": "During the post-completion OPT period, students may not exceed 90 days of unemployment. Accruing more than 90 days of unemployment is considered a violation of F-1 status [USC OIS: Post-Completion OPT]. \n\nNot legal advice; confirm with your DSO at USC OIS."
+ },
+ {
+  "question": "How many days of unemployment do I get in total with the STEM OPT extension?",
+  "ok": true,
+  "facts": {
+   "150 days": true
+  },
+  "sources": [
+   "SEVP",
+   "USC OIS",
+   "USCIS"
+  ],
+  "seconds": 2.2,
+  "answer": "Students who are granted a 24-month STEM OPT extension are allowed a total of 150 days of unemployment. This includes 90 days during the initial post-completion OPT period plus an additional 60 days during the STEM OPT extension period [SEVP: Students: STEM OPT Reporting Requirements]. \n\nNot legal advice; confirm with your DSO at USC OIS."
+ },
+ {
+  "question": "How long is the STEM OPT extension?",
+  "ok": true,
+  "facts": {
+   "24[- ]month": true
+  },
+  "sources": [
+   "SEVP",
+   "USC OIS",
+   "USCIS",
+   "eCFR"
+  ],
+  "seconds": 1.8,
+  "answer": "The STEM OPT Extension provides an additional 24 months of work authorization for students who are in an approved period of Post-Completion OPT and have a degree in one of the STEM majors on the STEM Designated Degree Program list provided by the U.S. Department of Homeland Security [USC OIS: Optional Practical Training (OPT)]. \n\nNot legal advice; confirm with your DSO at USC OIS."
+ },
+ {
+  "question": "When should I apply for the STEM OPT extension?",
+  "ok": true,
+  "facts": {
+   "90 days": true
+  },
+  "sources": [
+   "SEVP",
+   "USC OIS",
+   "USCIS"
+  ],
+  "seconds": 1.9,
+  "answer": "You must apply for the STEM OPT extension within 60 days after your DSO enters the recommendation for OPT into your SEVIS record. Additionally, you may apply up to 90 days before your current OPT employment authorization expires. It is important to ensure that your application (Form I-765) is filed before your Post-Completion OPT EAD end date, as USCIS will not accept applications received after that date [USCIS: Optional Practical Training (OPT) for F-1 Students], [USC OIS: STEM OPT Extension Based on a Prior Degree].\n\nNot legal advice; confirm with your DSO at USC OIS."
+ },
+ {
+  "question": "What form does my employer and I complete for a STEM OPT training plan?",
+  "ok": true,
+  "facts": {
+   "I-983": true
+  },
+  "sources": [
+   "ICE",
+   "SEVP",
+   "USC OIS",
+   "USCIS"
+  ],
+  "seconds": 1.6,
+  "answer": "You and your employer must complete and sign Form I-983, \"Training Plan for STEM OPT Students,\" and submit it to your Designated School Official (DSO) [SEVP: Form I-983 Overview]. \n\nNot legal advice; confirm with your DSO at USC OIS."
+ },
+ {
+  "question": "How long is the grace period after I complete my program?",
+  "ok": true,
+  "facts": {
+   "60[- ]day": true
+  },
+  "sources": [
+   "USC OIS",
+   "USCIS",
+   "eCFR"
+  ],
+  "seconds": 1.5,
+  "answer": "The grace period for F-1 students after completing their program is 60 days. During this time, students are allowed to remain in the United States but cannot travel and reenter. [USC OIS: Program Completion (Students)].\n\nNot legal advice; confirm with your DSO at USC OIS."
+ },
+ {
+  "question": "What do I need to re-enter the U.S. after traveling abroad as an F-1 student?",
+  "ok": true,
+  "facts": {
+   "I-20": true,
+   "passport": true,
+   "visa": true
+  },
+  "sources": [
+   "SEVP",
+   "USC OIS"
+  ],
+  "seconds": 2.3,
+  "answer": "To re-enter the United States after traveling abroad as an F-1 student, you need to present the following documents at the U.S. Port of Entry:\n\n1. Passport valid for at least six months into the future.\n2. Valid F-1 student visa in your passport.\n3. USC transfer pending Form I-20 or DS-2019.\n4. SEVIS I-901 fee payment receipt.\n\nIt is not necessary to visit the U.S. embassy or consulate for a new F-1 visa unless your current student visa has expired or will expire before your date of reentry [USC OIS: Transferring to USC; SEVP: Traveling as an F or M Student].\n\nNot legal advice; confirm with your DSO at USC OIS."
+ },
+ {
+  "question": "Can I take a reduced course load because of a medical condition, and for how long?",
+  "ok": true,
+  "facts": {
+   "12 months|twelve months": true
+  },
+  "sources": [
+   "SEVP",
+   "USC OIS",
+   "eCFR"
+  ],
+  "seconds": 2.3,
+  "answer": "Yes, you can take a reduced course load due to a medical condition. The DSO may authorize a reduced course load for a period not to exceed an aggregate of 12 months while you are pursuing a course of study at a particular program level. To be eligible, you must provide medical documentation from a licensed medical doctor, a licensed doctor of osteopathy, a licensed psychologist, or a licensed clinical psychologist to substantiate your illness or medical condition. Additionally, the DSO must reauthorize the drop below a full course of study each new term, session, or semester [eCFR: 8 CFR 214.2(f) - F-1 students, USC OIS: Reduced Course Load].\n\nNot legal advice; confirm with your DSO at USC OIS."
+ },
+ {
+  "question": "What is the best pizza place near the USC campus?",
+  "ok": true,
+  "answer": "I can only help with F-1 student questions: status, OPT, CPT, employment and travel."
+ }
+]
