@@ -1,0 +1,11 @@
+Cloning into '/users/huacongt/gpunetio'...
+commit b2b7a29
+Compiling src/doca_verbs_utils.cpp -> obj/doca_verbs_utils.o
+Linking library lib/libdoca_gpunetio_host.so.5.0.0
+Installing library to /users/huacongt/gpunetio/install/lib and headers to /users/huacongt/gpunetio/install/include
+make[1]: Leaving directory '/users/huacongt/gpunetio/examples/gpunetio_verbs_put_bw'
+make[1]: Leaving directory '/users/huacongt/gpunetio/examples/gpunetio_verbs_write_lat'
+Installing examples to /users/huacongt/gpunetio/install/examples
+gpunetio_verbs_put_bw
+gpunetio_verbs_write_bw
+gpunetio_verbs_write_lat

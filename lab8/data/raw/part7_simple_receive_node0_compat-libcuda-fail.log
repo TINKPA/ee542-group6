@@ -1,0 +1,49 @@
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 13.0.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+PCI: 0000:41:00.0
+        ibdev_name                                    rocep65s0
+        iface_name                                    enp65s0np0
+        iface_index                                   6
+        pci_func_type                                 PF
+        uplink_ib_port                                1
+        mac_addr                                      94:6d:ae:61:9e:8a
+        ipv4_addr                                     10.10.1.1
+        ipv6_addr                                     fe80:0000:0000:0000:966d:aeff:fe61:9e8a
+        gid_table_size                                255
+        gid_table[0]                                  fe80:0000:0000:0000:966d:aeff:fe61:9e8a
+        gid_table[1]                                  fe80:0000:0000:0000:966d:aeff:fe61:9e8a
+        gid_table[2]                                  0000:0000:0000:0000:0000:ffff:0a0a:0101
+        gid_table[3]                                  0000:0000:0000:0000:0000:ffff:0a0a:0101
+[5/6] Compiling Cuda object doca_gpunetio_simple_receive.p/device_gpunetio_simple_receive_kernel.cu.o
+[6/6] Linking target doca_gpunetio_simple_receive
+=== -e 0
+[2026-10-31 19:34:15:096208][367800320][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:198][main] Starting the sample
+[2026-10-31 19:34:15:096152][367800320][DOCA][INF][CORE][doca_log.cpp:1335] DOCA version 3.5.0098
+[2026-10-31 19:34:15:098245][367800320][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:261][main] Sample finished with errors
+[2026-10-31 19:34:15:098236][367800320][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:227][main] CUDA initialization failed: system has unsupported display driver / cuda driver combination
+exit=1
+=== -e 1
+[2026-10-31 19:34:15:106142][1519095808][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:198][main] Starting the sample
+[2026-10-31 19:34:15:106093][1519095808][DOCA][INF][CORE][doca_log.cpp:1335] DOCA version 3.5.0098
+[2026-10-31 19:34:15:107567][1519095808][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:227][main] CUDA initialization failed: system has unsupported display driver / cuda driver combination
+[2026-10-31 19:34:15:107577][1519095808][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:261][main] Sample finished with errors
+exit=1
+=== -e 2
+[2026-10-31 19:34:15:116411][2986237952][DOCA][INF][CORE][doca_log.cpp:1335] DOCA version 3.5.0098
+[2026-10-31 19:34:15:116469][2986237952][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:198][main] Starting the sample
+[2026-10-31 19:34:15:118280][2986237952][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:261][main] Sample finished with errors
+[2026-10-31 19:34:15:118271][2986237952][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:227][main] CUDA initialization failed: system has unsupported display driver / cuda driver combination
+exit=1

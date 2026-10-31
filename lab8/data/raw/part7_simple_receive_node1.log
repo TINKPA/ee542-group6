@@ -1,0 +1,97 @@
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 13.0.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+PCI: 0000:41:00.0
+        ibdev_name                                    rocep65s0
+        iface_name                                    enp65s0np0
+        iface_index                                   6
+        pci_func_type                                 PF
+        uplink_ib_port                                1
+        mac_addr                                      94:6d:ae:61:98:0a
+        ipv4_addr                                     10.10.1.2
+        ipv6_addr                                     fe80:0000:0000:0000:966d:aeff:fe61:980a
+        gid_table_size                                255
+        gid_table[0]                                  fe80:0000:0000:0000:966d:aeff:fe61:980a
+        gid_table[1]                                  fe80:0000:0000:0000:966d:aeff:fe61:980a
+        gid_table[2]                                  0000:0000:0000:0000:0000:ffff:0a0a:0102
+        gid_table[3]                                  0000:0000:0000:0000:0000:ffff:0a0a:0102
+[5/6] Compiling Cuda object doca_gpunetio_simple_receive.p/device_gpunetio_simple_receive_kernel.cu.o
+[6/6] Linking target doca_gpunetio_simple_receive
+=== -e 0
+[2026-10-31 20:22:04:705931][1912025088][DOCA][INF][CORE][doca_log.cpp:1335] DOCA version 3.5.0098
+[2026-10-31 20:22:04:705994][1912025088][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:198][main] Starting the sample
+[2026-10-31 20:22:04:927788][1912025088][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:240][main] Sample configuration:
+	GPU 25:00.0
+	NIC 41:00.0
+	Receive exec scope Thread
+	
+[2026-10-31 20:22:04:932792][1912025088][DOCA][WRN][FLOW][engine_model.c:100] adapting queue depth to 128.
+[2026-10-31 20:22:04:944654][1912025088][DOCA][ERR][CORE][linux_devx_adapter.cpp:186] devx adapter 0x62a4545a9bc0: FW failed to execute general PRM command=0x100, status=BAD_PARAM_ERR (0x3) with syndrome=0x77ad2a
+[2026-10-31 20:22:04:944661][1912025088][DOCA][ERR][CORE][device_adapter.cpp:143] Query devx HCA capabilities with op_mod=0x37 failed. err=DOCA_ERROR_DRIVER, syndrome=0x77ad2a
+[2026-10-31 20:22:04:944663][1912025088][DOCA][ERR][FLOW][hws_port.c:2258] Failed to query WQE based flow table capabilities.
+[2026-10-31 20:22:04:944703][1912025088][DOCA][ERR][FLOW][hws_port.c:2625] Failed to get hws cap
+[2026-10-31 20:22:04:944713][1912025088][DOCA][ERR][FLOW][engine_port.c:677] failed to create port - creating dpdk port
+[2026-10-31 20:22:04:944731][1912025088][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_sample.c:403][destroy_rxq] Destroying Rxq
+[2026-10-31 20:22:04:944716][1912025088][DOCA][ERR][FLOW][engine_port.c:832] failed creating port - driver port creation error for port indexed 0
+[2026-10-31 20:22:04:944724][1912025088][DOCA][ERR][FLOW][doca_flow.c:1609] failed creating doca flow port - port creation failed
+[2026-10-31 20:22:04:944726][1912025088][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_sample.c:175][start_doca_flow] Failed to start doca flow port with: Unknown error
+[2026-10-31 20:22:04:944729][1912025088][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_sample.c:671][gpunetio_simple_receive] Function start_doca_flow returned Unknown error
+[2026-10-31 20:22:04:945113][1912025088][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:249][main] gpunetio_simple_receive() encountered an error: Unknown error
+[2026-10-31 20:22:04:945123][1912025088][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:261][main] Sample finished with errors
+exit=1
+=== -e 1
+[2026-10-31 20:22:05:062491][2473201664][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:198][main] Starting the sample
+[2026-10-31 20:22:05:062440][2473201664][DOCA][INF][CORE][doca_log.cpp:1335] DOCA version 3.5.0098
+[2026-10-31 20:22:05:263305][2473201664][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:240][main] Sample configuration:
+	GPU 25:00.0
+	NIC 41:00.0
+	Receive exec scope Warp
+	
+[2026-10-31 20:22:05:267038][2473201664][DOCA][WRN][FLOW][engine_model.c:100] adapting queue depth to 128.
+[2026-10-31 20:22:05:275364][2473201664][DOCA][ERR][CORE][linux_devx_adapter.cpp:186] devx adapter 0x63c232f51b90: FW failed to execute general PRM command=0x100, status=BAD_PARAM_ERR (0x3) with syndrome=0x77ad2a
+[2026-10-31 20:22:05:275372][2473201664][DOCA][ERR][CORE][device_adapter.cpp:143] Query devx HCA capabilities with op_mod=0x37 failed. err=DOCA_ERROR_DRIVER, syndrome=0x77ad2a
+[2026-10-31 20:22:05:275375][2473201664][DOCA][ERR][FLOW][hws_port.c:2258] Failed to query WQE based flow table capabilities.
+[2026-10-31 20:22:05:275385][2473201664][DOCA][ERR][FLOW][hws_port.c:2625] Failed to get hws cap
+[2026-10-31 20:22:05:275399][2473201664][DOCA][ERR][FLOW][engine_port.c:677] failed to create port - creating dpdk port
+[2026-10-31 20:22:05:275402][2473201664][DOCA][ERR][FLOW][engine_port.c:832] failed creating port - driver port creation error for port indexed 0
+[2026-10-31 20:22:05:275414][2473201664][DOCA][ERR][FLOW][doca_flow.c:1609] failed creating doca flow port - port creation failed
+[2026-10-31 20:22:05:275416][2473201664][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_sample.c:175][start_doca_flow] Failed to start doca flow port with: Unknown error
+[2026-10-31 20:22:05:275420][2473201664][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_sample.c:671][gpunetio_simple_receive] Function start_doca_flow returned Unknown error
+[2026-10-31 20:22:05:275421][2473201664][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_sample.c:403][destroy_rxq] Destroying Rxq
+[2026-10-31 20:22:05:275756][2473201664][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:249][main] gpunetio_simple_receive() encountered an error: Unknown error
+[2026-10-31 20:22:05:275763][2473201664][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:261][main] Sample finished with errors
+exit=1
+=== -e 2
+[2026-10-31 20:22:05:378334][1103929344][DOCA][INF][CORE][doca_log.cpp:1335] DOCA version 3.5.0098
+[2026-10-31 20:22:05:378386][1103929344][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:198][main] Starting the sample
+[2026-10-31 20:22:05:554063][1103929344][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:240][main] Sample configuration:
+	GPU 25:00.0
+	NIC 41:00.0
+	Receive exec scope Block
+	
+[2026-10-31 20:22:05:557608][1103929344][DOCA][WRN][FLOW][engine_model.c:100] adapting queue depth to 128.
+[2026-10-31 20:22:05:565538][1103929344][DOCA][ERR][CORE][linux_devx_adapter.cpp:186] devx adapter 0x58e22fb98d20: FW failed to execute general PRM command=0x100, status=BAD_PARAM_ERR (0x3) with syndrome=0x77ad2a
+[2026-10-31 20:22:05:565546][1103929344][DOCA][ERR][CORE][device_adapter.cpp:143] Query devx HCA capabilities with op_mod=0x37 failed. err=DOCA_ERROR_DRIVER, syndrome=0x77ad2a
+[2026-10-31 20:22:05:565549][1103929344][DOCA][ERR][FLOW][hws_port.c:2258] Failed to query WQE based flow table capabilities.
+[2026-10-31 20:22:05:565552][1103929344][DOCA][ERR][FLOW][hws_port.c:2625] Failed to get hws cap
+[2026-10-31 20:22:05:565557][1103929344][DOCA][ERR][FLOW][engine_port.c:677] failed to create port - creating dpdk port
+[2026-10-31 20:22:05:565560][1103929344][DOCA][ERR][FLOW][engine_port.c:832] failed creating port - driver port creation error for port indexed 0
+[2026-10-31 20:22:05:565563][1103929344][DOCA][ERR][FLOW][doca_flow.c:1609] failed creating doca flow port - port creation failed
+[2026-10-31 20:22:05:565574][1103929344][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_sample.c:175][start_doca_flow] Failed to start doca flow port with: Unknown error
+[2026-10-31 20:22:05:565578][1103929344][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_sample.c:671][gpunetio_simple_receive] Function start_doca_flow returned Unknown error
+[2026-10-31 20:22:05:565580][1103929344][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_sample.c:403][destroy_rxq] Destroying Rxq
+[2026-10-31 20:22:05:565899][1103929344][DOCA][ERR][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:249][main] gpunetio_simple_receive() encountered an error: Unknown error
+[2026-10-31 20:22:05:565908][1103929344][DOCA][INF][GPUNETIO_SIMPLE_RECEIVE][gpunetio_simple_receive_main.c:261][main] Sample finished with errors
+exit=1

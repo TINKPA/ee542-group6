@@ -1,0 +1,430 @@
+
+##### date
+Sat Oct 31 08:21:04 PM UTC 2026
+2026-10-31 19:32:36
+BOOT_IMAGE=/boot/vmlinuz-6.8.0-147-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS0,115200 emulabcnet=e4:3d:1a:13:2f:f0 amd_iommu=off iommu=off
+
+##### boot-state
+HugePages_Total:    2048
+Hugepagesize:       2048 kB
+gdrdrv                 28672  0
+nvidia_uvm           2158592  0
+nvidia_drm            139264  0
+nvidia_modeset       1822720  1 nvidia_drm
+nvidia              14450688  8 nvidia_uvm,gdrdrv,nvidia_modeset
+video                  77824  2 dell_wmi,nvidia_modeset
+ecc                    45056  1 nvidia
+name, driver_version, persistence_mode, pci.bus_id, pcie.link.gen.current, pcie.link.width.current, pcie.link.gen.max, pcie.link.width.max
+NVIDIA A30, 580.196.07, Enabled, 00000000:25:00.0, 4, 16, 4, 16
+0
+     67 		ACSCtl:	SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+
+##### link
+	Speed: 200000Mb/s
+	Duplex: Full
+	Link detected: yes
+Pause parameters for enp65s0np0:
+Autonegotiate:	off
+RX:		on
+TX:		on
+
+		LnkCap:	Port #0, Speed 16GT/s, Width x16, ASPM not supported
+		LnkSta:	Speed 16GT/s, Width x16
+	Region 1: Memory at 2c000000000 (64-bit, prefetchable) [size=32G]
+		LnkCap:	Port #0, Speed 16GT/s, Width x16, ASPM not supported
+		LnkSta:	Speed 16GT/s, Width x16
+		Region 1: Memory at 000002c800000000 (64-bit, prefetchable)
+
+##### machine
+PRETTY_NAME="Ubuntu 24.04.5 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04.5 LTS (Noble Numbat)"
+Model name:                              AMD EPYC 7302 16-Core Processor
+Thread(s) per core:                      2
+Core(s) per socket:                      16
+Socket(s):                               2
+NUMA node(s):                            2
+NUMA node0 CPU(s):                       0-15,32-47
+NUMA node1 CPU(s):                       16-31,48-63
+               total        used        free      shared  buff/cache   available
+Mem:             125           7         117           0           0         117
+available: 2 nodes (0-1)
+node 0 cpus: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47
+node 0 size: 63925 MB
+node 0 free: 59987 MB
+Dell Inc.
+PowerEdge R7525
+2.15.2
+ls: cannot access '/sys/devices/system/cpu/cpu0/cpufreq': No such file or directory
+
+==============NVSMI LOG==============
+
+Timestamp                                              : Sat Oct 31 20:21:05 2026
+Driver Version                                         : 580.196.07
+CUDA Version                                           : 13.0
+
+Attached GPUs                                          : 1
+GPU 00000000:25:00.0
+    Product Name                                       : NVIDIA A30
+    Product Brand                                      : NVIDIA
+    Product Architecture                               : Ampere
+    Display Mode                                       : Requested functionality has been deprecated
+    Display Attached                                   : Yes
+    Display Active                                     : Disabled
+    Persistence Mode                                   : Enabled
+    Addressing Mode                                    : HMM
+    MIG Mode
+        Current                                        : Disabled
+        Pending                                        : Disabled
+    Accounting Mode                                    : Disabled
+    Accounting Mode Buffer Size                        : 4000
+    Driver Model
+        Current                                        : N/A
+        Pending                                        : N/A
+    Serial Number                                      : 1321221043168
+    GPU UUID                                           : GPU-9df1d409-e2c8-bfba-2bce-57a9aa710639
+    GPU PDI                                            : 0xda6f8290187903eb
+    Minor Number                                       : 0
+    VBIOS Version                                      : 92.00.58.00.01
+    MultiGPU Board                                     : No
+    Board ID                                           : 0x2500
+    Board Part Number                                  : 900-21001-0140-030
+    GPU Part Number                                    : 20B7-882-A1
+    FRU Part Number                                    : N/A
+    Platform Info
+        Chassis Serial Number                          : N/A
+        Slot Number                                    : N/A
+        Tray Index                                     : N/A
+        Host ID                                        : N/A
+        Peer Type                                      : N/A
+        Module Id                                      : 1
+        GPU Fabric GUID                                : N/A
+    Inforom Version
+        Image Version                                  : 1001.0205.00.01
+        OEM Object                                     : 2.0
+        ECC Object                                     : 6.16
+        Power Management Object                        : N/A
+    Inforom BBX Object Flush
+        Latest Timestamp                               : N/A
+        Latest Duration                                : N/A
+    GPU Operation Mode
+        Current                                        : N/A
+        Pending                                        : N/A
+    GPU C2C Mode                                       : N/A
+    GPU Virtualization Mode
+        Virtualization Mode                            : None
+        Host VGPU Mode                                 : N/A
+        vGPU Heterogeneous Mode                        : N/A
+    GPU Recovery Action                                : None
+    GSP Firmware Version                               : 580.196.07
+    IBMNPU
+        Relaxed Ordering Mode                          : N/A
+    PCI
+        Bus                                            : 0x25
+        Device                                         : 0x00
+        Domain                                         : 0x0000
+        Base Classcode                                 : 0x3
+        Sub Classcode                                  : 0x2
+        Device Id                                      : 0x20B710DE
+        Bus Id                                         : 00000000:25:00.0
+        Sub System Id                                  : 0x153210DE
+        GPU Link Info
+            PCIe Generation
+                Max                                    : 4
+                Current                                : 4
+                Device Current                         : 4
+                Device Max                             : 4
+                Host Max                               : 4
+            Link Width
+                Max                                    : 16x
+                Current                                : 16x
+        Bridge Chip
+            Type                                       : N/A
+            Firmware                                   : N/A
+        Replays Since Reset                            : 0
+        Replay Number Rollovers                        : 0
+        Tx Throughput                                  : 585 KB/s
+        Rx Throughput                                  : 292 KB/s
+        Atomic Caps Outbound                           : N/A
+        Atomic Caps Inbound                            : N/A
+    Fan Speed                                          : N/A
+    Performance State                                  : P0
+    Clocks Event Reasons
+        Idle                                           : Active
+        Applications Clocks Setting                    : Not Active
+        SW Power Cap                                   : Not Active
+        HW Slowdown                                    : Not Active
+            HW Thermal Slowdown                        : Not Active
+            HW Power Brake Slowdown                    : Not Active
+        Sync Boost                                     : Not Active
+        SW Thermal Slowdown                            : Not Active
+        Display Clock Setting                          : Not Active
+    Clocks Event Reasons Counters
+        SW Power Capping                               : 0 us
+        Sync Boost                                     : 0 us
+        SW Thermal Slowdown                            : 0 us
+        HW Thermal Slowdown                            : 0 us
+        HW Power Braking                               : 0 us
+    Sparse Operation Mode                              : N/A
+    FB Memory Usage
+        Total                                          : 24576 MiB
+        Reserved                                       : 413 MiB
+        Used                                           : 0 MiB
+        Free                                           : 24164 MiB
+    BAR1 Memory Usage
+        Total                                          : 32768 MiB
+        Used                                           : 1 MiB
+        Free                                           : 32767 MiB
+    Conf Compute Protected Memory Usage
+        Total                                          : 0 MiB
+        Used                                           : 0 MiB
+        Free                                           : 0 MiB
+    Compute Mode                                       : Default
+    Utilization
+        GPU                                            : 0 %
+        Memory                                         : 0 %
+        Encoder                                        : 0 %
+        Decoder                                        : 0 %
+        JPEG                                           : 0 %
+        OFA                                            : 0 %
+    Encoder Stats
+        Active Sessions                                : 0
+        Average FPS                                    : 0
+        Average Latency                                : 0
+    FBC Stats
+        Active Sessions                                : 0
+        Average FPS                                    : 0
+        Average Latency                                : 0
+    DRAM Encryption Mode
+        Current                                        : N/A
+        Pending                                        : N/A
+    ECC Mode
+        Current                                        : Enabled
+        Pending                                        : Enabled
+    ECC Errors
+        Volatile
+            SRAM Correctable                           : 0
+            SRAM Uncorrectable Parity                  : 0
+            SRAM Uncorrectable SEC-DED                 : 0
+            DRAM Correctable                           : 0
+            DRAM Uncorrectable                         : 0
+        Aggregate
+            SRAM Correctable                           : 0
+            SRAM Uncorrectable Parity                  : 0
+            SRAM Uncorrectable SEC-DED                 : 0
+            DRAM Correctable                           : 0
+            DRAM Uncorrectable                         : 0
+            SRAM Threshold Exceeded                    : No
+        Aggregate Uncorrectable SRAM Sources
+            SRAM L2                                    : 0
+            SRAM SM                                    : 0
+            SRAM Microcontroller                       : 0
+            SRAM PCIE                                  : 0
+            SRAM Other                                 : 0
+        Channel Repair Pending                         : No
+        TPC Repair Pending                             : No
+        Unrepairable Memory                            : N/A
+    Retired Pages
+        Single Bit ECC                                 : N/A
+        Double Bit ECC                                 : N/A
+        Pending Page Blacklist                         : N/A
+    Remapped Rows
+        Correctable Error                              : 0
+        Inactive Correctable Error                     : 0
+        Uncorrectable Error                            : 0
+        Inactive Uncorrectable Error                   : 0
+        Pending                                        : No
+        Remapping Failure Occurred                     : No
+        Bank Remap Availability Histogram
+            Max                                        : 384 bank(s)
+            High                                       : 0 bank(s)
+            Partial                                    : 0 bank(s)
+            Low                                        : 0 bank(s)
+            None                                       : 0 bank(s)
+    Temperature
+        GPU Current Temp                               : 27 C
+        GPU T.Limit Temp                               : N/A
+        GPU Shutdown Temp                              : 100 C
+        GPU Slowdown Temp                              : 97 C
+        GPU Max Operating Temp                         : 90 C
+        GPU Target Temperature                         : N/A
+        Memory Current Temp                            : 25 C
+        Memory Max Operating Temp                      : 95 C
+    GPU Power Readings
+        Average Power Draw                             : N/A
+        Instantaneous Power Draw                       : 27.82 W
+        Current Power Limit                            : 165.00 W
+        Requested Power Limit                          : 165.00 W
+        Default Power Limit                            : 165.00 W
+        Min Power Limit                                : 100.00 W
+        Max Power Limit                                : 165.00 W
+    GPU Memory Power Readings 
+        Average Power Draw                             : N/A
+        Instantaneous Power Draw                       : N/A
+    Module Power Readings
+        Average Power Draw                             : N/A
+        Instantaneous Power Draw                       : N/A
+        Current Power Limit                            : N/A
+        Requested Power Limit                          : N/A
+        Default Power Limit                            : N/A
+        Min Power Limit                                : N/A
+        Max Power Limit                                : N/A
+    Power Smoothing                                    : N/A
+    Workload Power Profiles
+        Requested Profiles                             : N/A
+        Enforced Profiles                              : N/A
+    Clocks
+        Graphics                                       : 210 MHz
+        SM                                             : 210 MHz
+        Memory                                         : 1215 MHz
+        Video                                          : 585 MHz
+    Applications Clocks
+        Graphics                                       : 930 MHz
+        Memory                                         : 1215 MHz
+    Default Applications Clocks
+        Graphics                                       : 930 MHz
+        Memory                                         : 1215 MHz
+    Deferred Clocks
+        Memory                                         : N/A
+    Max Clocks
+        Graphics                                       : 1440 MHz
+        SM                                             : 1440 MHz
+        Memory                                         : 1215 MHz
+        Video                                          : 1305 MHz
+    Max Customer Boost Clocks
+        Graphics                                       : 1440 MHz
+    Clock Policy
+        Auto Boost                                     : N/A
+        Auto Boost Default                             : N/A
+    Fabric
+        State                                          : N/A
+        Status                                         : N/A
+        CliqueId                                       : N/A
+        ClusterUUID                                    : N/A
+        Health
+            Summary                                    : N/A
+            Bandwidth                                  : N/A
+            Route Recovery in progress                 : N/A
+            Route Unhealthy                            : N/A
+            Access Timeout Recovery                    : N/A
+            Incorrect Configuration                    : N/A
+            Partition Assigned                         : N/A
+    Processes                                          : None
+    Capabilities
+        EGM                                            : disabled
+
+
+##### nic
+pci/0000:41:00.0:
+  driver mlx5_core
+  versions:
+      fixed:
+        fw.psid DEL0000000010
+      running:
+        fw.version 20.41.1000
+        fw 20.41.1000
+      stored:
+        fw.version 20.41.1000
+        fw 20.41.1000
+pci/0000:41:00.0:
+  name flow_steering_mode type driver-specific
+    values:
+      cmode runtime value smfs
+pci/0000:41:00.0: mode legacy inline-mode none encap-mode basic
+     tx_pause_ctrl_phy: 5143
+     rx_discards_phy: 33195
+     rx_prio0_discards: 33195
+     tx_global_pause: 5143
+     tx_global_pause_duration: 246299
+lifespan 10
+np_cnp_sent 915
+out_of_sequence 915
+packet_seq_err 13
+rp_cnp_handled 27
+rx_write_requests 27000
+
+##### docker
+ Server Version: 29.1.3
+ Storage Driver: overlayfs
+  driver-type: io.containerd.snapshotter.v1
+ Runtimes: runc io.containerd.runc.v2 nvidia
+ Docker Root Dir: /mydata/docker
+REPOSITORY                 TAG                                 DIGEST                                                                    IMAGE ID       CREATED        SIZE
+nvcr.io/nvidia/doca/doca   devel-cuda13.0.0-3.5.0-devel-host   sha256:546268c49599c49402b64b8309d487e0434ac1706bd26352dab842aff50eba1b   546268c49599   2 months ago   22.1GB
+Filesystem              Size  Used Avail Use% Mounted on
+/dev/sda3                63G   37G   24G  61% /
+/dev/mapper/emulab-bs1  183G  212K  173G   1% /mydata
+21G	/var/lib/containerd
+184K	/mydata/docker
+NVIDIA Container Toolkit CLI version 1.20.1
+commit: dffc40b4f820ce5c512633bac9e0418d0e05a2ee
+
+##### manifest
+<rspec xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jacks="http://www.protogeni.net/resources/rspec/ext/jacks/1" xmlns:client="http://www.protogeni.net/resources/rspec/ext/client/1" xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" xmlns="http://www.geni.net/resources/rspec/3" xsi:schemaLocation="http://www.geni.net/resources/rspec/3 http://www.geni.net/resources/rspec/3/manifest.xsd" type="manifest" expires="2026-10-31T23:00:00Z">
+  <rspec_tour xmlns="http://www.protogeni.net/resources/rspec/ext/apt-tour/1">
+    <description type="markdown">EE542 Lab 8 Part 7: two bare-metal d7525 nodes (A30 + ConnectX-6) on one LAN.
+
+node0 = 10.10.1.1, node1 = 10.10.1.2 (/24), Ubuntu 24.04 (UBUNTU24-64-STD).
+Each node gets a local /mydata file system for Docker's data-root, because the
+root disk is 64 GB and the DOCA image is about 22 GB.</description>
+    <instructions type="markdown">Start on the Wisconsin cluster in the DOCA-GPU project, inside the team's
+reserved slot. Log in with ssh to node0 and node1 from the List View.
+</instructions>
+  </rspec_tour>
+  <link client_id="lan" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+1159310" vlantag="1130">
+    <interface_ref client_id="node0:if0" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+d7525-10s10331:eth4" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+1159311"/>
+    <interface_ref client_id="node1:if1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+d7525-10s10317:eth4" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+1159312"/>
+    <link_type name="lan"/>
+  <component_manager name="urn:publicid:IDN+wisc.cloudlab.us+authority+cm"/></link>
+  <node xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" client_id="node0" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm" component_id="urn:publicid:IDN+wisc.cloudlab.us+node+d7525-10s10331" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+1159308">
+    <sliver_type name="raw-pc">
+      <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU24-64-STD"/>
+    </sliver_type>
+    <hardware_type name="d7525"/>
+    <interface client_id="node0:if0" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+d7525-10s10331:eth4" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+1159311" mac_address="946dae619e8a">
+      <ip address="10.10.1.1" netmask="255.255.255.0" type="ipv4"/>
+    </interface>
+    <emulab:blockstore name="bs0" mountpoint="/mydata" class="local" size="200GB" placement="any"/>
+  <services><execute shell="/bin/sh" command="/bin/echo 'nameserver 155.98.60.2' | sudo /bin/csh -c '/bin/cat &gt;&gt; /etc/resolv.conf' &amp;&amp; cd /local &amp;&amp; sudo chmod 777 . &amp;&amp; umask 002 &amp;&amp; sudo rm -rf repository &amp;&amp; sudo git config --system --add safe.directory /local/repository &amp;&amp; git clone -n 'https://github.com/TINKPA/ee542-g6-cloudlab-profile' repository &amp;&amp; cd repository &amp;&amp; git config --add core.sharedRepository group &amp;&amp; git checkout 934a2d0a757e7a07d7068e160abf38586053cc50 &amp;&amp; git branch -ft main origin/main &amp;&amp; git checkout -B main HEAD &amp;&amp; git submodule update --init --recursive &amp;&amp; ( [ ! -f /local/repository/test-common.py ] || sed -i'' -e 's/2.25.305821105408246119474742976030998643995/2.25.305821105.408246119.47474297.603099864.3995/g' /local/repository/test-common.py ) &amp;&amp; sudo chown -R huacongt . &amp;&amp; git remote set-url --push origin 'git@github.com:TINKPA/ee542-g6-cloudlab-profile'" tag="portal-repository"/><login authentication="ssh-keys" hostname="d7525-10s10331.wisc.cloudlab.us" port="22" username="huacongt"/><emulab:console server="boss.wisc.cloudlab.us"/><emulab:recovery available="true"/><emulab:powercycle available="true"/><emulab:imageable available="true"/></services><emulab:vnode name="d7525-10s10331" hardware_type="d7525" disk_image="emulab-ops/UBUNTU24-64-STD:7"/><host name="node0.g6lab8.doca-gpu-PG0.wisc.cloudlab.us" ipv4="128.105.146.31"/></node>
+  <node xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" client_id="node1" exclusive="true" component_manager_id="urn:publicid:IDN+wisc.cloudlab.us+authority+cm" component_id="urn:publicid:IDN+wisc.cloudlab.us+node+d7525-10s10317" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+1159307">
+    <sliver_type name="raw-pc">
+      <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU24-64-STD"/>
+    </sliver_type>
+    <hardware_type name="d7525"/>
+    <interface client_id="node1:if1" component_id="urn:publicid:IDN+wisc.cloudlab.us+interface+d7525-10s10317:eth4" sliver_id="urn:publicid:IDN+wisc.cloudlab.us+sliver+1159312" mac_address="946dae61980a">
+      <ip address="10.10.1.2" netmask="255.255.255.0" type="ipv4"/>
+    </interface>
+    <emulab:blockstore name="bs1" mountpoint="/mydata" class="local" size="200GB" placement="any"/>
+  <services><execute shell="/bin/sh" command="/bin/echo 'nameserver 155.98.60.2' | sudo /bin/csh -c '/bin/cat &gt;&gt; /etc/resolv.conf' &amp;&amp; cd /local &amp;&amp; sudo chmod 777 . &amp;&amp; umask 002 &amp;&amp; sudo rm -rf repository &amp;&amp; sudo git config --system --add safe.directory /local/repository &amp;&amp; git clone -n 'https://github.com/TINKPA/ee542-g6-cloudlab-profile' repository &amp;&amp; cd repository &amp;&amp; git config --add core.sharedRepository group &amp;&amp; git checkout 934a2d0a757e7a07d7068e160abf38586053cc50 &amp;&amp; git branch -ft main origin/main &amp;&amp; git checkout -B main HEAD &amp;&amp; git submodule update --init --recursive &amp;&amp; ( [ ! -f /local/repository/test-common.py ] || sed -i'' -e 's/2.25.305821105408246119474742976030998643995/2.25.305821105.408246119.47474297.603099864.3995/g' /local/repository/test-common.py ) &amp;&amp; sudo chown -R huacongt . &amp;&amp; git remote set-url --push origin 'git@github.com:TINKPA/ee542-g6-cloudlab-profile'" tag="portal-repository"/><login authentication="ssh-keys" hostname="d7525-10s10317.wisc.cloudlab.us" port="22" username="huacongt"/><emulab:console server="boss.wisc.cloudlab.us"/><emulab:recovery available="true"/><emulab:powercycle available="true"/><emulab:imageable available="true"/></services><emulab:vnode name="d7525-10s10317" hardware_type="d7525" disk_image="emulab-ops/UBUNTU24-64-STD:7"/><host name="node1.g6lab8.doca-gpu-PG0.wisc.cloudlab.us" ipv4="128.105.146.38"/></node>
+<emulab:password name="experiment-rpctoken" encrypted="true">[redacted]</emulab:password><emulab:repository type="git" url="https://github.com/TINKPA/ee542-g6-cloudlab-profile" refspec="refs/heads/main" commit="934a2d0a757e7a07d7068e160abf38586053cc50" command="/bin/echo 'nameserver 155.98.60.2' | sudo /bin/csh -c '/bin/cat &gt;&gt; /etc/resolv.conf' &amp;&amp; cd /local &amp;&amp; sudo chmod 777 . &amp;&amp; umask 002 &amp;&amp; sudo rm -rf repository &amp;&amp; sudo git config --system --add safe.directory /local/repository &amp;&amp; git clone -n 'https://github.com/TINKPA/ee542-g6-cloudlab-profile' repository &amp;&amp; cd repository &amp;&amp; git config --add core.sharedRepository group &amp;&amp; git checkout 934a2d0a757e7a07d7068e160abf38586053cc50 &amp;&amp; git branch -ft main origin/main &amp;&amp; git checkout -B main HEAD &amp;&amp; git submodule update --init --recursive &amp;&amp; ( [ ! -f /local/repository/test-common.py ] || sed -i'' -e 's/2.25.305821105408246119474742976030998643995/2.25.305821105.408246119.47474297.603099864.3995/g' /local/repository/test-common.py ) &amp;&amp; sudo chown -R huacongt . &amp;&amp; git remote set-url --push origin 'git@github.com:TINKPA/ee542-g6-cloudlab-profile'"/><emulab:portal name="cloudlab" url="https://www.cloudlab.us/status.php?uuid=9421a935-d432-11f1-bc80-e4434b2381fc" project="DOCA-GPU" experiment="g6lab8" sequence="1793344920"/><rs:site_info xmlns:rs="http://www.protogeni.net/resources/rspec/ext/site-info/1"><rs:location country="US" latitude="43.0667" longitude="89.4000"/></rs:site_info></rspec>
+
+##### dmesg
+[    0.000000] Command line: BOOT_IMAGE=/boot/vmlinuz-6.8.0-147-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS0,115200 emulabcnet=e4:3d:1a:13:2f:f0 amd_iommu=off iommu=off
+[    0.230187] Kernel command line: BOOT_IMAGE=/boot/vmlinuz-6.8.0-147-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS0,115200 emulabcnet=e4:3d:1a:13:2f:f0 amd_iommu=off iommu=off
+[    7.332799] iommu: Default domain type: Translated
+[    7.336757] iommu: DMA domain TLB invalidation policy: lazy mode
+[   12.350766] mlx5_core 0000:41:00.0: firmware version: 20.41.1000
+[   12.356797] mlx5_core 0000:41:00.0: 252.048 Gb/s available PCIe bandwidth (16.0 GT/s PCIe x16 link)
+[   12.607466] mlx5_core 0000:41:00.0: Rate limit: 127 rates are supported, range: 0Mbps to 195312Mbps
+[   12.616628] mlx5_core 0000:41:00.0: E-Switch: Total vports 2, per vport: max uc(128) max mc(2048)
+[   12.629820] mlx5_core 0000:41:00.0: Port module event: module 0, Cable plugged
+[   12.637496] mlx5_core 0000:41:00.0: mlx5_pcie_event:297:(pid 790): PCIe slot power capability was not advertised.
+[   12.765585] mlx5_core 0000:41:00.0: MLX5E: StrdRq(1) RqSz(8) StrdSz(2048) RxCqeCmprss(0 enhanced)
+[   12.774500] mlx5_core 0000:41:00.0: is_dpll_supported:213:(pid 9): Missing SyncE capability
+[   14.995032] mlx5_core 0000:41:00.0 enp65s0np0: renamed from eth0
+[   17.877529] nvidia: loading out-of-tree module taints kernel.
+[   17.877552] nvidia: module verification failed: signature and/or required key missing - tainting kernel
+[   17.971729] nvidia-nvlink: Nvlink Core is being initialized, major device number 234
+[   18.025369] NVRM: loading NVIDIA UNIX Open Kernel Module for x86_64  580.196.07  Release Build  (dvs-builder@U22-I3-AF04-22-3)  Wed Oct  7 19:13:59 UTC 2026
+[   18.061356] nvidia-modeset: Loading NVIDIA UNIX Open Kernel Mode Setting Driver for x86_64  580.196.07  Release Build  (dvs-builder@U22-I3-AF04-22-3)  Wed Oct  7 19:00:24 UTC 2026
+[   18.069842] [drm] [nvidia-drm] [GPU ID 0x00002500] Loading driver
+[   19.529548] [drm] Initialized nvidia-drm 0.0.0 20160202 for 0000:25:00.0 on minor 1
+[   19.529587] nvidia 0000:25:00.0: [drm] No compatible format found
+[   19.529592] nvidia 0000:25:00.0: [drm] Cannot find any crtc or sizes
+[   29.904531] mlx5_core 0000:41:00.0 enp65s0np0: Link up
+[   46.508189] gdrdrv:gdrdrv_init:loading gdrdrv version 2.5 built for opensource NVIDIA driver
+[   46.508199] gdrdrv:gdrdrv_init:device registered with major number 508
+[   46.508202] gdrdrv:gdrdrv_init:dbg traces disabled, info traces disabled
+[   46.508204] gdrdrv:gdrdrv_init:Persistent mapping will be used
+[  370.174205] NVRM: osCreateOsDescriptorFromIoMemory: osCreateOsDescriptorFromIoMemory(): permission denied, allowPeermapping=0

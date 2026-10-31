@@ -1,0 +1,27 @@
+$ DOCA_GPUNETIO_LOG=6 ib_write_bw -d rocep65s0 -x 3 --report_gbits 10.10.1.1
+Conflicting CPU frequency values detected: 3095.720000 != 2994.471000. CPU Frequency is not max.
+---------------------------------------------------------------------------------------
+                    RDMA_Write BW Test
+ Dual-port       : OFF		Device         : rocep65s0
+ Number of qps   : 1		Transport type : IB
+ Connection type : RC		Using SRQ      : OFF
+ PCIe relax order: ON
+ ibv_wr* API     : ON
+ TX depth        : 128
+ CQ Moderation   : 1
+ Mtu             : 4096[B]
+ Link type       : Ethernet
+ GID index       : 3
+ Max inline data : 0[B]
+ rdma_cm QPs	 : OFF
+ Data ex. method : Ethernet
+---------------------------------------------------------------------------------------
+ local address: LID 0000 QPN 0x003b PSN 0x7babfa RKey 0x182e00 VAddr 0x0077985c11e000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:10:10:01:02
+ remote address: LID 0000 QPN 0x003b PSN 0x44e41e RKey 0x182e00 VAddr 0x0074ef81a26000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:10:10:01:01
+---------------------------------------------------------------------------------------
+ #bytes     #iterations    BW peak[Gb/sec]    BW average[Gb/sec]   MsgRate[Mpps]
+ 65536      5000             151.10             107.52 		   0.205082
+---------------------------------------------------------------------------------------
+exit=0

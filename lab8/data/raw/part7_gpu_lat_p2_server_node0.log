@@ -1,0 +1,53 @@
+$ DOCA_GPUNETIO_LOG=6 /users/huacongt/gpunetio/install/examples/gpunetio_verbs_write_lat -g 25:00.0 -d rocep65s0 -l 3 -p 2
+Sat Oct 31 19:38:35 2026 [INFO] [/users/huacongt/gpunetio/examples/verbs_common.cpp]: 256: create_verbs_resources(): Setting GPU device 0 at 25:00.0
+Sat Oct 31 19:38:35 2026 [WARNING] [src/doca_gpunetio_sdk_wrapper.cpp]: 305: doca_gpu_sdk_wrapper_create(): Env var DOCA_SDK_LIB_PATH not set (null). DOCA SDK is not in use
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_gpunetio.cpp]: 151: doca_gpu_create(): Use DOCA GPUNetIO open
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_gpunetio_gdrcopy.cpp]: 214: doca_gpu_gdrcopy_is_supported(): GDRCopy usage is enabled
+Sat Oct 31 19:38:35 2026 [WARNING] [src/doca_verbs_dev_sdk_wrapper.cpp]: 241: doca_verbs_sdk_wrapper_dev_open_from_pd(): Env var DOCA_SDK_LIB_PATH not set (null). DOCA SDK is not in use
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_dev.cpp]: 94: doca_verbs_dev_open(): Use DOCA Verbs Dev open
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_dev.cpp]: 106: doca_verbs_dev_open(): doca_verbs_dev_open=0x5b67cca34cd0 was created
+Sat Oct 31 19:38:35 2026 [WARNING] [src/doca_verbs_qp_sdk_wrapper.cpp]: 1652: doca_verbs_sdk_wrapper_ah_attr_create(): Env var DOCA_SDK_LIB_PATH not set (null). DOCA SDK is not in use
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_qp.cpp]: 3285: doca_verbs_ah_attr_create(): Use DOCA Verbs AH Attr open
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_qp.cpp]: 3291: doca_verbs_ah_attr_create(): doca_verbs_verbs_ah_open=0x5b67cca34d00 was created
+Sat Oct 31 19:38:35 2026 [WARNING] [src/doca_verbs_cq_sdk_wrapper.cpp]: 351: doca_verbs_sdk_wrapper_cq_attr_create(): Env var DOCA_SDK_LIB_PATH not set (null). DOCA SDK is not in use
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_cq.cpp]: 427: doca_verbs_cq_attr_create(): Use DOCA Verbs CQ Attr open
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_cq.cpp]: 433: doca_verbs_cq_attr_create(): doca_verbs_cq_attr_open=0x5b67cca34dd0 was created
+Sat Oct 31 19:38:35 2026 [WARNING] [src/doca_verbs_umem_sdk_wrapper.cpp]: 244: doca_verbs_sdk_wrapper_umem_create(): Env var DOCA_SDK_LIB_PATH not set (null). DOCA SDK is not in use
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_umem.cpp]: 179: doca_verbs_umem_create(): Use DOCA Verbs UMEM open
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_umem.cpp]: 195: doca_verbs_umem_create(): doca_verbs_umem_open=0x5b67cca35e50 was created
+Sat Oct 31 19:38:35 2026 [WARNING] [src/doca_verbs_cq_sdk_wrapper.cpp]: 619: doca_verbs_sdk_wrapper_cq_create(): Env var DOCA_SDK_LIB_PATH not set (null). DOCA SDK is not in use
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_cq.cpp]: 765: doca_verbs_cq_create(): Use DOCA Verbs CQ open
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_cq.cpp]: 332: create(): DOCA IB Verbs CQ 0x5b67cca35f00: has been successfully created
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_cq.cpp]: 771: doca_verbs_cq_create(): doca_verbs_cq_open=0x5b67cca35ee0 was created
+Sat Oct 31 19:38:35 2026 [WARNING] [src/doca_verbs_uar_sdk_wrapper.cpp]: 178: doca_verbs_sdk_wrapper_uar_create(): Env var DOCA_SDK_LIB_PATH not set (null). DOCA SDK is not in use
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_uar.cpp]: 179: doca_verbs_uar_create(): Use DOCA Verbs UAR open
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_uar.cpp]: 185: doca_verbs_uar_create(): doca_verbs_uar_open=0x5b67cca38080 was created
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_gpunetio_high_level.cpp]: 155: create_uar(): Created UAR with type NONCACHE_DEDICATED
+Sat Oct 31 19:38:35 2026 [WARNING] [src/doca_verbs_qp_sdk_wrapper.cpp]: 746: doca_verbs_sdk_wrapper_qp_init_attr_create(): Env var DOCA_SDK_LIB_PATH not set (null). DOCA SDK is not in use
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_qp.cpp]: 1844: doca_verbs_qp_init_attr_create(): Use DOCA Verbs QP Init Attr open
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_qp.cpp]: 1850: doca_verbs_qp_init_attr_create(): doca_verbs_qp_init_attr_open=0x5b67cca38360 was created
+Sat Oct 31 19:38:35 2026 [WARNING] [src/doca_verbs_umem_sdk_wrapper.cpp]: 244: doca_verbs_sdk_wrapper_umem_create(): Env var DOCA_SDK_LIB_PATH not set (null). DOCA SDK is not in use
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_umem.cpp]: 179: doca_verbs_umem_create(): Use DOCA Verbs UMEM open
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_umem.cpp]: 195: doca_verbs_umem_create(): doca_verbs_umem_open=0x5b67cca36420 was created
+Sat Oct 31 19:38:35 2026 [WARNING] [src/doca_verbs_umem_sdk_wrapper.cpp]: 244: doca_verbs_sdk_wrapper_umem_create(): Env var DOCA_SDK_LIB_PATH not set (null). DOCA SDK is not in use
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_umem.cpp]: 179: doca_verbs_umem_create(): Use DOCA Verbs UMEM open
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_umem.cpp]: 195: doca_verbs_umem_create(): doca_verbs_umem_open=0x5b67cca36900 was created
+Sat Oct 31 19:38:35 2026 [WARNING] [src/doca_verbs_qp_sdk_wrapper.cpp]: 1869: doca_verbs_sdk_wrapper_qp_create(): Env var DOCA_SDK_LIB_PATH not set (null). DOCA SDK is not in use
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_qp.cpp]: 3583: doca_verbs_qp_create(): Use DOCA Verbs qp open
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_qp.cpp]: 1693: create(): DOCA IB Verbs QP 0x5b67cca369b0: has been successfully created
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_qp.cpp]: 3589: doca_verbs_qp_create(): doca_verbs_qp_open=0x5b67cca36990 was created
+Sat Oct 31 19:38:35 2026 [WARNING] [src/doca_verbs_qp_sdk_wrapper.cpp]: 746: doca_verbs_sdk_wrapper_qp_init_attr_create(): Env var DOCA_SDK_LIB_PATH not set (null). DOCA SDK is not in use
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_qp.cpp]: 1844: doca_verbs_qp_init_attr_create(): Use DOCA Verbs QP Init Attr open
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_qp.cpp]: 1850: doca_verbs_qp_init_attr_create(): doca_verbs_qp_init_attr_open=0x5b67cca36d70 was created
+Sat Oct 31 19:38:35 2026 [WARNING] [src/doca_verbs_qp_sdk_wrapper.cpp]: 1231: doca_verbs_sdk_wrapper_qp_attr_create(): Env var DOCA_SDK_LIB_PATH not set (null). DOCA SDK is not in use
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_qp.cpp]: 2588: doca_verbs_qp_attr_create(): Use DOCA Verbs QP Attr open
+Sat Oct 31 19:38:35 2026 [INFO] [src/doca_verbs_qp.cpp]: 2594: doca_verbs_qp_attr_create(): doca_verbs_qp_attr_open=0x5b67cca36d90 was created
+Sat Oct 31 19:38:35 2026 [ERR] [src/doca_gpunetio.cpp]: 702: doca_gpu_verbs_export_uar(): Function cudaHostRegister (err 800) failed on addr 0x7dc07e8ae800 size 8
+Sat Oct 31 19:38:35 2026 [ERR] [src/doca_gpunetio.cpp]: 1069: doca_gpu_verbs_export_qp(): Can't export UAR to GPU.
+Sat Oct 31 19:38:35 2026 [ERR] [src/doca_gpunetio_high_level.cpp]: 1268: doca_gpu_verbs_create_qp_hl(): Failed to create GPU verbs QP
+Sat Oct 31 19:38:35 2026 [ERR] [/users/huacongt/gpunetio/examples/verbs_common.cpp]: 343: create_verbs_resources(): Failed to create doca verbs high-level qp 21
+Sat Oct 31 19:38:35 2026 [ERR] [/users/huacongt/gpunetio/examples/verbs_common.cpp]: 368: destroy_verbs_resources(): Failed to destroy doca verbs high-level qp
+Sat Oct 31 19:38:35 2026 [ERR] [/users/huacongt/gpunetio/examples/verbs_common.cpp]: 358: create_verbs_resources(): Failed to destroy resources: 6
+Sat Oct 31 19:38:35 2026 [ERR] [gpunetio_verbs_write_lat_sample.cpp]: 276: verbs_server(): Failed to create local rdma resources: 21
+Sat Oct 31 19:38:35 2026 [ERR] [gpunetio_verbs_write_lat_main.cpp]: 108: main(): verbs_server() failed
+Sat Oct 31 19:38:35 2026 [INFO] [gpunetio_verbs_write_lat_main.cpp]: 125: main(): Sample finished with errors

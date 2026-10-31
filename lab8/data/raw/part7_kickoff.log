@@ -1,0 +1,12 @@
+12:05:51 nodes not ready yet (list view: d7525-10s10331.wisc.cloudlab.us d7525-10s10317.wisc.cloudlab.us)
+12:07:19 nodes not ready yet (list view: d7525-10s10331.wisc.cloudlab.us d7525-10s10317.wisc.cloudlab.us)
+12:08:29 nodes up: N0=d7525-10s10331.wisc.cloudlab.us N1=d7525-10s10317.wisc.cloudlab.us
+[node0] started
+[node1] started
+[node1] Get:79 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64  nsight-compute-2025.3.1 2025.3.1.4-1 [314 MB]
+[node1] Get:80 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64  cuda-nsight-compute-13-0 13.0.3-1 [3,656 B]
+[node1] Get:81 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64  nsight-systems-2025.3.2 2025.3.2.474-253236389321v0 [421 MB]
+[node0] Selecting previously unselected package nsight-compute-2025.3.1.
+[node0] Preparing to unpack .../60-nsight-compute-2025.3.1_2025.3.1.4-1_amd64.deb ...
+[node0] Unpacking nsight-compute-2025.3.1 (2025.3.1.4-1) ...
+KICKOFF DONE 12:11:36 -- setup running; next: ./cl.sh status until SETUP DONE, then reboot

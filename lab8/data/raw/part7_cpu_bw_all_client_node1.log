@@ -1,0 +1,71 @@
+$ DOCA_GPUNETIO_LOG=6 ib_write_bw -d rocep65s0 -x 3 --report_gbits -a 10.10.1.1
+Conflicting CPU frequency values detected: 2994.471000 != 3293.912000. CPU Frequency is not max.
+---------------------------------------------------------------------------------------
+                    RDMA_Write BW Test
+ Dual-port       : OFF		Device         : rocep65s0
+ Number of qps   : 1		Transport type : IB
+ Connection type : RC		Using SRQ      : OFF
+ PCIe relax order: ON
+ ibv_wr* API     : ON
+ TX depth        : 128
+ CQ Moderation   : 100
+ Mtu             : 4096[B]
+ Link type       : Ethernet
+ GID index       : 3
+ Max inline data : 0[B]
+ rdma_cm QPs	 : OFF
+ Data ex. method : Ethernet
+---------------------------------------------------------------------------------------
+ local address: LID 0000 QPN 0x002e PSN 0x1ed2ba RKey 0x182e00 VAddr 0x007263a578a000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:10:10:01:02
+ remote address: LID 0000 QPN 0x002e PSN 0x7eccaf RKey 0x182e00 VAddr 0x007bd82aef9000
+ GID: 00:00:00:00:00:00:00:00:00:00:255:255:10:10:01:01
+---------------------------------------------------------------------------------------
+ #bytes     #iterations    BW peak[Gb/sec]    BW average[Gb/sec]   MsgRate[Mpps]
+ 2          5000           0.041844            0.041553            2.597054Conflicting CPU frequency values detected: 2944.210000 != 3293.907000. CPU Frequency is not max.
+
+ 4          5000           0.082140            0.082112            2.566015Conflicting CPU frequency values detected: 2994.471000 != 3277.381000. CPU Frequency is not max.
+
+ 8          5000             0.17               0.17   		   2.607815Conflicting CPU frequency values detected: 3100.495000 != 3293.925000. CPU Frequency is not max.
+
+ 16         5000             0.34               0.34   		   2.618476Conflicting CPU frequency values detected: 2223.337000 != 3292.324000. CPU Frequency is not max.
+
+ 32         5000             0.67               0.67   		   2.616695Conflicting CPU frequency values detected: 3035.680000 != 3293.906000. CPU Frequency is not max.
+
+ 64         5000             1.36               1.36   		   2.648131Conflicting CPU frequency values detected: 3060.125000 != 3173.089000. CPU Frequency is not max.
+
+ 128        5000             2.68               2.68   		   2.618534Conflicting CPU frequency values detected: 3198.059000 != 3293.895000. CPU Frequency is not max.
+
+ 256        5000             5.37               5.35   		   2.610399Conflicting CPU frequency values detected: 3291.083000 != 2994.471000. CPU Frequency is not max.
+
+ 512        5000             10.39              10.09  		   2.463364Conflicting CPU frequency values detected: 3290.745000 != 2994.471000. CPU Frequency is not max.
+
+ 1024       5000             21.31              21.28  		   2.597065Conflicting CPU frequency values detected: 3293.138000 != 2994.471000. CPU Frequency is not max.
+
+ 2048       5000             41.97              41.96  		   2.560765Conflicting CPU frequency values detected: 2726.910000 != 3194.187000. CPU Frequency is not max.
+
+ 4096       5000             74.73              72.58  		   2.214925Conflicting CPU frequency values detected: 2994.471000 != 3293.935000. CPU Frequency is not max.
+
+ 8192       5000             103.45             103.06 		   1.572574Conflicting CPU frequency values detected: 2994.471000 != 3293.910000. CPU Frequency is not max.
+
+ 16384      5000             155.94             129.30 		   0.986499Conflicting CPU frequency values detected: 2994.471000 != 3139.370000. CPU Frequency is not max.
+
+ 32768      5000             173.40             154.54 		   0.589510Conflicting CPU frequency values detected: 3003.246000 != 3122.971000. CPU Frequency is not max.
+
+ 65536      5000             176.05             111.43 		   0.212530Conflicting CPU frequency values detected: 2994.471000 != 3293.915000. CPU Frequency is not max.
+
+ 131072     5000             100.55             100.01 		   0.095376Conflicting CPU frequency values detected: 2994.471000 != 3122.602000. CPU Frequency is not max.
+
+ 262144     5000             123.37             121.17 		   0.057779Conflicting CPU frequency values detected: 2994.471000 != 3293.917000. CPU Frequency is not max.
+
+ 524288     5000             152.30             149.60 		   0.035667Conflicting CPU frequency values detected: 2994.471000 != 3277.422000. CPU Frequency is not max.
+
+ 1048576    5000             176.28             176.28 		   0.021015Conflicting CPU frequency values detected: 3011.436000 != 3293.892000. CPU Frequency is not max.
+
+ 2097152    5000             177.54             177.54 		   0.010582Conflicting CPU frequency values detected: 2994.471000 != 3293.932000. CPU Frequency is not max.
+
+ 4194304    5000             176.62             176.62 		   0.005264Conflicting CPU frequency values detected: 2994.471000 != 3277.434000. CPU Frequency is not max.
+
+ 8388608    5000             177.20             177.20 		   0.002641
+---------------------------------------------------------------------------------------
+exit=0
