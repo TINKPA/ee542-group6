@@ -11,6 +11,7 @@ Report: EE542_Lab8_Report.pdf (added with the final submission)
 | 4 | [`code/part4/dpdk_rx.c`](code/part4/dpdk_rx.c), [`run_rx.sh`](code/part4/run_rx.sh), [`verify.py`](code/part4/verify.py) | DPDK receiver on the pcap vdev: header checks, port filter, out-of-order reassembly via per-frame bitmap, dedup, idle-timeout end condition; byte-for-byte verification |
 | 5 | [`code/part5/classify.py`](code/part5/classify.py) | Rebuilt images → pinned H2D copy → GPU preprocessing → FP16 engine; class check against the originals and copy/preprocess/inference timing |
 | 6 | [`code/part6/*.sh`](code/part6/) | Docker + Container Toolkit check; `doca_caps` census; `gpunetio_simple_receive` build (sm_89 added to compile and link flags) and run; open-source GPUNetIO build and `gpunetio_verbs_write_lat` |
+| 7 | [`code/part7/`](code/part7/) | Two CloudLab d7525 nodes: `profile.py`, `cl.sh` (driver on the laptop), `setup_node.sh`, `after_boot.sh`, `rdma_one.sh`, `repeat_rdma.sh`, `dip_probe.sh`, `state_check.sh` |
 | — | [`code/cloud/`](code/cloud/) | RunPod helper (`pod.sh push|pull|ssh`), the Parts 1–5 campaign (`run_part2_5.sh`), measurement-only rerun, and the full-VM Part 6 runbook (`run_part6_vm.sh`) |
 
 Raw measurement logs: [`data/raw/`](data/raw/) (RunPod host `4455d4060973`, DOCA-container host `f15e15e5dba0`, AWS VM `ip-172-31-36-82`).
@@ -40,7 +41,7 @@ bash code/cloud/run_part6_vm.sh
 | Implementation | batch 1 | batch 8 | batch 32 |
 |---|---|---|---|
 | PyTorch FP32 | 0.992 ms · 1,008 img/s | 2.636 ms · 3,035 img/s | 10.259 ms · 3,119 img/s |
-| TensorRT FP32 | 1.218 ms · 0.82× | 2.229 ms · 1.18× | 8.528 ms · 1.20× |
+| TensorRT FP32 | 1.218 ms · 0.81× | 2.229 ms · 1.18× | 8.528 ms · 1.20× |
 | TensorRT FP16 | 0.364 ms · 2.73× | **0.626 ms · 4.21× · 12,789 img/s** | 2.602 ms · 3.94× |
 
 max |Δlogit| vs PyTorch FP32 over 1,024 inputs: 0.011 (TRT FP32), 0.035 (TRT FP16); top-1 agreement 100% for both. The batch-1 FP32 slowdown is the optimization profile: an OPT=1 engine runs 0.783 ms (see `opt_profile_check.py`).
@@ -53,11 +54,20 @@ max |Δlogit| vs PyTorch FP32 over 1,024 inputs: 0.011 (TRT FP32), 0.035 (TRT FP
 | shuffled | 1,728 | 1,728 | 0 | 16/16 |
 | shuffled + 5% dup + foreign traffic | 1,914 | 1,728 | 186 (86 dup, 50 non-IPv4, 50 port) | 16/16 |
 
-pcap vdev sustains 0.75–0.8 Mpps; `imissed`/`ierrors`/`rx_nombuf` all zero.
+pcap vdev sustains 0.74–0.80 Mpps; `imissed`/`ierrors`/`rx_nombuf` all zero.
 
 **Copy vs. inference** (pinned memory): 12.6 µs for 1 image (11.9 GB/s), 182 µs for 16 (13.3 GB/s); copy share of the GPU-side path grows 3.1% → 11.7% from batch 1 to 16. All 16 rebuilt images classify identically to their originals.
 
 **DOCA / GPUNetIO**: `doca_caps` reports DOCA 3.5.0098 and 21 libraries but "No DOCA device was found" on both a RunPod DOCA container and the AWS VM. `simple_receive` stops in `init_doca_device` (container: `/dev/infiniband` not mounted, unprivileged, netdev namespaced away; host card is a ConnectX-4 Lx, below GPUNetIO's ConnectX-6 Dx minimum. VM: ENA vNIC only, no Mellanox device). The open-source GPUNetIO builds with `CUDA_ARCH=89` and stops in `open_ib_device()`, same root cause.
+
+**GPU-initiated RDMA** (CloudLab d7525, NVIDIA A30 + ConnectX-6, RoCE v2; means of three rounds; logs in [`data/raw/rep/`](data/raw/rep/)):
+
+| Measurement | GPUNetIO `-p 1` | GPUNetIO `-p 2` (root) | perftest (CPU) |
+|---|---|---|---|
+| One-way latency, smallest message (µs) | 8.37 | 8.23 | 2.52 |
+| Bandwidth at 64 KB (Gbps) | 47.2 | 49.7 | 108.4 |
+
+`gpunetio_simple_receive` stops at "Failed to get hws cap" in all `-e` modes on both nodes. As a normal user `-p 2` fails with "Can't export UAR to GPU"; as root all 10 runs finish with no proxy thread. Receiver drops are zero up to 32 KB and start at 64 KB ([`part7_dip_probe.log`](data/raw/part7_dip_probe.log)); the cause is not known. The `experiment-rpctoken` block in `part7_state_*` is redacted.
 
 ## Pitfalls
 
@@ -66,4 +76,5 @@ pcap vdev sustains 0.75–0.8 Mpps; `imissed`/`ierrors`/`rx_nombuf` all zero.
 * The dynamo ONNX exporter writes weights to a separate `.onnx.data`; keep it next to the `.onnx` and load with `parser.parse_from_file()`.
 * In the DOCA container on a driver-595 host, drop `/usr/local/cuda-13/compat` from `LD_LIBRARY_PATH` (the 580 forward-compat libcuda breaks CUDA init).
 * Open-source GPUNetIO: `make -j install install_examples` races (examples link before the library lands); run `make install` then `make install_examples`.
+* In the DOCA container on driver 580.196.07, the image's `compat` libcuda (580.178.04) also breaks CUDA initialization; put the host library path first (`code/part7/simple_receive.sh`).
 * The pcap port never reports end-of-file; the receiver needs its own end condition (500 ms idle, or `--expect N`).
