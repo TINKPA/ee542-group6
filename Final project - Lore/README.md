@@ -2,6 +2,10 @@
 
 Lore turns a family's photos, recordings, videos and writing into a memory collection you can search and personalize. An AI agent organizes the material and asks simple pick-one questions. Your answers build a map of who people are and which memories belong together.
 
+**Live demo: [createurownlore.netlify.app](https://createurownlore.netlify.app/)**
+
+The live demo is the web page on its own, so it runs in demo mode with sample data and simulated AI. To use the real models on your own files, set up the local server below.
+
 This is an MVP. Everything runs on your own computer, and your files are not sent to the internet. The only download is the AI models, once, the first time you start it.
 
 ## What you need
