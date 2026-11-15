@@ -1,0 +1,1629 @@
+<title>Lore Prototype</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap">
+<style>
+/* Layout: 3-page rail. P1 = data in, P2 = agent + one big pick-one card, P3 = relationship map beside a requirements conversation. */
+:root{
+  --plum:#5b2333;
+  --c1:#8f2219;--c1-soft:#fae3de;--c2:#6b4700;--c2-soft:#fbecc4;--c3:#3f4c0c;--c3-soft:#e9efca;--c4:#0f4f57;--c4-soft:#d8eeee;--c5:#8a1f55;--c5-soft:#f9e0ec;
+  --bg:#fbf3e7; --surface:#fffbf5; --sunk:#f3e7d6; --line:#9a8873;
+  --fg:#2b1d14; --muted:#57463a;
+  --accent:#5b2333; --accent-ink:#ffffff; --accent-soft:#f3e1e6;
+  --ai:#6b4700; --ai-soft:#fbecc4;
+  --ok:#2c5e1b; --warn:#8f2219; --warn-soft:#fae3de;
+  --sepia1:#f6e6bf; --sepia2:#6b4700; --sepia3:#fffbf5;
+  --display:"Newsreader", Georgia, "Times New Roman", serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --plum:#f2b8c6;
+  --c1:#ffb3a6;--c1-soft:#4a221f;--c2:#f0c35f;--c2-soft:#3f3115;--c3:#c7d670;--c3-soft:#2f3616;--c4:#8bd8df;--c4-soft:#14383c;--c5:#ffb0c8;--c5-soft:#4a2433;
+  --bg:#1e1611; --surface:#2a1f18; --sunk:#382a20; --line:#7e6c5c;
+  --fg:#f7ede2; --muted:#d6c7b8;
+  --accent:#f2b8c6; --accent-ink:#1e1611; --accent-soft:#4a2433;
+  --ai:#f0c35f; --ai-soft:#3f3115;
+  --ok:#a9d68b; --warn:#ffb3a6; --warn-soft:#4a221f;
+  --sepia1:#3f3115; --sepia2:#f0c35f; --sepia3:#2a1f18;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --plum:#f2b8c6;
+  --c1:#ffb3a6;--c1-soft:#4a221f;--c2:#f0c35f;--c2-soft:#3f3115;--c3:#c7d670;--c3-soft:#2f3616;--c4:#8bd8df;--c4-soft:#14383c;--c5:#ffb0c8;--c5-soft:#4a2433;
+  --bg:#1e1611; --surface:#2a1f18; --sunk:#382a20; --line:#7e6c5c;
+  --fg:#f7ede2; --muted:#d6c7b8;
+  --accent:#f2b8c6; --accent-ink:#1e1611; --accent-soft:#4a2433;
+  --ai:#f0c35f; --ai-soft:#3f3115;
+  --ok:#a9d68b; --warn:#ffb3a6; --warn-soft:#4a221f;
+  --sepia1:#3f3115; --sepia2:#f0c35f; --sepia3:#2a1f18;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:18px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+.wrap{max-width:1140px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.2;text-wrap:balance;margin:0}
+h1{font-size:1.6rem} h2{font-size:2rem} h3{font-size:1.3rem}
+p{margin:0}
+.muted{color:var(--muted)}
+.eyebrow{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-block:20px;border-bottom:1px solid var(--line);margin-bottom:28px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand svg{flex:none}
+.brand small{display:block;font-size:.85rem;color:var(--muted)}
+.steps{display:flex;gap:6px;flex-wrap:wrap}
+.step{display:flex;align-items:center;gap:10px;min-height:56px;padding:6px 16px 6px 8px;border:1px solid var(--line);border-radius:999px;background:var(--surface);cursor:pointer;font-weight:700;text-align:left}
+.step .n{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--sunk);font-variant-numeric:tabular-nums;flex:none}
+.step[aria-current="page"]{border-color:var(--accent);background:var(--accent-soft)}
+.step[aria-current="page"] .n{background:var(--accent);color:var(--accent-ink)}
+.step small{font-weight:400;color:var(--muted);font-size:.8rem;display:block;line-height:1.15}
+.step small b{color:var(--warn)}
+
+.screen{display:grid;gap:24px}
+.intro{display:grid;gap:8px;max-width:64ch}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;min-width:0}
+.btn{min-height:52px;padding:10px 22px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);cursor:pointer;font-weight:700;display:inline-flex;align-items:center;gap:8px;justify-content:center;text-align:center}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.small{min-height:42px;padding:6px 14px;font-size:.95rem}
+.btn.link{border:0;background:none;color:var(--accent);padding:4px 6px;min-height:36px;text-decoration:underline}
+.note{font-size:.9rem;color:var(--muted);border-left:3px solid var(--line);padding-left:12px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:.82rem;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--sunk);color:var(--muted);white-space:nowrap}
+.chip.ok{color:var(--ok)} .chip.warn{color:var(--warn);background:var(--warn-soft)} .chip.ai{color:var(--ai);background:var(--ai-soft)} .chip.acc{color:var(--accent);background:var(--accent-soft)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.between{justify-content:space-between}
+.two{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:860px){.two{grid-template-columns:1fr}}
+.stack{display:grid;gap:20px;min-width:0}
+.thumb{width:72px;height:72px;border-radius:8px;overflow:hidden;background:var(--sunk);flex:none}
+.thumb img,.thumb svg{width:100%;height:100%;object-fit:cover;display:block}
+.empty{padding:18px;border:1px dashed var(--line);border-radius:var(--r);color:var(--muted);text-align:center}
+
+/* page 1 */
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:460px){.tiles{grid-template-columns:1fr}}
+.tile{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:center;text-align:left;padding:16px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);cursor:pointer;min-height:92px}
+.tile:hover{border-color:var(--accent)}
+.dropzone{display:grid;gap:8px;margin-top:14px;padding:18px;border:2px dashed var(--line);border-radius:var(--r)}
+.dropzone.over{border-color:var(--accent);background:var(--accent-soft)}
+.thumb{position:relative}
+.play{position:absolute;right:4px;bottom:4px;width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;font-size:10px;display:grid;place-items:center}
+.seen video,.seen audio{width:100%;margin-top:10px;border-radius:8px}
+.seen video{max-height:240px;background:#000}
+.tile .ico{grid-row:span 2;width:52px;height:52px;border-radius:12px;background:var(--accent-soft);display:grid;place-items:center;color:var(--accent)}
+.tile b{font-size:1.08rem} .tile span{font-size:.9rem;color:var(--muted)}
+textarea.big,input.big{width:100%;padding:14px 16px;border:2px solid var(--line);border-radius:var(--r);background:var(--bg);font-size:1.1rem}
+textarea.big{min-height:96px;resize:vertical}
+textarea.big:focus,input.big:focus{border-color:var(--accent);outline:none}
+.qitem{display:grid;grid-template-columns:72px minmax(0,1fr);gap:14px;padding:14px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+.pipe{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.pipe .chip.on{background:var(--accent-soft);color:var(--accent)}
+.pipe .chip.cur{background:var(--accent);color:var(--accent-ink)}
+.collection{display:grid;gap:10px;max-height:560px;overflow:auto}
+.mem{display:grid;grid-template-columns:56px minmax(0,1fr);gap:12px;align-items:center}
+.mem .thumb{width:56px;height:56px}
+.mem p{font-size:.95rem} .mem .t{font-weight:700}
+
+/* page 2 */
+.qcard{background:var(--surface);border:2px solid var(--accent);border-radius:14px;padding:24px;display:grid;gap:18px}
+.qcard h3{font-size:1.7rem}
+.qthumbs{display:flex;gap:10px;flex-wrap:wrap}
+.qthumbs figure{margin:0;display:grid;gap:4px;width:110px}
+.qthumbs .thumb{width:110px;height:110px}
+.qthumbs figcaption{font-size:.82rem;color:var(--muted);line-height:1.25}
+.opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:620px){.opts{grid-template-columns:1fr}}
+.opt{min-height:84px;padding:14px;border:2px solid var(--line);border-radius:12px;background:var(--bg);font-size:1.15rem;font-weight:700;cursor:pointer;text-align:center}
+.opt:hover{border-color:var(--accent);background:var(--accent-soft)}
+.opt .k{display:block;font-size:.8rem;color:var(--muted);font-weight:400;margin-bottom:2px}
+.understand{display:grid;gap:12px;padding:16px;border-radius:12px;background:var(--sunk)}
+.seen{display:grid;grid-template-columns:88px minmax(0,1fr);gap:14px;align-items:start}
+.seen .thumb{width:88px;height:88px}
+.seen dl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:4px 12px;margin:8px 0 0;font-size:.95rem}
+.seen dt{color:var(--muted);font-weight:700}
+.seen dd{margin:0}
+@media (max-width:520px){.seen{grid-template-columns:1fr}.seen dl{grid-template-columns:1fr}.seen dt{margin-top:4px}}
+.basis{font-size:1rem;padding-left:12px;border-left:3px solid var(--accent)}
+.dbt{width:100%;border-collapse:collapse;font-size:.88rem}.dbt th,.dbt td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.dbt code{white-space:nowrap}.cmp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.cmp ol{margin:6px 0 0;padding-left:1.3em;display:grid;gap:8px}
+@media (max-width:620px){.cmp{grid-template-columns:1fr}}
+.mapwrap{height:520px;margin-top:10px;border:1px solid var(--line);border-radius:var(--r);background:var(--bg);overflow:hidden}
+.graph.mapc{width:100%;height:100%;min-width:0;display:block;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}
+#mapbar{min-height:52px;margin-top:8px;gap:8px}
+[hidden]{display:none!important}
+.graph.mapc text{paint-order:stroke;stroke:var(--bg);stroke-width:3px;stroke-linejoin:round}.graph.mapc .ninner circle+text,.graph.mapc .ninner rect+text{stroke:none}
+.nwrap,.egroup,.hull{transition:opacity .18s}.nwrap.dim,.egroup.dim{opacity:.16}
+.ninner{transform-box:fill-box;transform-origin:center;transition:transform .16s}.nwrap:hover .ninner{transform:scale(1.13)}
+.nwrap.target .ninner{transform:scale(1.28);filter:drop-shadow(0 0 7px var(--accent))}
+.handle{opacity:0;transition:opacity .15s}.nwrap:hover .handle,.nwrap.sel .handle{opacity:1}
+.egroup.hot path:nth-of-type(2){stroke-width:4.5}.mdot{pointer-events:none}
+.pulse{animation:mpulse 2.6s ease-out infinite;transform-box:fill-box;transform-origin:center;pointer-events:none}
+@keyframes mpulse{from{transform:scale(1);opacity:.45}to{transform:scale(2.2);opacity:0}}
+@media (prefers-reduced-motion:reduce){.pulse{animation:none;opacity:0}.ninner,.handle,.nwrap,.egroup{transition:none}}
+header{--accent:var(--plum);position:relative;border-bottom:0}
+header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--c1) 0 20%,var(--c2) 20% 40%,var(--c3) 40% 60%,var(--c4) 60% 80%,var(--c5) 80%)}
+/* Lore: colors of family prints and albums. Collecting = old red prints, agent = lake and avocado, personal = rose and album plum. */
+#data,.step[data-go=data]{--accent:var(--c1);--accent-soft:var(--c1-soft);--accent2:var(--c2)}
+#agent,.step[data-go=agent]{--accent:var(--c2);--accent-soft:var(--c2-soft);--accent2:var(--c1)}
+#personal,.step[data-go=personal]{--accent:var(--c5);--accent-soft:var(--c5-soft);--accent2:var(--plum)}
+.btn.primary,.step[aria-current="page"] .n{background:linear-gradient(120deg,var(--accent),var(--accent2));border-color:transparent}
+.screen .eyebrow:first-child{color:var(--accent)}
+.dropzone{border-color:var(--accent);background:var(--accent-soft)}
+.tile[data-kind=photo] .ico{background:var(--c2-soft);color:var(--c2)}.tile[data-kind=voice] .ico{background:var(--c5-soft);color:var(--c5)}.tile[data-kind=note] .ico{background:var(--c3-soft);color:var(--c3)}.tile[data-kind=doc] .ico{background:var(--c4-soft);color:var(--c4)}
+.opts .opt:nth-child(1){border-color:var(--c1)}.opts .opt:nth-child(1):hover{background:var(--c1-soft);border-color:var(--c1)}
+.opts .opt:nth-child(2){border-color:var(--c2)}.opts .opt:nth-child(2):hover{background:var(--c2-soft);border-color:var(--c2)}
+.opts .opt:nth-child(3){border-color:var(--c3)}.opts .opt:nth-child(3):hover{background:var(--c3-soft);border-color:var(--c3)}
+.stat:nth-child(1) b{color:var(--c1)}.stat:nth-child(2) b{color:var(--c2)}.stat:nth-child(3) b{color:var(--c3)}.stat:nth-child(4) b{color:var(--c4)}.stat:nth-child(5) b{color:var(--c5)}
+.talk{display:grid;justify-items:center;text-align:center;gap:20px;padding-block:12px}
+.talk h2{font-size:clamp(2rem,5vw,3rem);max-width:22ch}
+.talkbtn{width:min(320px,76vw,44vh);min-width:210px;aspect-ratio:1;border:0;border-radius:50%;cursor:pointer;display:grid;place-content:center;justify-items:center;gap:10px;color:var(--accent-ink);background:linear-gradient(140deg,var(--c1),var(--c2));font-size:clamp(1.5rem,4vw,2rem);font-weight:700;box-shadow:0 14px 34px color-mix(in srgb,var(--c1) 35%,transparent);transition:transform .15s}
+.talkbtn:hover{transform:scale(1.03)}.talkbtn:focus-visible{outline:5px solid var(--fg);outline-offset:6px}
+.talkbtn.rec{background:linear-gradient(140deg,var(--c5),var(--c1));animation:talkring 1.5s ease-out infinite}
+.talkbtn.busy{opacity:.75;cursor:wait}
+@keyframes talkring{from{box-shadow:0 0 0 0 color-mix(in srgb,var(--c5) 55%,transparent)}to{box-shadow:0 0 0 44px transparent}}
+#talkstatus{font-size:1.35rem;max-width:32ch}
+.talkreply{display:grid;gap:12px;width:min(640px,100%);padding:22px;border-radius:16px;background:var(--surface);border:1px solid var(--line);text-align:left}
+.talkanswer{font-family:var(--display);font-size:1.6rem;line-height:1.3}
+details.more{margin-top:18px}details.more>summary{cursor:pointer;min-height:56px;display:flex;align-items:center;justify-content:center;font-size:1.05rem;text-decoration:underline;color:var(--muted)}
+details.more>.two{margin-top:10px}
+.subtitle{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:5;width:min(920px,calc(100% - 32px));display:grid;gap:4px;padding:14px 22px;border-radius:14px;background:var(--fg);color:var(--bg);font-size:clamp(1.25rem,3vw,1.6rem);line-height:1.4;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.subwho{font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+.dropveil{position:fixed;inset:0;z-index:6;display:grid;place-items:center;background:color-mix(in srgb,var(--c1-soft) 88%,transparent);border:8px dashed var(--c1);pointer-events:none;font-size:2.2rem;font-weight:700;color:var(--c1)}
+@media (prefers-reduced-motion:reduce){.talkbtn.rec{animation:none;outline:6px solid var(--c5);outline-offset:6px}.talkbtn{transition:none}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+body.home header{display:none}
+header{justify-content:space-between}
+.brandbtn{font-family:var(--display);font-size:1.7rem;font-weight:600;background:none;border:0;cursor:pointer;color:var(--fg);padding:4px 8px;min-height:48px}
+.steps .step{padding:6px 18px}
+.home{min-height:calc(100vh - 48px);min-height:calc(100dvh - 48px);display:grid;place-content:center;justify-items:center;gap:26px;text-align:center;padding-block:24px}
+.lorebtn{display:inline-flex;align-items:center;gap:14px;font-family:var(--display);font-size:clamp(2.4rem,7vw,3.6rem);font-weight:600;padding:14px 40px 16px;border-radius:999px;border:0;cursor:pointer;color:var(--accent-ink);background:linear-gradient(130deg,var(--c1),var(--c2));box-shadow:0 12px 30px color-mix(in srgb,var(--c1) 30%,transparent);transition:transform .15s}
+.lorebtn:hover{transform:translateY(-2px)}
+.askbar{width:min(760px,100%);display:flex;align-items:center;gap:6px;padding:8px;border-radius:999px;background:var(--surface);border:2px solid var(--line);box-shadow:0 8px 26px rgba(43,29,20,.08)}
+.askbar:focus-within{border-color:var(--c1)}
+.askbar input{flex:1;min-width:0;border:0;background:transparent;font-size:clamp(1.15rem,3vw,1.45rem);min-height:58px;padding:0 10px;outline:none;color:var(--fg)}
+.iconbtn{width:52px;height:52px;flex:none;display:grid;place-items:center;border-radius:50%;cursor:pointer;color:var(--muted)}
+.iconbtn:hover{background:var(--sunk);color:var(--fg)}
+.askbar .talkbtn{width:58px;min-width:58px;height:58px;aspect-ratio:auto;font-size:0;gap:0;box-shadow:none;flex:none}
+.askbar .talkbtn svg{width:28px;height:28px}
+.askbar .talkbtn.rec{animation:talkring 1.5s ease-out infinite}
+.sendbtn{width:58px;height:58px;flex:none;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;background:var(--fg);color:var(--bg)}
+#talkstatus{font-size:1.15rem;color:var(--muted);max-width:44ch}
+.simplehead{display:grid;gap:6px;justify-items:center;text-align:center}
+.simplehead h2{font-size:clamp(1.8rem,4vw,2.4rem)}
+.narrow{width:min(760px,100%);margin-inline:auto}.narrow.wide{width:min(1000px,100%)}
+details.more.think>summary,details.more>summary{justify-content:flex-start}
+details.why{margin-top:4px}details.why>summary{cursor:pointer;font-weight:700;min-height:40px;display:flex;align-items:center;color:var(--accent)}
+.notes-dl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 14px;margin:8px 0 0;font-size:.98rem}
+.notes-dl dt{font-weight:700;color:var(--muted)}.notes-dl dd{margin:0}
+@media (max-width:560px){.notes-dl{grid-template-columns:1fr}.notes-dl dt{margin-top:6px}}
+.analysis{display:grid;gap:16px}.analysis article{border-top:1px solid var(--line);padding-top:12px}.analysis article:first-child{border-top:0;padding-top:0}
+.learned{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.learned li{display:flex;gap:10px;align-items:baseline;font-size:.95rem}
+.learned li::before{content:"✓";color:var(--ok);font-weight:700}
+.skills{display:grid;gap:10px}
+.skill{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:start}
+.skill .st{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:.8rem;margin-top:2px}
+.skill.done .st{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.skill.run .st{border-color:var(--accent);animation:pulse 1s infinite ease-in-out}
+.skill b{display:block} .skill span{font-size:.9rem;color:var(--muted)}
+@keyframes pulse{50%{opacity:.3}}
+.model{display:grid;gap:6px;font-size:.92rem}
+.model .row{gap:8px}
+.lamp{width:10px;height:10px;border-radius:50%;background:var(--warn);display:inline-block}
+.lamp.on{background:var(--ok)}
+.progress{height:8px;border-radius:4px;background:var(--sunk);overflow:hidden}
+.progress i{display:block;height:100%;background:var(--accent);transition:width .3s}
+@media (prefers-reduced-motion:reduce){.skill.run .st{animation:none}.progress i{transition:none}}
+
+/* page 3 */
+.summarybar{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:baseline;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.stat b{font-family:var(--display);font-size:2rem;font-variant-numeric:tabular-nums;margin-right:6px}
+.graphbox{overflow-x:auto}
+.graph{width:100%;min-width:520px;height:auto;display:block}
+.graph text{fill:var(--fg);font-family:var(--body);font-size:15px}
+.graph .sub{fill:var(--muted);font-size:13px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.85rem;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:18px;height:0;border-top:3px solid;vertical-align:middle;margin-right:6px}
+.rels{display:grid;gap:8px;margin-top:14px}
+.rel{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:8px}
+.rel b{font-size:1rem} .rel p{font-size:.85rem;color:var(--muted)}
+.reqs{display:flex;flex-wrap:wrap;gap:8px}
+.req{display:inline-flex;align-items:center;gap:8px;padding:6px 6px 6px 12px;border-radius:999px;background:var(--ai-soft);border:1px solid var(--line);font-size:.95rem}
+.req small{font-weight:700;color:var(--ai);text-transform:uppercase;letter-spacing:.06em;font-size:.72rem}
+.req button{width:30px;height:30px;border-radius:50%;border:0;background:var(--surface);cursor:pointer}
+.thread{display:grid;gap:14px;max-height:620px;overflow:auto;padding-right:4px}
+.msg{display:grid;gap:8px;max-width:100%}
+.msg.user{justify-self:end;background:var(--accent);color:var(--accent-ink);padding:10px 16px;border-radius:16px 16px 4px 16px;max-width:85%}
+.msg.agent{background:var(--sunk);padding:14px 16px;border-radius:16px 16px 16px 4px}
+.msg .who{font-size:.78rem;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.msg .opts{grid-template-columns:1fr}
+.msg .opt{min-height:52px;font-size:1rem}
+.ev{display:grid;grid-template-columns:56px minmax(0,1fr);gap:10px;padding:10px;border-radius:8px;background:var(--surface)}
+.ev .thumb{width:56px;height:56px}
+.ev blockquote{margin:2px 0 0;font-size:.95rem;border-left:3px solid var(--accent);padding-left:8px}
+.ev p{font-size:.8rem;color:var(--muted)}
+.story{background:var(--ai-soft);border-radius:10px;padding:14px 16px;display:grid;gap:8px}
+.story h4{font-family:var(--display);font-size:1.3rem;margin:0}
+.story p{font-size:1.05rem}
+.sugg{display:flex;flex-wrap:wrap;gap:8px}
+.sugg button{min-height:42px;padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-size:.92rem;text-align:left}
+.sugg button:hover{border-color:var(--accent)}
+.composer{display:flex;gap:10px;margin-top:14px}
+.composer input{flex:1;min-width:0;min-height:56px}
+.gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.gallery .thumb{width:100%;height:auto;aspect-ratio:1;max-width:100%}
+.gallery figure{margin:0} .gallery figcaption{font-size:.78rem;color:var(--muted);line-height:1.25;margin-top:4px}
+
+details.notes{margin-top:40px}
+details.notes summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center}
+details.notes ol{margin:8px 0 0;padding-left:1.4em;display:grid;gap:6px;max-width:70ch}
+code{font-size:.9em;background:var(--sunk);padding:1px 6px;border-radius:4px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(24px + env(safe-area-inset-bottom,0px));background:var(--fg);color:var(--bg);padding:12px 20px;border-radius:999px;font-weight:700;max-width:calc(100% - 32px);z-index:5}
+</style>
+
+<div class="wrap">
+<header>
+  <button class="brandbtn" type="button" data-go="data" aria-label="Back to the start">Lore</button>
+  <small id="boxname" hidden></small>
+  <nav class="steps" aria-label="Pages">
+    <span id="s1" hidden></span>
+    <button class="step" data-go="agent"><span>Questions<small id="s2"></small></span></button>
+    <button class="step" data-go="personal"><span>People &amp; stories<small id="s3"></small></span></button>
+  </nav>
+</header>
+
+<!-- PAGE 1: one input. Type and press Enter, or press the microphone to talk. Files can be dropped anywhere. -->
+<section class="screen" id="data">
+  <div class="home">
+    <button class="lorebtn" type="button" data-go="agent" aria-label="Enter Lore">Lore <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    <form class="askbar" id="homeform" autocomplete="off">
+      <label class="iconbtn" for="file" title="Add photos, videos, audio or documents" aria-label="Add files"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 11.5l-8.6 8.6a5 5 0 01-7.1-7.1l8.6-8.6a3.4 3.4 0 014.8 4.8l-8.6 8.6a1.7 1.7 0 01-2.4-2.4l7.9-7.9"/></svg></label>
+      <input id="hometext" aria-label="Tell me a memory" placeholder="Tell me a memory…">
+      <button type="button" class="talkbtn idle" id="talkbtn" aria-pressed="false" aria-label="Press to talk"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg><span id="talklabel" class="sr">Press to talk</span></button>
+      <button type="submit" class="sendbtn" aria-label="Save"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </form>
+    <p id="talkstatus" aria-live="polite">Type and press Enter, or press the microphone to talk.</p>
+    <h2 id="talkprompt" hidden>Tell me a memory</h2>
+    <div class="talkreply" id="talkreply" hidden aria-live="polite">
+      <p id="talkheard" hidden><span class="eyebrow">I heard</span><br><span id="talkheardtext"></span></p>
+      <p class="talkanswer" id="talkanswer"></p>
+    </div>
+    <p class="muted" id="talkcount"></p>
+  </div>
+  <div class="capture" hidden>
+  <div class="two">
+    <div class="stack">
+      <div class="panel">
+        <h3 style="margin-bottom:12px">Add something</h3>
+        <div class="tiles" id="tiles"></div>
+        <div class="dropzone" id="dropzone">
+          <b>Try your own files</b>
+          <span class="muted" style="font-size:.95rem">Drag photos, videos, audio or text files here, or choose them. They stay in this browser. Nothing is uploaded.</span>
+          <div class="row">
+            <label class="btn primary small" for="file">Choose files…</label>
+            <label class="btn small" for="folder">Choose a folder…</label>
+          </div>
+          <input id="file" type="file" multiple accept="image/*,video/*,audio/*,.txt,.md,.csv,.srt,.vtt,.pdf,.doc,.docx" hidden>
+          <input id="folder" type="file" webkitdirectory multiple hidden>
+        </div>
+        <p class="note" style="margin-top:14px">The four types stand in for <b>A · V · I · L</b> from the sketch until the team confirms them.</p>
+      </div>
+      <form class="panel" id="noteform" autocomplete="off">
+        <label for="notetext"><h3 style="margin-bottom:10px">Or write a memory</h3></label>
+        <textarea class="big" id="notetext" placeholder="For example: Walter built the bird feeder in our backyard in 1982."></textarea>
+        <div class="row" style="margin-top:10px"><button class="btn primary" type="submit">Save to the box</button></div>
+      </form>
+      <div>
+        <div class="row between" style="margin-bottom:10px"><h3>Being prepared</h3><span class="chip" id="qcount"></span></div>
+        <div class="stack" id="queue" style="gap:12px"></div>
+      </div>
+    </div>
+    <aside class="panel">
+      <div class="row between" style="margin-bottom:12px"><h3>In the box</h3><span class="chip acc" id="mcount"></span></div>
+      <div class="collection" id="collection"></div>
+      <button class="btn primary" style="width:100%;margin-top:16px" data-go="agent">Let the agent organize these →</button>
+    </aside>
+  </div>
+  </div>
+</section>
+
+<!-- PAGE 2: one question at a time; the agent's reasoning is one click away -->
+<section class="screen" id="agent" hidden>
+  <div class="simplehead"><h2>Questions from Lore</h2><p class="muted">Lore studied your memories. Tap one answer, or skip.</p></div>
+  <div class="narrow stack">
+    <div id="qslot"></div>
+    <div class="panel">
+      <div class="row between" style="margin-bottom:10px"><h3>What Lore learned from you</h3><span class="chip" id="lcount"></span></div>
+      <ul class="learned" id="learned"></ul>
+    </div>
+    <details class="more think"><summary>See how Lore is thinking</summary>
+      <div class="stack" style="margin-top:12px">
+        <div class="panel"><h3 style="margin-bottom:12px">Lore's notes on each memory</h3><div class="analysis" id="analysis"><p class="muted">Notes appear here after Lore studies your memories.</p></div></div>
+        <div class="panel"><h3 style="margin-bottom:12px">Agent skills</h3><div class="skills" id="skills"></div><button class="btn small" style="margin-top:14px" id="rerun">Run again</button></div>
+        <div class="panel" id="dbpanel" hidden>
+        <div class="row between"><h3>Memory database</h3><span class="chip" id="dbpath"></span></div>
+        <div class="summarybar" id="dbstats" style="margin-top:10px"></div>
+        <div style="overflow-x:auto;margin-top:12px"><table class="dbt"><thead><tr><th>Type</th><th>Title</th><th>Content found</th><th>People</th><th>Vector</th></tr></thead><tbody id="dbrows"></tbody></table></div>
+        <form id="cmpform" class="composer" autocomplete="off"><input class="big" id="cmpq" aria-label="Search the database" placeholder="Search, for example: photos with my friend"><button class="btn primary" type="submit">Search</button></form>
+        <div id="cmpout" style="margin-top:12px"></div>
+      </div>
+        <div class="panel model" id="model"></div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- PAGE 3: the map and a conversation; everything else folded away -->
+<section class="screen" id="personal" hidden>
+  <div class="simplehead"><h2>Your people and stories</h2><p class="muted">Drag to arrange. Drag a node's + onto another to connect them.</p></div>
+  <div id="summary" hidden></div>
+  <div class="narrow wide stack">
+    <div class="panel">
+      <div class="row" id="maptools" style="margin-top:10px;gap:6px">
+          <button class="btn small primary" data-map="agent">Arrange for me</button><button class="btn small" data-map="tidy">Tidy columns</button>
+          <button class="btn small" data-map="out" aria-label="Zoom out">−</button><button class="btn small" data-map="in" aria-label="Zoom in">+</button><button class="btn small" data-map="fit">Fit</button>
+        </div>
+        <div class="mapwrap"><svg class="graph mapc" id="graph" role="application" aria-label="Editable relationship map"></svg></div>
+        <div class="row" id="mapbar" aria-live="polite"></div>
+        <form class="row" id="mapadd" autocomplete="off" style="margin-top:8px;gap:6px"><input class="big" id="mapname" aria-label="New node name" placeholder="Add a person or theme" style="flex:1;min-width:140px;padding:8px 12px"><button type="button" class="btn small" data-add="person">Add person</button><button type="button" class="btn small" data-add="theme">Add theme</button></form>
+    </div>
+    <div class="panel">
+      <h3 style="margin-bottom:12px">Talk to Lore</h3>
+      <div class="thread" id="thread" aria-live="polite"></div>
+      <form class="composer" id="composer" autocomplete="off">
+        <label for="say" hidden>Request or question</label>
+        <input class="big" id="say" placeholder="Ask, or tell Lore what you want…">
+        <button class="btn primary" type="submit">Send</button>
+      </form>
+    </div>
+    <details class="more"><summary>All links, your requests, and the memories used</summary>
+      <div class="stack" style="margin-top:12px">
+        <div class="panel"><div class="legend"><span><i style="border-color:var(--accent)"></i>Who someone is to you</span><span><i style="border-color:var(--accent);border-top-style:dotted"></i>Appears in</span><span><i style="border-color:var(--sepia2)"></i>Same story</span><span><i style="border-color:var(--ai)"></i>Theme</span><span><b style="color:var(--warn)">★</b> Show first</span></div><div class="rels" id="rels"></div></div>
+        <div class="panel"><div class="row between" style="margin-bottom:10px"><h3>Your requests</h3><span class="chip ai" id="rcount"></span></div><div class="reqs" id="reqs"></div></div>
+        <div class="panel"><h3 style="margin-bottom:10px">Memories used in the last reply</h3><div class="gallery" id="gallery"></div></div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<details class="notes" hidden>
+  <summary>Prototype notes for the team</summary>
+  <div style="display:grid;gap:10px;max-width:72ch;margin-top:6px">
+    <p class="muted">All data is sample data. The embedding model and SLM are mocked in the page: search uses a small hashed word-vector embedding with cosine similarity, and the agent's questions and replies come from rules. Every back-end call goes through <code>LegacyAPI</code>; set <code>CONFIG.apiBase</code> at the top of the script to send them to the team's server instead (endpoints are listed in the requirements doc, §7). The published artifact cannot reach outside servers, so test the live mode from a local copy.</p>
+    <p><b>Still open:</b></p>
+    <ol>
+      <li>What do <b>A, V, I, L</b> stand for on page 1?</li>
+      <li>What does <b>C</b> mean after Ask?</li>
+      <li>Is OCR run on every upload, or only when chosen? (Demo: always.)</li>
+      <li>Is page 3 input text, voice, or both? (Demo: text.)</li>
+      <li>Lore TV, web app, or both?</li>
+      <li>How many quick questions per session before the agent pauses?</li>
+      <li>Which personal outputs are in scope (story drafts, albums, family tree)?</li>
+    </ol>
+  </div>
+</details>
+</div>
+<div class="toast" id="toast" hidden></div>
+<div class="subtitle" id="subtitle" hidden aria-live="polite"><span class="subwho" id="subwho"></span><span id="subtext"></span></div>
+<div class="dropveil" id="dropveil" hidden><span>Drop your files or folder here</span></div>
+
+<script>
+/* =====================================================================
+   CONFIG — teammates: set apiBase to your embedding/SLM server to leave demo mode.
+   ===================================================================== */
+const CONFIG = { apiBase: '', owner: 'Rose' };
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+let OWNER = CONFIG.owner;
+
+/* ---------------- sample data ---------------- */
+const KIND = {
+  photo:{label:'Photo or scan', sub:'Prints, slides, albums'},
+  voice:{label:'Voice recording', sub:'Tell a story out loud'},
+  note:{label:'Written note', sub:'A few lines of text'},
+  doc:{label:'Letter or document', sub:'Letters, cards, recipes'}
+};
+const kindLabel = k => ({photo:'Photo',voice:'Recording',note:'Note',doc:'Document',video:'Video'}[k]);
+let memories = [
+  {id:'m1',kind:'photo',title:'Wedding at St. Mary’s',year:1968,people:['Rose','Walter'],tags:['wedding','married','church','duluth'],
+   src:'Text on back of photo (OCR)',text:'Rose & Walter — June 14, 1968 — St. Mary’s, Duluth',
+   fact:'You and Walter were married on June 14, 1968 at St. Mary’s in Duluth.',hue:0},
+  {id:'m2',kind:'doc',title:'Apple cake recipe',year:1972,people:['Rose','Helen'],tags:['recipe','apple','cake','baking','kitchen'],
+   src:'Recipe card (OCR)',text:'3 apples, 2 cups flour, 1 cup sugar, cinnamon. Bake at 350° for 45 min. — from Helen’s kitchen',
+   fact:'Your apple cake recipe came from Helen’s kitchen, and it bakes at 350° for 45 minutes.',hue:1},
+  {id:'m3',kind:'voice',title:'Summers at Lake Vermilion',year:1978,people:['Rose','Walter','Ann','David'],tags:['lake','vermilion','cabin','summer','fishing','kids','vacation'],
+   src:'Voice note, transcribed',text:'Every July we drove up to the cabin on Lake Vermilion. Walter taught the kids to fish off the dock.',
+   fact:'Every July the family drove to the cabin on Lake Vermilion, where Walter taught Ann and David to fish.',hue:2},
+  {id:'m4',kind:'doc',title:'Letter from Ann at camp',year:1974,people:['Ann','Rose'],tags:['letter','camp','cake','apple'],
+   src:'Handwritten letter (OCR)',text:'Dear Mom, camp is fun but the food is bad. I miss your apple cake! Love, Ann',
+   fact:'In 1974 Ann wrote home from camp to say she missed your apple cake.',hue:3},
+  {id:'m5',kind:'photo',title:'Cabin dock, 1979',year:1979,people:['David','Walter'],tags:['lake','vermilion','fishing','walleye','cabin','dock'],
+   src:'Text on back of photo (OCR)',text:'Vermilion ’79 — David’s first walleye',
+   fact:'In 1979 David caught his first walleye off the cabin dock.',hue:4},
+  {id:'m6',kind:'note',title:'Moving to Minneapolis',year:1985,people:['Rose','Walter','Ann'],tags:['move','moving','minneapolis','house','home'],
+   src:'Typed note',text:'We sold the Duluth house in the spring of 1985 and moved to Minneapolis to be closer to Ann.',
+   fact:'In spring 1985 you and Walter sold the Duluth house and moved to Minneapolis to be near Ann.',hue:5}
+];
+const POOL = {
+  photo:[{id:'n-xmas',kind:'photo',title:'Family Christmas',year:1990,people:['Ann','David'],tags:['christmas','holiday','family','baby','grandchild'],
+    src:'Text on back of photo (OCR)',text:'Xmas ’90 — Ann, David & baby J?',fact:'At Christmas 1990 Ann and David gathered around the new baby.',hue:6}],
+  voice:[{id:'n-met',kind:'voice',title:'How you met Walter',year:1966,people:['Rose','Walter'],tags:['met','meet','fair','county','dating'],
+    src:'Voice note, transcribed',text:'I met Walter at the county fair in 1966. He won me a stuffed bear at the ring toss.',
+    fact:'You met Walter at the county fair in 1966, and he won you a stuffed bear at the ring toss.',hue:7}],
+  note:[{id:'n-hymn',kind:'note',title:'Favorite hymn',year:null,people:['Rose'],tags:['hymn','song','music','church','favorite','wedding'],
+    src:'Typed note',text:'My favorite hymn has always been “How Great Thou Art.” We sang it at our wedding.',
+    fact:'Your favorite hymn is “How Great Thou Art,” which was sung at your wedding.',hue:8}],
+  doc:[{id:'n-army',kind:'doc',title:'Walter’s Army discharge',year:1964,people:['Walter'],tags:['army','military','service','discharge'],
+    src:'Official document (OCR)',text:'Honorable Discharge — Walter J. Lindqvist — Fort Leonard Wood, 1964',
+    fact:'Walter was honorably discharged from the Army at Fort Leonard Wood in 1964.',hue:9}]
+};
+
+/* ---------------- mock embedding model ---------------- */
+const STOP = new Set('a an the and or of to in on at for with did do does was were is are be what when where who whom how why which that this about from by i me my we our you your tell remember any there have has had go went get got she he her his they them it its s can could would should please some'.split(' '));
+const SYN = {married:['wedding'],marry:['wedding'],wedding:['married'],summer:['lake','cabin','vacation'],vacation:['lake','cabin'],
+  recipe:['cake','baking'],bake:['cake','baking','recipe'],cake:['recipe'],fish:['fishing'],met:['meet','fair'],meet:['met','fair'],
+  move:['moving','minneapolis'],song:['hymn','music'],army:['military','service'],christmas:['holiday'],grandchild:['baby'],
+  grandkid:['grandchild','baby'],grandchildren:['grandchild'],lake:['vermilion','cabin'],cabin:['lake']};
+const DIM = 192;
+function tokens(s){
+  return String(s).toLowerCase().replace(/[’']/g,' ').split(/[^a-z0-9]+/)
+    .filter(w => w && !STOP.has(w)).map(w => w.length>4 && w.endsWith('s') ? w.slice(0,-1) : w);
+}
+function hash(t){ let h=2166136261; for (const c of t) { h ^= c.charCodeAt(0); h = Math.imul(h,16777619)>>>0; } return h % DIM; }
+function embedOne(s){
+  const v = new Float32Array(DIM);
+  tokens(s).forEach(w => { v[hash(w)] += 1; (SYN[w]||[]).forEach(x => v[hash(x)] += .6); });
+  let n = Math.hypot(...v) || 1; return Array.from(v, x => x/n);
+}
+const cos = (a,b) => a.reduce((s,x,i) => s + x*b[i], 0);
+const memText = m => [m.title,m.title,m.text,m.fact,m.tags.join(' '),m.people.join(' '),m.year||''].join(' ');
+
+/* ---------------- agent state ---------------- */
+let rels = [];            // relationships, created ONLY from answers
+let answered = {};        // questionId -> optionIndex | 'skip'
+let reqs = [];            // personal requirements from page 3
+let skillLog = [];
+let agentDirty = true;
+
+/* The agent's simple understanding of each item, per modality (from vision / OCR / speech models).
+   Confidence: sure | guess | unclear. Questions on page 2 are built from these. */
+const SEEN = {
+  m1:[['I see','Two people dressed for a wedding, outside a church','guess'],['Writing on the back','“Rose & Walter — June 14, 1968 — St. Mary’s, Duluth”','sure'],['Names','Rose, Walter','sure']],
+  m2:[['Looks like','A handwritten recipe card','sure'],['I read','Apple cake: 3 apples, 2 cups flour… bake at 350° for 45 min','sure'],['Names','Helen (“from Helen’s kitchen”)','sure']],
+  m3:[['I heard','“Every July we drove up to the cabin on Lake Vermilion. Walter taught the kids to fish…”','sure'],['Names','Walter, Ann, David','sure'],['Place','Lake Vermilion, a cabin','sure'],['Feeling','Warm, happy','guess']],
+  m4:[['Looks like','A child’s handwritten letter','guess'],['I read','“Dear Mom, camp is fun… I miss your apple cake! Love, Ann”','sure'],['Names','Ann, writing to her mom','sure']],
+  m5:[['I see','A boy holding a fish on a dock','guess'],['Writing on the back','“Vermilion ’79 — David’s first walleye”','sure'],['Names','David','sure']],
+  m6:[['You wrote','“We sold the Duluth house… moved to Minneapolis to be closer to Ann.”','sure'],['Names','Ann; “we” is probably you and Walter','guess']],
+  'n-xmas':[['I see','A family by a Christmas tree, someone holding a baby','guess'],['Writing on the back','“Xmas ’90 — Ann, David & baby J?”','sure'],['Unclear','The baby’s name: only “J?” is readable','unclear']],
+  'n-met':[['I heard','“I met Walter at the county fair in 1966. He won me a stuffed bear…”','sure'],['Names','Walter','sure'],['Feeling','Fond, playful','guess']],
+  'n-hymn':[['You wrote','“My favorite hymn has always been How Great Thou Art. We sang it at our wedding.”','sure'],['Mentions','Your wedding','sure']],
+  'n-army':[['Looks like','An official certificate','sure'],['I read','“Honorable Discharge — Walter J. Lindqvist — Fort Leonard Wood, 1964”','sure'],['Names','Walter','sure']]
+};
+const seenOf = m => m.seen || SEEN[m.id] || [];
+const fromPhrase = m => ({photo:'the writing on your photo',voice:'your voice recording',doc:'your document',note:'your note'}[m.kind]) + ` “${m.title}”`;
+const ROLE_OPTS = {Walter:['husband','brother','father'],Helen:['mother','sister','aunt'],Ann:['daughter','niece','friend'],
+  David:['son','nephew','friend'],Jenny:['granddaughter','niece','neighbor’s child']};
+const has = id => memories.some(m => m.id===id);
+const mem = id => memories.find(m => m.id===id);
+const peopleAll = () => [...new Set(memories.flatMap(m => m.people))].filter(p => p!==OWNER);
+const roleOf = p => rels.find(r => r.type==='role' && r.from==='p:'+p)?.label;
+
+/* Question generator: the SLM's job. Each question = text, memoryIds, exactly 3 options. */
+function buildQuestions(){
+  const Q = [];
+  if (has('n-xmas')) Q.push({id:'q-baby',prio:0,text:'The back of the Christmas photo says “baby J?”. Who is the baby?',basis:'I could read “Ann” and “David”, but only “J?” for the baby.',memoryIds:['n-xmas'],
+    options:['Jenny','Julie','Joseph'].map(n => ({label:n, relationship:{type:'identity',from:'p:'+n,to:'m:n-xmas',label:'baby in photo'}, apply:()=>{const m=mem('n-xmas'); if(!m.people.includes(n)) m.people.push(n); m.seen=SEEN['n-xmas'].slice(0,2).concat([['Baby’s name',`${n} (you told me)`,'sure']]); m.fact=`At Christmas 1990 Ann and David gathered around baby ${n}.`;}, msg:`The baby in the Christmas photo is ${n}.`}))});
+  // Questions for files from the user's computer, built from what the browser could read.
+  const freq = {}; memories.forEach(x => x.people.forEach(p => { if (p!==OWNER) freq[p]=(freq[p]||0)+1; }));
+  const topPeople = Object.keys(freq).sort((a,b)=>freq[b]-freq[a]);
+  memories.filter(m => m.local && !m.server && !LegacyAPI.live()).forEach(m => {
+    const kindWord = {photo:'photo',video:'video',voice:'recording',doc:'document'}[m.kind];
+    if (!m.people.length){
+      const voice = m.kind==='voice';
+      const pick = (voice ? [OWNER, ...topPeople] : topPeople).slice(0,3);
+      ['Walter','Ann','David'].forEach(p => { if (pick.length<3 && !pick.includes(p)) pick.push(p); });
+      Q.push({id:'q-who-'+m.id, prio:0, text: voice ? `Whose voice is in “${m.title}”?` : `Who is in your ${kindWord} “${m.title}”?`,
+        basis:`I found no names in this ${kindWord} or in its file name, so I need your help.`, memoryIds:[m.id],
+        options: pick.map(p => ({label: p===OWNER ? 'Me' : p,
+          relationship:{type:'identity', from:'p:'+p, to:'m:'+m.id, label: voice ? 'voice in recording' : `in this ${kindWord}`},
+          apply:()=>{ m.people.push(p); m.tags.push(p.toLowerCase()); setLocalFact(m); m.seen.push([voice?'Voice':'Who', `${p===OWNER?'You':p} (you told me)`, 'sure']); m.vec = embedOne(memText(m)); },
+          msg: p===OWNER ? `That is your voice in “${m.title}”.` : `${p} is in “${m.title}”.`}))});
+    }
+    if (!m.dateSure){
+      // never offer the year the file was saved: that is when it was copied, not when it happened
+      const y = m.year && m.year!==m.fileYear ? m.year : null;
+      const opts = y
+        ? [[`Yes, ${y}`, y], [`Earlier than ${y}`, null], [`Later than ${y}`, null]]
+        : [['When I was young', null], ['When I was raising a family', null], ['In recent years', null]];
+      Q.push({id:'q-when-'+m.id, prio:1, text: y ? `Is “${m.title}” really from ${y}?` : `When in your life was “${m.title}”?`, memoryIds:[m.id],
+        basis: y ? `The file name says ${y}. File names are often right, but not always.` : 'There is no date on it, and the file date only tells me when it was copied. A rough time in your life is enough.',
+        options: opts.map(([label, yr]) => ({label, relationship:null,
+          apply:()=>{ if (yr) m.year = yr; m.dateSure = true; setLocalFact(m); m.seen.push(['When', `${label} (you told me)`, 'sure']); m.vec = embedOne(memText(m)); },
+          msg:`Got it: “${m.title}”, ${label.toLowerCase()}.`}))});
+    }
+    // easy, valuable questions about the story behind it (no typing, no dates)
+    const easy = {
+      photo:[['why','Why is this one special to you?','Knowing why you kept it helps me tell its story.',['A big day for our family','Someone I miss','Just a happy moment']],
+             ['by','Who took this picture?','The person behind the camera is often part of the story too.',['I did','Someone in my family','A friend or someone else']]],
+      video:[['why','Why is this one special to you?','Knowing why you kept it helps me tell its story.',['A big day for our family','Someone I miss','Just a happy moment']]],
+      voice:[['for','Who would you like to hear this story one day?','I can keep it for the right people.',['My children','My grandchildren','Just for me']],
+             ['feel','How do you feel when you remember this?','Your feelings are part of the memory, not just the facts.',['Happy','Proud','A little sad']]],
+      doc:[['why','Why does this matter to you?','Knowing why it matters helps me tell its story the right way.',['A big day for our family','Someone I miss',"Something I'm proud of"]]]
+    }[m.kind] || [];
+    const seenLabel = {why:'Why it matters', by:'Taken by', for:'Keep it for', feel:'How it feels'};
+    easy.forEach(([key, text, basis, labels]) => Q.push({id:`q-${key}-${m.id}`, prio:1, text, basis, memoryIds:[m.id],
+      options: labels.map(label => ({label, relationship:null,
+        apply:()=>{ m.seen.push([seenLabel[key], `${label} (you told me)`, 'sure']); },
+        msg:`Thank you. I noted that for “${m.title}”.`}))}));
+    const groups = storyGroups().filter(g => g.title!=='On its own' && !g.ids.includes(m.id)).slice(0,2);
+    if (groups.length){
+      const opts = groups.map(g => ({label:`Part of “${g.title}”`, relationship:{type:'same_story', from:'m:'+m.id, to:'m:'+g.ids[0], label:g.title}, msg:`“${m.title}” is part of “${g.title}”.`}));
+      // fill with the closest single memory by embedding similarity
+      const inGroups = new Set(groups.flatMap(g => g.ids));
+      const near = memories.filter(x => x.id!==m.id && !inGroups.has(x.id) && x.vec && m.vec)
+        .map(x => [x, cos(m.vec, x.vec)]).sort((a,b) => b[1]-a[1]);
+      for (const [x] of near){ if (opts.length>=2) break;
+        opts.push({label:`Goes with “${x.title}”`, relationship:{type:'same_story', from:'m:'+m.id, to:'m:'+x.id, label:'same story'}, msg:`“${m.title}” goes with “${x.title}”.`}); }
+      opts.push({label:'Its own story', relationship:null, msg:`“${m.title}” is its own story.`});
+      Q.push({id:'q-story-'+m.id, prio:2, text:`Which story does “${m.title}” belong to?`, memoryIds:[m.id],
+        basis:'You have already linked some memories into stories. This one might fit one of them.', options:opts});
+    }
+  });
+  peopleAll().forEach(p => {
+    const o = ROLE_OPTS[p] || ['family member','friend','classmate'];
+    const where = memories.find(m => m.people.includes(p));
+    Q.push({id:'q-role-'+p,prio:1,text:`Who is ${p} to you?`,basis:`I found the name “${p}” in ${fromPhrase(where)}, but nothing says how ${p} is related to you.`,memoryIds:[where.id],
+      options:o.map(l => ({label:(['friend','classmate','family member'].includes(l)?'A ':'My ')+l, relationship:{type:'role',from:'p:'+p,to:'p:'+OWNER,label:l}, msg:`${p} is your ${l}.`}))});
+  });
+  const link = (id,a,b,yes,why) => { if (has(a)&&has(b)) Q.push({id,prio:2,text:`Do these two memories belong to the same story?`,basis:why,memoryIds:[a,b],
+    options:[{label:`Yes: ${yes}`,relationship:{type:'same_story',from:'m:'+a,to:'m:'+b,label:yes},msg:`“${mem(a).title}” and “${mem(b).title}” are one story.`},
+             {label:'Related, but separate',relationship:{type:'same_story',from:'m:'+a,to:'m:'+b,label:'related'},msg:'They are related but separate.'},
+             {label:'Not related',relationship:null,msg:'They are not related.'}]}); };
+  link('q-cake','m2','m4','Ann and the apple cake','Both mention the apple cake.');
+  link('q-met','n-met','m1','how you met and married','Both are about you and Walter.');
+  link('q-hymn','n-hymn','m1','the wedding day','Both mention your wedding.');
+  if (has('m3')&&has('m5')) Q.push({id:'q-lake',prio:3,text:'What do the Lake Vermilion memories mean most to you?',basis:'Your recording and your photo both mention Lake Vermilion, the cabin and fishing.',memoryIds:['m3','m5'],
+    options:['Family summers','Walter’s fishing','Our cabin'].map(t => ({label:t, relationship:[{type:'theme',from:'m:m3',to:'t:'+t,label:t},{type:'theme',from:'m:m5',to:'t:'+t,label:t}], msg:`The lake memories are about “${t}”.`}))});
+  const firsts = ['m1','m3','m6'].filter(has);
+  if (firsts.length===3) Q.push({id:'q-first',prio:4,text:'If your family could see only one memory first, which one?',basis:'These three cover the biggest moments I found: your wedding, the lake summers and the move.',memoryIds:firsts,
+    options:firsts.map(id => ({label:mem(id).title, relationship:{type:'priority',from:'p:'+OWNER,to:'m:'+id,label:'show first'}, msg:`“${mem(id).title}” is shown first.`}))});
+  return Q.sort((a,b) => a.prio-b.prio);
+}
+
+const Mock = {
+  async ingest(m){ m.vec = embedOne(memText(m)); return {id:m.id, status:'ok'}; },
+  async search(query, k=4){
+    const q = embedOne(query), hidden = new Set(reqs.filter(r=>r.kind==='Privacy').map(r=>r.value));
+    return {hits: memories.map(m => ({memoryId:m.id, score:cos(q, m.vec || (m.vec=embedOne(memText(m)))), private:hidden.has(m.id)}))
+      .filter(h => h.score > .14).sort((a,b) => b.score-a.score).slice(0,k)};
+  },
+  async agentRun(){
+    const ppl = peopleAll(), withText = memories.filter(m => m.kind!=='note').length;
+    const pending = buildQuestions().filter(q => !(q.id in answered));
+    const unclear = pending.filter(q => q.prio===0).length;
+    return {log:[
+      {skill:'Read & transcribe', message:`Read text or speech in ${withText} items.`},
+      {skill:'Find people', message:`Found ${ppl.length} people besides you: ${ppl.join(', ')}.`},
+      {skill:'Group into stories', message:'Spotted memories that may belong together (lake, apple cake, wedding).'},
+      {skill:'Spot unclear details', message: unclear ? `${unclear} detail${unclear>1?'s':''} could not be read for sure.` : 'Nothing unclear right now.'},
+      {skill:'Prepare questions', message:`${pending.length} quick question${pending.length===1?'':'s'} ready for you.`}
+    ], questions: pending};
+  },
+  async answer(qid, idx){
+    const q = buildQuestions().find(x => x.id===qid), o = q.options[idx];
+    o.apply?.(); const r = [].concat(o.relationship||[]);
+    return {relationships:r, message:o.msg};
+  },
+  async interact(text){ return interpret(text); }
+};
+
+async function post(path, body){
+  const r = await fetch(CONFIG.apiBase.replace(/\/$/,'') + path, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)});
+  if (!r.ok) throw new Error(`${path} returned ${r.status}`); return r.json();
+}
+/* The only door to the back end. Screens never call Mock or fetch directly. */
+/* Live mode: the page is served by server/app.py (local models). Sample memories still use the scripted
+   questions; your own files are understood and questioned by the server. Any server error falls back to the mock. */
+let health = null;
+async function detectServer(){
+  if (CONFIG.apiBase || !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)) return;
+  try { const r = await fetch('/health', {cache:'no-store'}); if (r.ok){ health = await r.json(); if (health.ok) CONFIG.apiBase = location.origin; } } catch(e){}
+}
+async function pollHealth(){
+  if (!LegacyAPI.live()) return;
+  try { health = await (await fetch(CONFIG.apiBase + '/health', {cache:'no-store'})).json(); } catch(e){}
+  renderModel();
+  if (health && Object.values(health.models).some(x => /waiting|loading/.test(x.status))) setTimeout(pollHealth, 4000);
+}
+let stateLoaded = false, saveTimer = 0;
+function saveState(){
+  if (!LegacyAPI.live() || !stateLoaded) return;
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => fetch(CONFIG.apiBase+'/state', {method:'PUT', headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({answered, rels, reqs, learned, mapPos, extraNodes})}).catch(()=>{}), 200);
+}
+async function loadOwnData(){
+  OWNER = health.owner || 'Me';
+  $('#boxname').textContent = 'Your memory box · running on this computer';
+  const s = await (await fetch(CONFIG.apiBase+'/state', {cache:'no-store'})).json();
+  memories = s.memories.map(m => ({...m, local:true, server:true, tags:[], people:m.people||[], img:m.thumb||null, peaks:null, fileYear:m.file_year, dateSure:m.date_sure,
+    src:'Your file'+(m.filename?' \u00b7 '+m.filename:''), seen:(m.observations||[]).map(o=>[o.label,o.value,o.confidence]),
+    media:m.hasFile && (m.kind==='video'||m.kind==='voice') ? `${CONFIG.apiBase}/files/${encodeURIComponent(m.id)}` : null}));
+  const a = s.app || {};
+  answered = a.answered || {}; rels = a.rels || []; reqs = a.reqs || []; learned = a.learned || []; mapPos = a.mapPos || {}; extraNodes = a.extraNodes || [];
+  stateLoaded = true;
+}
+/* Page 2: the real database and the before/after search */
+function notesHTML(a, label){
+  const rows = a ? Object.entries(a).filter(([k,v]) => v) : [];
+  if (!rows.length) return '';
+  const dl = `<dl class="notes-dl">${rows.map(([k,v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl>`;
+  return label ? `<details class="why"><summary>${esc(label)}</summary>${dl}</details>` : dl;
+}
+function renderAnalysis(){
+  const list = memories.filter(m => m.analysis && Object.values(m.analysis).some(Boolean));
+  $('#analysis').innerHTML = list.length ? list.map(m => `<article><b>${esc(m.title)}</b>${m.original_title?` <span class="muted">(file: ${esc(m.original_title)})</span>`:''}${notesHTML(m.analysis)}</article>`).join('')
+    : '<p class="muted">Notes appear here after Lore studies your memories.</p>';
+}
+async function renderDb(){
+  renderAnalysis();
+  if (!LegacyAPI.live()) return;
+  let d; try { d = await (await fetch(CONFIG.apiBase+'/db', {cache:'no-store'})).json(); } catch(e){ return; }
+  $('#dbpanel').hidden = false;
+  $('#dbstats').innerHTML = [[d.count,'memories stored'],[d.embedded,'with vectors'],[d.dim??'\u2013','numbers per vector'],[d.relationships,'links from answers'],[d.sizeKb+' KB','database size']]
+    .map(([v,l]) => `<span class="stat"><b>${v}</b>${l}</span>`).join('');
+  $('#dbpath').textContent = `${d.path} \u00b7 ${d.model.split('/').pop()}`;
+  $('#dbrows').innerHTML = d.rows.length ? d.rows.map(r => `<tr><td>${esc(kindLabel(r.kind)||r.kind)}</td><td>${esc(r.title)}</td><td>${esc(r.text)}</td><td>${esc(r.people.join(', '))}</td><td><code>${r.vector?'['+r.vector.join(', ')+', \u2026]':'waiting'}</code></td></tr>`).join('')
+    : `<tr><td colspan="5" class="muted">Empty. Add audio, a picture or text on page 1.</td></tr>`;
+}
+async function runCompare(q){
+  const out = $('#cmpout'); out.innerHTML = '<p class="muted">Searching\u2026</p>';
+  try {
+    const r = await post('/compare', {query:q, relationships:rels, k:3});
+    const list = (rows, why) => rows.length ? rows.map(h => `<li><b>${esc(h.title)}</b> <span class="muted">${h.score.toFixed(2)}</span>${why&&h.why.length?`<br><span class="chip ok">${esc(h.why.join('; '))}</span>`:''}</li>`).join('') : '<li class="muted">No memories yet</li>';
+    out.innerHTML = `<div class="cmp"><div><p class="eyebrow">Vector search only</p><ol>${list(r.plain)}</ol></div>
+      <div><p class="eyebrow">Vector search + your answers</p><ol>${list(r.personal,true)}</ol></div></div>
+      <p class="muted" style="font-size:.9rem">${r.used.length?'Used: '+esc(r.used.join('; ')):'None of your answers apply to this question, so both searches rank by similarity alone.'}</p>`;
+  } catch(e){ out.innerHTML = '<p class="muted">The embedding model is not ready yet. Try again in a moment.</p>'; }
+}
+const modelReady = k => health?.models?.[k]?.status === 'ready';
+const LegacyAPI = {
+  live: () => !!CONFIG.apiBase,
+  ingest: async m => {
+    if (!LegacyAPI.live()) return Mock.ingest(m);
+    Mock.ingest(m); // keep a browser-side vector as a fallback
+    try {
+      let r;
+      if (m.file){ // the real file goes to the local server: vision, OCR, speech-to-text, embedding happen there
+        const fd = new FormData(); fd.append('file', m.file);
+        fd.append('meta', JSON.stringify({id:m.id, kind:m.kind, title:m.title, year:m.year, dateSure:!!m.dateSure, fileYear:m.fileYear, people:m.people, owner:OWNER, known:peopleAll(), thumb:m.img||null}));
+        const res = await fetch(CONFIG.apiBase + '/memories', {method:'POST', body:fd});
+        if (!res.ok) throw new Error(`/memories returned ${res.status}`); r = await res.json();
+        if (r.observations) m.seen = m.seen.filter(s => s[0]==='File' || s[0]==='Saved on this computer').concat(r.observations.map(o => [o.label, o.value, o.confidence]));
+        if (r.fact) m.fact = r.fact;
+        m.server = true;
+      } else r = await post('/memories', {id:m.id, kind:m.kind, title:m.title, text:m.text, fact:m.fact, year:m.year, people:m.people, tags:m.tags});
+      if (r.title && r.title!==m.title){ m.title = r.title; m.renamed = true; }
+      if (r.analysis) m.analysis = r.analysis;
+      if (r.text) m.text = r.text; if (r.people?.length) m.people = r.people; if (r.year){ m.year = r.year; }
+      return r;
+    } catch(err){ console.warn('ingest fell back to browser-only', err); if (m.file) m.seen.push(['Problem', 'The local server could not analyze this file.', 'unclear']); return {id:m.id}; }
+  },
+  search: async (query,k) => {
+    if (!LegacyAPI.live() || !modelReady('embedding')) return Mock.search(query,k);
+    try { const priv = new Set(reqs.filter(r=>r.kind==='Privacy').map(r=>r.value));
+      const r = await post('/search', {query, k, memoryIds:memories.map(m=>m.id)});
+      return {hits: r.hits.filter(h => mem(h.memoryId)).map(h => ({...h, private:priv.has(h.memoryId)}))};
+    } catch(e){ return Mock.search(query,k); }
+  },
+  agentRun: async () => {
+    const local = await Mock.agentRun();
+    if (!LegacyAPI.live()) return local;
+    if (!memories.some(m => m.server)) return {log:[{skill:'Waiting for memories', message:'Add your own audio, pictures or text on page 1.'}], questions:[]};
+    try {
+      const freq = {}; memories.forEach(x => x.people.forEach(p => { if (p!==OWNER) freq[p]=(freq[p]||0)+1; }));
+      const r = await post('/agent/run', {memoryIds:memories.map(m=>m.id), answered:Object.keys(answered), owner:OWNER,
+        people:Object.keys(freq).sort((a,b)=>freq[b]-freq[a])});
+      const qs = r.questions.map(q => ({...q, server:true}));
+      return {log:[...r.log, ...local.log.slice(-1)], questions:[...qs, ...local.questions].sort((a,b) => a.prio-b.prio)};
+    } catch(e){ console.warn('agent/run failed, using local questions', e); return local; }
+  },
+  answer: (q,idx,name) => q.server ? post('/agent/answer', {questionId:q.id, optionId:idx, name}) : Mock.answer(q.id,idx),
+  interact: text => Mock.interact(text),
+  // writing with the local language model (live mode only); returns null when unavailable
+  write: async body => {
+    if (!LegacyAPI.live() || !modelReady('vision_slm')) return null;
+    try { return await post('/interact', {...body, owner:OWNER, requirements:reqs.map(r=>({kind:r.kind, text:r.text})), relationships:rels.map(relSentence)}); }
+    catch(e){ console.warn('interact failed', e); return null; }
+  }
+};
+
+/* ---------------- illustrations ---------------- */
+const KC = {photo:'c2', voice:'c5', note:'c3', doc:'c4', video:'c1'};
+const colorSeen = new Map(); // hand colors out in turn so neighbours differ
+const colorOf = id => { if (!colorSeen.has(id)) colorSeen.set(id, 'c'+(1+colorSeen.size%5)); return colorSeen.get(id); };
+function thumb(m){ const h = thumb0(m); if (!m) return h; const c = KC[m.kind]||'c2';
+  return h.replaceAll('var(--sepia1)',`var(--${c}-soft)`).replaceAll('var(--sepia2)',`var(--${c})`).replaceAll('var(--sepia3)','var(--surface)'); }
+function thumb0(m){
+  if (!m) return '';
+  if (m.img) return `<img src="${m.img}" alt="">${m.kind==='video'?'<span class="play">▶</span>':''}`;
+  if (m.kind==='video') return `<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="var(--sepia1)"/><path d="M38 30v40l32-20z" fill="var(--sepia3)"/></svg>`;
+  let g='';
+  if (m.kind==='photo') g=`<circle cx="70" cy="28" r="10" fill="var(--sepia3)"/><path d="M0 100 L30 55 L52 78 L72 50 L100 100Z" fill="var(--sepia2)"/>`;
+  if (m.kind==='doc') g=`<rect x="20" y="16" width="60" height="70" rx="3" fill="var(--sepia3)"/>${[30,40,50,60,70].map(y=>`<rect x="28" y="${y}" width="${y==70?26:44}" height="4" rx="2" fill="var(--sepia2)"/>`).join('')}`;
+  if (m.kind==='voice') g=[14,24,34,44,54,64,74,84].map((x,i)=>{const h=m.peaks?Math.round(m.peaks[i]*64):[18,34,52,28,44,60,30,20][(i+(m.hue||0))%8];return `<rect x="${x}" y="${50-h/2}" width="6" height="${h}" rx="3" fill="var(--sepia2)"/>`}).join('');
+  if (m.kind==='note') g=`<path d="M22 20h56v60H22z" fill="var(--sepia3)"/><path d="M30 34h40M30 46h40M30 58h28" stroke="var(--sepia2)" stroke-width="4" stroke-linecap="round"/>`;
+  return `<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="var(--sepia1)"/>${g}</svg>`;
+}
+const ICON = {
+  photo:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 17l-5-5-8 7"/></svg>',
+  voice:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg>',
+  note:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>',
+  doc:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7"/></svg>'
+};
+
+/* ---------------- navigation ---------------- */
+let view = 'data';
+function go(v){
+  view = v; document.body.classList.toggle('home', v==='data');
+  ['data','agent','personal'].forEach(x => $('#'+x).hidden = x!==v);
+  document.querySelectorAll('.step').forEach(b => b.dataset.go===v ? b.setAttribute('aria-current','page') : b.removeAttribute('aria-current'));
+  if (v==='agent' && agentDirty) runAgent();
+  if (v==='personal'){ renderPersonal(); mapEnter(); }
+  window.scrollTo({top:0});
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (b) go(b.dataset.go); });
+function toast(t){ const el=$('#toast'); el.textContent=t; el.hidden=false; clearTimeout(toast.t); toast.t=setTimeout(()=>el.hidden=true,2600); }
+function updateRail(){
+  saveState();
+  $('#s1').textContent = `${memories.length} memories`;
+  const n = pendingQs.length;
+  $('#s2').innerHTML = agentDirty ? 'New items to organize' : n ? `<b>${n} question${n>1?'s':''} waiting</b>` : 'All caught up';
+  $('#s3').textContent = `${rels.length} links · ${reqs.length} requests`;
+}
+
+/* ---------------- page 1: data ---------------- */
+$('#tiles').innerHTML = Object.entries(KIND).map(([k,v]) =>
+  `<button class="tile" data-kind="${k}"><span class="ico">${ICON[k]}</span><b>${v.label}</b><span>${v.sub} · add a sample</span></button>`).join('');
+let queue = [], uid = 0;
+$('#tiles').addEventListener('click', e => {
+  const t = e.target.closest('.tile'); if (!t) return;
+  const tpl = POOL[t.dataset.kind].shift();
+  if (!tpl) { toast('No more samples of this type. Upload a photo or write a note.'); return; }
+  startItem({...tpl, people:[...tpl.people], tags:[...tpl.tags]});
+});
+/* ---------- your own files: read in this browser, nothing is uploaded in demo mode ---------- */
+const fmtSize = b => b>1e9?(b/1e9).toFixed(1)+' GB':b>1e6?(b/1e6).toFixed(1)+' MB':Math.max(1,Math.round(b/1e3))+' KB';
+const fmtDur = s => isFinite(s) ? `${Math.floor(s/60)}:${String(Math.round(s%60)).padStart(2,'0')}` : 'unknown length';
+const TEXT_EXT = /\.(txt|md|csv|srt|vtt|json)$/i;
+function kindOfFile(f){
+  if (f.type.startsWith('image/') || /\.(jpe?g|png|gif|webp|bmp|heic)$/i.test(f.name)) return 'photo';
+  if (f.type.startsWith('audio/')) return 'voice'; // browser recordings are .webm with an audio type
+  if (f.type.startsWith('video/') || /\.(mp4|mov|m4v|webm|avi|mkv)$/i.test(f.name)) return 'video';
+  if (f.type.startsWith('audio/') || /\.(mp3|m4a|wav|ogg|aac|flac)$/i.test(f.name)) return 'voice';
+  if (f.type.startsWith('text/') || TEXT_EXT.test(f.name) || /\.(pdf|docx?|rtf|odt)$/i.test(f.name)) return 'doc';
+  return null;
+}
+function shrink(src, w, h){ const c = document.createElement('canvas'), s = Math.min(1, 320/Math.max(w,h,1));
+  c.width = Math.max(1,Math.round(w*s)); c.height = Math.max(1,Math.round(h*s)); c.getContext('2d').drawImage(src,0,0,c.width,c.height); return c.toDataURL('image/jpeg',.8); }
+const loadImg = url => new Promise((res,rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = url; });
+const mediaMeta = (url, tag) => new Promise((res,rej) => { const el = document.createElement(tag); el.preload='metadata'; el.muted=true;
+  el.onloadedmetadata = () => res(el); el.onerror = () => rej(new Error('cannot open')); el.src = url; setTimeout(() => rej(new Error('timeout')), 8000); });
+const videoFrame = el => new Promise(res => { el.onseeked = () => { try { res(shrink(el, el.videoWidth, el.videoHeight)); } catch(e){ res(null); } };
+  el.currentTime = Math.min(1.5, (isFinite(el.duration)?el.duration:2)/3); setTimeout(() => res(null), 5000); });
+async function exifDate(f){
+  if (!/jpe?g|tiff/i.test(f.type) && !/\.jpe?g$/i.test(f.name)) return null;
+  const s = new TextDecoder('latin1').decode(new Uint8Array(await f.slice(0, 131072).arrayBuffer()));
+  const m = s.match(/(19|20)\d\d:[01]\d:[0-3]\d [0-2]\d:[0-5]\d:[0-5]\d/); return m ? m[0] : null;
+}
+async function audioPeaks(f){
+  if (f.size > 40e6) return null;
+  try { const ctx = new (window.AudioContext||window.webkitAudioContext)(); const b = await ctx.decodeAudioData(await f.arrayBuffer());
+    const d = b.getChannelData(0), n = 8, step = Math.floor(d.length/n), p = [];
+    for (let i=0;i<n;i++){ let mx=0; for (let j=i*step;j<(i+1)*step;j+=32) mx = Math.max(mx, Math.abs(d[j])); p.push(mx); }
+    ctx.close(); const top = Math.max(...p) || 1; return p.map(x => .2 + .8*x/top);
+  } catch(e){ return null; }
+}
+const yearFromName = n => { const m = n.match(/(?:^|[^0-9])((?:19[3-9]|20[0-2])\d)(?:[01]\d[0-3]\d)?(?![0-9])/); return m ? +m[1] : null; };
+async function readLocal(f){
+  const kind = kindOfFile(f); if (!kind) return null;
+  const title = f.name.replace(/\.[^.]+$/,'').replace(/[_-]+/g,' ').trim() || f.name;
+  const saved = new Date(f.lastModified);
+  const m = {id:'f'+Date.now().toString(36)+(++uid), kind, title, local:true, file:f, fileYear:saved.getFullYear(), year:null, people:[], tags:tokens(title),
+    src:`Your file · ${f.name}`, text:'', fact:'', seen:[]};
+  const seen = m.seen;
+  seen.push(['File', `${f.name} · ${fmtSize(f.size)}`, 'sure']);
+  seen.push(['Saved on this computer', saved.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'}), 'sure']);
+  try {
+    if (kind==='photo'){ const url = URL.createObjectURL(f); const img = await loadImg(url); m.img = shrink(img, img.naturalWidth, img.naturalHeight); URL.revokeObjectURL(url);
+      seen.push(['Picture', `${img.naturalWidth} × ${img.naturalHeight} pixels`, 'sure']);
+      const ex = await exifDate(f); if (ex){ m.year = +ex.slice(0,4); m.dateSure = true; seen.push(['Date taken (camera)', ex.slice(0,10).replace(/:/g,'-'), 'sure']); }
+      seen.push(['I see', 'Not analyzed yet. The vision model describes it once connected.', 'unclear']);
+      seen.push(['Writing on it', 'Read by OCR once the team’s model is connected.', 'unclear']); }
+    if (kind==='video'){ m.media = URL.createObjectURL(f); const el = await mediaMeta(m.media,'video'); m.duration = el.duration; m.img = await videoFrame(el);
+      seen.push(['Video', `${fmtDur(el.duration)} long · ${el.videoWidth} × ${el.videoHeight}`, 'sure']);
+      seen.push(['I see and hear', 'Not analyzed yet. Frames and speech are read once the models are connected.', 'unclear']); }
+    if (kind==='voice'){ m.media = URL.createObjectURL(f); const el = await mediaMeta(m.media,'audio'); m.duration = el.duration; m.peaks = await audioPeaks(f);
+      seen.push(['Recording', `${fmtDur(el.duration)} long`, 'sure']);
+      seen.push(['I heard', 'Not transcribed yet. Speech-to-text runs once the model is connected.', 'unclear']); }
+    if (kind==='doc'){
+      if (TEXT_EXT.test(f.name) || f.type.startsWith('text/')){
+        const t = (await f.text()).slice(0, 4000), flat = t.replace(/\s+/g,' ').trim(); m.text = flat;
+        seen.push(['I read', `“${flat.slice(0,140)}${flat.length>140?'…':''}”`, 'sure']);
+        const known = new Set([OWNER, ...peopleAll(), 'Jenny']);
+        m.people = [...new Set((t.match(/\b[A-Z][a-z]+\b/g)||[]).filter(w => known.has(w)))];
+        seen.push(['Names', m.people.join(', ') || 'None I recognize', m.people.length?'sure':'unclear']);
+        const ty = (t.match(/\b(19[3-9]\d|20[0-2]\d)\b/)||[])[1]; if (ty){ m.year = +ty; m.dateSure = true; seen.push(['Year mentioned', ty, 'sure']); }
+        m.tags.push(...tokens(t).slice(0,80));
+      } else seen.push(['I read', 'This file type is read by the team’s document model once connected.', 'unclear']);
+    }
+  } catch(err){ seen.push(['Problem', 'This browser could not open the file, so only its name and date are saved.', 'unclear']); }
+  const ny = yearFromName(f.name);
+  if (!m.year && ny){ m.year = ny; seen.push(['Year in file name', String(ny), 'guess']); }
+  m.text = m.text || `${kindLabel(kind)} “${title}” from your computer${m.duration?`, ${fmtDur(m.duration)} long`:''}.`;
+  setLocalFact(m);
+  return m;
+}
+function setLocalFact(m){
+  m.fact = `You added the ${kindLabel(m.kind).toLowerCase()} “${m.title}”${m.year?` from ${m.year}`:''}${m.people.length?`, with ${m.people.map(p=>p===OWNER?'you':p).join(' and ')}`:''}.`;
+}
+async function addFiles(list){
+  const files = [...list]; let added = 0, skipped = 0;
+  for (const f of files){
+    if (added >= 30){ skipped++; continue; }
+    const m = await readLocal(f); if (!m){ skipped++; continue; }
+    added++; startItem(m);
+  }
+  toast(added ? `${added} file${added===1?'':'s'} added${skipped?` · ${skipped} skipped`:''}` : 'None of those files are photos, videos, audio or documents.');
+}
+$('#file').addEventListener('change', e => { addFiles(e.target.files); e.target.value=''; });
+$('#folder').addEventListener('change', e => { addFiles(e.target.files); e.target.value=''; });
+const dz = $('#dropzone');
+['dragenter','dragover'].forEach(t => dz.addEventListener(t, e => { e.preventDefault(); dz.classList.add('over'); }));
+['dragleave','drop'].forEach(t => dz.addEventListener(t, e => { e.preventDefault(); dz.classList.remove('over'); }));
+$('#noteform').addEventListener('submit', e => {
+  e.preventDefault(); const t = $('#notetext').value.trim(); if (!t) { toast('Write a few words first'); return; }
+  if (LegacyAPI.live()){ const name = t.split(/\s+/).slice(0,5).join(' ').replace(/[^\w\u4e00-\u9fff ]/g,'').slice(0,40) || 'note'; addFiles([new File([t], name+'.txt', {type:'text/plain'})]); $('#notetext').value=''; return; }
+  const known = new Set([OWNER, ...peopleAll(), 'Jenny']);
+  const people = [...new Set((t.match(/\b[A-Z][a-z]+\b/g)||[]).filter(w => known.has(w)))];
+  const yr = (t.match(/\b(19|20)\d\d\b/)||[])[0];
+  startItem({id:'w'+(++uid),kind:'note',title:t.split(/\s+/).slice(0,5).join(' ').replace(/[.,;:]$/,'')+'…',year:yr?+yr:null,people,tags:tokens(t),
+    src:'Typed note',text:t,seen:[['You wrote',`“${t.length>110?t.slice(0,109)+'…':t}”`,'sure'],['Names',people.join(', ')||'None I recognize','sure']],fact:t.replace(/\b(I|i)\b/g,'you').replace(/\bmy\b/gi,'your').replace(/\bour\b/gi,'your').replace(/\bwe\b/gi,'you')});
+  $('#notetext').value='';
+});
+/* ---------- page 1: one button. Press to talk, press again to finish. ---------- */
+const MAX_TALK_MS = 10*60*1000;   // the server transcribes up to 10 minutes
+let talk = {state:'idle', rec:null, chunks:[], t0:0, timer:0, stream:null, capTimer:0, capBusy:false};
+function subtitle(who, text){
+  const el = $('#subtitle'); clearTimeout(subtitle.t);
+  if (!text){ el.hidden = true; return; }
+  el.hidden = false; $('#subwho').textContent = who; $('#subtext').textContent = text.length>170 ? '\u2026'+text.slice(-170) : text;
+}
+async function liveCaption(){
+  if (talk.capBusy || !talk.chunks.length || talk.state!=='rec') return;
+  if (!LegacyAPI.live()){ subtitle('You', 'Live subtitles need the local Lore server.'); return; }
+  talk.capBusy = true;
+  try {
+    const fd = new FormData(); fd.append('file', new Blob(talk.chunks, {type:talk.rec.mimeType||'audio/webm'}), 'live.webm');
+    const r = await (await fetch(CONFIG.apiBase + '/transcribe', {method:'POST', body:fd})).json();
+    if (talk.state==='rec') subtitle('You', r.ready===false ? 'The speech model is still loading\u2026' : (r.text || 'Listening\u2026'));
+  } catch(e){ console.warn('live caption failed', e); }
+  talk.capBusy = false;
+}
+function setTalk(state, label, status){
+  talk.state = state; const b = $('#talkbtn');
+  b.className = 'talkbtn ' + state; b.setAttribute('aria-pressed', state==='rec'); b.disabled = state==='busy';
+  $('#talklabel').textContent = label; $('#talkstatus').textContent = status;
+}
+function speak(text){
+  try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text);
+    u.lang = /[一-鿿]/.test(text) ? 'zh-CN' : 'en-US'; u.rate = .92; speechSynthesis.speak(u); } catch(e){}
+}
+async function startTalk(){
+  try { speechSynthesis.cancel(); } catch(e){}
+  $('#talkreply').hidden = true; subtitle('', '');
+  if (!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder){ setTalk('idle','Press to talk','This browser cannot record here. Open Lore at http://127.0.0.1:8000 in Chrome or Edge.'); return; }
+  try { talk.stream = await navigator.mediaDevices.getUserMedia({audio:true}); }
+  catch(e){ setTalk('idle','Press to talk','I can’t hear you yet. Please allow the microphone in your browser, then press the button again.'); return; }
+  talk.chunks = []; talk.rec = new MediaRecorder(talk.stream);
+  talk.rec.ondataavailable = e => { if (e.data.size) talk.chunks.push(e.data); };
+  talk.rec.onstop = finishTalk;
+  try { talk.rec.start(1000); }
+  catch(e){ console.warn('recording could not start', e); talk.stream.getTracks().forEach(t => t.stop()); setTalk('idle','Press to talk','Recording could not start. Check that a microphone is connected, then press the button again.'); return; }
+  talk.t0 = Date.now();
+  subtitle('You', 'Listening\u2026'); clearInterval(talk.capTimer); talk.capTimer = setInterval(liveCaption, 2500);
+  setTalk('rec','Press when finished','I’m listening… 0:00');
+  clearInterval(talk.timer);
+  talk.timer = setInterval(() => { const ms = Date.now()-talk.t0; $('#talkstatus').textContent = `I’m listening… ${fmtDur(ms/1000)}`; if (ms>=MAX_TALK_MS) stopTalk(); }, 500);
+}
+function stopTalk(){ clearInterval(talk.timer); clearInterval(talk.capTimer); setTalk('busy','Saving…','Thank you. I’m listening back to what you said.'); talk.rec.stop(); talk.stream.getTracks().forEach(t => t.stop()); }
+async function replyTo(m){
+    let reply = {text:'Thank you. I saved that. Tell me more whenever you like.'};
+    if (LegacyAPI.live()) try { reply = await post('/followup', {memoryId:m.id, owner:OWNER}); } catch(e){ console.warn('follow-up failed', e); }
+    const heard = reply.heard!==false && m.server && m.text;
+    $('#talkreply').hidden = false;
+    $('#talkheard').hidden = !heard; if (heard) $('#talkheardtext').textContent = m.text;
+    $('#talkanswer').textContent = reply.text;
+    $('#hometext').placeholder = reply.heard===false ? 'Tell me a memory\u2026' : 'Tell me more\u2026';
+    if (heard) subtitle('You', m.text);
+    await sleep(heard ? 2500 : 0);
+    subtitle('Lore', reply.text); speak(reply.text);
+    subtitle.t = setTimeout(() => subtitle('', ''), 8000 + reply.text.length*60);
+    setTalk('idle','Press to talk','Type and press Enter, or press the microphone to talk.');
+}
+async function finishTalk(){
+  const type = talk.rec.mimeType || 'audio/webm', d = new Date(), pad = n => String(n).padStart(2,'0');
+  const name = `Talk ${d.getFullYear()} ${pad(d.getMonth()+1)} ${pad(d.getDate())} ${pad(d.getHours())}${pad(d.getMinutes())}.webm`;
+  try {
+    const m = await readLocal(new File(talk.chunks, name, {type})); if (!m) throw new Error('could not read recording');
+    m.title = 'Talk, ' + d.toLocaleString('en-US', {month:'short', day:'numeric', hour:'numeric', minute:'2-digit'}); m.src = 'Your voice';
+    await startItem(m);
+    await replyTo(m);
+  } catch(err){ console.warn(err); setTalk('idle','Press to talk','That recording could not be saved. Please press the button and try again.'); }
+}
+$('#homeform').addEventListener('submit', async e => {
+  e.preventDefault(); const t = $('#hometext').value.trim(); if (!t || talk.state!=='idle') return;
+  $('#hometext').value = ''; $('#talkreply').hidden = true;
+  setTalk('busy','Press to talk','Saving\u2026');
+  try {
+    if (LegacyAPI.live()){
+      // a plain file name lets the agent name the memory from its content
+      const m = await readLocal(new File([t], 'note.txt', {type:'text/plain'})); await startItem(m); await replyTo(m);
+    } else { $('#notetext').value = t; $('#noteform').requestSubmit(); await sleep(3200);
+      $('#talkreply').hidden = false; $('#talkheard').hidden = true; $('#talkanswer').textContent = 'Thank you. I saved that. Tell me more whenever you like.';
+      setTalk('idle','Press to talk','Type and press Enter, or press the microphone to talk.'); }
+  } catch(err){ console.warn(err); setTalk('idle','Press to talk','That could not be saved. Please try again.'); }
+});
+$('#talkbtn').addEventListener('click', () => { if (talk.state==='idle') startTalk(); else if (talk.state==='rec') stopTalk(); });
+/* Files and folders can still be dropped anywhere on page 1. */
+async function droppedFiles(dt){
+  const entries = [...(dt.items||[])].map(i => i.webkitGetAsEntry?.()).filter(Boolean);
+  if (!entries.length) return [...dt.files];
+  const out = [];
+  async function walk(e){
+    if (e.isFile) out.push(await new Promise((ok,no) => e.file(ok,no)));
+    else if (e.isDirectory){ const rd = e.createReader(); let batch; do { batch = await new Promise((ok,no) => rd.readEntries(ok,no)); for (const c of batch) await walk(c); } while (batch.length); }
+  }
+  for (const e of entries) await walk(e);
+  return out;
+}
+const hasFiles = e => [...(e.dataTransfer?.types||[])].includes('Files');
+let dragDepth = 0;
+document.addEventListener('dragenter', e => { if (view==='data' && hasFiles(e)){ dragDepth++; $('#dropveil').hidden = false; } });
+document.addEventListener('dragleave', () => { if (view==='data' && --dragDepth<=0){ dragDepth = 0; $('#dropveil').hidden = true; } });
+document.addEventListener('dragover', e => { if (hasFiles(e)) e.preventDefault(); });
+document.addEventListener('drop', async e => { if (!hasFiles(e)) return; e.preventDefault(); dragDepth = 0; $('#dropveil').hidden = true; if (view!=='data') return; addFiles(await droppedFiles(e.dataTransfer)); });
+function stagesFor(m){
+  if (m.local && LegacyAPI.live()) return ['Uploaded to local server','Understanding (vision · speech · text)','Embedded','Sent to agent'];
+  if (m.local) return ['Stored','File details read','Embedded','Sent to agent'];
+  return ['Stored', m.kind==='voice'?'Transcribed':m.kind==='note'?null:'Text read (OCR)', 'Embedded', 'Sent to agent'].filter(Boolean); }
+async function startItem(m){
+  m.stage = 0; queue.unshift(m); renderQueue();
+  const steps = stagesFor(m);
+  for (let i=1;i<steps.length;i++){ await sleep(800); if (steps[i]==='Embedded') await LegacyAPI.ingest(m); m.stage=i; renderQueue(); }
+  await sleep(600);
+  queue = queue.filter(x => x!==m); memories.unshift(m); agentDirty = true;
+  renderQueue(); renderCollection(); updateRail();
+  if (view==='agent') runAgent();
+  renderDb();
+  toast(`“${m.title}” is in the box. The agent will look at it next.`);
+}
+function renderQueue(){
+  if (talk.state==='idle') $('#talkstatus').textContent = queue.length ? `Saving ${queue.length} ${queue.length===1?'memory':'memories'}\u2026` : 'Type and press Enter, or press the microphone to talk.';
+  $('#qcount').textContent = queue.length ? `${queue.length} in progress` : 'Nothing in progress';
+  $('#queue').innerHTML = queue.length ? queue.map(m => `<div class="qitem"><div class="thumb">${thumb(m)}</div><div style="min-width:0">
+    <div class="row between"><b>${esc(m.title)}</b><span class="chip">${kindLabel(m.kind)}</span></div>
+    <div class="pipe">${stagesFor(m).map((s,i)=>`<span class="chip ${i<m.stage?'on':''} ${i===m.stage?'cur':''}">${i<m.stage?'✓ ':''}${s}</span>`).join('')}</div></div></div>`).join('')
+    : `<div class="empty">Add something above. You'll see it being read and prepared here.</div>`;
+}
+function renderCollection(){
+  $('#mcount').textContent = `${memories.length} memories`;
+  $('#talkcount').textContent = memories.length ? `${memories.length} ${memories.length===1?'memory':'memories'} saved` : '';
+  $('#collection').innerHTML = memories.map(m => `<div class="mem"><div class="thumb">${thumb(m)}</div><div style="min-width:0">
+    <p class="t">${esc(m.title)}</p><p class="muted">${kindLabel(m.kind)}${m.year?' · '+m.year:''}${m.people.length?' · '+esc(m.people.join(', ')):''}</p></div></div>`).join('');
+}
+
+/* ---------------- page 2: agent ---------------- */
+let pendingQs = [], running = false;
+async function runAgent(){
+  if (running) return; running = true; agentDirty = false;
+  $('#qslot').innerHTML = `<div class="qcard"><p class="eyebrow">Agent is working</p><h3>Looking through ${memories.length} memories…</h3><p class="muted">Questions appear here when it's ready.</p></div>`;
+  const res = await LegacyAPI.agentRun();
+  skillLog = res.log; renderSkills(-1);
+  for (let i=0;i<skillLog.length;i++){ renderSkills(i); await sleep(450); }
+  renderSkills(skillLog.length);
+  pendingQs = res.questions; running = false;
+  if (agentDirty && view==='agent') return runAgent();
+  renderQuestion(); updateRail();
+}
+function renderSkills(active){
+  $('#skills').innerHTML = skillLog.map((s,i) => `<div class="skill ${i<active?'done':i===active?'run':''}"><span class="st">${i<active?'✓':''}</span>
+    <div><b>${esc(s.skill)}</b><span>${i<active?esc(s.message):i===active?'Working…':'Waiting'}</span></div></div>`).join('');
+}
+let totalQs = 0;
+function renderQuestion(){
+  const done = Object.keys(answered).length;
+  const q = pendingQs[0];
+  totalQs = done + pendingQs.length;
+  if (!q){
+    $('#qslot').innerHTML = `<div class="qcard"><p class="eyebrow">All caught up</p><h3>No more questions right now</h3>
+      <p class="muted">Add more memories and the agent will ask about them. Or go to Make It Personal to see what it learned and tell it what you want.</p>
+      <div class="row"><button class="btn primary" data-go="personal">Make it personal →</button><button class="btn" data-go="data">Add memories</button></div></div>`;
+    return;
+  }
+  $('#qslot').innerHTML = `<div class="qcard">
+    <div class="row between"><span class="eyebrow">Quick question ${done+1} of ${totalQs}</span><span class="chip acc">Pick one</span></div>
+    <div class="progress" aria-hidden="true"><i style="width:${Math.round(done/totalQs*100)}%"></i></div>
+    <div class="understand">
+      <p class="eyebrow">What I understood from ${q.memoryIds.length>1?`these ${q.memoryIds.length} items`:'this item'}</p>
+      ${q.memoryIds.length>2
+        ? `<div class="qthumbs">${q.memoryIds.map(id => `<figure><div class="thumb">${thumb(mem(id))}</div><figcaption>${esc(mem(id)?.title)}</figcaption></figure>`).join('')}</div>`
+        : q.memoryIds.map(id => { const m = mem(id); if (!m) return ''; const obs = (q.understanding?.find(u=>u.memoryId===id)?.observations) || seenOf(m).map(([label,value,confidence])=>({label,value,confidence}));
+          return `<div class="seen"><div class="thumb">${thumb(m)}</div><div style="min-width:0">
+            <div class="row"><b>${esc(m.title)}</b><span class="chip">${kindLabel(m.kind)}</span></div>
+            <dl>${obs.map(o => `<dt>${esc(o.label)}</dt><dd>${esc(o.value)}${o.confidence==='guess'?' <span class="chip">my guess</span>':o.confidence==='unclear'?' <span class="chip warn">not sure</span>':''}</dd>`).join('')}</dl>
+            ${m.media ? (m.kind==='video' ? `<video controls preload="metadata" src="${m.media}"></video>` : `<audio controls preload="metadata" src="${m.media}"></audio>`) : ''}</div></div>`; }).join('')}
+      ${q.basis?`<p class="basis">${esc(q.basis)}</p>`:''}
+      ${notesHTML(mem(q.memoryIds[0])?.analysis, 'How I worked this out')}
+    </div>
+    <h3>${esc(q.text)}</h3>
+    <div class="opts">${q.options.map((o,i) => `<button class="opt" data-pick="${i}"><span class="k">${'ABC'[i]}</span>${esc(o.label)}</button>`).join('')}</div>
+    <div class="row"><button class="btn small" data-pick="skip">Skip · not sure</button></div></div>`;
+}
+$('#qslot').addEventListener('submit', e => { e.preventDefault(); const f = e.target.closest('#customname'); if (!f) return;
+  const name = $('#customvalue').value.trim(); if (!name) { toast('Type a name first'); return; }
+  submitAnswer(+f.dataset.idx, name);
+});
+$('#qslot').addEventListener('click', e => {
+  const b = e.target.closest('[data-pick]'); if (!b) return;
+  if (b.dataset.pick==='skip') return submitAnswer('skip');
+  const idx = +b.dataset.pick;
+  if (pendingQs[0]?.options[idx]?.custom){
+    if (!$('#customname')) b.closest('.qcard').insertAdjacentHTML('beforeend', `<form id="customname" class="row" data-idx="${idx}" autocomplete="off"><input class="big" id="customvalue" style="flex:1;min-width:0" placeholder="Type their name" aria-label="Name"><button class="btn primary" type="submit">Save</button></form>`);
+    $('#customvalue').focus(); return;
+  }
+  submitAnswer(idx);
+});
+async function submitAnswer(pick, name){
+  const q = pendingQs.shift(); if (!q) return;
+  if (pick==='skip'){ answered[q.id]='skip'; toast('Skipped. The agent may ask again later.'); }
+  else {
+    const idx = pick;
+    let res;
+    try { res = await LegacyAPI.answer(q, idx, name); }
+    catch(err){ pendingQs.unshift(q); renderQuestion(); toast('The local server did not save that answer. Try again.'); return; }
+    answered[q.id] = idx;
+    (res.updates||[]).forEach(u => { const m = mem(u.memoryId); if (!m) return;
+      if (u.people) m.people = [...u.people]; if (u.year){ m.year = u.year; m.dateSure = true; }
+      if (u.observation) m.seen.push(u.observation); if (u.text) m.text = u.text; if (u.fact) m.fact = u.fact; if (u.analysis) m.analysis = u.analysis;
+      if (m.local && !m.server) setLocalFact(m); });
+    res.relationships.forEach(r => rels.push({...r, id:'r'+rels.length+'-'+Date.now(), source:{qid:q.id, question:q.text, option:name||q.options[idx].label}}));
+    learned.unshift(res.message); toast('Saved: '+res.message);
+    // answers can unlock new questions (e.g. naming the baby leads to "Who is Jenny to you?")
+    const fresh = buildQuestions().filter(x => !(x.id in answered) && !pendingQs.some(p => p.id===x.id));
+    pendingQs.push(...fresh);
+  }
+  renderQuestion(); renderLearned(); updateRail(); renderDb();
+}
+let learned = [];
+function renderLearned(){
+  $('#lcount').textContent = `${rels.length} relationships`;
+  $('#learned').innerHTML = learned.length ? learned.slice(0,6).map(t => `<li>${esc(t)}</li>`).join('') : `<li class="muted" style="list-style:none">Answer a question and it shows up here.</li>`;
+}
+$('#cmpform').addEventListener('submit', e => { e.preventDefault(); const q = $('#cmpq').value.trim(); if (q) runCompare(q); });
+$('#rerun').addEventListener('click', () => { agentDirty = true; runAgent(); });
+function renderModel(){
+  const live = LegacyAPI.live();
+  if (live && health){
+    const label = {embedding:'Embedding (search)', speech:'Speech-to-text', vision_slm:'Vision + small language model'};
+    const say = s => s==='ready' ? 'Ready' : /loading|waiting/.test(s) ? 'Loading…' : s==='off' ? 'Turned off' : 'Not available';
+    $('#model').innerHTML = `<h3 style="margin-bottom:6px">Models · local server</h3>` + Object.entries(health.models).map(([k,v]) =>
+      `<div class="row"><span class="lamp ${v.status==='ready'?'on':''}"></span><b>${label[k]||k}</b><span class="muted">${say(v.status)}</span></div>
+       <p class="muted" style="font-size:.8rem;margin:-4px 0 4px 18px" title="${esc(v.status)}">${esc(v.name.split('/').pop())}</p>`).join('')
+      + `<p class="muted" style="font-size:.85rem">Running on ${esc(String(health.device).toUpperCase())} at ${esc(CONFIG.apiBase)}. Your files are analyzed on this computer only.</p>`;
+    return;
+  }
+  $('#model').innerHTML = `<h3 style="margin-bottom:6px">Models</h3>
+    <div class="row"><span class="lamp"></span><b>Embedding model</b><span class="muted">Demo (in-page)</span></div>
+    <div class="row"><span class="lamp"></span><b>Small language model</b><span class="muted">Demo (rules)</span></div>
+    <p class="muted" style="font-size:.85rem">Start <code>server/app.py</code> and open http://127.0.0.1:8000 to use real local models.</p>`;
+}
+
+/* ---------------- page 3: personal ---------------- */
+function nodeOf(id){
+  const [t, k] = [id.slice(0,1), id.slice(2)];
+  if (t==='p') return {id, type: k===OWNER?'owner':'person', label: k===OWNER?'You':k, sub: k===OWNER?OWNER:roleOf(k)||''};
+  if (t==='m') { const m = mem(k); return {id, type:'memory', label: m?m.title:k, sub: m?.year||''}; }
+  return {id, type:'theme', label:k, sub:'theme'};
+}
+/* Structured map: people on the left (with role), You in the middle, stories on the right.
+   Stories = memories merged by "same story" answers and shared themes. No force layout, no overlaps. */
+function storyGroups(){
+  const ids = new Set(); rels.forEach(r => [r.from,r.to].forEach(x => x.startsWith('m:') && mem(x.slice(2)) && ids.add(x.slice(2))));
+  const par = {}; ids.forEach(i => par[i]=i);
+  const find = i => par[i]===i ? i : (par[i]=find(par[i]));
+  const union = (a,b) => { if (a in par && b in par) par[find(a)] = find(b); };
+  rels.filter(r => r.type==='same_story' && r.label!=='related').forEach(r => union(r.from.slice(2), r.to.slice(2)));
+  const byTheme = {}; rels.filter(r => r.type==='theme').forEach(r => (byTheme[r.label] ||= []).push(r.from.slice(2)));
+  Object.values(byTheme).forEach(list => list.forEach(i => union(i, list[0])));
+  const groups = {};
+  ids.forEach(i => (groups[find(i)] ||= {ids:[]}).ids.push(i));
+  const first = new Set(rels.filter(r=>r.type==='priority').map(r=>r.to.slice(2)));
+  return Object.values(groups).map(g => {
+    g.ids.sort((a,b) => (mem(a).year||9999)-(mem(b).year||9999));
+    const themes = [...new Set(rels.filter(r => r.type==='theme' && g.ids.includes(r.from.slice(2))).map(r=>r.label))];
+    const stories = [...new Set(rels.filter(r => r.type==='same_story' && r.label!=='related' && g.ids.includes(r.from.slice(2))).map(r=>r.label))];
+    g.title = themes[0] || (stories[0] ? stories[0][0].toUpperCase()+stories[0].slice(1) : g.ids.length===1 && first.has(g.ids[0]) ? 'Show first' : 'On its own');
+    g.first = g.ids.some(i => first.has(i));
+    return g;
+  }).sort((a,b) => (b.first-a.first) || (b.ids.length-a.ids.length));
+}
+/* ---------- editable relationship canvas: drag nodes, drag + to connect, agent can arrange ---------- */
+let mapPos = {}, extraNodes = [], mapSel = null, pendingLink = null, mapMsg = '', mapDrag = null;
+const mapView = {x:0, y:0, k:1}; let mapFitted = false;
+const BOX_W = 160, BOX_H = 92;
+function mapNodes(){
+  const ids = new Set(['p:'+OWNER]);
+  peopleAll().forEach(p => ids.add('p:'+p));
+  memories.forEach(m => ids.add('m:'+m.id));
+  rels.forEach(r => { ids.add(r.from); ids.add(r.to); });
+  extraNodes.forEach(x => ids.add(x));
+  return [...ids].filter(id => id[0]!=='m' || mem(id.slice(2))).map(nodeOf);
+}
+function tidyLayout(nodes){
+  const out = {}, people = nodes.filter(n=>n.type==='person'), themes = nodes.filter(n=>n.type==='theme');
+  const groups = storyGroups(), placed = new Set(); let y = 0;
+  groups.forEach(g => { g.ids.forEach(id => { out['m:'+id] = {x:640, y}; placed.add('m:'+id); y += BOX_H; }); y += 28; });
+  nodes.filter(n => n.type==='memory' && !placed.has(n.id)).forEach(n => { out[n.id] = {x:640, y}; y += BOX_H; });
+  people.forEach((n,i) => out[n.id] = {x:60, y:i*BOX_H});
+  themes.forEach((n,i) => out[n.id] = {x:900, y:i*BOX_H});
+  const h = Math.max(y, people.length*BOX_H);
+  out['p:'+OWNER] = {x:350, y:h/2-BOX_H/2};
+  return out;
+}
+function separate(pos, fixed){
+  const ids = Object.keys(pos);
+  for (let it=0; it<120; it++){ let moved = false;
+    for (let i=0;i<ids.length;i++) for (let j=i+1;j<ids.length;j++){
+      const a = pos[ids[i]], b = pos[ids[j]]; let dx = a.x-b.x, dy = a.y-b.y;
+      const ox = BOX_W-Math.abs(dx), oy = BOX_H-Math.abs(dy);
+      if (ox<=0 || oy<=0) continue; moved = true;
+      const fa = fixed(ids[i]), fb = fixed(ids[j]); if (fa && fb) continue;
+      const push = ox<oy ? ['x', ox, dx||1] : ['y', oy, dy||1], s = Math.sign(push[2]), d = push[1]/(fa||fb?1:2);
+      if (!fa) a[push[0]] += s*d; if (!fb) b[push[0]] -= s*d;
+    }
+    if (!moved) break; }
+  return pos;
+}
+function ensurePositions(nodes){
+  const missing = nodes.filter(n => !mapPos[n.id]); if (!missing.length) return;
+  const first = !Object.keys(mapPos).length, t = tidyLayout(nodes);
+  missing.forEach(n => mapPos[n.id] = {...t[n.id]});
+  if (!first){ const isNew = new Set(missing.map(n=>n.id)); separate(mapPos, id => !isNew.has(id)); }
+}
+async function similarity(ids){
+  if (LegacyAPI.live()){ try { return (await post('/similarity', {ids})).matrix; } catch(e){ console.warn('similarity failed', e); } }
+  const v = ids.map(id => { const m = mem(id); return m.vec || (m.vec = embedOne(memText(m))); });
+  return v.map(a => v.map(b => cos(a,b)));
+}
+/* The agent's arrangement: clusters memories by your answers + embedding similarity, puts people beside what they belong to. */
+async function agentArrange(){
+  const nodes = mapNodes(), ids = memories.map(m=>m.id), S = await similarity(ids);
+  const par = Object.fromEntries(ids.map(i=>[i,i])), find = i => par[i]===i ? i : (par[i]=find(par[i]));
+  const join = (a,b) => { if (a in par && b in par) par[find(a)] = find(b); };
+  rels.filter(r => r.type==='same_story' && r.label!=='related').forEach(r => join(r.from.slice(2), r.to.slice(2)));
+  const byTheme = {}; rels.filter(r=>r.type==='theme').forEach(r => (byTheme[r.to] ||= []).push(r.from.slice(2)));
+  Object.values(byTheme).forEach(l => l.forEach(i => join(i, l[0])));
+  ids.forEach((a,i) => ids.forEach((b,j) => { if (j>i && S[i]?.[j] >= .55) join(a,b); }));
+  const cl = {}; ids.forEach(i => (cl[find(i)] ||= []).push(i));
+  const clusters = Object.values(cl).sort((a,b)=>b.length-a.length), total = Math.max(ids.length,1);
+  const R = Math.max(300, total*BOX_W/(2*Math.PI)), target = {['p:'+OWNER]:{x:0,y:0}}, angle = {};
+  let th = -Math.PI/2;
+  clusters.forEach(c => { const arc = 2*Math.PI*c.length/total;
+    c.forEach((id,i) => { const a = th + arc*(i+.5)/c.length; angle[id] = a; target['m:'+id] = {x:Math.cos(a)*R*1.4, y:Math.sin(a)*R}; });
+    th += arc; });
+  const meanAngle = list => Math.atan2(list.reduce((s,a)=>s+Math.sin(a),0), list.reduce((s,a)=>s+Math.cos(a),0));
+  let spare = 0;
+  nodes.filter(n => n.type==='person' || n.type==='theme').forEach(n => {
+    const linked = n.type==='person' ? memories.filter(m => m.people.includes(n.id.slice(2)) || rels.some(r => r.from===n.id && r.to==='m:'+m.id)).map(m=>m.id)
+      : rels.filter(r => r.to===n.id && r.from[0]==='m').map(r=>r.from.slice(2));
+    const a = linked.length ? meanAngle(linked.map(i=>angle[i])) : (spare++)*2.4, r = R*(n.type==='person' ? .48 : .72);
+    target[n.id] = {x:Math.cos(a)*r*1.4, y:Math.sin(a)*r};
+  });
+  separate(target, id => id==='p:'+OWNER);
+  mapMsg = `The agent grouped ${ids.length} memor${ids.length===1?'y':'ies'} into ${clusters.length} cluster${clusters.length===1?'':'s'} using your answers and how similar their content is. Drag anything to change it.`;
+  animateTo(target);
+}
+function mapFit(){
+  const svg = $('#graph'), cw = svg.clientWidth||700, ch = svg.clientHeight||520, pts = Object.values(mapPos); if (!pts.length) return;
+  const x0 = Math.min(...pts.map(p=>p.x))-110, x1 = Math.max(...pts.map(p=>p.x))+110, y0 = Math.min(...pts.map(p=>p.y))-60, y1 = Math.max(...pts.map(p=>p.y))+80;
+  mapView.k = Math.min(cw/(x1-x0), ch/(y1-y0), 1.2);
+  mapView.x = (x0+x1)/2 - cw/mapView.k/2; mapView.y = (y0+y1)/2 - ch/mapView.k/2;
+}
+function mapZoom(f){ const svg = $('#graph'), cw = svg.clientWidth, ch = svg.clientHeight, cx = mapView.x+cw/mapView.k/2, cy = mapView.y+ch/mapView.k/2;
+  mapView.k = Math.max(.25, Math.min(2.5, mapView.k*f)); mapView.x = cx-cw/mapView.k/2; mapView.y = cy-ch/mapView.k/2; renderGraph(); }
+const edgePath = (a,b) => { const m = (a.x+b.x)/2; return `M${a.x} ${a.y} C${m} ${a.y}, ${m} ${b.y}, ${b.x} ${b.y}`; };
+const EDGE_STYLE = {role:'stroke="var(--accent)" stroke-width="2.5"', identity:'stroke="var(--accent)" stroke-width="2" stroke-dasharray="2 5" stroke-linecap="round"',
+  same_story:'stroke="var(--sepia2)" stroke-width="2.5"', theme:'stroke="var(--ai)" stroke-width="2"', priority:'stroke="var(--warn)" stroke-width="2.5" stroke-dasharray="2 5"', link:'stroke="var(--muted)" stroke-width="2"'};
+function renderGraph(){
+  const svg = $('#graph'), nodes = mapNodes(); ensurePositions(nodes);
+  if (!mapFitted && svg.clientWidth){ mapFit(); mapFitted = true; }
+  applyView();
+  const trunc = (s,n) => s.length>n ? s.slice(0,n-1)+'…' : s;
+  let s = '';
+  storyGroups().filter(g => g.ids.length>1).forEach(g => {
+    s += `<g class="hull" data-hull="${esc(g.ids.map(i=>'m:'+i).join('|'))}"><rect rx="14" fill="var(--${colorOf(g.title)}-soft)" fill-opacity=".6" stroke="var(--${colorOf(g.title)})" stroke-dasharray="2 5"/><text font-weight="700" style="fill:var(--${colorOf(g.title)})">${esc(trunc(g.title,28))}</text></g>`; });
+  rels.forEach(r => { if (!mapPos[r.from] || !mapPos[r.to]) return; const sel = mapSel===r.id;
+    const dash = r.type==='same_story' && r.label==='related' ? ' stroke-dasharray="7 5"' : '';
+    const pe = [r.from,r.to].find(x => x[0]==='p' && x!=='p:'+OWNER), pc = pe ? colorOf(pe) : null;
+    s += `<g class="egroup" data-edge="${esc(r.id)}" data-a="${esc(r.from)}" data-b="${esc(r.to)}" style="cursor:pointer"><path fill="none" stroke="transparent" stroke-width="18"/><path fill="none" ${sel?'stroke="var(--fg)" stroke-width="3.5"':(pc?`stroke="var(--${pc})" stroke-width="2.5"${r.type==='identity'?' stroke-dasharray="2 5" stroke-linecap="round"':''}`:EDGE_STYLE[r.type]||EDGE_STYLE.link)}${dash}/><circle class="mdot" r="4" style="fill:var(--${pc||'c2'})"/>`
+      + (r.type==='link' || sel ? `<text class="sub" text-anchor="middle">${esc(trunc(r.label,24))}</text>` : '') + `</g>`; });
+  if (mapDrag?.mode==='connect') s += `<path id="mappreview" fill="none" stroke="var(--accent)" stroke-width="3" stroke-dasharray="6 5"/>`;
+  nodes.forEach(n => { const {x,y} = mapPos[n.id], sel = mapSel===n.id, ring = sel ? 'stroke="var(--fg)" stroke-width="3"' : '';
+    const unlinked = n.type==='memory' && !rels.some(r=>r.from===n.id||r.to===n.id);
+    s += `<g class="nwrap${sel?' sel':''}" data-node="${esc(n.id)}" data-rx="${x}" data-ry="${y}" style="cursor:grab" opacity="${unlinked?.72:1}"><g class="ninner">`;
+    if (n.type==='owner') s += `<defs><linearGradient id="yougrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--c1)"/><stop offset=".55" style="stop-color:var(--c5)"/><stop offset="1" style="stop-color:var(--plum)"/></linearGradient></defs><circle class="pulse" cx="${x}" cy="${y}" r="28" style="fill:var(--c5)"/><circle cx="${x}" cy="${y}" r="28" fill="url(#yougrad)" ${ring}/><text x="${x}" y="${y+5}" text-anchor="middle" font-weight="700" font-size="14" style="fill:var(--accent-ink)">You</text>`;
+    else if (n.type==='person') s += `<circle cx="${x}" cy="${y}" r="20" fill="var(--${colorOf(n.id)}-soft)" ${ring||`stroke="var(--${colorOf(n.id)})" stroke-width="2.5"`}/><text x="${x}" y="${y+5}" text-anchor="middle" font-weight="700" style="fill:var(--${colorOf(n.id)})">${esc(n.label[0])}</text><text x="${x}" y="${y+36}" text-anchor="middle" font-weight="700" font-size="13">${esc(trunc(n.label,18))}</text><text class="sub" x="${x}" y="${y+50}" text-anchor="middle" style="${n.sub?`fill:var(--${colorOf(n.id)})`:''}">${esc(n.sub?'your '+n.sub:'role not set')}</text>`;
+    else if (n.type==='memory'){ const m = mem(n.id.slice(2)), star = rels.some(r=>r.type==='priority'&&r.to===n.id), kc = KC[m.kind]||'c2';
+      s += `<rect x="${x-22}" y="${y-22}" width="44" height="44" rx="7" fill="var(--${kc}-soft)" ${ring||`stroke="var(--${kc})" stroke-width="2.5"`}/>${m.img?`<image href="${m.img}" x="${x-20}" y="${y-20}" width="40" height="40" preserveAspectRatio="xMidYMid slice"/>`:`<text x="${x}" y="${y+5}" text-anchor="middle" font-weight="700" style="fill:var(--${kc})">${esc(kindLabel(m.kind)[0])}</text>`}
+        <text x="${x}" y="${y+38}" text-anchor="middle">${esc(trunc(m.title,24))}</text>${m.year&&!m.title.includes(String(m.year))?`<text class="sub" x="${x}" y="${y+51}" text-anchor="middle">${m.year}</text>`:''}${star?`<text x="${x+30}" y="${y-14}" font-size="16" style="fill:var(--warn)">★</text>`:''}`; }
+    else { const w = Math.max(84, n.label.length*7.4+26); s += `<rect x="${x-w/2}" y="${y-16}" width="${w}" height="32" rx="16" fill="var(--${colorOf(n.id)}-soft)" ${ring||`stroke="var(--${colorOf(n.id)})" stroke-width="2.5"`}/><text x="${x}" y="${y+5}" text-anchor="middle" font-weight="700">${esc(trunc(n.label,24))}</text>`; }
+    const hx = x + (n.type==='theme' ? Math.max(84, n.label.length*7.4+26)/2+18 : n.type==='owner' ? 44 : 40);
+    s += `</g><g class="handle" data-handle="${esc(n.id)}" style="cursor:crosshair"><circle cx="${hx}" cy="${y}" r="13" fill="var(--accent)"/><path d="M${hx-6} ${y}h12M${hx} ${y-6}v12" stroke="var(--accent-ink)" stroke-width="2.5"/></g></g>`;
+  });
+  svg.innerHTML = s;
+  cacheMapEls(); mapTick(performance.now(), true); setHover(mapHover);
+  renderMapBar(); startMapLoop();
+}
+/* ---------- motion: frames only move existing elements; the SVG is rebuilt only when the graph changes ---------- */
+const STILL = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+let mapEls = {nodes:[], edges:[], hulls:[]}, mapAdj = {}, spr = {}, mapLoop = false, mapHover = null, dragFrom = null, mapTarget = null;
+function cacheMapEls(){
+  const svg = $('#graph'); mapAdj = {};
+  rels.forEach(r => { (mapAdj[r.from] ||= new Set()).add(r.to); (mapAdj[r.to] ||= new Set()).add(r.from); });
+  mapEls = {
+    nodes:[...svg.querySelectorAll('[data-node]')].map((el,i) => ({el, id:el.dataset.node, rx:+el.dataset.rx, ry:+el.dataset.ry, ph:i*1.7})),
+    edges:[...svg.querySelectorAll('[data-edge]')].map((el,i) => ({el, a:el.dataset.a, b:el.dataset.b, paths:el.querySelectorAll('path'), dot:el.querySelector('.mdot'), label:el.querySelector('text'), ph:i*.37})),
+    hulls:[...svg.querySelectorAll('[data-hull]')].map(el => ({el, ids:el.dataset.hull.split('|'), rect:el.querySelector('rect'), text:el.querySelector('text')}))
+  };
+}
+function mapTick(now){
+  const still = STILL(), disp = {}, d = mapDrag?.mode==='node' && mapDrag.moved ? mapDrag : null;
+  let gx = 0, gy = 0, first = null, second = null;
+  if (d && dragFrom){ gx = mapPos[d.id].x-dragFrom.x; gy = mapPos[d.id].y-dragFrom.y; const m = Math.hypot(gx,gy); if (m>170){ gx *= 170/m; gy *= 170/m; }
+    first = mapAdj[d.id] || new Set(); second = new Set(); first.forEach(x => (mapAdj[x]||[]).forEach(y => second.add(y))); }
+  mapEls.nodes.forEach(n => {
+    const s = spr[n.id] ||= {x:0,y:0,vx:0,vy:0}, q = mapPos[n.id]; if (!q) return;
+    const k = d && first.has(n.id) ? .3 : d && second.has(n.id) ? .11 : 0;
+    if (still){ s.x = s.y = s.vx = s.vy = 0; }
+    else if (d?.id===n.id){ s.x = s.y = s.vx = s.vy = 0; }
+    else { s.vx += (gx*k-s.x)*.085; s.vy += (gy*k-s.y)*.085; s.vx *= .82; s.vy *= .82; s.x += s.vx; s.y += s.vy; }
+    const held = d?.id===n.id || n.id==='p:'+OWNER || still;
+    const px = q.x+s.x+(held?0:Math.sin(now/1500+n.ph)*4), py = q.y+s.y+(held?0:Math.cos(now/1900+n.ph*1.3)*5);
+    disp[n.id] = {x:px, y:py};
+    n.el.setAttribute('transform', `translate(${px-n.rx} ${py-n.ry})`);
+  });
+  mapEls.edges.forEach(e => { const a = disp[e.a], b = disp[e.b]; if (!a || !b) return; const p = edgePath(a,b); e.paths[0].setAttribute('d',p); e.paths[1].setAttribute('d',p);
+    if (still) e.dot.setAttribute('r',0);
+    else { const t = (now/2600+e.ph)%1, u = 1-t, m = (a.x+b.x)/2;
+      e.dot.setAttribute('cx', u*u*u*a.x+3*u*u*t*m+3*u*t*t*m+t*t*t*b.x); e.dot.setAttribute('cy', u*u*u*a.y+3*u*u*t*a.y+3*u*t*t*b.y+t*t*t*b.y); }
+    if (e.label){ e.label.setAttribute('x',(a.x+b.x)/2); e.label.setAttribute('y',(a.y+b.y)/2-7); } });
+  mapEls.hulls.forEach(h => { const p = h.ids.map(i=>disp[i]).filter(Boolean); if (p.length<2) return;
+    const x0 = Math.min(...p.map(q=>q.x))-82, x1 = Math.max(...p.map(q=>q.x))+82, y0 = Math.min(...p.map(q=>q.y))-48, y1 = Math.max(...p.map(q=>q.y))+56;
+    h.rect.setAttribute('x',x0); h.rect.setAttribute('y',y0); h.rect.setAttribute('width',x1-x0); h.rect.setAttribute('height',y1-y0); h.text.setAttribute('x',x0+12); h.text.setAttribute('y',y0+17); });
+  if (mapDrag?.mode==='connect'){ const pv = $('#mappreview'), from = disp[mapDrag.id]; if (pv && from && mapDrag.to){ const snap = mapTarget && disp[mapTarget]; pv.setAttribute('d', edgePath(from, snap || mapDrag.to)); } }
+}
+function startMapLoop(){
+  if (mapLoop || view!=='personal') return; mapLoop = true;
+  (function loop(now){ if (view!=='personal'){ mapLoop = false; return; } mapTick(now); requestAnimationFrame(loop); })(performance.now());
+}
+function setHover(id){
+  mapHover = id; const near = id ? new Set([id, ...(mapAdj[id]||[])]) : null;
+  mapEls.nodes.forEach(n => n.el.classList.toggle('dim', !!near && !near.has(n.id)));
+  mapEls.edges.forEach(e => { const hot = !!id && (e.a===id||e.b===id); e.el.classList.toggle('hot',hot); e.el.classList.toggle('dim',!!id&&!hot); });
+}
+function mapEnter(){ if (STILL()) return; const o = mapPos['p:'+OWNER]; if (!o) return; Object.keys(mapPos).forEach(id => { if (id==='p:'+OWNER) return; spr[id] = {x:o.x-mapPos[id].x, y:o.y-mapPos[id].y, vx:0, vy:0}; }); }
+function kick(a,b){ if (STILL()) return; const p = mapPos[a], q = mapPos[b]; if (!p||!q) return; const d = Math.hypot(q.x-p.x,q.y-p.y)||1, ux = (q.x-p.x)/d*17, uy = (q.y-p.y)/d*17;
+  const sa = spr[a] ||= {x:0,y:0,vx:0,vy:0}, sb = spr[b] ||= {x:0,y:0,vx:0,vy:0}; sa.vx += ux; sa.vy += uy; sb.vx -= ux; sb.vy -= uy; }
+function applyView(){ const svg = $('#graph'), cw = svg.clientWidth||700, ch = svg.clientHeight||520; svg.setAttribute('viewBox', `${mapView.x} ${mapView.y} ${cw/mapView.k} ${ch/mapView.k}`); }
+function animateTo(target){
+  Object.keys(target).forEach(id => { const a = mapPos[id], s = spr[id] ||= {x:0,y:0,vx:0,vy:0}; if (a && !STILL()){ s.x += a.x-target[id].x; s.y += a.y-target[id].y; } });
+  mapPos = target; mapFit(); renderGraph(); updateRail();
+}
+function mapPoint(e){ const p = new DOMPoint(e.clientX, e.clientY).matrixTransform($('#graph').getScreenCTM().inverse()); return {x:p.x, y:p.y}; }
+function nodeAt(pt, except){ let best = null, d = 62; mapNodes().forEach(n => { if (n.id===except) return; const q = mapPos[n.id], h = Math.hypot(pt.x-q.x, pt.y-q.y); if (h<d){ d = h; best = n.id; } }); return best; }
+const graphEl = $('#graph');
+graphEl.addEventListener('pointerdown', e => {
+  const pt = mapPoint(e), handle = e.target.closest('[data-handle]'), node = e.target.closest('[data-node]'), edge = e.target.closest('[data-edge]');
+  try { graphEl.setPointerCapture(e.pointerId); } catch(err){}
+  if (handle) { mapDrag = {mode:'connect', id:handle.dataset.handle, to:pt}; renderGraph(); }
+  else if (node){ const id = node.dataset.node, q = mapPos[id]; mapDrag = {mode:'node', id, dx:q.x-pt.x, dy:q.y-pt.y, sx:e.clientX, sy:e.clientY, moved:false}; dragFrom = {...q}; }
+  else if (edge) mapDrag = {mode:'edge', id:edge.dataset.edge};
+  else mapDrag = {mode:'pan', sx:e.clientX, sy:e.clientY, vx:mapView.x, vy:mapView.y, moved:false};
+  e.preventDefault();
+});
+graphEl.addEventListener('pointermove', e => {
+  if (!mapDrag){ const n = e.target.closest?.('[data-node]')?.dataset.node || null; if (n!==mapHover) setHover(n); return; }
+  const d = mapDrag;
+  if (d.mode==='node'){ if (Math.hypot(e.clientX-d.sx, e.clientY-d.sy)>3) d.moved = true; if (d.moved){ const pt = mapPoint(e); mapPos[d.id] = {x:pt.x+d.dx, y:pt.y+d.dy}; } }
+  else if (d.mode==='pan'){ if (Math.hypot(e.clientX-d.sx, e.clientY-d.sy)>3) d.moved = true; if (d.moved){ mapView.x = d.vx-(e.clientX-d.sx)/mapView.k; mapView.y = d.vy-(e.clientY-d.sy)/mapView.k; applyView(); } }
+  else if (d.mode==='connect'){ d.to = mapPoint(e); const t = nodeAt(d.to, d.id); if (t!==mapTarget){ mapTarget = t; mapEls.nodes.forEach(n => n.el.classList.toggle('target', n.id===t)); } }
+});
+function endMapDrag(e){
+  if (!mapDrag) return; const d = mapDrag; mapDrag = null; mapTarget = null;
+  if (d.mode==='node'){ if (!d.moved){ mapSel = mapSel===d.id ? null : d.id; pendingLink = null; } else updateRail(); }
+  else if (d.mode==='edge'){ mapSel = d.id; pendingLink = null; }
+  else if (d.mode==='pan'){ if (!d.moved){ mapSel = null; pendingLink = null; } }
+  else if (d.mode==='connect'){ const to = nodeAt(mapPoint(e), d.id); if (to){ pendingLink = {a:d.id, b:to}; mapSel = null; } else mapMsg = 'Drop the line on another node to connect them.'; }
+  renderGraph();
+}
+graphEl.addEventListener('pointerup', endMapDrag);
+graphEl.addEventListener('pointercancel', () => { mapDrag = null; mapTarget = null; renderGraph(); });
+graphEl.addEventListener('pointerleave', () => { if (!mapDrag) setHover(null); });
+
+/* What a hand-drawn line can mean: always a short pick-one, same as the agent's questions. */
+function linkOptions(aId, bId){
+  const t = id => id==='p:'+OWNER ? 'owner' : id[0]==='p' ? 'person' : id[0]==='m' ? 'memory' : 'theme';
+  let a = aId, b = bId, ta = t(a), tb = t(b);
+  const order = ['person','owner','memory','theme']; if (order.indexOf(ta)>order.indexOf(tb)){ [a,b,ta,tb] = [b,a,tb,ta]; }
+  const link = (label,x=a,y=b) => ({label:label[0].toUpperCase()+label.slice(1), rel:{type:'link',from:x,to:y,label}});
+  if (ta==='person' && tb==='owner') return ['family member','friend','classmate'].map(l => ({label:'A '+l, rel:{type:'role',from:a,to:b,label:l}}));
+  if (ta==='person' && tb==='person') return ['family','friends','work or school'].map(l => link(l));
+  if (ta==='person' && tb==='memory') return [['Is in it','in this item'],['Told this story','told this story'],['Is mentioned in it','mentioned in it']].map(([label,l]) => ({label, rel:{type:'identity',from:a,to:b,label:l}, person:a.slice(2), memory:b.slice(2)}));
+  if (ta==='owner' && tb==='memory') return [{label:'I am in it', rel:{type:'identity',from:a,to:b,label:'in this item'}, person:OWNER, memory:b.slice(2)}, {label:'Show this first', rel:{type:'priority',from:a,to:b,label:'show first'}}, link('Means a lot to me'.toLowerCase())];
+  if (ta==='memory' && tb==='memory') return [{label:'Same story', rel:{type:'same_story',from:a,to:b,label:'same story'}}, {label:'Related, but separate', rel:{type:'same_story',from:a,to:b,label:'related'}}, link('same time period')];
+  if (ta==='memory' && tb==='theme') return [{label:'It is about this', rel:{type:'theme',from:a,to:b,label:b.slice(2)}}];
+  return [link('connected')];
+}
+function syncPeople(m){ if (LegacyAPI.live() && m.server) post('/people', {memoryId:m.id, people:m.people}).catch(e => console.warn('could not save people', e)); }
+function applyLink(o){
+  const {a,b} = pendingLink; pendingLink = null;
+  rels = rels.filter(r => !(r.source?.manual && ((r.from===a&&r.to===b)||(r.from===b&&r.to===a))));
+  if (o.rel.type==='role') rels = rels.filter(r => !(r.type==='role' && r.from===o.rel.from));
+  const id = 'r-m'+Date.now();
+  rels.push({...o.rel, id, source:{qid:'manual-'+id, question:'You drew this link', option:o.label, manual:true}});
+  if (o.person){ const m = mem(o.memory); if (m && !m.people.includes(o.person)){ m.people.push(o.person); syncPeople(m); } }
+  kick(a,b);
+  mapMsg = 'Link saved. The search and stories use it from now on.';
+  renderPersonal(); renderDb(); updateRail();
+}
+function removeRel(id){
+  const r = rels.find(x => x.id===id); if (!r) return;
+  if (r.source?.manual && r.type==='identity'){ const m = mem(r.to.slice(2)), p = r.from.slice(2); if (m){ m.people = m.people.filter(x=>x!==p); syncPeople(m); } }
+  rels = rels.filter(x => x.source.qid!==r.source.qid);
+  if (!r.source?.manual){ delete answered[r.source.qid]; agentDirty = true; }
+  mapSel = null; toast(r.source?.manual ? 'Link removed.' : 'Removed. The agent will ask that question again.');
+  renderPersonal(); renderLearned(); renderDb(); updateRail();
+}
+function renderMapBar(){
+  const bar = $('#mapbar'), name = id => nodeOf(id).label;
+  if (pendingLink){ const o = linkOptions(pendingLink.a, pendingLink.b);
+    bar.innerHTML = `<b>Connect ${esc(name(pendingLink.a))} and ${esc(name(pendingLink.b))}:</b> ${o.map((x,i)=>`<button class="btn small" data-linkopt="${i}">${esc(x.label)}</button>`).join('')}<button class="btn link" data-linkcancel>Cancel</button>`; return; }
+  const edge = rels.find(r => r.id===mapSel);
+  if (edge){ bar.innerHTML = `<b>${esc(relSentence(edge))}</b><span class="muted">${edge.source?.manual?'You drew this link':'From your answer to “'+esc(edge.source.question)+'”'}</span><button class="btn small" data-mapremove="${esc(edge.id)}">Remove link</button>`; return; }
+  if (mapSel){ const extra = extraNodes.includes(mapSel) && !rels.some(r=>r.from===mapSel||r.to===mapSel);
+    bar.innerHTML = `<b>${esc(name(mapSel))}</b><span class="muted">Drag the + onto another node to connect them.</span>${extra?`<button class="btn small" data-mapdelete>Remove node</button>`:''}`; return; }
+  bar.innerHTML = `<span class="muted">${esc(mapMsg || 'Drag a node to move it. Click a node, then drag its + onto another node to connect them. Click a line to see or remove it.')}</span>`;
+}
+$('#mapbar').addEventListener('click', e => {
+  const o = e.target.closest('[data-linkopt]'), c = e.target.closest('[data-linkcancel]'), r = e.target.closest('[data-mapremove]'), d = e.target.closest('[data-mapdelete]');
+  if (o) applyLink(linkOptions(pendingLink.a, pendingLink.b)[+o.dataset.linkopt]);
+  if (c){ pendingLink = null; renderGraph(); }
+  if (r) removeRel(r.dataset.mapremove);
+  if (d){ extraNodes = extraNodes.filter(x=>x!==mapSel); delete mapPos[mapSel]; mapSel = null; renderGraph(); updateRail(); }
+});
+$('#maptools').addEventListener('click', e => {
+  const b = e.target.closest('[data-map]'); if (!b) return; const a = b.dataset.map;
+  if (a==='agent') agentArrange();
+  if (a==='tidy'){ mapMsg = 'Tidied into columns: people, you, memories, themes.'; animateTo(tidyLayout(mapNodes())); }
+  if (a==='in') mapZoom(1.2); if (a==='out') mapZoom(1/1.2);
+  if (a==='fit'){ mapFit(); renderGraph(); }
+});
+$('#mapadd').addEventListener('click', e => {
+  const b = e.target.closest('[data-add]'); if (!b) return; const v = $('#mapname').value.trim(); if (!v){ toast('Type a name first'); $('#mapname').focus(); return; }
+  const id = (b.dataset.add==='person'?'p:':'t:')+v.slice(0,30);
+  if (!extraNodes.includes(id)) extraNodes.push(id);
+  const svg = $('#graph'); mapPos[id] = {x:mapView.x+svg.clientWidth/mapView.k/2, y:mapView.y+svg.clientHeight/mapView.k/2};
+  separate(mapPos, x => x!==id); mapSel = id; $('#mapname').value=''; renderGraph(); updateRail();
+});
+$('#mapadd').addEventListener('submit', e => e.preventDefault());
+function relSentence(r){
+  const n = id => nodeOf(id).label;
+  if (r.type==='role') return `${n(r.from)} is your ${r.label}`;
+  if (r.type==='identity') return r.label==='baby in photo' ? `${n(r.from)} is the baby in “${n(r.to)}”` : `${n(r.from)} is in “${n(r.to)}”`;
+  if (r.type==='same_story') return `“${n(r.from)}” + “${n(r.to)}”: ${r.label}`;
+  if (r.type==='identity' && r.from==='p:'+OWNER) return `You are in “${n(r.to)}”`;
+  if (r.type==='link') return`${n(r.from)} and ${n(r.to)}: ${r.label}`;
+  if (r.type==='theme') return `“${n(r.from)}” is about ${r.label}`;
+  return `Show “${n(r.to)}” first`;
+}
+function renderRels(){
+  // one row per answer (a theme answer makes two links but is one row)
+  const seen = new Set(), rows = rels.filter(r => !seen.has(r.source.qid) && seen.add(r.source.qid));
+  const sentence = r => r.source.qid==='q-lake' ? `Lake memories are about \u201c${r.label}\u201d` : relSentence(r);
+  const sect = [['People', r => r.type==='role' || r.type==='identity'], ['Stories', r => ['same_story','theme','link'].includes(r.type)], ['Show first', r => r.type==='priority']];
+  $('#rels').innerHTML = sect.map(([name, f]) => { const list = rows.filter(f); if (!list.length) return '';
+    return `<p class="eyebrow" style="margin-top:6px">${name}</p>` + list.map(r => `<div class="rel"><div style="min-width:0"><b>${esc(sentence(r))}</b>
+    <p>${r.source.manual?'You drew this link':'From your answer to \u201c'+esc(r.source.question)+'\u201d'}${r.source.sample?' · sample answer':''}</p></div>
+    <button class="btn small" data-unrel="${r.id}" aria-label="Remove">Remove</button></div>`).join(''); }).join('');
+}
+$('#rels').addEventListener('click', e => {
+  const b = e.target.closest('[data-unrel]'); if (b) removeRel(b.dataset.unrel);
+});
+function renderReqs(){
+  $('#rcount').textContent = `${reqs.length} active`;
+  $('#reqs').innerHTML = reqs.length ? reqs.map((r,i) => `<span class="req"><small>${esc(r.kind)}</small>${esc(r.text)}<button data-unreq="${i}" aria-label="Remove request">✕</button></span>`).join('')
+    : `<p class="muted" style="font-size:.95rem">None yet. The agent uses its own judgment until you tell it something here.</p>`;
+}
+$('#reqs').addEventListener('click', e => { const b=e.target.closest('[data-unreq]'); if(!b) return; const r=reqs.splice(+b.dataset.unreq,1)[0]; toast(`Removed: ${r.text}`); renderReqs(); updateRail(); renderSummary(); });
+function renderSummary(){
+  const people = rels.filter(r => r.type==='role').length;
+  $('#summary').innerHTML = `<span class="stat"><b>${rels.length}</b>relationships from your answers</span><span class="stat"><b>${people}</b>people placed</span><span class="stat"><b>${reqs.length}</b>personal requests</span><span class="stat"><b>${memories.length}</b>memories</span>`;
+}
+function renderPersonal(){ renderSummary(); renderGraph(); renderRels(); renderReqs(); }
+
+/* ---------- interpretation of page-3 input (the SLM's job; rules in demo) ---------- */
+let pendingText = null;
+const reqOf = k => reqs.find(r => r.kind===k);
+function addReq(r){ reqs = reqs.filter(x => !(x.kind===r.kind && (r.kind!=='Naming'&&r.kind!=='Privacy' || x.value===r.value))); reqs.push(r); return r; }
+async function interpret(text){
+  const t = text.toLowerCase(), added = [], out = {text:''};
+  const isQ = /\?\s*$/.test(text) || /^(who|what|when|where|how|why|did|do|does|is|was|were|which|tell me)\b/.test(t);
+  const wantsStory = /\b(story|stories|write|draft|book|booklet)\b/.test(t);
+  // requirements
+  const nm = text.match(/call\s+([A-Z][a-z]+)\s+(?:as\s+)?["“]?([A-Za-z][A-Za-z ]{1,20}?)["”]?(?=$|[.,!])/i);
+  if (nm) added.push(addReq({kind:'Naming', text:`Call ${nm[1]} “${nm[2]}”`, value:nm[1], to:nm[2]}));
+  if (/\b(private|hide|don'?t (show|share|include)|keep .* to myself)\b/.test(t)){
+    const hit = (await Mock.search(text.replace(/private|hide|keep|don'?t|show|share|include/gi,''),1)).hits[0];
+    if (hit) added.push(addReq({kind:'Privacy', text:`Keep “${mem(hit.memoryId).title}” private`, value:hit.memoryId}));
+  }
+  if (/\b(simple|easy) (words|language)|\bsimple\b/.test(t)) added.push(addReq({kind:'Tone', text:'Simple words', value:'simple'}));
+  if (/\b(warm|gentle)\b/.test(t)) added.push(addReq({kind:'Tone', text:'Warm and gentle', value:'warm'}));
+  if (/\bfunny|light-?hearted\b/.test(t)) added.push(addReq({kind:'Tone', text:'Light and funny', value:'funny'}));
+  const aud = t.match(/\bfor (my )?(grandkids|grandchildren|grandson|granddaughter|kids|children|family|daughter|son)\b/);
+  if (aud) { const who = /grand/.test(aud[2]) ? 'Grandchildren' : /family/.test(aud[2]) ? 'Whole family' : 'Children';
+    if (!reqOf('Audience') || !reqOf('Audience').text.startsWith(who)) added.push(addReq({kind:'Audience', text:who, value:who})); }
+  const foc = t.match(/\b(?:focus on|more about|mostly about|only about)\s+(?:the\s+)?([a-z ]{3,30})/);
+  if (foc) added.push(addReq({kind:'Focus', text:foc[1].trim(), value:foc[1].trim()}));
+  if (added.length) out.requirements = added;
+
+  // ambiguity -> one pick-one question (page 3 version carries requirements, not relationships)
+  const audR = reqOf('Audience');
+  if (wantsStory && audR && audR.value==='Grandchildren' && !audR.age){
+    pendingText = text;
+    out.text = added.length ? 'Got it. One quick question so I write it at the right level:' : 'One quick question first:';
+    out.choice = {id:'c-age', text:'How old are the grandchildren reading it?', options:['Ages 5–8','Ages 9–12','Teenagers'].map(l => ({label:l, requirement:{kind:'Audience', text:`Grandchildren, ${l.toLowerCase()}`, value:'Grandchildren', age:l}}))};
+    return out;
+  }
+  if (wantsStory && !reqOf('Length')){
+    pendingText = text;
+    out.text = (added.length ? 'Got it. ' : '') + 'How long should it be?';
+    out.choice = {id:'c-len', text:'Pick a length', options:[['Short','A few sentences',2],['One page','About a page',4],['A small booklet','Every related memory',8]].map(([l,d,n]) => ({label:`${l} · ${d}`, requirement:{kind:'Length', text:l, value:n}}))};
+    return out;
+  }
+  if (wantsStory){ out.story = await makeStory(text); out.text = 'Here is a draft. Tell me what to change, or add a request above.'; return out; }
+  if (isQ){ const r = await answerQ(text); out.answer = r; out.text = r.text; return out; }
+  if (added.length){ out.text = 'Got it. I added ' + (added.length>1 ? 'these requests' : 'this request') + ' and will follow ' + (added.length>1?'them':'it') + ' from now on.'; return out; }
+  addReq({kind:'Note', text:text.length>40?text.slice(0,39)+'…':text, value:text});
+  out.requirements = [reqs[reqs.length-1]];
+  out.text = 'I saved that as a note and will keep it in mind when I organize and write.';
+  return out;
+}
+function personalize(s, kidsVoice){
+  rels.filter(r => r.type==='role').forEach(r => { const p = r.from.slice(2);
+    if (!reqs.some(q => q.kind==='Naming' && q.value===p)) s = s.replace(new RegExp(`\\b${p}\\b`), kidsVoice ? `${p}` : `${p} (your ${r.label})`); });
+  reqs.filter(r => r.kind==='Naming').forEach(r => { s = s.replace(new RegExp(`\\b${r.value}\\b`,'g'), r.to); });
+  if (kidsVoice) s = s.replace(/\bYour\b/g,'Grandma’s').replace(/\byour\b/g,'Grandma’s').replace(/\bYou\b/g,'Grandma').replace(/\byou\b/g,'Grandma');
+  return s;
+}
+async function answerQ(text){
+  const {hits} = await LegacyAPI.search(text, 4);
+  if (!hits.length) return {text:'I couldn’t find a saved memory about that yet. You can add one on the My Memories page.', evidence:[]};
+  const top = hits[0].score, strong = hits.filter(h => h.score >= top*.6 && !h.private);
+  if (!strong.length) return {text:'The matching memory is one you asked me to keep private.', evidence:hits};
+  const w = await LegacyAPI.write({mode:'answer', text, memoryIds:strong.map(h=>h.memoryId)});
+  const body = w?.answer?.text || strong.map(h => personalize(mem(h.memoryId).fact)).join(' ');
+  return {text:body, evidence:hits};
+}
+async function makeStory(text){
+  const n = reqOf('Length')?.value || 3, kids = reqOf('Audience')?.value==='Grandchildren';
+  const focus = reqOf('Focus')?.value || '';
+  let {hits} = await LegacyAPI.search(text.replace(/\b(write|story|stories|draft|for my \w+|in simple words|simple|short|booklet)\b/gi,'') + ' ' + focus, n);
+  const priv = new Set(reqs.filter(r=>r.kind==='Privacy').map(r=>r.value));
+  hits = hits.filter(h => !priv.has(h.memoryId));
+  if (!hits.length){ const first = rels.find(r=>r.type==='priority'); hits = memories.filter(m=>!priv.has(m.id)).slice(0,n).map(m=>({memoryId:m.id,score:0})); if(first) hits.unshift({memoryId:first.to.slice(2),score:0}); }
+  // pull in memories linked as the same story
+  rels.filter(r => r.type==='same_story' && r.label!=='related').forEach(r => { const a=r.from.slice(2), b=r.to.slice(2);
+    if (hits.some(h=>h.memoryId===a) && !hits.some(h=>h.memoryId===b) && !priv.has(b)) hits.push({memoryId:b,score:0,linked:true});
+    if (hits.some(h=>h.memoryId===b) && !hits.some(h=>h.memoryId===a) && !priv.has(a)) hits.push({memoryId:a,score:0,linked:true}); });
+  const ms = [...new Map(hits.map(h=>[h.memoryId,mem(h.memoryId)])).values()].filter(Boolean).slice(0, Math.max(n,2)).sort((a,b)=>(a.year||9999)-(b.year||9999));
+  const theme = rels.find(r => r.type==='theme' && ms.some(m=>'m:'+m.id===r.from))?.label;
+  const w = await LegacyAPI.write({mode:'story', text, memoryIds:ms.map(m=>m.id), length:n});
+  if (w?.story?.paragraphs?.length) return {title: theme || w.story.title, paragraphs: w.story.paragraphs, memoryIds: ms.map(m=>m.id), linked: hits.filter(h=>h.linked).length, model:true};
+  const simple = reqOf('Tone')?.value==='simple';
+  let paras = ms.map(m => personalize(m.fact, kids));
+  if (simple) paras = paras.map(p => p.replace(/, where /g,'. There, ').replace(/, and /g,'. And '));
+  const title = theme ? theme : ms[0] ? ms[0].title : 'Your story';
+  const opener = kids ? (reqOf('Audience')?.age ? `A story for the grandchildren (${reqOf('Audience').age.toLowerCase()}).` : 'A story for the grandchildren.') : null;
+  return {title, paragraphs: opener ? [opener, ...paras] : paras, memoryIds: ms.map(m=>m.id), linked: hits.filter(h=>h.linked).length};
+}
+
+/* ---------- thread ---------- */
+const thread = [];
+function evHTML(ev){ return ev.map(h => { const m = mem(h.memoryId); if (!m) return ''; return `<div class="ev"><div class="thumb">${thumb(m)}</div><div style="min-width:0">
+  <div class="row between"><b style="font-size:.95rem">${esc(m.title)}</b>${h.private?'<span class="chip warn">Private</span>':''}</div>
+  <blockquote>${esc(m.text)}</blockquote><p>${esc(m.src)}${m.year?' · '+m.year:''} · match ${Math.round(h.score*100)}%</p></div></div>`; }).join(''); }
+function renderThread(){
+  $('#thread').innerHTML = thread.map((m,i) => {
+    if (m.who==='user') return `<div class="msg user">${esc(m.text)}</div>`;
+    let h = `<div class="msg agent"><span class="who">Agent</span>`;
+    if (m.html) h += m.html;
+    if (m.text) h += `<p>${esc(m.text)}</p>`;
+    if (m.requirements?.length) h += `<div class="row">${m.requirements.map(r=>`<span class="chip ai">+ ${esc(r.kind)}: ${esc(r.text)}</span>`).join('')}</div>`;
+    if (m.story) h += `<div class="story"><div class="row between"><h4>${esc(m.story.title)}</h4><span class="chip ai">${m.story.model?'Written by local model':'AI-written draft'}</span></div>${m.story.paragraphs.map(p=>`<p>${esc(p)}</p>`).join('')}
+      <p class="muted" style="font-size:.85rem">Written from ${m.story.memoryIds.length} saved memories${m.story.linked?`, including ${m.story.linked} you linked as the same story`:''}. Follows: ${reqs.map(r=>r.text).join('; ')||'no requests yet'}.</p></div>`;
+    if (m.answer?.evidence?.length) h += `<p class="eyebrow" style="margin-top:4px">From your saved memories</p>${evHTML(m.answer.evidence)}`;
+    if (m.choice) h += `<p style="font-weight:700">${esc(m.choice.text)}</p><div class="opts">${m.choice.options.map((o,j)=>`<button class="opt" data-choice="${i}:${j}" ${m.picked!=null?'disabled':''} style="${m.picked===j?'border-color:var(--accent);background:var(--accent-soft)':''}">${esc(o.label)}</button>`).join('')}</div>
+      ${m.picked==null?`<button class="btn link" data-choice="${i}:skip">Skip</button>`:''}`;
+    return h + `</div>`;
+  }).join('');
+  $('#thread').scrollTop = $('#thread').scrollHeight;
+}
+async function send(text){
+  thread.push({who:'user', text}); renderThread();
+  const r = await LegacyAPI.interact(text);
+  thread.push({who:'agent', ...r}); setGallery(r); renderThread(); renderReqs(); renderSummary(); updateRail();
+}
+function setGallery(r){
+  const ids = r.story ? r.story.memoryIds : r.answer ? r.answer.evidence.map(h=>h.memoryId) : null;
+  if (!ids) return;
+  $('#gallery').innerHTML = ids.length ? ids.map(id => `<figure><div class="thumb">${thumb(mem(id))}</div><figcaption>${esc(mem(id)?.title)}</figcaption></figure>`).join('') : `<p class="muted" style="grid-column:1/-1">No memories matched.</p>`;
+}
+$('#composer').addEventListener('submit', e => { e.preventDefault(); const t=$('#say').value.trim(); if(!t) return; $('#say').value=''; send(t); });
+$('#thread').addEventListener('click', async e => {
+  const s = e.target.closest('[data-sugg]'); if (s) { send(s.textContent); return; }
+  const b = e.target.closest('[data-choice]'); if (!b) return;
+  const [i, j] = b.dataset.choice.split(':'); const m = thread[+i];
+  if (m.picked!=null) return;
+  if (j==='skip'){ m.picked=-1; if (m.choice.id==='c-age') { const a=reqOf('Audience'); if (a) a.age='any age'; } if (m.choice.id==='c-len') addReq({kind:'Length',text:'One page',value:4}); }
+  else { m.picked=+j; const o = m.choice.options[+j]; if (o.requirement) addReq({...o.requirement}); if (o.relationship) rels.push(o.relationship); thread.push({who:'user', text:o.label}); }
+  renderThread(); renderReqs();
+  if (pendingText){ const t = pendingText; pendingText = null; const r = await LegacyAPI.interact(t); thread.push({who:'agent', ...r}); setGallery(r); renderThread(); renderReqs(); renderSummary(); updateRail(); }
+});
+
+/* ---------------- boot ---------------- */
+(async function boot(){
+  await detectServer();
+  if (LegacyAPI.live()){
+    await loadOwnData();
+    $('#tiles').hidden = true;
+    $('#dropzone span.muted').textContent = 'Drag photos, videos, audio or text files here, or choose them. They are analyzed and stored on this computer only.';
+    $('#tiles').parentElement.querySelector('.note')?.remove();
+    pollHealth();
+    pendingQs = []; agentDirty = true;
+    thread.push({who:'agent', text:'Ask about your memories, or tell me what you want, like who a story is for.'});
+    renderQueue(); renderCollection(); renderLearned(); renderModel(); renderThread(); renderReqs(); renderDb();
+    $('#gallery').innerHTML = `<p class="muted" style="grid-column:1/-1">Ask a question to see the memories behind the answer.</p>`;
+    updateRail(); go('data'); return;
+  }
+  for (const m of memories) await LegacyAPI.ingest(m);
+  pollHealth();
+  // Two sample answers so page 3 opens in a working state.
+  for (const [qid, idx] of [['q-role-Walter',0],['q-cake',0]]){
+    const q = buildQuestions().find(x => x.id===qid); const res = await Mock.answer(qid, idx); answered[qid]=idx;
+    res.relationships.forEach(r => rels.push({...r, id:'r'+rels.length, source:{qid, question:q.text, option:q.options[idx].label, sample:true}}));
+    learned.push(res.message + ' (sample)');
+  }
+  pendingQs = buildQuestions().filter(q => !(q.id in answered));
+  thread.push({who:'agent', html:`<p>Most of the work is already done for you. If you want something more personal, tell me here. For example:</p>
+    <div class="sugg">${['Write the lake stories for my grandkids in simple words','Call Walter Grandpa','Keep the letter from camp private','Where did we spend our summers?'].map(s=>`<button type="button" data-sugg>${s}</button>`).join('')}</div>`});
+  renderQueue(); renderCollection(); renderLearned(); renderModel(); renderThread(); renderReqs();
+  $('#gallery').innerHTML = `<p class="muted" style="grid-column:1/-1">Ask a question or request a story to see the memories behind it.</p>`;
+  updateRail(); go('data');
+})();
+</script>

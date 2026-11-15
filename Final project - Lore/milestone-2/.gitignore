@@ -1,0 +1,7 @@
+# Python
+server/.venv/
+__pycache__/
+*.pyc
+
+# Personal memories: the database and uploaded files stay on your own computer
+server/data/

@@ -8,6 +8,11 @@ The live demo is the web page on its own, so it runs in demo mode with sample da
 
 This is an MVP. Everything runs on your own computer, and your files are not sent to the internet. The only download is the AI models, once, the first time you start it.
 
+## Versions
+
+- **Milestone 1** (2026-11-12): the files in this folder.
+- **Milestone 2** (2026-11-14): [`milestone-2/`](milestone-2/). Smarter agent questions, the same easy questions in the web demo, and an optional bigger free vision model (Qwen2-VL-7B, downloaded separately, see `milestone-2/server/README.md`).
+
 ## What you need
 
 - Windows with PowerShell (the commands below are for Windows)

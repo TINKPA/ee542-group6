@@ -1,0 +1,67 @@
+LORE - PRESENTATION SCRIPT FOR THE WEB DEMO
+https://polite-pony-73ad09.netlify.app/
+
+Read one paragraph per screen. "Show" says what to do on the website.
+This version runs in the browser with sample memories (Rose's family) and simulated AI, so it works on any computer with no setup.
+
+
+1. OPENING
+Show: Page 1, My Memories.
+
+This is Lore, our final project. Lore is a personal memory agent for older adults and their families. Most families have memories scattered everywhere: printed photos, voice messages, letters and recipes. The people who know the stories behind them are the oldest family members, but most tools expect them to type, tag and sort. Lore lets them simply put things in, and the agent does the organizing.
+
+For this demo, the memory box already holds six sample memories from one family: Rose, her husband Walter, and their children.
+
+
+2. PUTTING MEMORIES IN
+Show: click "Photo or scan" to add a sample, and watch it go through "Being prepared".
+
+The first page is where memories go in. You can add a photo, a voice recording, a written note or a letter. You don't have to explain anything. Each item goes through the same steps: it is stored, its text is read or its speech is transcribed, it is turned into a vector for search, and then it is handed to the agent. Families can also choose their own files or a whole folder, or just type a memory.
+
+
+3. THE AGENT UNDERSTANDS FIRST, THEN ASKS
+Show: click "2 Agent" and point at the question card.
+
+The second page is the agent. The important part is at the top of each card: "What I understood from this item". Here it read a recipe card and found the name Helen, but nothing says how Helen is related to Rose. So it asks one simple question with three choices: my mother, my sister or my aunt. There is always a Skip. Nobody has to type, which matters for older users.
+
+
+4. ANSWERS BECOME RELATIONSHIPS
+Show: answer the question, then point at "What the agent learned from you" and "Agent skills".
+
+Every answer becomes a relationship the agent remembers. You can see what it has learned so far, for example that Walter is Rose's husband, and that the apple cake recipe and Ann's letter from camp are one story. On the right are the agent's skills: reading and transcribing, finding people, grouping memories into stories, spotting unclear details, and preparing questions.
+
+
+5. THE RELATIONSHIP MAP
+Show: click "3 Make It Personal". Drag a node, then click a node and drag its + onto another node.
+
+The third page is for families who want something more personal. The map shows only what the family told the agent: people, memories and the links between them. It is alive. You can drag anything, and connected nodes follow. To add a link yourself, drag a node's plus onto another node, and Lore asks what the link means. "Arrange for me" lets the agent group the memories by their content and by your answers.
+
+
+6. ASKING FOR SOMETHING PERSONAL
+Show: click "Write the lake stories for my grandkids in simple words", pick the age, then the length.
+
+Below the map, you can talk to the agent. Here I ask for the lake stories, written for my grandchildren in simple words. When a request is unclear, the agent doesn't make me type more. It asks a pick-one question, like the children's age and how long the story should be. Then it writes a draft from the saved memories only.
+
+
+7. REQUESTS THAT CHANGE EVERYTHING AFTER
+Show: click "Call Walter Grandpa", then "Where did we spend our summers?"
+
+Requests stay active. If I say "Call Walter Grandpa", every answer after that uses that name. When I ask "Where did we spend our summers?", the answer comes with the saved memories it was based on, so the family can always check the original record. The AI-written part is clearly marked, separate from the real memories.
+
+
+8. OUR MAIN INSIGHT
+Show: stay on the map.
+
+This is the core idea of Lore. Digitizing photos and searching them is something any company can do. What nobody else has is what only the family knows: who is who, and which memories belong together. Lore collects that knowledge with simple taps, and every answer makes the search, the stories and the map more personal. That is what we can add on top of companies like Legacy Box, who digitize a family's media and send it back.
+
+
+9. WHAT'S BEHIND THE DEMO AND NEXT STEPS
+Show: back to Page 1.
+
+This web version uses simulated AI so anyone can try it. We also built a version that runs real models on a laptop: a vision model for photos and video, Whisper for speech, and an embedding model with a small vector database, all kept on the user's own computer. Next, we will test with real family photos and voices, and collect real numbers on companies like Legacy Box to show how Lore could be sold as an add-on. Thank you.
+
+
+BEFORE YOU PRESENT
+- Reload the page right before you start, so the samples and answers start fresh.
+- Practice the clicks in paragraphs 5 to 7 once: the drag, the + connect, and the story request with its two pick-one questions.
+- Only paragraph 9 talks about the local-model version. If someone asks to see it, that needs the server running on the laptop (http://127.0.0.1:8000).
