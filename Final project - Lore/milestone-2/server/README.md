@@ -44,6 +44,8 @@ Wait until all three models are ready before adding your own files. Files added 
 
 ## Bigger vision model (free, optional)
 
+**Why Lore needs it.** The vision model is the agent's eyes: it is the tool Lore uses to recognize what is in a photo or video frame (people, place, event, objects, writing) and what the picture seems meant to show, such as *a birthday party to celebrate Rose's 80th*. Lore asks questions from that understanding (*"Was this a birthday party? Am I right?"*), so the better it sees, the smarter and fewer the questions, and the fewer the wrong guesses an older user has to correct. With the 2B model, descriptions were often vague or wrong (it invented people on a drawn cake), and its own questions were too poor to use. The 7B model is a big step up in recognition and reasoning and still costs nothing: no paid API, and photos never leave the family's computer, which matters for private family memories.
+
 The 7B model understands pictures better and writes better notes and questions. It is free and runs on your own GPU, compressed to 4-bit so it fits in 8 GB next to Whisper and MiniLM. The server uses it automatically when its folder is complete; otherwise it uses the 2B model. If the 7B model fails to load, the server falls back to 2B by itself.
 
 Download it once (5.5 GB, from ModelScope, which works where huggingface.co is blocked):
