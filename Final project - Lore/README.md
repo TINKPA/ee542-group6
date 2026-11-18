@@ -11,7 +11,7 @@ This is an MVP. Everything runs on your own computer, and your files are not sen
 ## Versions
 
 - **Milestone 1** (2026-11-12): the files in this folder.
-- **Milestone 2** (2026-11-14): [`milestone-2/`](milestone-2/). Smarter agent questions, the same easy questions in the web demo, and an optional bigger free vision model (Qwen2-VL-7B, downloaded separately, see `milestone-2/server/README.md`).
+- **Milestone 2** (2026-11-17): [`milestone-2/`](milestone-2/). A simpler voice-first start page, smarter agent questions (also in the web demo), and a tested, optional bigger vision model. Step-by-step guide: [`milestone-2/HOW_TO_USE.md`](milestone-2/HOW_TO_USE.md).
 
 ## What you need
 

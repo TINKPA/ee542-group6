@@ -59,25 +59,32 @@ def ready(key):
 
 
 # ---------------------------------------------------------------- loading
+def _small_on_cpu():
+    """The 7B model needs almost the whole 8 GB GPU, so Whisper and MiniLM move to the CPU."""
+    v = os.getenv("LEGACY_SMALL_ON_CPU", "auto").lower()
+    return v in ("1", "yes", "on") or (v == "auto" and not os.getenv("LEGACY_SKIP_VISION_SLM") and _big_ready())
+
+
 def _load_emb():
     global _emb
     from sentence_transformers import SentenceTransformer
-    _emb = SentenceTransformer(EMB_NAME, device=device())
+    _emb = SentenceTransformer(EMB_NAME, device="cpu" if _small_on_cpu() else device())
 
 
 def _load_asr():
     global _asr
     import torch
     from transformers import pipeline
-    cuda = torch.cuda.is_available()
+    cuda = torch.cuda.is_available() and not _small_on_cpu()
     _asr = pipeline("automatic-speech-recognition", model=ASR_NAME,
                     torch_dtype=torch.float16 if cuda else torch.float32,
                     device="cuda:0" if cuda else "cpu")
 
 
 def _big_ready():
-    """The bigger 7B model is used when its folder is complete (downloaded from ModelScope)."""
-    if os.getenv("LEGACY_BIG_VLM", "").lower() in ("0", "off", "no"):
+    """Opt-in (LEGACY_BIG_VLM=on): the 7B model, if its folder is complete. Off by default: on an 8 GB
+    laptop GPU the 4-bit 7B was 6-10x slower than the 2B and read less writing in pictures (tested 2026-11-14)."""
+    if os.getenv("LEGACY_BIG_VLM", "").lower() not in ("1", "on", "yes"):
         return False
     try:
         idx = os.path.join(BIG_VLM, "model.safetensors.index.json")

@@ -191,6 +191,31 @@ header{justify-content:space-between}
 .askbar .talkbtn.rec{animation:talkring 1.5s ease-out infinite}
 .sendbtn{width:58px;height:58px;flex:none;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;background:var(--fg);color:var(--bg)}
 #talkstatus{font-size:1.15rem;color:var(--muted);max-width:44ch}
+/* first page: one borderless voice icon that fades into the page, a few small words */
+.home{gap:14px}
+.home .talkbtn.hero{width:150px;min-width:0;aspect-ratio:1;border-radius:20px;color:var(--c2);box-shadow:none;background:transparent;transition:color .3s}
+.home .talkbtn.hero svg{width:96px;height:auto;overflow:visible}
+.home .talkbtn.hero:hover{color:var(--c1);transform:none}
+.home .talkbtn.hero:focus-visible{outline:3px solid var(--c1);outline-offset:-6px}
+/* sound-wave bars: a slow, calm wave while waiting; livelier while listening */
+.wave rect{transform-box:fill-box;transform-origin:center;animation:wave 1.8s ease-in-out infinite}
+.wave rect:nth-child(1),.wave rect:nth-child(7){animation-delay:-.9s}
+.wave rect:nth-child(2),.wave rect:nth-child(6){animation-delay:-.6s}
+.wave rect:nth-child(3),.wave rect:nth-child(5){animation-delay:-.3s}
+@keyframes wave{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.55)}}
+.home .talkbtn.hero.rec{color:var(--c1);animation:none}
+.home .talkbtn.hero.rec .wave rect{animation:talkwave .7s ease-in-out infinite}
+@keyframes talkwave{0%,100%{transform:scaleY(1.15)}50%{transform:scaleY(.35)}}
+.home .talkbtn.hero.busy .wave rect{animation-duration:3.2s;opacity:.6}
+@media (prefers-reduced-motion:reduce){.wave rect,.home .talkbtn.hero.rec .wave rect{animation:none}}
+.home #talkstatus{font-size:1.1rem;color:var(--muted);min-height:1.6em;margin:0}
+.home .askbar{width:min(560px,100%);background:transparent;border:0;border-bottom:2px solid var(--line);border-radius:0;box-shadow:none;padding:2px}
+.home .askbar:focus-within{border-color:var(--c1)}
+.home .sendbtn{width:48px;height:48px}
+.homelinks{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 22px;margin-top:10px}
+.homelinks>*{background:none;border:0;padding:8px 4px;min-height:44px;display:inline-flex;align-items:center;font:inherit;font-size:1rem;color:var(--muted);cursor:pointer;text-decoration:none}
+.homelinks>*:hover{color:var(--fg);text-decoration:underline}
+@media (prefers-reduced-motion:reduce){.home .talkbtn.hero.rec{animation:none}}
 .simplehead{display:grid;gap:6px;justify-items:center;text-align:center}
 .simplehead h2{font-size:clamp(1.8rem,4vw,2.4rem)}
 .narrow{width:min(760px,100%);margin-inline:auto}.narrow.wide{width:min(1000px,100%)}
@@ -278,14 +303,17 @@ code{font-size:.9em;background:var(--sunk);padding:1px 6px;border-radius:4px}
 <!-- PAGE 1: one input. Type and press Enter, or press the microphone to talk. Files can be dropped anywhere. -->
 <section class="screen" id="data">
   <div class="home">
-    <button class="lorebtn" type="button" data-go="agent" aria-label="Enter Lore">Lore <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-    <form class="askbar" id="homeform" autocomplete="off">
-      <label class="iconbtn" for="file" title="Add photos, videos, audio or documents" aria-label="Add files"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 11.5l-8.6 8.6a5 5 0 01-7.1-7.1l8.6-8.6a3.4 3.4 0 014.8 4.8l-8.6 8.6a1.7 1.7 0 01-2.4-2.4l7.9-7.9"/></svg></label>
+    <button type="button" class="talkbtn hero idle" id="talkbtn" aria-pressed="false" aria-label="Press to talk"><svg class="wave" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><rect x="48" y="219" width="32" height="74" rx="16"/><rect x="112" y="176" width="32" height="160" rx="16"/><rect x="176" y="112" width="32" height="288" rx="16"/><rect x="240" y="176" width="32" height="160" rx="16"/><rect x="304" y="112" width="32" height="288" rx="16"/><rect x="368" y="176" width="32" height="160" rx="16"/><rect x="432" y="219" width="32" height="74" rx="16"/></svg><span id="talklabel" class="sr">Press to talk</span></button>
+    <p id="talkstatus" aria-live="polite">Tap to talk</p>
+    <form class="askbar" id="homeform" autocomplete="off" hidden>
       <input id="hometext" aria-label="Tell me a memory" placeholder="Tell me a memory…">
-      <button type="button" class="talkbtn idle" id="talkbtn" aria-pressed="false" aria-label="Press to talk"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg><span id="talklabel" class="sr">Press to talk</span></button>
-      <button type="submit" class="sendbtn" aria-label="Save"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <button type="submit" class="sendbtn" aria-label="Save"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     </form>
-    <p id="talkstatus" aria-live="polite">Type and press Enter, or press the microphone to talk.</p>
+    <nav class="homelinks" aria-label="More">
+      <button type="button" id="typebtn">Type instead</button>
+      <label for="file">Add photos or files</label>
+      <button type="button" data-go="agent">Open Lore &rarr;</button>
+    </nav>
     <h2 id="talkprompt" hidden>Tell me a memory</h2>
     <div class="talkreply" id="talkreply" hidden aria-live="polite">
       <p id="talkheard" hidden><span class="eyebrow">I heard</span><br><span id="talkheardtext"></span></p>
@@ -917,7 +945,7 @@ async function liveCaption(){
 }
 function setTalk(state, label, status){
   talk.state = state; const b = $('#talkbtn');
-  b.className = 'talkbtn ' + state; b.setAttribute('aria-pressed', state==='rec'); b.disabled = state==='busy';
+  b.className = 'talkbtn hero ' + state; b.setAttribute('aria-pressed', state==='rec'); b.disabled = state==='busy';
   $('#talklabel').textContent = label; $('#talkstatus').textContent = status;
 }
 function speak(text){
@@ -937,11 +965,11 @@ async function startTalk(){
   catch(e){ console.warn('recording could not start', e); talk.stream.getTracks().forEach(t => t.stop()); setTalk('idle','Press to talk','Recording could not start. Check that a microphone is connected, then press the button again.'); return; }
   talk.t0 = Date.now();
   subtitle('You', 'Listening\u2026'); clearInterval(talk.capTimer); talk.capTimer = setInterval(liveCaption, 2500);
-  setTalk('rec','Press when finished','I’m listening… 0:00');
+  setTalk('rec','Press when finished','Listening… tap when you’re done');
   clearInterval(talk.timer);
-  talk.timer = setInterval(() => { const ms = Date.now()-talk.t0; $('#talkstatus').textContent = `I’m listening… ${fmtDur(ms/1000)}`; if (ms>=MAX_TALK_MS) stopTalk(); }, 500);
+  talk.timer = setInterval(() => { const ms = Date.now()-talk.t0; $('#talkstatus').textContent = `Listening… ${fmtDur(ms/1000)} · tap when you’re done`; if (ms>=MAX_TALK_MS) stopTalk(); }, 500);
 }
-function stopTalk(){ clearInterval(talk.timer); clearInterval(talk.capTimer); setTalk('busy','Saving…','Thank you. I’m listening back to what you said.'); talk.rec.stop(); talk.stream.getTracks().forEach(t => t.stop()); }
+function stopTalk(){ clearInterval(talk.timer); clearInterval(talk.capTimer); setTalk('busy','Saving…','Thank you…'); talk.rec.stop(); talk.stream.getTracks().forEach(t => t.stop()); }
 async function replyTo(m){
     let reply = {text:'Thank you. I saved that. Tell me more whenever you like.'};
     if (LegacyAPI.live()) try { reply = await post('/followup', {memoryId:m.id, owner:OWNER}); } catch(e){ console.warn('follow-up failed', e); }
@@ -954,7 +982,7 @@ async function replyTo(m){
     await sleep(heard ? 2500 : 0);
     subtitle('Lore', reply.text); speak(reply.text);
     subtitle.t = setTimeout(() => subtitle('', ''), 8000 + reply.text.length*60);
-    setTalk('idle','Press to talk','Type and press Enter, or press the microphone to talk.');
+    setTalk('idle','Press to talk','Tap to talk');
 }
 async function finishTalk(){
   const type = talk.rec.mimeType || 'audio/webm', d = new Date(), pad = n => String(n).padStart(2,'0');
@@ -976,9 +1004,10 @@ $('#homeform').addEventListener('submit', async e => {
       const m = await readLocal(new File([t], 'note.txt', {type:'text/plain'})); await startItem(m); await replyTo(m);
     } else { $('#notetext').value = t; $('#noteform').requestSubmit(); await sleep(3200);
       $('#talkreply').hidden = false; $('#talkheard').hidden = true; $('#talkanswer').textContent = 'Thank you. I saved that. Tell me more whenever you like.';
-      setTalk('idle','Press to talk','Type and press Enter, or press the microphone to talk.'); }
+      setTalk('idle','Press to talk','Tap to talk'); }
   } catch(err){ console.warn(err); setTalk('idle','Press to talk','That could not be saved. Please try again.'); }
 });
+$('#typebtn').addEventListener('click', () => { const f = $('#homeform'); f.hidden = !f.hidden; if (!f.hidden) $('#hometext').focus(); });
 $('#talkbtn').addEventListener('click', () => { if (talk.state==='idle') startTalk(); else if (talk.state==='rec') stopTalk(); });
 /* Files and folders can still be dropped anywhere on page 1. */
 async function droppedFiles(dt){
@@ -1014,7 +1043,7 @@ async function startItem(m){
   toast(`“${m.title}” is in the box. The agent will look at it next.`);
 }
 function renderQueue(){
-  if (talk.state==='idle') $('#talkstatus').textContent = queue.length ? `Saving ${queue.length} ${queue.length===1?'memory':'memories'}\u2026` : 'Type and press Enter, or press the microphone to talk.';
+  if (talk.state==='idle') $('#talkstatus').textContent = queue.length ? `Saving ${queue.length} ${queue.length===1?'memory':'memories'}\u2026` : 'Tap to talk';
   $('#qcount').textContent = queue.length ? `${queue.length} in progress` : 'Nothing in progress';
   $('#queue').innerHTML = queue.length ? queue.map(m => `<div class="qitem"><div class="thumb">${thumb(m)}</div><div style="min-width:0">
     <div class="row between"><b>${esc(m.title)}</b><span class="chip">${kindLabel(m.kind)}</span></div>

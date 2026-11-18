@@ -4,7 +4,7 @@ Runs real models on your own computer so the prototype can understand your photo
 
 | Job | Model | Size |
 |---|---|---|
-| Describe photos and video frames, read writing in pictures, pull names/years/places, write answers and stories | `Qwen/Qwen2-VL-7B-Instruct` in 4-bit if downloaded (see below), otherwise `Qwen/Qwen2-VL-2B-Instruct` | ~5.5 GB / ~4.5 GB |
+| Describe photos and video frames, read writing in pictures, pull names/years/places, write answers and stories | `Qwen/Qwen2-VL-2B-Instruct` (a 7B option is described below) | ~4.5 GB |
 | Speech-to-text for audio and video (Chinese, English and more) | `openai/whisper-small` | ~1 GB |
 | Embeddings for search and "which story" questions (multilingual) | `paraphrase-multilingual-MiniLM-L12-v2` | ~0.5 GB |
 
@@ -40,23 +40,33 @@ Wait until all three models are ready before adding your own files. Files added 
 - Photo: about 5 seconds. It describes the picture, reads the writing on it, and pulls out names, places and years.
 - Recording or video: about 2–5 seconds for 15 seconds of audio. Names already in the box are given to Whisper as hints, so they are spelled right more often. Names heard in speech are marked as guesses, and the agent asks "Who is 'X'?" when it isn't sure.
 - Answers on page 3: about 1 second.
-- Known limits of the 2B model: picture descriptions can be vague or wrong ("two people" when there are none), and story drafts sometimes add details that aren't in the memories. The bigger 7B model below does better.
+- Known limits of the 2B model: picture descriptions can be vague or wrong ("two people" when there are none), and story drafts sometimes add details that aren't in the memories. A bigger model was tried; see below.
 
-## Bigger vision model (free, optional)
+## Bigger vision model (tried, off by default)
 
-**Why Lore needs it.** The vision model is the agent's eyes: it is the tool Lore uses to recognize what is in a photo or video frame (people, place, event, objects, writing) and what the picture seems meant to show, such as *a birthday party to celebrate Rose's 80th*. Lore asks questions from that understanding (*"Was this a birthday party? Am I right?"*), so the better it sees, the smarter and fewer the questions, and the fewer the wrong guesses an older user has to correct. With the 2B model, descriptions were often vague or wrong (it invented people on a drawn cake), and its own questions were too poor to use. The 7B model is a big step up in recognition and reasoning and still costs nothing: no paid API, and photos never leave the family's computer, which matters for private family memories.
+**Why Lore needs a vision model at all.** The vision model is the agent's eyes. It is the tool Lore uses to recognize what is in a photo or video frame (people, place, event, objects, writing) and what the picture seems meant to show, such as *a birthday party to celebrate Rose's 80th*. Lore asks its questions from that understanding (*"Was this a birthday party? Am I right?"*), so the better it sees, the smarter the questions and the fewer wrong guesses an older user has to correct. It runs locally and for free, so private family photos never leave the computer.
 
-The 7B model understands pictures better and writes better notes and questions. It is free and runs on your own GPU, compressed to 4-bit so it fits in 8 GB next to Whisper and MiniLM. The server uses it automatically when its folder is complete; otherwise it uses the 2B model. If the 7B model fails to load, the server falls back to 2B by itself.
+**What we tried.** Qwen2-VL-7B, compressed to 4-bit so it fits an 8 GB GPU, to replace the 2B model. Tested on 2026-11-14 on the RTX 4060 Laptop with the same four test files:
 
-Download it once (5.5 GB, from ModelScope, which works where huggingface.co is blocked):
+| | 2B (default) | 7B, 4-bit |
+|---|---|---|
+| Birthday photo | Read the card "Happy 80th Birthday, Rose! June 1998" | Read no writing; named it from the file-name year |
+| Time per file | about 5–15 s | 70–90 s |
+| GPU memory | about 6 GB with all three models | 6 GB for the 7B alone; Whisper and MiniLM had to move to the CPU |
+
+The 4-bit compression also compresses the part that looks at the picture, so fine detail such as writing is lost. A less compressed copy does not fit in 8 GB. **Result: the 2B model stays the default.** The 7B is worth trying again on a GPU with 12 GB or more, uncompressed or in 8-bit.
+
+To try it anyway (5.5 GB download from ModelScope, which works where huggingface.co is blocked):
 
 ```powershell
 server\.venv\Scripts\python.exe -m pip install bitsandbytes modelscope
 server\.venv\Scripts\modelscope.exe download --model unsloth/Qwen2-VL-7B-Instruct-bnb-4bit --local_dir $HOME\.cache\lore-models\Qwen2-VL-7B-Instruct-bnb-4bit
+$env:LEGACY_BIG_VLM = "on"
+server\.venv\Scripts\python.exe server\app.py
 ```
 
 - Other folder: set `$env:LEGACY_BIG_VLM_PATH`. A full-size copy also works; it is compressed while loading.
-- Turn it off: `$env:LEGACY_BIG_VLM = "off"`.
+- If the 7B fails to load, the server falls back to the 2B by itself.
 - The *Models* panel on page 2 shows which one is running.
 
 ## Swapping models
@@ -64,7 +74,7 @@ server\.venv\Scripts\modelscope.exe download --model unsloth/Qwen2-VL-7B-Instruc
 Set environment variables before starting:
 
 ```powershell
-$env:LEGACY_VLM = "Qwen/Qwen2-VL-2B-Instruct"   # vision + language (used when the 7B model is not downloaded)
+$env:LEGACY_VLM = "Qwen/Qwen2-VL-2B-Instruct"   # vision + language 
 $env:LEGACY_ASR = "openai/whisper-small"         # e.g. openai/whisper-medium for better accuracy
 $env:LEGACY_EMB = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 $env:LEGACY_SKIP_VISION_SLM = "1"                # skip a model entirely

@@ -1,6 +1,6 @@
 # Lore
 
-**Milestone 2 (2026-11-14).** Milestone 1 is kept unchanged in the [parent folder](../). What changed is in `LOG.md` under v5.
+**Milestone 2 (2026-11-17).** Milestone 1 is kept unchanged in the [parent folder](../). What changed is in `LOG.md` under v5.
 
 Lore turns a family's photos, recordings, videos and writing into a memory collection you can search and personalize. An AI agent organizes the material and asks simple pick-one questions. Your answers build a map of who people are and which memories belong together.
 
@@ -20,8 +20,8 @@ Run these in PowerShell.
 1. Download the code:
 
    ```powershell
-   git clone https://github.com/CHAOXIAN-827/-Lora---Elderly-Automatically-Managing-Lagacy-Box.git lore
-   cd lore
+   git clone -b feat/final-project-lore https://github.com/TINKPA/ee542-group6.git
+   cd "ee542-group6\Final project - Lore\milestone-2"
    ```
 
 2. Create a Python environment:
@@ -44,7 +44,7 @@ Run these in PowerShell.
 
 ## Start Lore
 
-From the `lore` folder:
+From the `milestone-2` folder:
 
 ```powershell
 server\.venv\Scripts\python.exe server\app.py
@@ -52,23 +52,25 @@ server\.venv\Scripts\python.exe server\app.py
 
 Keep this window open while you use Lore. Then open **http://127.0.0.1:8000** in your browser.
 
-The first start downloads about 6 GB of models, so it takes a while. For better picture understanding and smarter questions, you can also download a bigger free model (5.5 GB); see "Bigger vision model" in `server/README.md`. On page 2, wait until the **Models** panel shows every model as **Ready** before adding files. Files added earlier are only partly analyzed.
+The first start downloads about 6 GB of models, so it takes a while. A bigger 7B vision model was tested and is optional; see "Bigger vision model" in `server/README.md`. On page 2, wait until the **Models** panel shows every model as **Ready** before adding files. Files added earlier are only partly analyzed.
 
 ## How to use it
 
+**For a detailed step-by-step guide, see [HOW_TO_USE.md](HOW_TO_USE.md).**
+
 ### Start page
 
-The start page has only two things: the **Lore** button and one input box.
+The start page is almost empty: a small golden sound-wave icon, the words **Tap to talk**, and three small links.
 
-- Type a memory and press **Enter**.
-- Or press the microphone, talk, and press it again when you finish. Subtitles at the bottom show what Lore hears.
-- Lore saves it and replies with a short question to help you tell more.
-- Press **Lore** to go to the questions and the map. Press **Lore** at the top of those pages to come back.
+- Tap the icon, talk, and tap it again when you finish. Subtitles at the bottom show what Lore hears.
+- Or tap **Type instead**, type a memory, and press **Enter**.
+- Lore saves it and replies out loud with a short question to help you tell more.
+- Tap **Open Lore →** to go to the questions and the map. Press **Lore** at the top of those pages to come back.
 
 You can still add other material:
 
 - Drag files or a whole folder anywhere on the page (up to 30 files at a time).
-- Or click the paperclip in the input box to choose files.
+- Or tap **Add photos or files** to choose them.
 - Supported: photos, videos, audio, text files, PDF and Word `.docx` files.
 
 Lore transcribes speech, reads writing in pictures, and describes each photo and video in detail: the event, the setting, the main person and the others in it. It finds names, places and years, and writes a few specific sentences about each memory.
@@ -122,6 +124,7 @@ Your data is in `server/data/`, which is never uploaded to GitHub.
 
 ## For developers
 
+- `HOW_TO_USE.md`: detailed user guide
 - `legacy-box-demo.html`: the whole web page
 - `server/app.py`: the API and the agent's questions
 - `server/models.py`: speech, vision, language and embedding models

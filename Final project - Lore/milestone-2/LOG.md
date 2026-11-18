@@ -108,7 +108,13 @@ Feedback that shaped the work below:
   - Letters and documents: *Who wrote this?*, *Why does this matter to you?*
   - Answers go into the memory's notes ("From you") and its search text, and "Was this a birthday party?" also links the memory to a theme on the map.
   - The web demo asks the same questions.
-- **Bigger free model:** Qwen2-VL-7B, compressed to 4-bit, runs on the same 8 GB laptop GPU. No paid API. The server uses it when it is downloaded and falls back to the 2B model otherwise. huggingface.co was unreachable, so it came from ModelScope.
+- **Bigger free model, tried and not adopted:** Qwen2-VL-7B compressed to 4-bit (from ModelScope, since huggingface.co was unreachable) on the same 8 GB laptop GPU, no paid API.
+  - It was 6–10 times slower (70–90 s per file instead of 5–15 s).
+  - It read **no** writing on the birthday photo, where the 2B read "Happy 80th Birthday, Rose! June 1998". The 4-bit compression also hits the part that looks at the picture.
+  - It needed almost the whole GPU, so Whisper and MiniLM had to move to the CPU. With other apps open (video editor, browsers), it spilled into system memory and stalled.
+  - The 2B stays the default. The 7B is still supported as an opt-in (`LEGACY_BIG_VLM=on`) for a bigger GPU.
+- **Even simpler first page:** only a small golden sound-wave icon with no frame or background, the words "Tap to talk", and three small links (Type instead, Add photos or files, Open Lore). While idle, the bars move in a slow, calm wave. While listening, they turn red and move faster.
+- **User guide:** `HOW_TO_USE.md` walks through setup, the three pages, every kind of question, data removal and troubleshooting.
 - **Offline start:** once all models are downloaded, the server starts without the internet.
 
 ## How it was tested
